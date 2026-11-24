@@ -1,0 +1,2859 @@
+{
+ "_aciklama": "Repertuar etiketleri. stil_dna.py secimi bunlarla yapar. Sozluk: references/repertuar.md §Etiketler. ton: uygun tonlar (disindakiler secilmez) · konu: en uygun nisler · enerji: 1 sakin..5 cok hizli · his: gorsel karakter · kaynak: ogrenildigi kanal(lar)",
+ "arkaplan": {
+  "gradyan-akis": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "yasam",
+    "eglence",
+    "egitim"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "aurora": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "bilim",
+    "seyahat",
+    "yasam",
+    "saglik"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "yumusak"
+   ]
+  },
+  "bokeh": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "eglence",
+    "seyahat",
+    "saglik"
+   ],
+   "enerji": 2,
+   "his": [
+    "yumusak",
+    "sicak"
+   ]
+  },
+  "toz-zerre": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "korku",
+    "biyografi",
+    "bilim",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "izgara-perspektif": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "otomotiv",
+    "eglence"
+   ],
+   "enerji": 4,
+   "his": [
+    "retro",
+    "neon"
+   ]
+  },
+  "blueprint": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "teknoloji",
+    "otomotiv",
+    "bilim",
+    "egitim",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik"
+   ]
+  },
+  "topografik": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "askeri",
+    "seyahat",
+    "bilim",
+    "tarih",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik",
+    "belgesel"
+   ]
+  },
+  "nokta-matris": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "bilim",
+    "egitim",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "isik-huzmesi": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "korku",
+    "suc",
+    "tarih",
+    "biyografi",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "dalga-cizgi": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "finans",
+    "askeri",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "teknik"
+   ]
+  },
+  "kagit": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "egitim",
+    "haber"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "sicak"
+   ]
+  },
+  "crt-tarama": {
+   "ton": [
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "korku",
+    "suc"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro"
+   ]
+  },
+  "sekil-yuzen": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "egitim",
+    "liste",
+    "oyun"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "isik-kacagi": {
+   "ton": [
+    "sakin",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "yasam",
+    "seyahat",
+    "biyografi",
+    "eglence",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "sicak"
+   ]
+  },
+  "kure-izgara": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "haber",
+    "finans",
+    "teknoloji",
+    "bilim",
+    "askeri",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "modern"
+   ]
+  },
+  "seritler": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "eglence",
+    "liste",
+    "oyun"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz",
+    "modern"
+   ]
+  },
+  "dalgali-izgara": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "spor",
+    "oyun",
+    "liste",
+    "finans"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "balon-izgara": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "egitim",
+    "yasam",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "kayan-izgara": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "liste",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "teknik"
+   ]
+  },
+  "dama-kayan": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "oyun",
+    "liste",
+    "spor"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz",
+    "retro"
+   ]
+  },
+  "radar-halka": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "teknoloji",
+    "haber",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "karanlik"
+   ]
+  },
+  "altigen": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "oyun",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "modern"
+   ]
+  },
+  "spot-isik": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "suc",
+    "korku",
+    "biyografi",
+    "eglence",
+    "spor",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "grenli-gradyan": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "biyografi",
+    "finans",
+    "haber",
+    "saglik",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "sicak"
+   ]
+  },
+  "kareli-defter": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "egitim",
+    "liste",
+    "yasam",
+    "saglik"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "oyunbaz"
+   ]
+  },
+  "hiz-cizgileri": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "oyun",
+    "liste"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik",
+    "oyunbaz"
+   ]
+  }
+ },
+ "video-aile": {
+  "kagit": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "egitim",
+    "biyografi"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "sicak"
+   ]
+  },
+  "isik-nokta": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "yasam",
+    "teknoloji"
+   ],
+   "enerji": 3,
+   "his": [
+    "yumusak",
+    "modern"
+   ]
+  },
+  "cizgi-roman": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "oyun",
+    "liste"
+   ],
+   "enerji": 5,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "daire-desen": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "egitim",
+    "eglence",
+    "yasam"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz",
+    "modern"
+   ]
+  },
+  "dalga-3d": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "finans",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "devre": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "oyun",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "neon"
+   ]
+  },
+  "hap-sekil": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "liste",
+    "egitim"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "neon-capraz": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "eglence"
+   ],
+   "enerji": 4,
+   "his": [
+    "neon",
+    "dinamik"
+   ]
+  },
+  "su-doku": {
+   "ton": [
+    "sakin"
+   ],
+   "konu": [
+    "yasam",
+    "saglik",
+    "seyahat"
+   ],
+   "enerji": 1,
+   "his": [
+    "yumusak"
+   ]
+  },
+  "topografik": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "seyahat",
+    "bilim",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik",
+    "belgesel"
+   ]
+  }
+ },
+ "gecis": {
+  "cozunme": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "saglik",
+    "yasam",
+    "seyahat",
+    "korku",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "belgesel",
+    "yumusak"
+   ]
+  },
+  "bulaniklik": {
+   "ton": [
+    "sakin",
+    "gizem",
+    "ciddi"
+   ],
+   "konu": [
+    "yasam",
+    "korku",
+    "saglik",
+    "seyahat",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "yumusak"
+   ]
+  },
+  "isik-patlamasi": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "eglence",
+    "otomotiv",
+    "tarih"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "sinematik"
+   ]
+  },
+  "glitch-rgb": {
+   "ton": [
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "teknoloji",
+    "oyun",
+    "korku",
+    "suc",
+    "gizem"
+   ],
+   "enerji": 4,
+   "his": [
+    "retro",
+    "neon",
+    "karanlik"
+   ]
+  },
+  "whip-sol": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "liste",
+    "oyun",
+    "eglence"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "whip-yukari": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "liste",
+    "oyun",
+    "eglence"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "kaydirma-itme": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "teknoloji",
+    "liste",
+    "egitim",
+    "haber",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "maske-daire": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "egitim",
+    "liste",
+    "yasam"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "maske-capraz": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "haber",
+    "finans",
+    "liste"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "modern"
+   ]
+  },
+  "maske-seritler": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "finans",
+    "teknoloji",
+    "spor",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "resmi"
+   ]
+  },
+  "zoom-darbe": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "spor",
+    "suc",
+    "askeri",
+    "liste",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "film-yanigi": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "korku",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "sinematik",
+    "retro"
+   ]
+  },
+  "kart-cevirme": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "egitim",
+    "liste",
+    "eglence",
+    "oyun"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "tv-kapanma": {
+   "ton": [
+    "gizem",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "tarih",
+    "korku",
+    "suc",
+    "eglence"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro",
+    "arsiv"
+   ]
+  },
+  "perde": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "biyografi",
+    "tarih",
+    "eglence",
+    "haber",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "resmi",
+    "sinematik"
+   ]
+  },
+  "filmburn": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "korku",
+    "yasam",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "sinematik",
+    "sicak"
+   ]
+  }
+ },
+ "baslik": {
+  "maske-yukari": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "teknoloji",
+    "egitim",
+    "askeri",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "harf-dalga": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "yasam",
+    "oyun",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "bulaniklik": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "korku",
+    "biyografi",
+    "tarih",
+    "saglik",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "yumusak"
+   ]
+  },
+  "scramble": {
+   "ton": [
+    "gizem",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "suc",
+    "askeri",
+    "oyun",
+    "gizem",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "teknik",
+    "neon"
+   ]
+  },
+  "daktilo": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "suc",
+    "askeri",
+    "haber",
+    "biyografi"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "kutu-acilis": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "finans",
+    "spor",
+    "liste",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "resmi"
+   ]
+  },
+  "dikey-yigin": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "eglence",
+    "liste",
+    "otomotiv"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "modern"
+   ]
+  },
+  "harf-aralik": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "biyografi",
+    "seyahat",
+    "tarih",
+    "yasam",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "sinematik",
+    "temiz"
+   ]
+  },
+  "kontur-dolma": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "oyun",
+    "otomotiv",
+    "teknoloji",
+    "liste",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "modern"
+   ]
+  },
+  "olcek-darbe": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "eglence",
+    "liste",
+    "oyun"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "uzun-golge": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "oyun",
+    "liste"
+   ],
+   "enerji": 4,
+   "his": [
+    "retro",
+    "oyunbaz"
+   ]
+  },
+  "alt-cizgi": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "egitim",
+    "finans",
+    "haber",
+    "saglik",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "resmi"
+   ]
+  },
+  "asagidan-yay": {
+   "ton": [],
+   "konu": [],
+   "enerji": 2,
+   "his": [
+    "klasik"
+   ]
+  }
+ },
+ "altyazi": {
+  "kelime-pop": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "liste",
+    "oyun",
+    "spor"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik",
+    "oyunbaz"
+   ]
+  },
+  "vurgu-kalem": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "egitim",
+    "finans",
+    "saglik",
+    "teknoloji",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "kutulu": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "liste",
+    "finans",
+    "spor",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "resmi"
+   ]
+  },
+  "karaoke": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "egitim",
+    "liste",
+    "yasam"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "tek-kelime": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "spor",
+    "suc",
+    "korku",
+    "oyun",
+    "felsefe"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "sinematik"
+   ]
+  },
+  "renkli-aktif": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "otomotiv",
+    "liste",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "sinema": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "korku",
+    "seyahat",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "sinematik",
+    "belgesel"
+   ]
+  },
+  "yok": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "seyahat",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "belgesel"
+   ]
+  }
+ },
+ "altbant": {
+  "cizgi-acilis": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "haber",
+    "biyografi",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "blok-kayma": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "spor",
+    "finans"
+   ],
+   "enerji": 3,
+   "his": [
+    "resmi",
+    "modern"
+   ]
+  },
+  "cip-etiket": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "yasam",
+    "eglence",
+    "teknoloji",
+    "saglik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "yumusak"
+   ]
+  },
+  "koseli-parantez": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "teknoloji",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik"
+   ]
+  },
+  "cam-panel": {
+   "ton": [
+    "sakin",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "finans",
+    "teknoloji",
+    "yasam",
+    "seyahat",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  }
+ },
+ "sayi": {
+  "sayac": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "askeri",
+    "tarih",
+    "egitim",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "resmi"
+   ]
+  },
+  "rulo": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "finans",
+    "spor",
+    "otomotiv",
+    "liste",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "halka": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "saglik",
+    "finans",
+    "spor",
+    "teknoloji"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "cubuk": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "egitim",
+    "bilim",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik",
+    "temiz"
+   ]
+  },
+  "dev-kontur": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "liste",
+    "finans",
+    "askeri",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "modern"
+   ]
+  },
+  "tabela": {
+   "ton": [
+    "enerjik",
+    "gizem",
+    "ciddi"
+   ],
+   "konu": [
+    "seyahat",
+    "finans",
+    "tarih",
+    "suc",
+    "oyun"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro",
+    "teknik"
+   ]
+  }
+ },
+ "alinti": {
+  "buyuk-tirnak": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "biyografi",
+    "haber",
+    "egitim",
+    "yasam",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "resmi",
+    "temiz"
+   ]
+  },
+  "kagit-not": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "egitim",
+    "saglik",
+    "eglence"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak",
+    "oyunbaz"
+   ]
+  },
+  "daktilo-belge": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "suc",
+    "haber"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "yan-cizgi": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "biyografi",
+    "tarih",
+    "haber",
+    "finans",
+    "suc",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "temiz"
+   ]
+  },
+  "fosfor-satir": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "egitim",
+    "finans",
+    "teknoloji",
+    "liste",
+    "haber"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "dinamik"
+   ]
+  }
+ },
+ "liste": {
+  "isaretli": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "egitim",
+    "saglik",
+    "yasam",
+    "teknoloji",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz"
+   ]
+  },
+  "numarali-yigin": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "liste",
+    "spor",
+    "otomotiv",
+    "finans",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "panel-yigini": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "yasam",
+    "oyun"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "yumusak"
+   ]
+  },
+  "cetvel": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "haber",
+    "tarih",
+    "askeri",
+    "finans",
+    "suc",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "resmi",
+    "belgesel"
+   ]
+  }
+ },
+ "zaman": {
+  "yatay-dugum": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "teknoloji",
+    "biyografi",
+    "bilim",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz"
+   ]
+  },
+  "dikey-serit": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "suc",
+    "biyografi",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "buyuk-yil": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "korku",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 3,
+   "his": [
+    "sinematik",
+    "dinamik"
+   ]
+  },
+  "merdiven": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "teknoloji",
+    "spor",
+    "egitim",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  }
+ },
+ "kamera": {
+  "ken-burns-ice": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "korku",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "belgesel"
+   ]
+  },
+  "ken-burns-disa": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "seyahat",
+    "biyografi",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "belgesel",
+    "sinematik"
+   ]
+  },
+  "pan-sol": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "seyahat",
+    "tarih",
+    "askeri",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel"
+   ]
+  },
+  "pan-sag": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "seyahat",
+    "tarih",
+    "askeri",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel"
+   ]
+  },
+  "pan-yukari": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "seyahat",
+    "korku",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik"
+   ]
+  },
+  "el-kamerasi": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "suc",
+    "korku",
+    "askeri",
+    "haber",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "zoom-darbe": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "spor",
+    "suc",
+    "liste",
+    "oyun"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "dolly-egik": {
+   "ton": [
+    "enerjik",
+    "gizem",
+    "ciddi"
+   ],
+   "konu": [
+    "otomotiv",
+    "teknoloji",
+    "suc",
+    "spor",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "sinematik"
+   ]
+  },
+  "paralaks-cift": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "seyahat",
+    "tarih",
+    "biyografi",
+    "teknoloji",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "sinematik",
+    "modern"
+   ]
+  }
+ },
+ "cerceve": {
+  "inset-golge": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "egitim",
+    "yasam",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "bulanik-kopya": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "haber",
+    "yasam",
+    "eglence",
+    "spor"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern"
+   ]
+  },
+  "polaroid": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "seyahat",
+    "biyografi",
+    "eglence"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak",
+    "retro"
+   ]
+  },
+  "tv-crt": {
+   "ton": [
+    "gizem",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "tarih",
+    "haber",
+    "oyun",
+    "korku",
+    "suc"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro",
+    "arsiv"
+   ]
+  },
+  "letterbox": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "korku",
+    "suc",
+    "seyahat",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik"
+   ]
+  },
+  "pencere": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "egitim",
+    "oyun",
+    "finans"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "oyunbaz"
+   ]
+  },
+  "film-seridi": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "seyahat"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "retro"
+   ]
+  },
+  "bolunmus": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "haber",
+    "finans",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "modern"
+   ]
+  },
+  "kolaj": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "yasam",
+    "liste",
+    "seyahat"
+   ],
+   "enerji": 3,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "yuvarlak-yan": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "egitim",
+    "saglik",
+    "teknoloji",
+    "biyografi",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  }
+ },
+ "doku": {
+  "gren": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "korku",
+    "biyografi",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "sinematik"
+   ]
+  },
+  "vinyet": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "korku",
+    "suc",
+    "tarih",
+    "gizem",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "tarama": {
+   "ton": [
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "korku"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro"
+   ]
+  },
+  "film-cizik": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "korku"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "retro"
+   ]
+  },
+  "kromatik": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "eglence",
+    "korku"
+   ],
+   "enerji": 4,
+   "his": [
+    "neon",
+    "dinamik"
+   ]
+  },
+  "titreme": {
+   "ton": [
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "korku",
+    "suc",
+    "oyun",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "karanlik",
+    "retro"
+   ]
+  },
+  "isik-sizintisi": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "seyahat",
+    "eglence",
+    "biyografi"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak",
+    "sinematik"
+   ]
+  },
+  "kagit-ust": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "egitim",
+    "biyografi"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "sicak"
+   ]
+  },
+  "toz": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "korku",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv"
+   ]
+  }
+ },
+ "palet": {
+  "kum-terrakota": {
+   "ton": [
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "seyahat",
+    "tarih",
+    "yasam",
+    "saglik"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak"
+   ]
+  },
+  "gazete-sepya": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "haber",
+    "biyografi",
+    "askeri",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "belgesel"
+   ]
+  },
+  "buz-kobalt": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "finans",
+    "saglik",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "modern"
+   ]
+  },
+  "nane-krem": {
+   "ton": [
+    "sakin"
+   ],
+   "konu": [
+    "saglik",
+    "yasam",
+    "egitim"
+   ],
+   "enerji": 1,
+   "his": [
+    "yumusak",
+    "temiz"
+   ]
+  },
+  "pastel-lila": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "yasam",
+    "eglence",
+    "egitim"
+   ],
+   "enerji": 2,
+   "his": [
+    "yumusak",
+    "oyunbaz"
+   ]
+  },
+  "beton-sari": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "otomotiv",
+    "teknoloji",
+    "haber",
+    "spor",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "dinamik"
+   ]
+  },
+  "synth-mor": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "eglence"
+   ],
+   "enerji": 4,
+   "his": [
+    "neon",
+    "retro"
+   ]
+  },
+  "orman-altin": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "seyahat",
+    "finans",
+    "askeri",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak",
+    "belgesel"
+   ]
+  },
+  "okyanus-mercan": {
+   "ton": [
+    "sakin",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "seyahat",
+    "bilim",
+    "saglik",
+    "yasam"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern"
+   ]
+  },
+  "zeytin-askeri": {
+   "ton": [
+    "ciddi"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "grafit-neon": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "teknoloji",
+    "spor",
+    "otomotiv",
+    "oyun",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 4,
+   "his": [
+    "neon",
+    "modern"
+   ]
+  },
+  "bordo-krem": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "suc",
+    "finans",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "sicak"
+   ]
+  },
+  "gece-turkuaz": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "teknoloji",
+    "suc",
+    "bilim",
+    "askeri",
+    "gizem",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "karanlik"
+   ]
+  },
+  "kahve-turuncu": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "otomotiv",
+    "finans",
+    "tarih",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "sicak",
+    "dinamik"
+   ]
+  },
+  "kirmizi-zemin": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "haber",
+    "liste",
+    "eglence"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "mavi-zemin": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "teknoloji",
+    "liste",
+    "eglence",
+    "egitim"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "oyunbaz"
+   ]
+  },
+  "gece-kirmizi": {
+   "ton": [],
+   "konu": [],
+   "enerji": 2,
+   "his": [
+    "klasik"
+   ]
+  }
+ },
+ "font": {
+  "grotesk-modern": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "haber",
+    "egitim",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz"
+   ]
+  },
+  "editoryal-serif": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "biyografi",
+    "tarih",
+    "haber",
+    "finans",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "resmi",
+    "sinematik"
+   ]
+  },
+  "klasik-serif": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "suc",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "belgesel",
+    "resmi"
+   ]
+  },
+  "antik-baslik": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "korku",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "arsiv"
+   ]
+  },
+  "poster-dar": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "askeri",
+    "otomotiv",
+    "liste",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "teknik-dar": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "teknoloji",
+    "otomotiv",
+    "bilim",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik"
+   ]
+  },
+  "geometrik-kalin": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "teknoloji",
+    "liste",
+    "egitim"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "oyunbaz"
+   ]
+  },
+  "retro-slab": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "oyun",
+    "otomotiv",
+    "spor"
+   ],
+   "enerji": 4,
+   "his": [
+    "retro"
+   ]
+  },
+  "sport-teko": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "spor",
+    "oyun",
+    "otomotiv"
+   ],
+   "enerji": 5,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "damga-stencil": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "oyun",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "arsiv"
+   ]
+  },
+  "gazete": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "haber",
+    "tarih",
+    "suc"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "resmi"
+   ]
+  },
+  "yumusak-sans": {
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "saglik",
+    "yasam",
+    "egitim",
+    "seyahat"
+   ],
+   "enerji": 2,
+   "his": [
+    "yumusak"
+   ]
+  }
+ },
+ "hareket": {
+  "yay-esnek": {
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "eglence",
+    "oyun",
+    "liste",
+    "yasam"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "kubik-hizli": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "haber",
+    "egitim",
+    "bilim",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern"
+   ]
+  },
+  "ustel-sert": {
+   "ton": [
+    "enerjik",
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "spor",
+    "askeri",
+    "suc",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik"
+   ]
+  },
+  "adim-stop": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "korku"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro"
+   ]
+  },
+  "geri-sekme": {
+   "ton": [
+    "enerjik"
+   ],
+   "konu": [
+    "eglence",
+    "liste",
+    "spor"
+   ],
+   "enerji": 4,
+   "his": [
+    "oyunbaz"
+   ]
+  },
+  "dogrusal-mekanik": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "teknoloji",
+    "askeri",
+    "bilim",
+    "muhendislik",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik"
+   ]
+  }
+ }
+}

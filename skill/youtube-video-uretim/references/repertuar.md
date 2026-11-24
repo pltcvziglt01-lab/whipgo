@@ -42,6 +42,19 @@ eksik teknik repertuara eklenir (bkz. §5).
    Kanalın **ilk videosunda** A ve B'yi kullanıcıya gönder, seçtir (en fazla 2 seçenek, önerilen ilk). Sonraki videolarda A otomatik seçilir; yalnız kontrol satırı DEVAM.md'ye yazılır.
 5. Seçilen DNA `videoNN/stil-dna.json` olarak kalır (yeniden render aynı görünür); kullanıcı B'yi seçerse `stil-dna-B.json` → `stil-dna.json` kopyalanır. Bu dosya hem kanalın sonraki videolarının hem **diğer kanalların** girdisidir: silinmez, elle değiştirilirse STIL-DNA.md §Diğer kanallarla satırı yeniden kontrol edilir (başka kanalda kullanılan öğe seçilmez).
 
+## 3b. Etiketler — edit dili konsepte göre seçilir (`repertuar/etiketler.json`)
+Her repertuar öğesinin etiketi var; `stil_dna.py` seçimi bunlarla yapar. **Yeni öğe etiketsiz eklenmez** (stil_dna `UYARI: etiketsiz` der).
+```json
+"arkaplan": { "radar-halka": { "ton": ["ciddi","gizem","enerjik"], "konu": ["askeri","suc","teknoloji"], "enerji": 3, "his": ["teknik","karanlik"], "kaynak": ["@Kanal"] } }
+```
+- **ton** (kapı): `ciddi` `gizem` `enerjik` `sakin` — videonun tonu listede yoksa öğe seçilmez (önce tona uyanlar, yetmezse kapısız).
+- **konu** (ağırlık): `askeri` `tarih` `suc` `korku` `gizem` `finans` `teknoloji` `bilim` `muhendislik` `otomotiv` `spor` `oyun` `saglik` `yasam` `seyahat` `haber` `biyografi` `felsefe` `liste` `egitim` `eglence` — `--konu` metninden kelime eşleşmesiyle puanlanır (stil_dna `KONU_KELIME`); eşleşen konu ağırlığı ×3'e kadar.
+- **enerji** 1–5: hedef = ton tabanı (ciddi 2,2 · gizem 2 · sakin 1,5 · enerjik 4) + rakibin ilk 30 sn kesim hızı; uzaklık ağırlığı düşürür.
+- **his**: `belgesel` `arsiv` `resmi` `teknik` `sinematik` `karanlik` `retro` `neon` `modern` `temiz` `sicak` `yumusak` `oyunbaz` `dinamik` — konudan gelen his tercihiyle eşleşme ağırlık verir.
+- **kaynak**: tekniğin öğrenildiği kanal(lar) (kütüphane `kanallar/@X`).
+- STIL-DNA.md §Konu ve ton: konu payları, enerji hedefi, his tercihi; §Seçim nedenleri: her öğenin hangi etiketle seçildiği; "tona uymayan öğe: 0" olmalı.
+- Paket videoları: `video-aile` bölümü (katalog.json `aile` alanı).
+
 ## 4. VideoNN.tsx iskeleti
 ```tsx
 import dna from './v04/stil-dna.json';
