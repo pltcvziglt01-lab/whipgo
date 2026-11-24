@@ -68,7 +68,7 @@ const Isaret: React.FC<{ x: number; y: number; ad?: string; renk: string; stil: 
       {f > gec ? <div style={{ position: 'absolute', left: x - 30, top: y - 30, width: 60, height: 60, borderRadius: 30, border: `2px solid ${rgba(renk, 1 - nab)}`, transform: `scale(${0.3 + nab})` }} /> : null}
       {ad ? (
         <div style={{ position: 'absolute', left: sag ? x + 26 : undefined, right: sag ? undefined : `calc(100% - ${x - 26}px)`, top: y - 22, opacity: sinirla((f - gec - 4) / 8),
-          fontFamily: stil.font.govde, fontSize: 30, fontWeight: 600, color: '#ffffff', letterSpacing: 1.5, whiteSpace: 'nowrap', textShadow: `0 2px 10px ${rgba('#000', 0.85)}` }}>{ad}</div>
+          fontFamily: stil.font.govde, fontSize: 36, fontWeight: 700, color: '#ffffff', letterSpacing: 1.5, whiteSpace: 'nowrap', textShadow: `0 2px 10px ${rgba('#000', 0.85)}` }}>{ad}</div>
       ) : null}
     </>
   );
@@ -130,7 +130,7 @@ const RotaCiz: React.FC<RotaProps> = ({
       ))}
       {etiket ? (
         <div style={{ position: 'absolute', left: orta.x + 24, top: orta.y + 18, opacity: tamam, transform: `translateY(${(1 - tamam) * 12}px)`,
-          background: rgba(palet.zemin, 0.85), border: `1px solid ${rgba(palet.vurgu, 0.7)}`, padding: '8px 18px', fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 28, color: palet.murekkep, letterSpacing: 2 }}>{etiket}</div>
+          background: rgba(palet.zemin, 0.85), border: `1px solid ${rgba(palet.vurgu, 0.7)}`, padding: '8px 18px', fontFamily: font.mono, fontWeight: Math.max(600, font.monoAgirlik), fontSize: 34, color: palet.murekkep, letterSpacing: 2 }}>{etiket}</div>
       ) : null}
     </AbsoluteFill>
   );
@@ -156,11 +156,11 @@ export const EtiketliHarita: React.FC<{ stil: Stil; zemin?: MedyaKaynak; arkapla
               <path d={`M${x},${y} L${x + kx * p},${y + ky * p} L${x + kx * p + (sag ? uz : -uz)},${y + ky * p}`} fill="none" stroke="#ffffff" strokeWidth={2} style={{ filter: `drop-shadow(0 1px 2px ${rgba('#000', 0.8)})` }} />
             </svg>
             <div style={{ position: 'absolute', top: y + ky - 40, left: sag ? x + kx + 6 : undefined, right: sag ? undefined : W - (x + kx - 6), opacity: q,
-              fontFamily: font.govde, fontWeight: 700, fontSize: 26, letterSpacing: 3, color: '#ffffff', textTransform: 'uppercase', whiteSpace: 'nowrap', textShadow: `0 2px 8px ${rgba('#000', 0.9)}` }}>{e.ad}</div>
+              fontFamily: font.govde, fontWeight: 700, fontSize: 34, letterSpacing: 3, color: '#ffffff', textTransform: 'uppercase', whiteSpace: 'nowrap', textShadow: `0 2px 8px ${rgba('#000', 0.9)}` }}>{e.ad}</div>
           </React.Fragment>
         );
       })}
-      {kaynak ? <div style={{ position: 'absolute', right: 36, bottom: 26, fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 18, color: rgba('#ffffff', 0.7), textShadow: `0 1px 4px ${rgba('#000', 0.9)}` }}>{kaynak}</div> : null}
+      {kaynak ? <div style={{ position: 'absolute', right: 36, bottom: 26, fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 28, color: rgba('#ffffff', 0.78), textShadow: `0 1px 4px ${rgba('#000', 0.9)}` }}>{kaynak}</div> : null}
     </AbsoluteFill>
   );
 };
@@ -314,7 +314,7 @@ const BolgeliUydu: React.FC<RotaProps> = ({ stil, noktalar, zemin, etiket, sure 
         ) : null}
       </svg>
       {isaret ? (
-        <div style={{ position: 'absolute', left: ix + 34, top: iy - 24, opacity: sinirla((f - gec - 6) / 8), fontFamily: font.govde, fontWeight: 800, fontSize: 32, letterSpacing: 2,
+        <div style={{ position: 'absolute', left: ix + 34, top: iy - 24, opacity: sinirla((f - gec - 6) / 8), fontFamily: font.govde, fontWeight: 800, fontSize: 36, letterSpacing: 2,
           color: '#ffffff', textTransform: 'uppercase', whiteSpace: 'nowrap', textShadow: `0 2px 10px ${rgba('#000', 0.9)}` }}>{isaret.ad}</div>
       ) : null}
       {cok && etiket ? (

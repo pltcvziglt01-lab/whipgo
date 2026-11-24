@@ -42,7 +42,7 @@ export const CizgiGrafik: React.FC<{ tip: Exclude<GrafikTip, 'eleme-izgara'>; st
   return (
     <AbsoluteFill style={{ background: panel }}>
       <AbsoluteFill style={{ background: `radial-gradient(ellipse at 30% 20%, ${rgba(palet.vurgu, 0.08)} 0%, transparent 60%)` }} />
-      {baslik ? <div style={{ position: 'absolute', left: X0, top: Y0 - 150, fontFamily: font.govde, fontWeight: 700, fontSize: 30, letterSpacing: 5, color: rgba('#ffffff', 0.85), textTransform: 'uppercase', opacity: g }}>{baslik}</div> : null}
+      {baslik ? <div style={{ position: 'absolute', left: X0, top: Y0 - 150, fontFamily: font.govde, fontWeight: 700, fontSize: 40, letterSpacing: 5, color: rgba('#ffffff', 0.9), textTransform: 'uppercase', opacity: g }}>{baslik}</div> : null}
       <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
         <defs>
           <linearGradient id="gr-alan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={palet.vurgu} stopOpacity={0.45} /><stop offset="1" stopColor={palet.vurgu} stopOpacity={0} /></linearGradient>
@@ -58,10 +58,10 @@ export const CizgiGrafik: React.FC<{ tip: Exclude<GrafikTip, 'eleme-izgara'>; st
           return <circle key={i} cx={q.x} cy={q.y} r={8 * s} fill="#ffffff" stroke={palet.vurgu} strokeWidth={3} />;
         })}
       </svg>
-      {etiketler.map((e, i) => { const q = pt(i, 0); return <div key={i} style={{ position: 'absolute', left: q.x - 80, width: 160, top: Y1 + 18, textAlign: 'center', fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 22, color: rgba('#ffffff', 0.55), opacity: i <= ilerleme + 0.5 ? 1 : 0.15 }}>{e}</div>; })}
+      {etiketler.map((e, i) => { const q = pt(i, 0); return <div key={i} style={{ position: 'absolute', left: q.x - 80, width: 160, top: Y1 + 18, textAlign: 'center', fontFamily: font.mono, fontWeight: Math.max(600, font.monoAgirlik), fontSize: 32, color: rgba('#ffffff', 0.7), opacity: i <= ilerleme + 0.5 ? 1 : 0.15 }}>{e}</div>; })}
       {p > 0 ? (
         <div style={{ position: 'absolute', left: son.x + 22, top: son.y - 56, fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 64, color: '#ffffff', textShadow: `0 0 24px ${rgba(palet.vurgu, 0.6)}` }}>
-          {kisa(sonDeger)}<span style={{ fontSize: 30, marginLeft: 6, color: cizgi }}>{birim}</span>
+          {kisa(sonDeger)}<span style={{ fontSize: 36, marginLeft: 6, color: cizgi }}>{birim}</span>
         </div>
       ) : null}
     </AbsoluteFill>

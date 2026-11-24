@@ -43,15 +43,15 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
               const uzun = birimNo % 50 === 0, orta = birimNo % 10 === 0;
               return <g key={k}>
                 <line x1={X + (uzun ? 0 : orta ? 22 : 36)} x2={X + 60} y1={y} y2={y} stroke={rgba('#ffffff', uzun ? 0.9 : 0.5)} strokeWidth={uzun ? 2.5 : 1.5} />
-                {uzun && birimNo >= 0 ? <text x={X + 72} y={y + 7} fill={rgba('#ffffff', 0.75)} fontFamily={font.mono} fontSize={20}>{birimNo}</text> : null}
+                {uzun && birimNo >= 0 ? <text x={X + 72} y={y + 7} fill={rgba('#ffffff', 0.75)} fontFamily={font.mono} fontSize={28} fontWeight={700}>{birimNo}</text> : null}
               </g>;
             })}
             <polygon points={`${X - 18},${H / 2 - 11} ${X - 2},${H / 2} ${X - 18},${H / 2 + 11}`} fill={renk} />
           </svg>
           <div style={{ position: 'absolute', right: 240, top: H / 2 - 52, padding: '12px 24px', background: rgba('#000', 0.45), border: `1px solid ${rgba(renk, 0.8)}` }}>
             {kose(renk, 14, 3).map((s, i) => <div key={i} style={{ ...s, margin: -5 }} />)}
-            <div style={{ ...yazi, fontSize: 18, letterSpacing: 4, color: renk }}>{(etiket || 'DEPTH').toUpperCase()}</div>
-            <div style={{ ...yazi, fontSize: 46, fontWeight: 700 }}>{Math.round(v).toLocaleString('en-US')}<span style={{ fontSize: 24, marginLeft: 8 }}>{birim}</span></div>
+            <div style={{ ...yazi, fontSize: 32, fontWeight: 700, letterSpacing: 4, color: renk }}>{(etiket || 'DEPTH').toUpperCase()}</div>
+            <div style={{ ...yazi, fontSize: 46, fontWeight: 700 }}>{Math.round(v).toLocaleString('en-US')}<span style={{ fontSize: 32, marginLeft: 8 }}>{birim}</span></div>
           </div>
         </AbsoluteFill>
       );
@@ -67,11 +67,11 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
             <line x1={W / 2 - 40} x2={W / 2 - 12} y1={H / 2} y2={H / 2} stroke="#fff" strokeWidth={2} /><line x1={W / 2 + 12} x2={W / 2 + 40} y1={H / 2} y2={H / 2} stroke="#fff" strokeWidth={2} />
             <line y1={H / 2 - 40} y2={H / 2 - 12} x1={W / 2} x2={W / 2} stroke="#fff" strokeWidth={2} /><line y1={H / 2 + 12} y2={H / 2 + 40} x1={W / 2} x2={W / 2} stroke="#fff" strokeWidth={2} />
           </svg>
-          <div style={{ position: 'absolute', left: 70, bottom: 60, ...yazi, fontSize: 26, lineHeight: 1.5 }}>
-            <div style={{ color: renk, fontSize: 18, letterSpacing: 4 }}>{(etiket || 'POSITION').toUpperCase()}</div>
+          <div style={{ position: 'absolute', left: 70, bottom: 60, ...yazi, fontSize: 32, lineHeight: 1.4 }}>
+            <div style={{ color: renk, fontSize: 32, fontWeight: 700, letterSpacing: 4 }}>{(etiket || 'POSITION').toUpperCase()}</div>
             <div>{fmt(lat, 'N', 'S')}</div><div>{fmt(lon, 'E', 'W')}</div>
           </div>
-          <div style={{ position: 'absolute', right: 70, top: 56, display: 'flex', alignItems: 'center', gap: 12, ...yazi, fontSize: 24 }}>
+          <div style={{ position: 'absolute', right: 70, top: 56, display: 'flex', alignItems: 'center', gap: 12, ...yazi, fontSize: 32 }}>
             <div style={{ width: 16, height: 16, borderRadius: 8, background: '#ff3b30', opacity: Math.floor(f / 15) % 2 ? 1 : 0.25 }} />REC
           </div>
         </AbsoluteFill>
@@ -85,9 +85,9 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
       return (
         <AbsoluteFill style={{ opacity: g, pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', right: 70, top: 56, textAlign: 'right', ...yazi }}>
-            <div style={{ color: renk, fontSize: 18, letterSpacing: 4 }}>{(etiket || 'LOCAL TIME').toUpperCase()}</div>
+            <div style={{ color: renk, fontSize: 32, fontWeight: 700, letterSpacing: 4 }}>{(etiket || 'LOCAL TIME').toUpperCase()}</div>
             <div style={{ fontSize: 40 }}>{z(hh)}:{z(mm)}:{z(ss)}<span style={{ opacity: 0.6, fontSize: 28 }}>:{z(kk)}</span></div>
-            {ust ? <div style={{ fontSize: 20, opacity: 0.8, marginTop: 4 }}>{ust}</div> : null}
+            {ust ? <div style={{ fontSize: 32, opacity: 0.9, marginTop: 4 }}>{ust}</div> : null}
           </div>
         </AbsoluteFill>
       );
@@ -140,8 +140,8 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
       return (
         <AbsoluteFill style={{ pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', left: 64, top: 0, padding: '14px 28px 12px', background: renk, color: palet.acik ? '#ffffff' : palet.zemin, transform: `translateY(${(k - 1) * 100}%)`,
-            fontFamily: font.govde, fontWeight: 800, fontSize: 28, letterSpacing: 4, textTransform: 'uppercase', borderRadius: '0 0 10px 10px', boxShadow: `0 8px 24px ${rgba('#000', 0.35)}` }}>{etiket}</div>
-          <div style={{ position: 'absolute', right: 64, top: 30, ...yazi, fontSize: 26, letterSpacing: 3, opacity: k }}>
+            fontFamily: font.govde, fontWeight: 800, fontSize: 36, letterSpacing: 4, textTransform: 'uppercase', borderRadius: '0 0 10px 10px', boxShadow: `0 8px 24px ${rgba('#000', 0.35)}` }}>{etiket}</div>
+          <div style={{ position: 'absolute', right: 64, top: 30, ...yazi, fontSize: 32, letterSpacing: 3, opacity: k }}>
             FILE <span style={{ color: renk, fontWeight: 700 }}>{z(deger)}</span><span style={{ opacity: 0.6 }}> / {z(baslangic)}</span>
           </div>
         </AbsoluteFill>
@@ -156,8 +156,8 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
           <div style={{ position: 'absolute', left: 64, top: 56, display: 'flex', gap: 16, alignItems: 'stretch', opacity: g }}>
             <div style={{ width: 5, background: renk, transform: `scaleY(${g})`, transformOrigin: 'top' }} />
             <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontFamily: font.govde, fontWeight: 700, fontSize: 24, letterSpacing: 5, color: '#ffffff', textTransform: 'uppercase', textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 100}%)` }}>{etiket}</div>
-              <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 22, color: rgba('#ffffff', 0.8), textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 140}%)` }}>{ust}</div>
+              <div style={{ fontFamily: font.govde, fontWeight: 800, fontSize: 36, letterSpacing: 5, color: '#ffffff', textTransform: 'uppercase', textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 100}%)` }}>{etiket}</div>
+              <div style={{ fontFamily: font.mono, fontWeight: Math.max(600, font.monoAgirlik), fontSize: 32, color: rgba('#ffffff', 0.88), textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 140}%)` }}>{ust}</div>
             </div>
           </div>
         </AbsoluteFill>

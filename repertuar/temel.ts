@@ -113,6 +113,77 @@ export const FONT_AGIRLIK: Record<string, string> = {
 };
 export const fontCifti = (ad?: string): FontCifti => FONTLAR[ad || ''] || FONTLAR['grotesk-modern'];
 
+// ---------- OKUNURLUK (1080p tabani; telefonda 360 px genislikte de okunmali) ----------
+/** izleyiciye donuk yazi boyutu tabani (px, 1920x1080). ana: tek basina okunan satir (alt bant ust satiri, alinti govdesi);
+ *  ikincil: ikinci satir / etiket; enaz: hicbir izleyici yazisi bunun altina inmez; sus: dekoratif mikro yazi (dosya adi,
+ *  koordinat susu, cetvel rakami) alt siniri. 360 px telefonda enaz 32 px ~ 6 px buyuk harf yuksekligi: daha azi okunmaz. */
+export const OKUNUR = { ana: 64, ikincil: 40, enaz: 32, sus: 28 } as const;
+/** baslik guvenli alani: yazi blogu bu genisligi asmaz (1920'nin %90'i civari, kenarlarda 100 px pay) */
+export const GUVENLI = { genislik: 1720, kenar: 100 } as const;
+
+/** font basina ortalama harf genisligi (em): [buyuk harf, kucuk harf, rakam, bosluk, noktalama]. fontTools ile olculdu
+ *  (degisken fontlar wght 800'de; Ingilizce harf sikligiyla agirlikli). Yeni font eklenince genislik olcumu de eklenmeli;
+ *  tabloda yoksa 0.62 em varsayilir (genis tarafta kalir). */
+const FONT_EN: Record<string, number[]> = {
+  AbrilFatface: [0.667, 0.516, 0.571, 0.18, 0.386], AlfaSlabOne: [0.768, 0.587, 0.66, 0.3, 0.399], Anton: [0.454, 0.445, 0.478, 0.234, 0.329],
+  ArchivoBlack: [0.751, 0.599, 0.667, 0.333, 0.44], BarlowCondensed: [0.447, 0.39, 0.414, 0.2, 0.315], BebasNeue: [0.382, 0.382, 0.4, 0.16, 0.269],
+  Cinzel: [0.732, 0.642, 0.599, 0.25, 0.387], CourierPrime: [0.6, 0.6, 0.6, 0.6, 0.6], DMSans: [0.654, 0.559, 0.605, 0.237, 0.436],
+  DMSerifDisplay: [0.604, 0.494, 0.504, 0.218, 0.387], EBGaramond: [0.681, 0.466, 0.54, 0.245, 0.356], Kanit: [0.616, 0.527, 0.545, 0.205, 0.37],
+  LeagueSpartan: [0.607, 0.491, 0.54, 0.271, 0.39], Lora: [0.68, 0.527, 0.541, 0.263, 0.375], Nunito: [0.678, 0.522, 0.6, 0.279, 0.389],
+  PlayfairDisplay: [0.688, 0.513, 0.529, 0.228, 0.403], Poppins: [0.651, 0.579, 0.597, 0.212, 0.461], RobotoCondensed: [0.548, 0.439, 0.508, 0.23, 0.342],
+  Rubik: [0.68, 0.579, 0.659, 0.2, 0.431], SourceSerif4: [0.65, 0.519, 0.551, 0.21, 0.395], SpaceGrotesk: [0.608, 0.541, 0.593, 0.254, 0.409],
+  Staatliches: [0.431, 0.431, 0.426, 0.148, 0.306], Teko: [0.491, 0.432, 0.468, 0.2, 0.367], WorkSans: [0.673, 0.551, 0.603, 0.267, 0.429],
+  Oswald: [0.521, 0.444, 0.503, 0.256, 0.339],
+};
+/** tek satirin tahmini genisligi (px). aralik: letterSpacing (px, harf basina). %4 guvenlik payi icerir. */
+export const metinGenislik = (s: string, boyut: number, fontAd: string, aralik = 0) => {
+  const e = FONT_EN[fontAd] || [0.62, 0.52, 0.58, 0.25, 0.4];
+  let w = 0;
+  for (const c of s) w += /[A-ZÀ-Þ]/.test(c) ? e[0] : /[a-zß-ÿ]/.test(c) ? e[1] : /[0-9]/.test(c) ? e[2] : c === ' ' ? e[3] : /[£$€%@#&MW]/.test(c) ? e[0] : e[4];
+  return (w * boyut + Math.max(0, s.length - 1) * aralik) * 1.04;
+};
+/** satirlarin en genisi maxGen'e sigacak boyut (boyut'tan buyuk olmaz) */
+export const siganBoyut = (satirlar: string[], boyut: number, fontAd: string, maxGen: number = GUVENLI.genislik, aralik = 0) => {
+  const en = Math.max(1, ...satirlar.map((s) => metinGenislik(s, boyut, fontAd, aralik)));
+  return en <= maxGen ? boyut : boyut * (maxGen / en);
+};
+/** kelime sinirindan satir bolme: her satir maxGen'e sigar (tek kelime sigmiyorsa kendi satirinda kalir) */
+export const satirBol = (s: string, boyut: number, fontAd: string, maxGen: number, aralik = 0) => {
+  const out: string[] = [];
+  let sat = '';
+  s.split(' ').filter(Boolean).forEach((w) => {
+    const aday = sat ? sat + ' ' + w : w;
+    if (sat && metinGenislik(aday, boyut, fontAd, aralik) > maxGen) { out.push(sat); sat = w; } else sat = aday;
+  });
+  if (sat) out.push(sat);
+  return out.length ? out : [''];
+};
+/** baslik yerlesimi: '\n' acik satir sonu. Once butun satirlar guvenli alana sigacak kadar kuculur; boyut 'enaz'in altina
+ *  dusecekse enaz'da kalinir ve uzun satir kelime sinirindan bolunur. Doner: { satirlar, boyut }. */
+export const yazYerlesim = (metin: string, boyut: number, fontAd: string, maxGen: number = GUVENLI.genislik, enaz = 90, aralik = 0) => {
+  const acik = metin.split('\n').map((x) => x.trim()).filter(Boolean);
+  const sat = acik.length ? acik : [''];
+  const b = siganBoyut(sat, boyut, fontAd, maxGen, aralik);
+  const alt = Math.min(boyut, enaz);
+  if (b >= alt) return { satirlar: sat, boyut: b };
+  const bol = sat.flatMap((x) => satirBol(x, alt, fontAd, maxGen, aralik));
+  return { satirlar: bol, boyut: Math.min(alt, siganBoyut(bol, alt, fontAd, maxGen, aralik)) };
+};
+/** koyu kontur (text-shadow ile, 16 yon) + yumusak golge: acik yazi her zeminde (beyaz tisort, gokyuzu) okunur.
+ *  -webkit-text-stroke harfin icine de yediginden ince fontlarda kullanilmaz. */
+export const konturGolge = (px = 3.5, renk = 'rgba(0,0,0,0.92)', yumusak = 0.55) => {
+  const k: string[] = [];
+  for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2; k.push(`${(Math.cos(a) * px).toFixed(2)}px ${(Math.sin(a) * px).toFixed(2)}px 0 ${renk}`); }
+  k.push(`0 ${Math.round(px * 1.6)}px ${Math.round(px * 5)}px rgba(0,0,0,${yumusak})`);
+  return k.join(', ');
+};
+/** tutma suresinde yavas kamera itmesi (donuk kalmasin): t saniye -> olcek/kayma/egim. AE'deki 'slow push' karsiligi. */
+export const tutmaItme = (f: number, fps: number, o: { hiz?: number; egim?: number; yon?: number } = {}) => {
+  const t = Math.max(0, f / fps);
+  const s = 1 + (o.hiz ?? 0.012) * t;
+  return `scale(${s.toFixed(4)}) translateY(${(-2.2 * t * (o.yon ?? 1)).toFixed(2)}px) rotate(${((o.egim ?? 0) * Math.min(1, t / 4)).toFixed(3)}deg)`;
+};
+
 // ---------- HAREKET DILI ----------
 // Her kanal tek bir hareket "karakteri" secer; tum girisler bu egriyle olur. Klasik Claude = 'yay-yumusak' + asagidan 30px.
 export type HareketAd = 'yay-yumusak' | 'yay-esnek' | 'kubik-hizli' | 'ustel-sert' | 'adim-stop' | 'geri-sekme' | 'dogrusal-mekanik';

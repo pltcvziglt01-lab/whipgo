@@ -35,6 +35,11 @@ const KatGecis: React.FC = () => (
 const KatBaslik: React.FC = () => (
   <Izgara hucreler={BASLIK_TIPLERI.map((b, i) => ({ ad: `${b} · ${fontAdlari[i % fontAdlari.length]}`, el: <AbsoluteFill><Arkaplan tip={editPaket[i % editPaket.length]} stil={st(i)} /><Baslik tip={b} metin="The Cheapest Rifle" ust="Chapter 2" stil={st(i)} boyut={130} /></AbsoluteFill> }))} />
 );
+// KatYazi: guvenli alan testi — her baslik tipi medya ustunde, alt ucte bir, iki satir uzun metin (kelime karti kosulu)
+const uzunBaslik = (b: string) => b === 'zemin-perspektif' ? 'The Mary Celeste: Where Did Everyone Go?' : b === 'arama-cubugu' ? 'How Much Do You Really Know About Copper Wiring' : 'Easy Answer #2\nThe Verdict Nobody Expected';
+const KatYazi: React.FC = () => (
+  <Izgara sutun={5} hucreler={BASLIK_TIPLERI.map((b, i) => ({ ad: `${b} · ${fontAdlari[i % fontAdlari.length]}`, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><AbsoluteFill style={{ background: 'linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.3) 50%, rgba(0,0,0,.05))' }} /><div style={{ position: 'absolute', left: 100, right: 100, top: 0, bottom: 0, outline: '3px dashed rgba(255,0,80,.8)' }} /><Baslik tip={b} metin={uzunBaslik(b)} ust="Chapter 2" stil={st(i)} boyut={120} konum="alt-ucte-bir" golge maxGenislik={1720} /></AbsoluteFill> }))} />
+);
 const kel = 'This one detail changed the entire war forever'.split(' ').map((k, i) => ({ k, bas: i * 0.28, son: i * 0.28 + 0.26 }));
 const KatYazi2: React.FC = () => (
   <Izgara hucreler={[
@@ -43,9 +48,11 @@ const KatYazi2: React.FC = () => (
     ...DOKU_TIPLERI.slice(0, 4).map((d, i) => ({ ad: 'doku: ' + d, el: <AbsoluteFill><Medya m={A} /><Doku tip={d} stil={st(i)} guc={1.5} /></AbsoluteFill> })),
   ]} />
 );
+// sayi: yuzde verilmeden (halka/cubuk yuzdesiz duzen) + halka/cubuk yuzdeli (0.72) ayrica
 const KatKart: React.FC = () => (
-  <Izgara hucreler={[
-    ...SAYI_TIPLERI.map((s, i) => ({ ad: 'sayi: ' + s, el: <AbsoluteFill><Arkaplan tip={editPaket[(i + 2) % editPaket.length]} stil={st(i + 1)} /><SayiKarti tip={s} deger={1928} onEk="$" ust="Army price" alt="for the same round" yuzde={0.72} stil={st(i + 1)} /></AbsoluteFill> })),
+  <Izgara sutun={5} hucreler={[
+    ...SAYI_TIPLERI.map((s, i) => ({ ad: 'sayi: ' + s, el: <AbsoluteFill><Arkaplan tip={editPaket[(i + 2) % editPaket.length]} stil={st(i + 1)} /><SayiKarti tip={s} deger={1928} onEk="$" ust="Army price" alt="for the same round" stil={st(i + 1)} /></AbsoluteFill> })),
+    ...(['halka', 'cubuk'] as const).map((s, i) => ({ ad: 'sayi: ' + s + ' (yuzde 0.72)', el: <AbsoluteFill><Arkaplan tip={editPaket[(i + 4) % editPaket.length]} stil={st(i + 3)} /><SayiKarti tip={s} deger={72} sonEk="%" ust="Army price" alt="of rounds delivered on time" yuzde={0.72} stil={st(i + 3)} /></AbsoluteFill> })),
     ...ALINTI_TIPLERI.map((a, i) => ({ ad: 'alinti: ' + a, el: <AbsoluteFill><Arkaplan tip={genel[(i * 3) % 16]} stil={st(i + 6)} /><Alinti tip={a} metin="We had no idea what was coming." kim="Pvt. J. Miller, 1944" stil={st(i + 6)} /></AbsoluteFill> })),
     ...LISTE_TIPLERI.map((l, i) => ({ ad: 'liste: ' + l, el: <AbsoluteFill><Arkaplan tip="kareli-defter" stil={st(i + 2)} /><Liste tip={l} baslik="What you get" maddeler={['Same caliber', 'Half the weight', 'No waiting list']} stil={st(i + 2)} /></AbsoluteFill> })),
   ]} />
@@ -118,7 +125,7 @@ const K = (id: string, c: React.FC, d = 300) => <Composition id={id} component={
 export const RemotionRoot: React.FC = () => (
   <>
     {K('KatArkaplan', KatArkaplan)}{K('KatEdit', KatEdit)}{K('KatGecis', KatGecis, 60)}{K('KatBaslik', KatBaslik)}
-    {K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}
+    {K('KatYazi', KatYazi)}{K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />

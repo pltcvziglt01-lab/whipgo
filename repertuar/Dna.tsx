@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { DiziSahne, GecisTip, GecisliDizi } from './Gecis';
 import { Alinti, AlintiTip, AltBant, AltBantTip, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
@@ -83,8 +83,10 @@ export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3
   return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} />;
 };
 
+/** arkaplanli=false (medya ustu): baslik koyu konturlu + golgeli cizilir ve guvenli alanin tamamini (1720 px) kullanabilir */
 export const DnaBaslik: React.FC<{ dna: Dna; metin: string; ust?: string; konum?: Konum; boyut?: number; arkaplanli?: boolean; sira?: number }> = ({ dna, metin, ust, konum, boyut, arkaplanli = true, sira = 0 }) => (
-  <AbsoluteFill>{arkaplanli ? <DnaArkaplan dna={dna} rol={2} /> : null}<Baslik tip={sira % 2 && dna.baslik2 ? dna.baslik2 : dna.baslik} metin={metin} ust={ust} stil={dnaStil(dna)} konum={konum} boyut={boyut} /></AbsoluteFill>
+  <AbsoluteFill>{arkaplanli ? <DnaArkaplan dna={dna} rol={2} /> : null}<Baslik tip={sira % 2 && dna.baslik2 ? dna.baslik2 : dna.baslik} metin={metin} ust={ust} stil={dnaStil(dna)} konum={konum} boyut={boyut}
+    golge={!arkaplanli} maxGenislik={arkaplanli ? undefined : 1720} /></AbsoluteFill>
 );
 /** SFX katmani: kurgu olaylarindan (gecis/kart/sayi/alinti/vurgu/altbant) otomatik ses efekti. Tum Dna videolarinda ZORUNLU. */
 export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; genelSes?: number }> = ({ dna, olaylar, klasor, genelSes }) => {
@@ -94,9 +96,26 @@ export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; g
 };
 export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[] }> = ({ dna, kelimeler }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} />);
 export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
-export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number }> = ({ dna, ...p }) => (
-  <AbsoluteFill><DnaArkaplan dna={dna} rol={0} /><SayiKarti tip={dna.sayi} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
+/** sayi karti. kaynak verilirse zemin O CEKIMIN goruntusudur (bulanik + koyulastirilmis/palet tonuna yikanmis, karta ters yonde
+ *  yavas kayar -> parallax): her sayi karti kendi sahnesinin rengini tasir, ayni sablon tekrar etmez. kaynak yoksa DNA arka plani. */
+export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (
+  <AbsoluteFill>{kaynak ? <SayiZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={0} />}<SayiKarti tip={dna.sayi} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );
+const SayiZemin: React.FC<{ dna: Dna; m: MedyaKaynak }> = ({ dna, m }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const { palet } = dnaStil(dna);
+  const t = f / fps;
+  // koyu palet: goruntu koyulasir (acik yazi okunur); acik palet: palet zeminine yikanir (koyu yazi okunur)
+  const filtre = palet.acik ? 'blur(24px) saturate(0.9) brightness(1.08)' : 'blur(24px) saturate(1.2) brightness(0.66)';
+  return (
+    <AbsoluteFill style={{ overflow: 'hidden', background: palet.zemin }}>
+      <AbsoluteFill style={{ transform: `scale(${(1.24 - 0.01 * t).toFixed(4)}) translateX(${(-0.5 * t).toFixed(3)}%)`, filter: filtre }}><Medya m={m} /></AbsoluteFill>
+      <AbsoluteFill style={{ background: rgbaHex(palet.zemin, palet.acik ? 0.66 : 0.3) }} />
+      <AbsoluteFill style={{ background: `radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, ${rgbaHex(palet.acik ? palet.zemin : '#000000', 0.55)} 100%)` }} />
+    </AbsoluteFill>
+  );
+};
 export const DnaAlinti: React.FC<{ dna: Dna; metin: string; kim?: string }> = ({ dna, ...p }) => (
   <AbsoluteFill><DnaArkaplan dna={dna} rol={1} /><Alinti tip={dna.alinti} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );
