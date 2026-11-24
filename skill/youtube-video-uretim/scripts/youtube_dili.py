@@ -10,7 +10,7 @@ Kullanim:
 Import:
   from youtube_dili import YoutubeDili
   yt = YoutubeDili.yukle(); yt.konu(kp)             # kp: konu agirliklari (stil_dna.konu_bul)
-  yt.kanit('font', 'poster-dar') -> 0..1 | yt.carpan(eksen, oge) -> 0.6..1.4 (eslenemeyen oge 1.0) | yt.neden(eksen, oge)
+  yt.kanit('font', 'poster-dar') -> 0..1 | yt.carpan(eksen, oge) -> 0.3..1.6 (eslenemeyen oge 1.0) | yt.neden(eksen, oge)
 Eksenler: font (baslik fontunun kategorisi), gecis (aile), kamera, cerceve, altyazi (aile), palet (sinif).
 Basari agirligi: kanalin en iyi outlier orani (log) — basarili kanallarin dili daha cok sayilir.
 """
@@ -269,7 +269,7 @@ class YoutubeDili:
         if k is None:
             # olculemeyen oge: kanitli eksende hafif geri (0.85) — ozgunluk icin yasak degil; font/palet hep eslenir
             return 0.85 if (eksen in EKSENLER and not self.bos) else 1.0
-        return 0.6 + 0.8 * k
+        return 0.3 + 1.3 * k   # 0.3..1.6: kanit secimi gercekten yonlendirir (dar aralik rakip cezasinin altinda kaliyordu)
 
     def neden(self, eksen, oge):
         v = self.esle(eksen, oge)

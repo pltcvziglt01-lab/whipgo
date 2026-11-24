@@ -106,22 +106,35 @@ def ceviri_tablosu(dna, rakipler, kut, yt, sd):
     satirlar.append({'eksen': 'altyazi', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('altyazi'))) or '-', 'biz': dna['altyazi'], 'neden': neden('altyazi', dna['altyazi'])})
     satirlar.append({'eksen': 'palet', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('palet'))) or '-',
                      'biz': f"{dna['palet']} ({sd.PALET_SINIF.get(dna['palet'], '?')})", 'neden': neden('palet', dna['palet'])})
+    # ayirt edici yuzeyde rakiple ayni kalan oge: uyari (font adi, altyazi ailesi)
+    if bf.replace(' ', '') in {k.replace(' ', '') for k in font_adi}:
+        satirlar[0]['neden'] = 'UYARI rakiple ayni baslik fontu! ' + satirlar[0]['neden']
+    rk_alt = max(oz.get('altyazi') or {'-': 0}, key=(oz.get('altyazi') or {'-': 0}).get)
+    if sd.ALTYAZI_AILE.get(dna['altyazi']) == rk_alt and rk_alt != 'yok':
+        satirlar.append({'eksen': 'UYARI', 'rakip': f'altyazi ailesi {rk_alt}', 'biz': dna['altyazi'], 'neden': 'rakiple ayni altyazi ailesi (ayirt edici yuzey)'})
     for e in ('baslik', 'altbant', 'sayi', 'bitis', 'hud', 'harita', 'grafik'):
         if dna.get(e):
             satirlar.append({'eksen': e, 'rakip': '(olculmez; EDIT-DILI.md gozlemi)', 'biz': dna[e] + (f" + {dna['baslik2']}" if e == 'baslik' and dna.get('baslik2') else ''), 'neden': neden(e, dna[e])})
     return satirlar
 
 
-def onizle(dna, hedef):
-    """Onizleme kompozisyonu: kimligin 6 karelik karti"""
+def onizle(dna, hedef, konsept=''):
+    """Onizleme kompozisyonu: kimligin tum eksenleri (11 esit sahne); kareler sahne oturdugu anda (Onizleme.tsx ONIZLEME_S/OTURMA)"""
+    for eski in glob.glob(os.path.join(hedef, 'onizleme-*.jpg')) + glob.glob(os.path.join(hedef, 'ONIZLEME.jpg')):
+        os.remove(eski)
     if not os.path.exists(CHROME):
         print('UYARI onizleme atlandi: chrome-headless-shell yok')
         return []
+    m = re.search(r"[\"'“‘]([^\"'”’]{8,80})[\"'”’]", konsept or '')
+    baslik = m.group(1) if m else ' '.join((konsept or 'The Story Nobody Told').split()[:6]).strip(' .,:;')
     pj = os.path.join(hedef, 'onizleme-props.json')
-    json.dump({'dna': dna, 'foto': ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], 'presetler': []}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
+    json.dump({'dna': dna, 'foto': ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], 'presetler': [], 'metin': {'baslik': baslik}}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
+    S, OTUR, n = 60, 40, 11
+    d = int((dna.get('iskelet') or {}).get('gecis_kare') or 8)
+    kareler = [i * (S - d) + OTUR for i in range(n)]
     cikti = []
-    for i, f in enumerate([15, 75, 140, 200, 260, 330]):
-        out = os.path.join(hedef, f'onizleme-{i + 1}.jpg')
+    for i, f in enumerate(kareler):
+        out = os.path.join(hedef, f'onizleme-{i + 1:02d}.jpg')
         r = subprocess.run(['node', os.path.join('node_modules', '@remotion', 'cli', 'remotion-cli.js'), 'still', 'src/index.ts', 'Onizleme', out, f'--props={pj}',
                             f'--frame={f}', '--scale=0.5', f'--browser-executable={CHROME}', '--log=error'], capture_output=True, text=True, encoding='utf-8', errors='replace', cwd=SABLON_PROJE)
         if os.path.exists(out):
@@ -131,13 +144,10 @@ def onizle(dna, hedef):
             break
     if len(cikti) >= 2:
         sayfa = os.path.join(hedef, 'ONIZLEME.jpg')
+        kol = 4
         girdi = sum((['-i', c] for c in cikti), [])
-        n = len(cikti)
-        kol = 3 if n > 3 else n
-        sat = (n + kol - 1) // kol
-        yer = '|'.join(f'{(i % kol)}*w0_{(i // kol)}*h0'.replace('*w0', '*960').replace('*h0', '*540').replace('_', '_') for i in range(n))
-        yer = '|'.join(f'{(i % kol) * 960}_{(i // kol) * 540}' for i in range(n))
-        subprocess.run(['ffmpeg', '-v', 'error', '-y'] + girdi + ['-filter_complex', f"xstack=inputs={n}:layout={yer}:fill=black", sayfa])
+        yer = '|'.join(f'{(i % kol) * 960}_{(i // kol) * 540}' for i in range(len(cikti)))
+        subprocess.run(['ffmpeg', '-v', 'error', '-y'] + girdi + ['-filter_complex', f'xstack=inputs={len(cikti)}:layout={yer}:fill=black', sayfa])
         if os.path.exists(sayfa):
             cikti.append(sayfa)
     return cikti
@@ -184,9 +194,9 @@ def main():
     hedef = os.path.join(kd, 'sablon')
     os.makedirs(hedef, exist_ok=True)
     rakipler = rakip_hazirla(a.rakip, kut) if a.rakip else []
-    # secim motoru: konsept + rakip (yoksa nis); 3 secenek, kanal adi -> diger kanallarla ayni gorunum yok
+    # secim motoru: konsept + rakip (yoksa nis); 6 secenek -> en uygunu, kanal adi -> diger kanallarla ayni gorunum yok
     cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', a.konsept, '--cikti', hedef, '--kanal', a.kanal, '--kanallar', a.kanallar,
-           '--secenek', '3', '--tohum', 'sablon-' + a.kanal]
+           '--secenek', '6', '--tohum', 'sablon-' + a.kanal]
     if rakipler:
         cmd += ['--rakip', ','.join(rakipler)]
     r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
@@ -218,7 +228,7 @@ def main():
          'kimlik': {e: dna[e] for e in KIMLIK if dna.get(e) is not None}, 'degisken': DEGISKEN, 'iskelet': dna['iskelet'],
          'ceviri': ceviri_tablosu(dna, rakipler, kut, sd.YT, sd), 'uyum': round(max(puan)[0], 3)}
     if a.onizle:
-        s['onizleme'] = onizle(dna, hedef)
+        s['onizleme'] = onizle(dna, hedef, a.konsept)
     json.dump(s, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     md_yaz(os.path.join(kd, 'KANAL-SABLONU.md'), s)
     print(f"-> {yol}\n-> {os.path.join(kd, 'KANAL-SABLONU.md')}")

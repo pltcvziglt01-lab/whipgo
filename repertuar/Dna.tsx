@@ -35,7 +35,26 @@ export type Dna = {
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum, d.ton);
 
 /** arka plan rolleri: 0 = kart/sayi/liste zemini, 1 = cerceveli medyanin arkasi, 2 = bolum basligi */
-export const DnaArkaplan: React.FC<{ dna: Dna; rol?: 0 | 1 | 2 }> = ({ dna, rol = 0 }) => <Arkaplan tip={dna.arkaplan[rol % dna.arkaplan.length]} stil={dnaStil(dna)} />;
+/** zemin perdesi (okunurluk korumasi): yazi tasiyan rollerde (0 kart, 2 bolum basligi) hareketli zeminin ortasi palet zeminine
+ *  dogru sakinlesir, kenarlar canli kalir. Paletin yazi rengi (murekkep) zemine zit secildigi icin kontrast her palette korunur.
+ *  Paket videosu zemininde perde daha guclu. Rol 1 (cerceveli medyanin arkasi) perdesiz. */
+export const DnaArkaplan: React.FC<{ dna: Dna; rol?: 0 | 1 | 2 }> = ({ dna, rol = 0 }) => {
+  const tip = dna.arkaplan[rol % dna.arkaplan.length];
+  const st = dnaStil(dna);
+  const video = typeof tip === 'string' && tip.startsWith('video:');
+  const orta = rol === 1 ? 0 : video ? 0.78 : 0.62, kenar = rol === 1 ? 0 : video ? 0.45 : 0.25;
+  return (
+    <AbsoluteFill>
+      <Arkaplan tip={tip} stil={st} />
+      {orta > 0 ? <AbsoluteFill style={{ background: `radial-gradient(ellipse 70% 62% at 50% 50%, ${rgbaHex(st.palet.zemin, orta)} 0%, ${rgbaHex(st.palet.zemin, (orta + kenar) / 2)} 55%, ${rgbaHex(st.palet.zemin, kenar)} 100%)` }} /> : null}
+    </AbsoluteFill>
+  );
+};
+const rgbaHex = (hex: string, a: number) => {
+  const h = hex.replace('#', '');
+  const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h.slice(0, 6), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+};
 
 /** kamera plani: DNA'nin kamera hareketleri DONGUSUZ dagitilir (eskiden sira % n -> A-B-C-A-B-C mekanik tekrar).
  *  Kural: ayni hareket art arda yok; bir onceki-oncekine donus %35; hiz her cekimde 0,75-1,3 arasi. Deterministik (tohum). */

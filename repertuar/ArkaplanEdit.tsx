@@ -159,7 +159,7 @@ export const GrenliGradyan: React.FC<P> = ({ stil, hiz, f0 }: any) => {
   const { palet } = stil;
   const a = 20 + 60 * gurultu3(1, 1, t * 0.1), b = 30 + 50 * gurultu3(4, 2, t * 0.1);
   return (
-    <AbsoluteFill style={{ background: `radial-gradient(circle at ${a}% ${b}%, ${palet.vurgu} 0%, transparent 55%), radial-gradient(circle at ${100 - a}% ${100 - b}%, ${palet.vurgu2} 0%, transparent 60%), ${palet.zemin}` }}>
+    <AbsoluteFill style={{ background: `radial-gradient(circle at ${a}% ${b}%, ${rgba(palet.vurgu, 0.55)} 0%, transparent 55%), radial-gradient(circle at ${100 - a}% ${100 - b}%, ${rgba(palet.vurgu2, 0.45)} 0%, transparent 60%), ${palet.zemin}` }}>
       <svg width={W} height={H} style={{ position: 'absolute', opacity: 0.32, mixBlendMode: 'overlay' }}>
         <filter id="ggr"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves={3} seed={Math.floor(f / 3)} /><feColorMatrix type="saturate" values="0" /></filter>
         <rect width={W} height={H} filter="url(#ggr)" />

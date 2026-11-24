@@ -188,13 +188,13 @@ KONU_KELIME = {
                'air force', 'pilot', 'missile', 'nuclear', 'veteran', 'sentry', 'guard duty', 'court-martial', 'court martial', 'deploy', 'drill sergeant',
                'bootcamp', 'boot camp', 'infantry', 'sniper', 'special forces', 'seal', 'ranger', 'warship', 'bomber', 'fighter jet', 'combat', 'troops',
                'asker', 'ordu', 'savaş', 'savas', 'silah', 'krieg', 'soldat', 'wehrmacht', 'bundeswehr', 'militar', 'guerra', 'oorlog', 'leger'],
-    'tarih': ['history', 'historic', 'ancient', 'empire', 'medieval', 'century', 'king', 'queen', 'roman', 'pharaoh', 'dynasty', 'civil war', 'victorian',
+    'tarih': ['ship', 'naval', 'maritime', 'sailor', 'fleet', 'schiff', 'history', 'historic', 'ancient', 'empire', 'medieval', 'century', 'king', 'queen', 'roman', 'pharaoh', 'dynasty', 'civil war', 'victorian',
               '1800s', '1900s', '1920s', '1930s', '1940s', '1950s', '1960s', '1970s', '1980s', 'tarih', 'osmanlı', 'geschichte', 'historia', 'geschiedenis',
               'jahre', 'damals', 'früher', 'vroeger', 'past', 'era', 'old days', 'pioneer', 'archaeolog', 'excavat', 'skeleton', 'bones', 'burial', 'grave'],
     'suc': ['crime', 'murder', 'killer', 'heist', 'scam', 'fraud', 'cartel', 'mafia', 'prison', 'police', 'detective', 'trial', 'cold case', 'serial',
             'cinayet', 'suç', 'verbrechen', 'mord', 'crimen', 'misdaad', 'moord', 'forensic'],
     'korku': ['horror', 'haunted', 'ghost', 'paranormal', 'creepy', 'cryptid', 'scary', 'demon', 'korku', 'abandoned', 'nightmare', 'terrifying'],
-    'gizem': ['mystery', 'mysteri', 'unsolved', 'disappear', 'vanish', 'missing', 'conspiracy', 'secret', 'ufo', 'alien', 'unexplained', 'lost',
+    'gizem': ['shipwreck', 'wreck', 'ghost ship', 'lost at sea', 'bermuda', 'mystery', 'mysteri', 'unsolved', 'disappear', 'vanish', 'missing', 'conspiracy', 'secret', 'ufo', 'alien', 'unexplained', 'lost',
               'never returned', 'unreturned', 'gizem', 'kayıp', 'misterio', 'geheimnis', 'rätsel', 'raadsel'],
     'finans': ['money', 'finance', 'economy', 'stock', 'invest', 'rich', 'billion', 'million', 'salary', 'paycheck', 'debt', 'tax', 'inflation',
                'recession', 'bank', 'crypto', 'business', 'income', 'wage', 'cost', 'price', 'ekonomi', 'para', 'geld', 'lohn', 'dinero', 'salario'],
@@ -239,7 +239,8 @@ HISLER = ['belgesel', 'arsiv', 'resmi', 'teknik', 'sinematik', 'karanlik', 'retr
 def kelime_var(w, m):
     """kelime basi sinirli eslesme (car != scary); 4 harften kisa kelimelerde kelime sonu da sinirli (gun != gundem)"""
     w = w.strip()
-    son = r'(?![a-z0-9çğıöşüäß])' if len(w) <= 3 else ''
+    # 4+ harfte en fazla 4 harflik ek (mysteri+ous, vanish+ed) — 'invest' 'investigative'i yakalamaz
+    son = r'(?![a-z0-9çğıöşüäß])' if len(w) <= 3 else r'[a-zçğıöşüäß]{0,4}(?![a-z0-9çğıöşüäß])'
     return re.search(r'(?<![a-z0-9çğıöşüäß])' + re.escape(w) + son, m) is not None
 
 
@@ -451,7 +452,8 @@ def nis_kanallari(kut, rakip, ton, anahtar, n=12):
             cer = sorted(c for c, o in (k.get('cerceve') or {}).items() if c != 'tam' and o >= 0.04)
             out.append({'kanal': ad, 'ortak': ortak, 'oran': k.get('oran'), 'gecis_aileleri': aile, 'palet_sinif': ps, 'cerceve': cer})
         out.sort(key=lambda x: (-x['ortak'], -(x['oran'] or 0)))
-        return out[:n]
+        ilgili = [x for x in out if x['ortak'] > 0]   # konusu ortusmeyen kanal 12'ye tamamlamak icin eklenmez
+        return (ilgili or out[:4])[:n]
     akel = {w for w in re.findall(r'[a-zçğıöşü0-9]{4,}', (anahtar or '').lower())} - {'with', 'that', 'this', 'from', 'video', 'kanal', 'edit', 'format'}
     out = []
     for kd in glob.glob(os.path.join(kut, 'kanallar', '*')):
@@ -631,10 +633,63 @@ def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile
     while aday and len(out) < n:
         # YT: YouTube kullanim kaniti (youtube_dili.py; nis + genel, basari agirlikli) 0.6-1.4; eslenemeyen oge 1.0
         w = [(agirlik or {}).get(x, 1.0) * (ETK.uyum(eksen, x) if eksen else 1.0) * (YT.carpan(eksen, x) if (YT and eksen) else 1.0) * (0.3 if x in kacin else 1.0) / (1 + (kullanim or {}).get(x, 0)) for x in aday]
+        # zayif aday eleme: eksenin en iyisinin %40'inin altindakiler sansa birakilmaz (yeterli aday kaldikca)
+        en = max(w) if w else 0
+        guclu = [(x, v) for x, v in zip(aday, w) if v >= 0.4 * en]
+        if len(guclu) >= max(1, n - len(out)):
+            aday, w = [x for x, _ in guclu], [v for _, v in guclu]
         x = r.choices(aday, weights=w)[0]
         out.append(x)
         aday = [y for y in aday if y != x and (not aile or aile.get(y) != aile.get(x) or len(aday) <= n)]
     return out
+
+def rakip_yuzeyi_tekle(rk, kut, rlist):
+    """rakip olcumu TEK kaynaktan: altyazi ailesi ve palet sinifi youtube_dili.kanal_ozellik'ten (kanal_sablon ceviri tablosuyla ayni,
+    tum videolar), rakibin baslik fontu (font-aday.json ilk aday) -> o fontu baslikta kullanan setler yasak (aile serbest)."""
+    Y = rk['yuzey']
+    if not kut or not rlist:
+        return
+    try:
+        import youtube_dili as YD
+        kat, _ = YD.font_katalog()
+        top = {}
+        for h in rlist:
+            oz = YD.kanal_ozellik(os.path.join(kut, 'kanallar', h), sys.modules[__name__], kat)
+            for e in ('altyazi', 'palet'):
+                for k, v in (oz.get(e) or {}).items():
+                    top.setdefault(e, {})[k] = top.setdefault(e, {}).get(k, 0) + v
+        if top.get('altyazi'):
+            Y['altyazi_aile'] = max(top['altyazi'], key=top['altyazi'].get)
+        if top.get('palet'):
+            Y['palet_sinif'] = max(top['palet'], key=top['palet'].get)
+        adlar = {}
+        for h in rlist:
+            for fa in glob.glob(os.path.join(kut, 'kanallar', h, 'video-*', 'editdili', 'font-aday.json')):
+                try:
+                    for x in json.load(open(fa, encoding='utf-8')):
+                        ad = sorted(x.get('adaylar') or [], key=lambda c: c.get('skor', 99))
+                        if ad:
+                            adlar[ad[0]['font'].replace(' ', '')] = adlar.get(ad[0]['font'].replace(' ', ''), 0) + 1
+                except (ValueError, OSError, TypeError):
+                    pass
+        if adlar:
+            en = max(adlar.values())
+            fontlar = {f for f, n in adlar.items() if n >= max(2, en * 0.5)} or {max(adlar, key=adlar.get)}
+            setler = YD.font_setleri()
+            Y['font_yasak'] = sorted(k for k, b in setler.items() if b in fontlar)
+            Y['font_rakip'] = sorted(fontlar)
+    except Exception as e:
+        print('UYARI rakip yuzeyi teklenemedi:', e)
+
+
+def nis_normu(eksen, deger, esik=0.5):
+    """deger nisin normu mu (YouTube kanitinda nis payi >= esik)? Normsa rakipte de olsa cezalandirilmaz: askeri nis koyu palet gibi.
+    Ozgunluk ayni sinifin icinden (farkli palet) gelir."""
+    if not YT or deger is None:
+        return False
+    _, n = YT.pay(eksen, deger)
+    return (n if n is not None else YT.pay_genel(eksen, deger)) >= esik
+
 
 def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk=None, nis=None, diger=(), etk=None, sabit=None):
     global ETK
@@ -668,9 +723,9 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     else:
         # renk konuya/nise uyar: nisteki siniflar one cikar; rakibin sinifi yasak degil ama geri planda (x0.35)
         dna['palet'] = sec(r, paletler, gecmis=g('palet'), eksen='palet', kullanim=kul, kacin=k2('palet'),
-                           agirlik={p: (1 + 2 * NP.get(PALET_SINIF.get(p), 0)) * (0.35 if PALET_SINIF.get(p) == Y['palet_sinif'] else 1) for p in paletler})[0]
+                           agirlik={p: (1 + 2 * NP.get(PALET_SINIF.get(p), 0)) * (0.35 if (PALET_SINIF.get(p) == Y['palet_sinif'] and not nis_normu('palet', Y['palet_sinif'])) else 1) for p in paletler})[0]
     fontlar = [f for f in tsx_sozluk_anahtar(rep, 'temel.ts', 'FONTLAR') if not T.get('font') or f in T['font']]
-    dna['font'] = sabit['font'] if sabit.get('font') else gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, gecmis=g('font'), eksen='font', kullanim=kul, kacin=k2('font'))[0]
+    dna['font'] = sabit['font'] if sabit.get('font') else gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, yasak=tuple(Y.get('font_yasak') or ()), gecmis=g('font'), eksen='font', kullanim=kul, kacin=k2('font'))[0]
     hareketler = [h for h in ['yay-esnek', 'kubik-hizli', 'ustel-sert', 'adim-stop', 'geri-sekme', 'dogrusal-mekanik'] if h not in T.get('hareket_disi', [])]
     dna['hareket'] = sec(r, hareketler, gecmis=g('hareket'), eksen='hareket', kullanim=kul, kacin=k2('hareket'))[0]
     ark = [x for x in L('Arkaplan.tsx', 'ARKAPLAN_TIPLERI') if x not in T.get('arkaplan_disi', [])]
@@ -964,6 +1019,10 @@ def main():
         if t2 != tb['ton']:
             tb['kaynak'] += f" + konu oyu ({tb['ton']} -> {t2})"
         tb['ton'], tb['puan'] = t2, {k: round(v, 2) for k, v in oy.items()}
+    # konseptte acik ton sozcugu ('calm', 'relaxing', 'ruhig'...) konu tonunu ezer (--ton verilmediyse)
+    if tb.get('kaynak') != 'elle verildi' and re.search(r'(calm|relaxing|relaxed|soothing|gentle|cozy|ruhig|entspannt|sakin|huzurlu|dingin)', konu.lower()):
+        tb['kaynak'] += ' + konseptte acik sakin sozcugu -> sakin'
+        tb['ton'] = 'sakin'
     a.ton = tb['ton']
     nis = nis_kanallari(kut, rh, a.ton, konu + ' ' + rmetin)
     # enerji hedefi: ton tabani + rakibin kesim hizi (iskelet)
@@ -987,6 +1046,7 @@ def main():
     except Exception as e:
         YT = None
         print('UYARI YouTube kaniti yuklenemedi:', e)
+    rakip_yuzeyi_tekle(rk, kut, rlist)
     tb.update({'konu': kp, 'konu_esl': kesl, 'enerji': round(enerji, 1), 'his': his, 'etiket': bool(et)})
     eksik = [f"{e}:{x}" for e, d, ad in [('arkaplan', 'Arkaplan.tsx', 'ARKAPLAN_TIPLERI'), ('gecis', 'Gecis.tsx', 'GECIS_TIPLERI'), ('baslik', 'Yazi.tsx', 'BASLIK_TIPLERI'),
              ('altyazi', 'Yazi.tsx', 'ALTYAZI_TIPLERI'), ('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),

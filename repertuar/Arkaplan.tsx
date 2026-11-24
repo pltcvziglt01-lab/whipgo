@@ -32,6 +32,8 @@ const VideoArkaplan: React.FC<{ kod: string; stil: Stil }> = ({ kod, stil }) => 
       <Loop durationInFrames={sureK}>
         <OffthreadVideo muted src={staticFile(`varlik/arkaplan/${id}.mp4`)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </Loop>
+      {/* paket videosu palete boyanir (kendi renkleriyle gelmez): renk tonu zeminden, parlaklik videodan */}
+      <AbsoluteFill style={{ background: stil.palet.zemin, mixBlendMode: 'color', opacity: 0.6 }} />
       <AbsoluteFill style={{ background: rgba(stil.palet.zemin, 0.3), mixBlendMode: stil.palet.acik ? 'screen' : 'multiply' }} />
     </AbsoluteFill>
   );
