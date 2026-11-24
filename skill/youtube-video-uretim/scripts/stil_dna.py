@@ -266,6 +266,34 @@ def konu_bul(metin):
     return ({k: round(v / top, 3) for k, v in sorted(puan.items(), key=lambda x: -x[1])} if top else {}), esl
 
 
+def yerel_ai_konu(metin, kp, kapali=False):
+    """Yerel AI (Ollama + Qwen) ikinci goz: kelime yontemiyle CELISIR ve AI guveni >= 0.7 ise AI'nin konusu kullanilir
+    (13 konseptlik olcum: aldatici konseptlerde -investigative ships, calm retirement, Carson- AI dogru, kelime yanlis).
+    Ton kelime yonteminde kalir (AI tona fazla 'ciddi' diyor). Ollama yoksa / kapaliysa / emin degilse None: davranis aynen.
+    -> {'konu': {...} | None, 'not': str} | None"""
+    if kapali or not (metin or '').strip():
+        return None
+    try:
+        import yerel_ai
+        if not yerel_ai.hazir():
+            return None
+        kt = yerel_ai.konu_ton(metin)
+    except Exception as h:
+        return {'konu': None, 'not': f'hata ({h.__class__.__name__}), kelime yontemi'}
+    if not kt or not kt.get('konu'):
+        return {'konu': None, 'not': 'emin degil' + (f' ({yerel_ai.SON_SORU})' if getattr(yerel_ai, 'SON_SORU', None) else '')}
+    ai = {k: v for k, v in sorted(kt['konu'].items(), key=lambda x: -x[1]) if k in KONULAR}
+    if not ai:
+        return None
+    ai_ilk, kw_ilk = next(iter(ai)), (next(iter(kp)) if kp else None)
+    if ai_ilk == kw_ilk:
+        return {'konu': None, 'not': f'{ai_ilk} (kelime yontemiyle ayni, guven {kt["guven"]:.2f})'}
+    if kt['guven'] >= 0.7:
+        top = sum(ai.values()) or 1
+        return {'konu': {k: round(v / top, 3) for k, v in ai.items()}, 'not': f'konu {kw_ilk or "-"} -> {ai_ilk} (celiski, AI guveni {kt["guven"]:.2f})'}
+    return {'konu': None, 'not': f'{ai_ilk} onerdi ama guven {kt["guven"]:.2f} < 0.7: kelime yontemi ({kw_ilk}) kaldi'}
+
+
 def etiket_yukle(rep):
     p = os.path.join(rep or '', 'etiketler.json')
     if not os.path.isfile(p):
@@ -967,7 +995,8 @@ def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None, diger=None):
     s = ['# STIL DNA — rakip vs secenekler', '',
          f"Rakip: {rk['kaynak']} ({rk['video_sayisi']} video). Iskelet rakipten alinir, yuzey degistirilir. Gecmis: {len(gecmis)} DNA (son 3'u tekrar edilmez).", '',
          '## Konu ve ton (edit dili konuya uyar)', '',
-         f"- konu (nis): {', '.join(f'{k} %{round(v * 100)}' for k, v in ((tb or {}).get('konu') or {}).items()) or 'eslesme yok'} · eslesen: {', '.join(sum(((tb or {}).get('konu_esl') or {}).values(), [])[:12]) or '-'}",
+         f"- konu (nis): {', '.join(f'{k} %{round(v * 100)}' for k, v in ((tb or {}).get('konu') or {}).items()) or 'eslesme yok'} · eslesen: {', '.join(sum(((tb or {}).get('konu_esl') or {}).values(), [])[:12]) or '-'}"
+         + (f" · yerel AI: {(tb or {}).get('yerel_ai')}" if (tb or {}).get('yerel_ai') else ''),
          f"- enerji hedefi: {(tb or {}).get('enerji')} / 5 · his tercihi: {', '.join(f'{k} {v}' for k, v in sorted(((tb or {}).get('his') or {}).items(), key=lambda x: -x[1])[:6]) or '-'} · etiket dosyasi: {'var' if (tb or {}).get('etiket') else 'YOK (eski ton listeleri)'}",
          f"- ton: **{(tb or {}).get('ton', '-')}** ({(tb or {}).get('kaynak', '')}) · puanlar: {(tb or {}).get('puan', {})} · eslesen: {', '.join(sum(((tb or {}).get('esl') or {}).values(), [])[:12]) or '-'}",
          (f"- ton kapisi: etiketlerde '{(tb or {}).get('ton', '-')}' tonu olmayan oge secilmez ({sum(1 for e, d in ETK.et.items() for x, v in d.items() if (tb or {}).get('ton') not in (v.get('ton') or []))} oge disarida)" if ETK.et else
@@ -1038,6 +1067,7 @@ def main():
     ap.add_argument('--secenek', type=int, default=2)
     ap.add_argument('--ton', choices=sorted(TON), help='verilmezse konudan otomatik: ciddi (tarih/savas/belgesel/ekonomi), gizem (suc/gizem/korku), enerjik (teknoloji/spor/liste), sakin (yasam/saglik/seyahat)')
     ap.add_argument('--konu', default='', help='videonun konusu / anlatilan olay (baslik + 1-2 cumle). Ton ve nis eslesmesi buradan')
+    ap.add_argument('--yerel-ai-yok', action='store_true', help='yerel AI (Ollama) ikinci gozunu kapat: konu yalniz kelime yontemiyle (dogrula testleri)')
     ap.add_argument('--konu-dosya', help='konu metni dosyasi (ornek: metin.txt ya da baslik-aciklama.txt; ilk 3000 karakter)')
     ap.add_argument('--tohum', default='')
     ap.add_argument('--cikti', default='.')
@@ -1091,6 +1121,9 @@ def main():
             tb['kaynak'] = 'eslesme yok -> varsayilan ciddi (en guvenli). --konu ver ya da --ton sec'
     # konu (nis) puanlari: video konusu 2 kat, rakip nisi/basliklari 1 kat
     kp, kesl = konu_bul(konu + ' ' + konu + ' ' + rmetin)
+    ai_not = yerel_ai_konu(konu, kp, kapali=a.yerel_ai_yok)
+    if ai_not and ai_not.get('konu'):
+        kp = ai_not['konu']
     if not a.ton and kp:
         # konu da tona oy verir (kelime eslesmesi zayifsa nis belirler)
         oy = dict(tb['puan'])
@@ -1138,7 +1171,7 @@ def main():
         YT = None
         print('UYARI YouTube kaniti yuklenemedi:', e)
     rakip_yuzeyi_tekle(rk, kut, rlist)
-    tb.update({'konu': kp, 'konu_esl': kesl, 'enerji': round(enerji, 1), 'his': his, 'etiket': bool(et)})
+    tb.update({'konu': kp, 'konu_esl': kesl, 'yerel_ai': (ai_not or {}).get('not'), 'enerji': round(enerji, 1), 'his': his, 'etiket': bool(et)})
     eksik = [f"{e}:{x}" for e, d, ad in [('arkaplan', 'Arkaplan.tsx', 'ARKAPLAN_TIPLERI'), ('gecis', 'Gecis.tsx', 'GECIS_TIPLERI'), ('baslik', 'Yazi.tsx', 'BASLIK_TIPLERI'),
              ('altyazi', 'Yazi.tsx', 'ALTYAZI_TIPLERI'), ('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
              ('liste', 'Kart.tsx', 'LISTE_TIPLERI'), ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI'), ('kamera', 'Medya.tsx', 'KAMERA_TIPLERI'), ('cerceve', 'Medya.tsx', 'CERCEVE_TIPLERI'),

@@ -288,7 +288,9 @@ export const SfxKatmani: React.FC<{ plan: SfxYerlesim[]; klasor?: string; genelS
       {plan.map((s, i) => {
         const ses = s.ses * genelSes;
         const sure = sfxCalmaSuresi(s, fps, genelSes);
-        const kapanis = Math.max(1, Math.min(Math.round(fps * 0.25), Math.floor(sure * 0.3), sure - 2));
+        // cikis yumusamasi tepeden en az 2 kare sonra baslar (riser/suzulme tepesi sonda: yumusama tepeyi yutmasin)
+        const tepeK = s.hiza === 'tepe' ? s.an - s.kare : 0;
+        const kapanis = Math.max(1, Math.min(Math.round(fps * 0.25), Math.floor(sure * 0.3), sure - 2, sure - tepeK - 2));
         const giris = s.kirp > 0 ? 0.25 : 1;
         const son = sfxDogalSon(s, sure, fps) ? 1 : 0;   // dosyanin kendi sonuna kadar calan seste cikis yumusamasi yok (riser tepesi sonda)
         return (

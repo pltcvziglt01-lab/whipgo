@@ -481,6 +481,61 @@ COKLU_DUZEN = {'tam', 'letterbox', 'odak-karartma', 'bolunmus', 'kolaj'}
 TS_BUTCE = None
 
 
+ZAMAN_SICRAMA = re.compile(r'^(DECADES|YEARS|MONTHS|CENTURIES|\d+\s+YEARS|[A-Z]+\s+YEARS|TODAY|NOW|SINCE THEN|AFTER THE WAR)\b')
+
+
+def d_yerel_ai(veri, tz, kel, metin_yolu, kapali=False):
+    """YEREL AI ADAYLARI (yerel_ai.sahne_firsatlari): AI yalniz ANI ve TURU aday gosterir; ekrana giden yazi motorca
+    SESLENDIRME METNINDEN birebir kurulur (AI'nin 'veri'si kullanilmaz: olcumde Turkce/uydurma yaziyordu).
+    Kurulabilen: degisim (onceki yil -> 'DECADES LATER' gibi zaman sicramasi). Kurulamayanlar raporda 'insan baksin'.
+    Ollama yoksa / kapaliysa ([], durum notu) — davranis aynen. -> (firsatlar, oneriler[{t,tur,kanit,neden}], not)"""
+    if kapali:
+        return [], [], 'kapali (--yerel-ai-yok)'
+    try:
+        import yerel_ai
+        if not yerel_ai.hazir():
+            return [], [], 'Ollama yok: yalniz kural dedektorleri'
+        metin = open(metin_yolu, encoding='utf-8').read() if metin_yolu and os.path.isfile(metin_yolu) else ' '.join(w['k'] for w in kel)
+        oner = yerel_ai.sahne_firsatlari(metin, [{'k': w['k'], 'bas': w['bas'], 'son': w['son']} for w in kel])
+    except Exception as h:
+        return [], [], f'hata ({h.__class__.__name__}): yalniz kural dedektorleri'
+    if not oner:
+        return [], [], 'oneri yok'
+    C, out, rap = veri['cekimler'], [], []
+    for o in oner:
+        ix = o.get('kelime_index', -1)
+        if ix is None or ix < 0 or ix >= len(kel):
+            rap.append({'t': -1, 'tur': o['tur'], 'kanit': o['kanit'][:80], 'neden': 'kanit metinde birebir yok (uydurma) -> atildi'})
+            continue
+        t = kel[ix]['bas']
+        i = next((j for j, (a, b) in enumerate(tz) if a - 0.05 <= t < b), None)
+        kart = None
+        if o['tur'] == 'degisim':
+            # kanit cumlesinin icinde zaman sicramasi ("Decades later,") ara; once gecen son yil eski deger
+            n_kanit = max(1, len(o['kanit'].split()))
+            for bas in range(ix, min(len(kel), ix + n_kanit)):
+                ifade = []
+                for w in kel[bas:bas + 6]:
+                    ifade.append(re.sub(r"[^\w']", '', w['k']))
+                    if re.search(r'[,.;:!?]$', w['k']):
+                        break
+                yeni = ust(' '.join(x for x in ifade if x))
+                if not (ZAMAN_SICRAMA.match(yeni) and len(yeni) <= 24):
+                    continue
+                yil = next((m.group(1) for w in reversed(kel[max(0, bas - 120):bas]) for m in [YIL.search(w['k'])] if m), None)
+                if yil:
+                    kart = {'tur': 'degisim', 'eski': yil, 'yeni': yeni}
+                    t = kel[bas]['bas']
+                    i = next((j for j, (a, b) in enumerate(tz) if a - 0.05 <= t < b), None)
+                break
+        if kart and i is not None:
+            out.append({'tur': kart['tur'], 'op': 'ekle', 'i': i, 'skor': 3.2, 'neden': f"yerel AI adayi, yazi metinden: '{kart['eski']} -> {kart['yeni']}'", 'kart': kart})
+        else:
+            rap.append({'t': round(t, 1), 'tur': o['tur'], 'kanit': o['kanit'][:80],
+                        'neden': 'yazi seslendirme metninden kurulamadi (insan baksin)' if i is not None else 'zaman cekime oturmadi'})
+    return out, rap, f'{len(oner)} aday: {len(out)} kurulabilir, {len(rap)} raporda'
+
+
 def butce():
     global TS_BUTCE
     if TS_BUTCE is None:
@@ -841,6 +896,7 @@ def main():
     ap.add_argument('--hud', default='bolum-cetveli', choices=['bolum-cetveli', 'tarih-rozeti', 'yok'])
     ap.add_argument('--hud-sn', type=float, default=8, help='HUD bolum basindan en cok kac sn (0 = bolum boyunca). Varsayilan 8: '
                     'kalici cetvel parlak goruntude ve coklu/alt bant/altyazi ile birlikte kalabaliklasiyor (v04 gozle kontrol)')
+    ap.add_argument('--yerel-ai-yok', action='store_true', help='yerel AI (Ollama) sahne adaylarini kapat (yalniz kural dedektorleri)')
     ap.add_argument('--tamamlama', action='store_true', help='eski DNA\'yi varyantlarla tamamlama (varsayilan: tamamla)')
     a = ap.parse_args()
     P0 = jy(a.plan)
@@ -864,6 +920,8 @@ def main():
     bolum_f, n_bolum = d_bolum(veri, tz, bol)
     firsat = (bolum_f + d_zaman(veri, tz) + d_liste(veri, tz) + d_karsilastirma(veri, tz) + d_grafik(veri, tz, bol)
               + d_yil(veri, tz, a.yil) + d_degisim(veri, tz, cum) + d_coklu(veri, tz, cum) + d_kart_dizisi(veri, tz))
+    ai_f, ai_rap, ai_not = d_yerel_ai(veri, tz, kel, a.metin, a.yerel_ai_yok)
+    firsat += ai_f
     harita = d_harita(cum)
     # uygulama sirasi: bolum (yapi) -> donusumler (tekrari azaltir) -> eklemeler; ayni skorda erken olan once.
     # Cekim indeksleri her uygulamada kayar: firsatlar cekimin (tag, kb, baslangic sn) kimligiyle yeniden bulunur.
@@ -948,10 +1006,12 @@ def main():
     L += [f"- {f['t']:.0f}s {f['tur']} ({f['op']}) — {f['neden']}: {neden}" for f, neden in sorted(reddedilen, key=lambda x: x[0]['t'])]
     L += ['', f'## Harita onerileri (uygulanmadi: koordinatli harita zemini yok) ({len(harita)})', '']
     L += [f"- {h['t']:.0f}s {h['yon']} **{h['yer']}** — \"{h['cumle']}\"" for h in harita]
+    L += ['', f'## Yerel AI sahne adaylari ({ai_not})', '']
+    L += [f"- {r['t']:.0f}s {r['tur']} — \"{r['kanit']}\" · {r['neden']}" for r in ai_rap]
     open(rapor, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
     json.dump({'once': once, 'sonra': sonra, 'kart_payi': [round(once_pay, 3), round(sonra_pay, 3)], 'hedef': hedef_pay,
                'uygulanan': [{k: v for k, v in f.items() if k not in ('kimlik', 'tuketir_k')} | {'sonuc': ac} for f, ac in uygulanan],
-               'reddedilen': [{'t': f['t'], 'tur': f['tur'], 'neden': n} for f, n in reddedilen], 'harita': harita, 'seyreltme': sey},
+               'reddedilen': [{'t': f['t'], 'tur': f['tur'], 'neden': n} for f, n in reddedilen], 'harita': harita, 'seyreltme': sey, 'yerel_ai': {'not': ai_not, 'rapor': ai_rap}},
               open(re.sub(r'\.md$', '.json', rapor), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f"{len(uygulanan)} firsat uygulandi, {len(reddedilen)} reddedildi, {len(sey)} seyreltme | kart payi %{once_pay * 100:.0f} -> %{sonra_pay * 100:.0f} "
           f"| varyant FAIL {len(var_once)} -> {len(var_sonra)} | tekduze dk {len(cesit_once[0])} -> {len(cesit_sonra[0])} -> {cikti} | rapor {rapor}")

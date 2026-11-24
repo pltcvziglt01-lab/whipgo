@@ -9,6 +9,7 @@ Bu skill, Windows makinede Claude Code ile çalışan, birden fazla kanalda kan�
 
 ## 0. İşe başlarken (her oturumda, sırayla)
 
+0. **Kurulum:** yeni makinede tek komut `py scripts/kurulum.py kur` (programlar + Python paketleri + yerel AI Ollama/Qwen + Remotion + varlıklar + kancalar); `kurulum.py kontrol` eksik gösterirse yine `kur`.
 0. **Repoyu güncelle:** `git -C C:\otomasyon\yt-uretim pull` (araçlar, repertuar, varlık kataloğu buradan; yoksa `KURULUM.md`). Betikler `C:\otomasyon\yt-uretim\skill\youtube-video-uretim\scripts\` yolundan çalıştırılır (skill paketindeki kopya yalnız yedek).
 1. **DEVAM.md'yi bul ve oku.** Kanal klasöründe (`Documents\<KANAL>\DEVAM.md` veya proje kökü). Yoksa yeni kanaldır → `references/devam-sablonu.md` ile oluştur. DEVAM'da cevabı yazılı olan hiçbir şeyi kullanıcıya tekrar sorma.
 2. **Hangi işi yapacağını belirle:** DEVAM §SIRADAKİ İŞ'ten devam mı, yeni video mu, yeni kanal mı, tek bir parça mı (sadece başlık / sadece kapak / sadece metin)? Tek parça istendiyse yalnız o fazın referansını oku.
@@ -184,7 +185,7 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 
 | `adim_kontrol.py <video klasörü> [--kaydet <faz> --kanit <dosya...> --kim alt-model\|betik]` | **üretim defteri** (`uretim-defteri.json`): 23 fazın HEPSİ zorunlu (demonetizasyon riski, 6 sekmeli kapak dahil); kanıtsız ya da "atlandı" faz FAIL (`references/uretim-defteri.md`) |
 | `sfx_kontrol.py --plan props.json --video final.mp4 [--yatak vo_muzik.wav]` | **SFX kapısı**: her efekt planladığı karede mi (±150 ms), seviyesi konuşmaya göre doğru mu, sessiz/kaybolan efekt var mı |
-| `yerel_ai.py durum\|konu-ton\|sahne\|stil-adi\|kare-juri\|kurgu-oneri\|profil-taslak\|qc-triyaj` | **yerel AI** (Ollama + Qwen, ücretsiz, RTX'te): öneri verir, karar motorda; jüri 2 örnekli kör puan (`references/yerel-ai.md`) |
+| `yerel_ai.py durum\|konu-ton\|sahne\|stil-adi\|kare-juri\|video-juri\|kurgu-oneri\|profil-taslak\|qc-triyaj` | **yerel AI** (Ollama + Qwen, ücretsiz, RTX'te): öneri verir, karar motorda. Motora bağlı: `stil_dna` konu ikinci gözü, `sahne_zengin` sahne adayları (yazı metinden kurulur); render sonrası `video-juri` (`references/yerel-ai.md`) |
 
 Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` numpy+opencv+pillow (+ `rapidocr` OCR için), `rakip_indir.py` yt-dlp, `chatgpt_kapak.py` websocket-client ister. Windows'ta `py`, diğerlerinde `python3`.
 
@@ -211,6 +212,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] `kusur_kontrol.py` PASS
 - [ ] Kaynak karışımı rakibe göre: `kurgu_denetim.py` özetinde video / görsel / kart payı `kanal-sablon.json → kaynak.hedef` ile uyumlu (kaynak-karisimi FAIL yok)
 - [ ] `sfx_kontrol.py` PASS: efektler doğru yerde ve doğru seviyede
+- [ ] `yerel_ai.py video-juri --video final.mp4 --cikti JURI.md` çalıştı (Ollama varsa); PowerPoint hissi / düşük puanlı kareler izleyici bakışında kontrol edildi
 - [ ] `py scripts/adim_kontrol.py <video klasörü>` PASS: üretim defteri tam, her faz kanıtlı, "atlandı" kaydı yok, kapak fazında sekme=6 (`references/uretim-defteri.md`)
 - [ ] **İzleyici gibi izle:** finalden her bölümden kareler (qc ızgarası) ve telefon boyutunda (~360 px) bak: yazı ince/küçük mü, arka planla karışıyor mu, okunmadan mı gidiyor, aynı animasyon tekrar mı ediyor. Sayılar temiz çıksa da bu bakış atlanmaz
 - [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py --plan props.json` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7

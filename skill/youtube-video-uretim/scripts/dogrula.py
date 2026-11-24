@@ -246,7 +246,7 @@ def k_motor(T):
     for ad, konu in konular:
         d = tempfile.mkdtemp(prefix='dogrula-dna-')
         try:
-            cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', konu, '--cikti', d, '--tohum', 'dogrula-' + ad, '--secenek', '1']
+            cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', konu, '--cikti', d, '--tohum', 'dogrula-' + ad, '--secenek', '1', '--yerel-ai-yok']
             r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
             if r.returncode:
                 ekle('FAIL', 'motor', f'stil_dna ({ad}) hata: {r.stderr.strip()[-300:]}')

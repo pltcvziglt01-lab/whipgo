@@ -451,6 +451,49 @@ def kare_juri(resim_yolu, baglam='', oncelik='on'):
             'guven': 'dusuk', 'insan_baksin': True, 'puanlar': [a['puan'], b['puan']]}
 
 
+def video_juri(video, baglam='', adet=6, cikti=None, oncelik='on'):
+    """render edilmis video -> esit aralikli `adet` kare (ilk/son 0,5 sn haric) -> kare_juri (2 orneklemeli) -> ozet | None.
+    Kapi DEGILDIR (kusur_kontrol / kalite_kapisi yerine gecmez): izleyici bakisini onceliklendirir. cikti verilirse JURI.md yazar.
+    -> {'ortalama','en_dusuk','powerpoint','insan_baksin','kareler':[{t,resim,...kare_juri}]}"""
+    import subprocess
+    import tempfile
+    if not video or not os.path.isfile(video) or not hazir():
+        return None
+    try:
+        sure = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', video],
+                                    capture_output=True, text=True, timeout=60).stdout.strip())
+    except (ValueError, OSError, subprocess.SubprocessError):
+        return None
+    kl = tempfile.mkdtemp(prefix='juri-')
+    kareler = []
+    for k in range(adet):
+        t = 0.5 + (sure - 1.0) * (k + 0.5) / adet
+        y = os.path.join(kl, f'kare-{k + 1:02d}.jpg')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{t:.2f}', '-i', video, '-frames:v', '1', '-vf', 'scale=1280:-2', y],
+                       capture_output=True, timeout=120)
+        if not os.path.isfile(y):
+            continue
+        j = kare_juri(y, baglam, oncelik=oncelik)
+        if j:
+            kareler.append({'t': round(t, 1), 'resim': y, **j})
+    if not kareler:
+        return None
+    puan = [x['puan'] for x in kareler]
+    oz = {'ortalama': round(sum(puan) / len(puan), 2), 'en_dusuk': min(puan),
+          'powerpoint': sum(1 for x in kareler if x.get('powerpoint_hissi')),
+          'insan_baksin': [x['t'] for x in kareler if x.get('insan_baksin') or x['puan'] <= 2], 'kareler': kareler}
+    if cikti:
+        L = [f'# Yerel AI jurisi — {os.path.basename(video)}', '',
+             f"Ortalama **{oz['ortalama']}/5** · en dusuk {oz['en_dusuk']} · PowerPoint hissi {oz['powerpoint']}/{len(kareler)} kare"
+             f" · insan baksin: {', '.join(f'{t}s' for t in oz['insan_baksin']) or '-'}", '',
+             'Kapi degildir; kusur_kontrol / kalite_kapisi kararini degistirmez. Kareler 2 orneklemeli kor puanlandi.', '',
+             '| sn | puan | okunurluk | PowerPoint | guven | sorunlar |', '|---|---|---|---|---|---|']
+        L += [f"| {x['t']} | {x['puan']} | {x.get('okunurluk', '-')} | {'evet' if x.get('powerpoint_hissi') else '-'} | {x.get('guven', '-')} | "
+              f"{'; '.join(x.get('sorunlar') or [])[:160]} |" for x in kareler]
+        open(cikti, 'w', encoding='utf-8').write(chr(10).join(L) + chr(10))
+    return oz
+
+
 # ------------------------------------------------------------------ kurgu_onerisi
 _KO_SEMA = {
     'type': 'object',
@@ -674,6 +717,11 @@ def main():
     a = alt.add_parser('kare-juri')
     a.add_argument('--resim', required=True)
     a.add_argument('--baglam', default='')
+    a = alt.add_parser('video-juri', help='render edilmis videodan esit aralikli kareler -> kare jurisi -> JURI.md (kapi degil)')
+    a.add_argument('--video', required=True)
+    a.add_argument('--baglam', default='')
+    a.add_argument('--adet', type=int, default=6)
+    a.add_argument('--cikti', help='JURI.md yolu')
     a = alt.add_parser('kurgu-oneri')
     a.add_argument('--rapor', required=True, help='kurgu denetim raporu .md')
     a.add_argument('--plan', default='')
@@ -702,6 +750,10 @@ def main():
         except (json.JSONDecodeError, TypeError):
             pass
         y = stil_adi(metin, oncelik=onc)
+    elif s.komut == 'video-juri':
+        y = video_juri(s.video, s.baglam, s.adet, s.cikti, oncelik=onc)
+        if y:
+            y = {k: v for k, v in y.items() if k != 'kareler'} | {'kare': len(y['kareler'])}
     elif s.komut == 'kare-juri':
         y = kare_juri(s.resim, s.baglam, oncelik=onc)
     elif s.komut == 'profil-taslak':

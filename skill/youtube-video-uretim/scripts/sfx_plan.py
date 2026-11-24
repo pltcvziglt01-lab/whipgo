@@ -347,6 +347,12 @@ def zarf_esik(rep):
     return float(m.group(1)) if m else 0.12
 
 
+def cikis_suresi(s, sure, fps):
+    """Sfx.tsx SfxKatmani kapanis (sn): <= 0,25 sn, surenin %30'u, tepeden en az 2 kare sonra baslar"""
+    tepe_k = s.get('an', s['kare']) - s['kare'] if s.get('hiza', 'tepe') == 'tepe' else 0
+    return max(1, min(js_round(fps * 0.25), math.floor(sure * 0.3), sure - 2, sure - tepe_k - 2)) / fps
+
+
 def calma_suresi(s, fps, T, esik):
     """Sfx.tsx sfxCalmaSuresi: dusuk kazancli ses (Remotion'da zarfsiz) dogal kuyruguyla calar"""
     if s.get('kes') or s['ses'] >= esik:
@@ -382,7 +388,7 @@ def miks_json(plan, fps, klasor, T, esik, db_kaydir=0.0, yatak=None):
                 db = min(db + duz, tavan)
         e = {'dosya': os.path.join(klasor, s['dosya']).replace(os.sep, '/'), 't': round(s['kare'] / fps, 4), 'db': round(db, 2),
              'kirp': round(s['kirp'] / fps, 4), 'sure': round(sure / fps, 4), 'giris': round(1 / fps, 4) if s['kirp'] > 0 else 0,
-             'cikis': 0 if dogal else 0.25, 'rol': s['rol'], 'havuz': s['havuz'], 'an': round(an, 4), 'hiza': s.get('hiza', 'tepe'),
+             'cikis': 0 if dogal else cikis_suresi(s, sure, fps), 'rol': s['rol'], 'havuz': s['havuz'], 'an': round(an, 4), 'hiza': s.get('hiza', 'tepe'),
              'kutuphane': s['dosya']}
         if yerel is not None:
             e['yatak_lufs'] = round(yerel, 1)

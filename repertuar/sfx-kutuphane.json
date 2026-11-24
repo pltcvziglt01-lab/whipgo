@@ -8,7 +8,7 @@
   "tepe_tavan_db": -3,
   "kazanc_tavan_db": 30,
   "oncelik": {"doruk": 7, "bolum": 6, "vurgu": 5, "sayi": 4, "sayac": 4, "yukselme": 4, "harita-rota": 3, "degisim": 3, "alinti": 3, "kart": 3, "belge": 3, "foto": 3, "grafik-cubuk": 3, "liste-madde": 2, "yazma": 2, "glitch": 2, "gecis": 2, "altbant": 1},
-  "kuyruk": {"gecis": 0.7, "kart": 0.5, "sayi": 1.1, "alinti": 0.8, "vurgu": 1.4, "altbant": 0.35, "yukselme": 0.35, "tik": 0.15, "yazma": 0.12, "liste": 0.4, "cubuk": 0.3, "suzulme": 0.25, "varis": 0.8, "bolum": 2.0, "doruk": 2.5, "cizik": 0.5, "belge": 0.7, "foto": 0.4, "glitch": 0.5},
+  "kuyruk": {"gecis": 0.7, "kart": 0.5, "sayi": 1.1, "alinti": 0.8, "vurgu": 1.4, "altbant": 0.35, "yukselme": 0.35, "tik": 0.15, "yazma": 0.12, "liste": 0.4, "cubuk": 0.3, "suzulme": 0.5, "varis": 0.8, "bolum": 2.0, "doruk": 2.5, "cizik": 0.5, "belge": 0.7, "foto": 0.4, "glitch": 0.5},
   "tavan": {"ciddi": 16, "gizem": 14, "enerjik": 30, "sakin": 9},
   "bosluk": {"ciddi": 0.8, "gizem": 0.9, "enerjik": 0.5, "sakin": 1.1},
   "dakika_ayni_ses": 2,

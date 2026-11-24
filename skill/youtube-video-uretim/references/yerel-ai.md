@@ -15,6 +15,16 @@ YouTube kaniti), son karar kullanicinin (3 secenek). Yerel AI repo koduna dokunm
 | Kutuphane kanalina EDIT-DILI.md taslagi (olcum dosyalari + kare sayfalari) | `profil_taslak(kanal_klasoru)` | TASLAK: sayilarin dogrulugu ve dosyaya yazma ana oturumda; gorsel maddeler "gozlem (yerel AI)" isaretli |
 | QC raporu FAIL/UYARI maddelerini onceliklendir | `qc_triyaj(rapor_md, baglam)` | Kapi sonucunu DEGISTIRMEZ; yalniz insan bakisini siralar, 'belirsiz' -> insan_baksin |
 
+## Motora bagli kancalar (2026-11-25; Ollama yoksa hepsi sessizce kapanir, davranis aynen)
+| Nerede | Ne yapar | Kapatma |
+|---|---|---|
+| `stil_dna.py` konu | kelime yontemiyle CELISIR ve AI guveni >= 0.7 ise AI'nin konusu; STIL-DNA.md `konu (nis)` satirinda `yerel AI:` notu | `--yerel-ai-yok` (dogrula testleri kapali kosar) |
+| `sahne_zengin.py` | AI ani + turu aday gosterir; yazi SESLENDIRME METNINDEN kurulur (degisim: onceki yil -> 'DECADES LATER'); kurulamayan adaylar SAHNE-ZENGIN.md 'Yerel AI sahne adaylari' (insan baksin) | `--yerel-ai-yok` |
+| `yerel_ai.py video-juri --video final.mp4 --cikti JURI.md` | render sonrasi esit aralikli kareler, 2 orneklemeli kor juri; PowerPoint hissi / okunurluk | kapi degil |
+| `adim_kontrol.py --ozet-json` + `qc-triyaj` | defter ve kapi raporlarini onceliklendirir | kapi degil |
+
+Kurulum: `py scripts/kurulum.py kur` (Ollama + iki model dahil); durum: `kurulum.py kontrol`.
+
 ## Nasil cagirilir
 Kutuphane (ayni dizinden import) ya da CLI:
 ```

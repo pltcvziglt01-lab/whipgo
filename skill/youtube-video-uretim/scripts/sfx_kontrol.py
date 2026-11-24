@@ -189,6 +189,7 @@ def main():
     baslar = np.cumsum([0] + [c['kare'] for c in cek])
     X = (S if S is not None else V).mean(axis=1)
     sab = Sablon()
+    seri_taban = {u: d for d, k in T['sesler'].items() for u in (k.get('seri') or [])}   # perde serisi dosyasi -> taban kaydi
     from scipy.signal import correlate
 
     secili = [e for e in girdi if A0 + 0.3 <= e['an'] <= B0 - 0.3]
@@ -209,7 +210,9 @@ def main():
             seg = X[a0:b0]
             c = correlate(seg, m, mode='valid', method='fft')
             e2 = np.concatenate([[0.0], np.cumsum(seg.astype(np.float64) ** 2)])
-            en = np.sqrt(e2[len(m):] - e2[:-len(m)] + 1e-12) * math.sqrt(float(np.dot(m, m)))
+            mm2 = float(np.dot(m, m))
+            # sessiz bolgede payda sifira gitmesin (sahte tepe): segment enerjisine sablon enerjisinin %10'u taban
+            en = np.sqrt(np.maximum(e2[len(m):] - e2[:-len(m)], 0.1 * mm2) + 1e-12) * math.sqrt(mm2)
             ncc = c / en
             j = int(np.argmax(ncc))
             lag, guven = j - W, float(ncc[j])
@@ -220,7 +223,7 @@ def main():
         neden = []
         if e['havuz'] not in P.DAVRANIS.get(e['rol'], [e['havuz']]):
             neden.append(f"havuz {e['havuz']} rol {e['rol']}'e ait degil")
-        kay = T['sesler'].get(e['kutuphane'])
+        kay = T['sesler'].get(e['kutuphane']) or T['sesler'].get(seri_taban.get(e['kutuphane'], ''))
         if kay is None:
             neden.append('ses kutuphanede etiketsiz')
         elif e['havuz'] not in kay['rol']:
@@ -244,7 +247,7 @@ def main():
         # seviye
         # SFX'in KENDI seviyesi: sablonun bulundugu yerde SFX katmanina (yoksa videoya) izdusumu = gercek kazanc; sik dizilerde
         # (66-100 ms arayla tik) komsu sesler pencereye girse de ilisiksiz oldugu icin olcumu sisirmez
-        ia = int((olc - tp - t0) * SR)
+        ia = i0 + lag                    # xcorr'un sectigi TAM ornek (yeniden yuvarlama gurultulu seste kazanci dusurur)
         seg = X[max(0, ia):max(0, ia) + len(m)]
         mm = m[max(0, -ia):max(0, -ia) + len(seg)]
         kk = float(np.dot(seg, mm) / (np.dot(mm, mm) + 1e-12)) if len(seg) else 0.0

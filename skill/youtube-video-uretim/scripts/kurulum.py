@@ -4,6 +4,7 @@
   py kurulum.py ayna [--deneme]    # repo -> Drive kutuphanesi aynasi (_araclar/ betikleri, remotion/repertuar/ bilesenleri). Lisansli varlik GITMEZ.
   py kurulum.py paketle [--hedef <klasor>]   # skill/ -> dist/youtube-video-uretim-<tarih>.skill (claude.ai'ye yuklenir)
   py kurulum.py kanal C:/otomasyon/<kanal>   # kanal projesini sisteme bagla: repertuar/varlik/fontlar baglantisi + ortak VideoDna sarmalayicisi
+  py kurulum.py kur [--ai-yok] [--deneme]   # YENI MAKINE, tek komut: programlar (winget) + pip + yerel AI (Ollama+Qwen) + npm + varlik + kancalar
   py kurulum.py kancalar                     # git kancalari: pre-commit = dogrula.py --hizli, post-commit = ayna
 """
 import argparse, datetime, filecmp, glob, os, shutil, subprocess, sys, zipfile
@@ -49,6 +50,118 @@ def kontrol(a):
         print(f'{t:10}: diskte {n} / katalogda {len(kat.get(t, {}))}' + ('  -> py varlik_kur.py indir' if n < len(kat.get(t, {})) else ''))
     print('preset    :', 'var' if os.path.isfile(os.path.join(v, 'preset-dili-remotion.json')) else 'YOK -> py varlik_kur.py presetler')
     print('sfx       :', len(glob.glob(os.path.join(v, 'sfx', '*.mp3')) + glob.glob(os.path.join(v, 'sfx', '*.wav'))))
+    ol = ollama_yolu()
+    print('ollama    :', surum([ol, '--version']) if ol else 'YOK -> py kurulum.py kur')
+    if ol:
+        liste = surum_tam([ol, 'list'])
+        for m in AI_MODELLER:
+            print(f'  {m:14}:', 'var' if m in liste else 'YOK -> py kurulum.py kur')
+    print('gpu       :', surum(['nvidia-smi', '--query-gpu=name,memory.total', '--format=csv,noheader']))
+
+
+# ---- tek komut kurulum (yeni makine / arkadas) ----------------------------------------------------------------------
+AI_MODELLER = ['qwen3:8b', 'qwen2.5vl:7b']          # yerel_ai.py: metin + gorsel (references/yerel-ai.md)
+PIP_PAKETLER = ['yt-dlp', 'numpy', 'opencv-python', 'pillow', 'rapidocr', 'websocket-client', 'librosa', 'edge-tts', 'faster-whisper']
+WINGET = [('git', ['git', '--version'], 'Git.Git'), ('gh', [GH, '--version'], 'GitHub.cli'), ('ffmpeg', ['ffmpeg', '-version'], 'Gyan.FFmpeg'),
+          ('node', ['node', '-v'], 'OpenJS.NodeJS.LTS')]
+
+
+def ollama_yolu():
+    for y in [shutil.which('ollama'), os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Ollama', 'ollama.exe')]:
+        if y and os.path.isfile(y):
+            return y
+    return None
+
+
+def surum_tam(k):
+    try:
+        r = subprocess.run(k, capture_output=True, text=True, timeout=60)
+        return r.stdout + r.stderr
+    except Exception:
+        return ''
+
+
+def vram_gb():
+    s = surum_tam(['nvidia-smi', '--query-gpu=memory.total', '--format=csv,noheader,nounits'])
+    try:
+        return int(s.strip().splitlines()[0]) / 1024
+    except Exception:
+        return 0.0
+
+
+def adim(ad, k, deneme, cwd=None):
+    print(f'  -> {ad}: ' + ' '.join(k))
+    if deneme:
+        return True
+    r = subprocess.run(k, cwd=cwd)
+    print(f'     {"tamam" if r.returncode == 0 else "HATA (kod %d)" % r.returncode}')
+    return r.returncode == 0
+
+
+def kur(a):
+    """Yeni makinede her seyi kurar; var olani atlar (tekrar calistirmak guvenli). Sifre/2FA/gh girisi kullaniciya kalir.
+    1 programlar (winget)  2 python paketleri  3 yerel AI (Ollama + qwen3:8b + qwen2.5vl:7b, ~12 GB; GPU >= 8 GB)
+    4 Remotion (sablon-proje npm install)  5 varliklar (Release varlik-v1; gh girisi ister)  6 git kancalari  7 kontrol"""
+    d = a.deneme
+    eksik = []
+    print('1) programlar')
+    wg = shutil.which('winget')
+    for ad, test, paket in WINGET:
+        if not surum(test).startswith('YOK'):
+            print(f'  {ad:8}: var')
+        elif wg:
+            adim(ad, [wg, 'install', '--id', paket, '-e', '--silent', '--accept-package-agreements', '--accept-source-agreements'], d) or eksik.append(ad)
+        else:
+            eksik.append(ad)
+            print(f'  {ad:8}: YOK (winget yok: elle kur)')
+    print('2) python paketleri')
+    adim('pip', [sys.executable, '-m', 'pip', 'install', '-q', '-U', *PIP_PAKETLER], d) or eksik.append('pip')
+    print('3) yerel AI (Ollama + Qwen)')
+    if a.ai_yok:
+        print('  atlandi (--ai-yok): yerel_ai.py None doner, motor kelime yontemiyle calisir')
+    else:
+        v = vram_gb()
+        if v and v < 7.5:
+            print(f'  UYARI: GPU {v:.1f} GB; qwen modelleri ~6 GB ister (CPU\'da calisir ama yavas)')
+        ol = ollama_yolu()
+        if not ol and wg:
+            adim('ollama', [wg, 'install', '--id', 'Ollama.Ollama', '-e', '--silent', '--accept-package-agreements', '--accept-source-agreements'], d)
+            ol = ollama_yolu() or ('ollama' if d else None)
+        if not ol:
+            eksik.append('ollama')
+            print('  ollama: YOK (https://ollama.com/download -> OllamaSetup.exe, sonra bu komutu yeniden calistir)')
+        else:
+            liste = surum_tam([ol, 'list']) if os.path.isfile(ol) else ''
+            for m in AI_MODELLER:
+                if m in liste:
+                    print(f'  {m}: var')
+                else:
+                    adim(m, [ol, 'pull', m], d) or eksik.append(m)
+    print('4) Remotion (sablon-proje)')
+    sp = os.path.join(KOK, 'sablon-proje')
+    npm = shutil.which('npm') or shutil.which('npm.cmd')
+    if os.path.isdir(os.path.join(sp, 'node_modules')):
+        print('  node_modules: var')
+    elif npm:
+        adim('npm', [npm, 'install'], d, cwd=sp) or eksik.append('npm')
+    else:
+        eksik.append('npm')
+        print('  npm YOK (node kurulduktan sonra yeni terminalde yeniden calistir)')
+    print('5) varliklar (GitHub Release varlik-v1)')
+    # gh girisi bazi kabuklarda Python alt surecine gorunmez (KURULUM.md): kontrol etmeden dene, basarisizsa yol goster
+    if not adim('varlik', [sys.executable, os.path.join(BURASI, 'varlik_kur.py'), 'indir'], d):
+        eksik.append('varlik')
+        print('     gh girisi gerekebilir: gh auth login --web --git-protocol https (sifre/2FA kullanicida); ya da KURULUM.md "gh release download" satirlari')
+    print('6) git kancalari')
+    if os.path.isdir(os.path.join(KOK, '.git', 'hooks')):
+        if not d:
+            kancalar(a)
+    print('7) kontrol')
+    if not d:
+        kontrol(a)
+    print('\nKURULUM ' + ('TAMAM' if not eksik else 'EKSIK: ' + ', '.join(eksik) + '  (yeni terminalde py kurulum.py kur ile tekrar)'))
+    if eksik and not d:
+        sys.exit(1)
 
 
 def kopyala(kaynak, hedef, deneme):
@@ -202,8 +315,11 @@ def main():
     p = alt.add_parser('paketle'); p.add_argument('--hedef')
     k = alt.add_parser('kanal'); k.add_argument('klasor'); k.add_argument('--deneme', action='store_true')
     alt.add_parser('kancalar')
+    u = alt.add_parser('kur', help='yeni makine: programlar + pip + yerel AI + npm + varlik + kancalar')
+    u.add_argument('--ai-yok', action='store_true', help='yerel AI (Ollama + Qwen) kurma')
+    u.add_argument('--deneme', action='store_true', help='yalniz ne yapacagini yaz')
     a = ap.parse_args()
-    {'kontrol': kontrol, 'ayna': ayna, 'paketle': paketle, 'kanal': kanal, 'kancalar': kancalar}[a.k](a)
+    {'kur': kur, 'kontrol': kontrol, 'ayna': ayna, 'paketle': paketle, 'kanal': kanal, 'kancalar': kancalar}[a.k](a)
 
 
 if __name__ == '__main__':

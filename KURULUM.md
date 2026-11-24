@@ -1,6 +1,18 @@
 # Kurulum ve günlük kullanım
 
-## Yeni makine (bir kez)
+## Yeni makine (bir kez) — TEK KOMUT
+```powershell
+winget install --id Git.Git -e; winget install --id GitHub.cli -e
+& "C:\Program Files\GitHub CLI\gh.exe" auth login --web --git-protocol https     # giris kullanicinin (sifre/2FA)
+git clone https://github.com/<kullanici>/whipgo C:\otomasyon\yt-uretim
+py C:\otomasyon\yt-uretim\skill\youtube-video-uretim\scripts\kurulum.py kur
+```
+`kur` sirayla kurar, olani atlar (tekrar calistirmak guvenli): programlar (git, gh, ffmpeg, node; winget), Python paketleri
+(yt-dlp, opencv, rapidocr, librosa, edge-tts, faster-whisper...), **yerel AI** (Ollama + `qwen3:8b` + `qwen2.5vl:7b`, ~12 GB disk,
+GPU >= 8 GB onerilir; `--ai-yok` ile atlanir), Remotion (`sablon-proje` npm install), varliklar (Release `varlik-v1`), git kancalari,
+sonda `kontrol`. Eksik kalan varsa adini yazar (cogu kez yeni terminal acip `kur`u yeniden calistirmak yeter).
+
+Elle kurulum (eski yol):
 ```powershell
 winget install --id GitHub.cli -e
 & "C:\Program Files\GitHub CLI\gh.exe" auth login --web --git-protocol https
