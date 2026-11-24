@@ -3,8 +3,11 @@
 Kullanim:
   py kurgu_denetim.py --plan motion/src/v04/props.json [--rakip <kanal>/video-1 ...] [--duzelt props-duzeltilmis.json] [--cikti KURGU-DENETIM.md]
   py kurgu_denetim.py --analiz bizim-analiz/analiz.json [--yazi yazi-senkron.json] --rakip <kanal>/video-1 ...   # render sonrasi
+  py kurgu_denetim.py --yazi yazi-senkron.json [--rakip ...]       # yalniz ekran yazisi (yazi_senkron.py final.mp4 --kelimeler props.json)
 --plan  : VideoDna props'u ({dna, veri:{fps, cekimler[{kare,tag,kb,kart,etiket,flas}], kelimeler[{k,bas,son}]}}). Zamanlar kesin.
 --rakip : kutuphanedeki rakip video klasoru (ritim/analiz.json + varsa yazi-senkron.json); hedefler rakiplerin medyanindan.
+          yazi-senkron.json (kanal_isle.py yazar) varsa rakibin tipik yazi suresi / gecikmesi raporda; bizimki belirgin
+          saparsa UYARI (ekranda < rakibin %70'i; gecikme > rakip + 0,4 sn). Okuma suresi esikleri sabit kalir.
 --duzelt: cozulebilen hatalari (yazi suresi, gec gelen yazi, yazi seslendirmeden once kayboluyor) komsu cekimlerden kare
           odunc alarak duzeltir, toplam sure DEGISMEZ; sonucu yeniden denetler.
 Kontroller (FAIL = teslim yok; UYARI = bak, gerekceyle birak):
@@ -221,7 +224,43 @@ def rakip_hedef(klasorler):
     return {'adet': len(sureler), 'medyan': med(st.median, sureler), 'p90': med(lambda x: yuzdelik(x, 0.9), sureler),
             'kisa_oran': med(lambda x: sum(s < 0.8 for s in x) / len(x), sureler), 'en_uzun': med(max, sureler),
             'hareket': {'baskin': Counter(x['baskin'] for x in h).most_common(1)[0][0], 'baskin_pay': st.median(x['baskin_pay'] for x in h)} if h else None,
-            'yazi': yazi}
+            'yazi': yazi_hedef(yazi)}
+
+
+def yazi_hedef(ozetler):
+    """rakiplerin yazi-senkron.json ozetinden (yazi_senkron.py) tipik yazi davranisi. Yalniz bilgi + UYARI esigi:
+    okuma hizi sabitleri (OKUMA_*, GIRIS, TUTMA, ASGARI) DEGISMEZ."""
+    def topla(grup, alan):
+        xs = [(o.get(grup) or {}).get(alan) for o in ozetler]
+        xs = [x for x in xs if x is not None]
+        return st.median(xs) if xs else None
+    if not ozetler:
+        return None
+    gec = topla('sesli', 'gecikme_medyan')
+    return {'adet': len(ozetler), 'ekran_sure_medyan': topla('yazi', 'ekran_sure_medyan'),
+            'gecikme_medyan': gec if gec is not None else topla('yazi', 'gecikme_medyan'),
+            'okunmadan_oran': topla('yazi', 'okunmadan_oran'), 'dakikada': topla('yazi', 'dakikada'),
+            'ses_bitmeden_oran': topla('sesli', 'ses_bitmeden_oran'),
+            'altyazi': sum(1 for o in ozetler if (o.get('altyazi') or {}).get('adet', 0) >= 10)}
+
+
+def yazi_hedef_metin(r):
+    f = lambda x, s='': '-' if x is None else f'{x:{s}}'
+    return (f"{r['adet']} video · yazi ekranda medyan {f(r['ekran_sure_medyan'], '.1f')} sn · gecikme medyan {f(r['gecikme_medyan'], '+.2f')} sn"
+            f" · okunmadan kaybolan %{f(None if r['okunmadan_oran'] is None else r['okunmadan_oran'] * 100, '.0f')}"
+            f" · dakikada {f(r['dakikada'], '.0f')} yazi · altyazili {r['altyazi']}/{r['adet']}")
+
+
+def yazi_rakip_bulgu(ekran_medyan, gecikme_medyan, r):
+    """bizim yazi medyanlarimiz rakipten belirgin sapiyorsa UYARI (FAIL degil: hedef okuma suresi sabitlerle belirlenir)"""
+    out = []
+    if not r:
+        return out
+    if ekran_medyan is not None and r.get('ekran_sure_medyan') and ekran_medyan < 0.7 * r['ekran_sure_medyan']:
+        out.append(('UYARI', 'yazi-rakipten-kisa', 'medyan', f"yazilar ekranda medyan {ekran_medyan:.1f} sn, rakip {r['ekran_sure_medyan']:.1f} sn — izleyici rakipte daha uzun okuyor", None))
+    if gecikme_medyan is not None and r.get('gecikme_medyan') is not None and gecikme_medyan > r['gecikme_medyan'] + 0.4:
+        out.append(('UYARI', 'yazi-rakipten-gec', 'medyan', f"yazi seslendirmeden medyan {gecikme_medyan:+.2f} sn sonra geliyor, rakip {r['gecikme_medyan']:+.2f} sn", None))
+    return out
 
 
 def klip_denetle(sureler, ref):
@@ -336,12 +375,14 @@ def main():
     ap.add_argument('--duzelt')
     ap.add_argument('--cikti')
     a = ap.parse_args()
-    if not a.plan and not a.analiz:
-        ap.error('--plan ya da --analiz gerekli')
+    if not a.plan and not a.analiz and not a.yazi:
+        ap.error('--plan, --analiz ya da --yazi gerekli')
     ref = rakip_hedef(a.rakip) if a.rakip else None
+    yref = ref and ref.get('yazi')
     bulgular, ozet = [], {}
     if ref:
         ozet['rakip'] = f"{ref['adet']} video · medyan {ref['medyan']:.2f} sn · p90 {ref['p90']:.1f} · <0,8 sn %{ref['kisa_oran'] * 100:.0f}"
+        ozet['rakip yazi'] = yazi_hedef_metin(yref) if yref else 'olcum yok (rakip klasorunde yazi-senkron.json yok: kanal_isle.py --zorla ile yeniden olc)'
     if a.plan:
         props = jyukle(a.plan)
         veri = props['veri']
@@ -357,6 +398,9 @@ def main():
         g = [y['gecikme'] for y in yazilar if 'gecikme' in y]
         if g:
             ozet['yazi-ses gecikmesi (medyan)'] = f"{st.median(g):+.2f} sn (eksi = yazi once)"
+        if yazilar:
+            ozet['yazi ekranda (medyan)'] = f"{st.median(y['sure'] for y in yazilar):.1f} sn"
+            bulgular += yazi_rakip_bulgu(st.median(y['sure'] for y in yazilar), st.median(g) if g else None, yref)
         cikti = a.cikti or os.path.join(os.path.dirname(os.path.abspath(a.plan)), 'KURGU-DENETIM.md')
         if a.duzelt:
             import copy
@@ -370,28 +414,36 @@ def main():
             print(f'duzeltildi -> {a.duzelt} | {ozet["duzeltme"]} | rapor {cikti}')
             sys.exit(1 if nf else 0)
     else:
-        d = jyukle(a.analiz)
-        cs = d.get('cekimler') or []
-        kb, o = klip_denetle([c['sure'] for c in cs if c.get('sure')], ref)
-        bulgular += kb
-        hd = dongu([c.get('hareket') for c in cs])
-        bulgular += dongu_bulgu(hd, ref and ref.get('hareket'), 'hareket')
-        bulgular += dongu_bulgu(dongu([c.get('giris') for c in cs]), None, 'gecis')
-        ozet.update({'cekim': len(cs), 'medyan cekim': f"{o['medyan']:.2f} sn", 'hareket': f"baskin {hd.get('baskin')} %{hd.get('baskin_pay', 0) * 100:.0f} · lag2/3 {hd.get('lag', {}).get(2)}/{hd.get('lag', {}).get(3)} (tesadufi {hd.get('beklenti')})" if hd else '-'})
+        if a.analiz:
+            d = jyukle(a.analiz)
+            cs = d.get('cekimler') or []
+            kb, o = klip_denetle([c['sure'] for c in cs if c.get('sure')], ref)
+            bulgular += kb
+            hd = dongu([c.get('hareket') for c in cs])
+            bulgular += dongu_bulgu(hd, ref and ref.get('hareket'), 'hareket')
+            bulgular += dongu_bulgu(dongu([c.get('giris') for c in cs]), None, 'gecis')
+            ozet.update({'cekim': len(cs), 'medyan cekim': f"{o['medyan']:.2f} sn", 'hareket': f"baskin {hd.get('baskin')} %{hd.get('baskin_pay', 0) * 100:.0f} · lag2/3 {hd.get('lag', {}).get(2)}/{hd.get('lag', {}).get(3)} (tesadufi {hd.get('beklenti')})" if hd else '-'})
         if a.yazi:
             ys = jyukle(a.yazi)
             yo = ys.get('ozet', {})
-            ozet['yazi (final)'] = json.dumps(yo, ensure_ascii=False)
+            yz, sl = yo.get('yazi') or {}, yo.get('sesli') or {}
+            ozet['yazi (final)'] = (f"{yz.get('adet', 0)} yazi ({', '.join(f'{k} {v}' for k, v in (yo.get('tur_dagilimi') or {}).items())}) · "
+                                    f"ekranda medyan {yz.get('ekran_sure_medyan')} sn · gecikme medyan {sl.get('gecikme_medyan')} sn · "
+                                    f"okunmadan {yz.get('okunmadan_kaybolan')} · ses bitmeden {yz.get('ses_bitmeden')} "
+                                    f"(aralik {yo.get('aralik')}, kelimeler: {yo.get('kelime_kaynagi')})")
+            bulgular += yazi_rakip_bulgu(yz.get('ekran_sure_medyan'), sl.get('gecikme_medyan'), yref)
             for e in ys.get('ogeler', []):
+                if e.get('tur') in ('altyazi', 'goruntu_ici', 'kalici', 'anlik', 'sayac'):
+                    continue      # altyazi konusmayla akar; goruntu ici yazi / logo / sayac rakami kurgu yazisi olcusu degil
                 yer = f"{e['bas']:.1f}s \"{e['metin'][:48]}\""
-                if e.get('sure', 9) < e.get('ihtiyac', 0):
+                if e.get('okunmadan', e.get('sure', 9) < e.get('ihtiyac', 0)):   # yazi_senkron OCR payini (bir ornek araligi) iceriyor
                     bulgular.append(('FAIL' if e['sure'] < 0.75 * e['ihtiyac'] else 'UYARI', 'okunmadan-kayboluyor', yer, f"ekranda {e['sure']:.1f} sn, gereken {e['ihtiyac']:.1f} sn", None))
                 if e.get('gecikme') is not None and e['gecikme'] > 0.6:
                     bulgular.append(('FAIL' if e['gecikme'] > 1.5 else 'UYARI', 'gec-geliyor', yer, f"{e['gecikme']:.1f} sn gec", None))
                 if e.get('ses_bitmeden'):
                     bulgular.append(('FAIL', 'ses-bitmeden-kayboluyor', yer, 'seslendirmeci bitirmeden ekrandan cikiyor', None))
-        cikti = a.cikti or os.path.join(os.path.dirname(os.path.abspath(a.analiz)), 'KURGU-DENETIM.md')
-    nf = rapor(os.path.basename(a.plan or a.analiz), bulgular, ozet, cikti)
+        cikti = a.cikti or os.path.join(os.path.dirname(os.path.abspath(a.analiz or a.yazi)), 'KURGU-DENETIM.md')
+    nf = rapor(os.path.basename(a.plan or a.analiz or a.yazi), bulgular, ozet, cikti)
     print(f"{'FAIL' if nf else 'PASS'} — {nf} FAIL, {sum(b[0] == 'UYARI' for b in bulgular)} UYARI -> {cikti}")
     for k, v in ozet.items():
         print(f'  {k}: {v}')

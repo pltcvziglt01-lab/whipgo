@@ -14,7 +14,8 @@ KOK = os.path.abspath(os.path.join(SKILL, '..', '..'))
 GH = shutil.which('gh') or r'C:\Program Files\GitHub CLI\gh.exe'
 # kutuphanenin _araclar/ aynasina giden betikler (kutuphane isini yapanlar)
 KUTUPHANE_BETIKLERI = ['kanal_isle.py', 'rakip_indir.py', 'kare_analiz.py', 'edit_dili.py', 'edit_dili_test.py', 'font_aday.py',
-                       'temizle.py', 'cerez_al.py', 'kutuphane_ara.py', 'profil_kontrol.py', 'stil_dna.py', 'preset_ogren.py']
+                       'temizle.py', 'cerez_al.py', 'kutuphane_ara.py', 'profil_kontrol.py', 'stil_dna.py', 'preset_ogren.py',
+                       'yazi_senkron.py', 'yazi_kontrol.py', 'youtube_dili.py', 'kurgu_denetim.py']
 
 
 def kutuphane():

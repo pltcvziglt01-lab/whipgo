@@ -7,7 +7,9 @@ Her kanal icin:
   3. Yerel is klasorunde (C: — Drive'a degil): en populer 3 uzun video (Shorts haric), her birinin ilk %30'u
      (en az 60 sn, en cok 600 sn) <=720p + altyazi + kapak + aciklama  (rakip_indir.py --yuzde 30)
   4. Her video: kare_analiz.py (ritim, 0,1 sn) + edit_dili.py (kare kare edit dili) + font_aday.py (2 yazi)
-  5. Sonuclari kutuphaneye tasir: kanallar/<ad>/video-N/{altyazi.vtt, ritim/, editdili/} (video SAKLANMAZ, is klasoruyle silinir),
+     + yazi_senkron.py (ekran yazisi-ses senkronu, 0,25 sn; kelime zamanlari altyazi.vtt'den). Basarisizsa kanal DURMAZ, uyari yazilir.
+  5. Sonuclari kutuphaneye tasir: kanallar/<ad>/video-N/{altyazi.vtt, ritim/, editdili/, yazi-senkron.json, YAZI-SENKRON.md,
+     yazi-senkron-ornek.jpg} (video SAKLANMAZ, is klasoruyle silinir),
      kapak-N.jpg, aciklama-N.txt, secim.md/json, kanal.json (ozet sayilar)
   6. durum.txt = 'olculdu <tarih> <kim>'  → sonra Claude EDIT-DILI.md profilini yazar ve 'bitti' yapar.
 
@@ -124,7 +126,7 @@ def isle(giris, kok, kim, etiket, notu, zorla, cerez_port=None):
             durum_yaz(hedef, f'hata {simdi()} {kim} indirme (log: {log.name})')
             return f'{ad}: HATA indirme'
         secim = json.load(open(secim_p, encoding='utf-8'))
-        ozet = []
+        ozet, uyarilar = [], []
         for v in secim:
             i = v['sira']
             mp4 = os.path.join(is_dir, f'video-{i}.mp4')
@@ -138,8 +140,19 @@ def isle(giris, kok, kim, etiket, notu, zorla, cerez_port=None):
             if os.path.exists(os.path.join(vd, 'editdili', 'kirpintilar')):
                 calistir([os.path.join(BURASI, 'font_aday.py'), os.path.join(vd, 'editdili'), '--adet', '2',
                           '--font-dir', os.path.join(kok, 'fontlar')], log)
+            # yazi-ses senkronu: indirilen parca zaten ilk %30 -> tamamini olc. Video silinmeden ONCE (yeniden olcum = --zorla).
+            ysd = os.path.join(vd, 'yazisenkron')
+            ys_ok = calistir([os.path.join(BURASI, 'yazi_senkron.py'), mp4, *(['--kelimeler', vtt] if vtt else ['--dil', 'en']),
+                              '--yuzde', '100', '--cikti', ysd], log) and os.path.exists(os.path.join(ysd, 'yazi-senkron.json'))
+            if not ys_ok:
+                uyarilar.append(f'video-{i} yazi-senkron olculemedi')
+                log.write(f'\nUYARI video-{i}: yazi_senkron.py basarisiz; kanal islemi suruyor\n')
             hv = os.path.join(hedef, f'video-{i}')
             os.makedirs(hv, exist_ok=True)
+            if ys_ok:
+                for f in ('yazi-senkron.json', 'YAZI-SENKRON.md', 'yazi-senkron-ornek.jpg'):
+                    if os.path.exists(os.path.join(ysd, f)):
+                        shutil.copy2(os.path.join(ysd, f), os.path.join(hv, f))
             for alt in ('ritim', 'editdili'):
                 if os.path.exists(os.path.join(vd, alt)):
                     shutil.copytree(os.path.join(vd, alt), os.path.join(hv, alt), dirs_exist_ok=True)
@@ -152,6 +165,9 @@ def isle(giris, kok, kim, etiket, notu, zorla, cerez_port=None):
                 ozet.append({'video': i, 'baslik': v.get('baslik'), 'izlenme': v.get('izlenme'), 'oran': v.get('oran'),
                              'ilk30': e['ozet'].get('ilk30'), 'gecis': e['gecis_ozet'], 'duzen': e['duzen'].get('duzen_dagilimi'),
                              'altyazi': e['yazi'].get('altyazi'), 'renk': e['renk'], 'ses': e['ses']})
+                if ys_ok:
+                    yo = json.load(open(os.path.join(ysd, 'yazi-senkron.json'), encoding='utf-8'))['ozet']
+                    ozet[-1]['yazi_senkron'] = {k: yo.get(k) for k in ('yazi', 'sesli', 'altyazi', 'tur_dagilimi', 'kelime_kaynagi')}
         if not ozet:  # hic video olculemedi: 'olculdu' YAZMA, kanal.json'u EZME, is klasorunu (log) birak
             hata = ' '.join(str(v.get('video_hata') or v.get('meta_hata') or '') for v in secim)
             bot = 'not a bot' in hata or 'Sign in to confirm' in hata
@@ -179,7 +195,7 @@ def isle(giris, kok, kim, etiket, notu, zorla, cerez_port=None):
         json.dump(eski, open(kj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         durum_yaz(hedef, f'olculdu {simdi()} {kim} — EDIT-DILI.md bekliyor')
         shutil.rmtree(is_dir, ignore_errors=True)
-        return f'{ad}: olculdu ({len(ozet)} video)'
+        return f'{ad}: olculdu ({len(ozet)} video)' + (f" — UYARI {'; '.join(uyarilar)}" if uyarilar else '')
     except Exception as h:
         durum_yaz(hedef, f'hata {simdi()} {kim} {type(h).__name__}: {h}'[:300])
         return f'{ad}: HATA {h}'
