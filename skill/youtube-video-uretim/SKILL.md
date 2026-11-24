@@ -49,6 +49,8 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 - **Ses hızıyla oynanmaz:** TTS orijinal hızında (1.0), `atempo` yok. Süre birkaç dakika farklı çıkabilir, normal; süre metinle ayarlanır (`references/ses.md`). Kaynak dosyalardaki "hızı rakibe göre ayarla" talimatları geçersizdir.
 - **YouTube'dan alınan gerçek görüntü yalnız CC BY lisanslı** (atıfla) ya da kullanıcının açık izniyle; rakibin videosu asla (`references/youtube-kaynak.md`).
 - **FAIL veren kalite kapısıyla teslim yok** (`references/kalite-kapilari.md`).
+- **Kurgu denetimi render'dan ÖNCE:** `kurgu_denetim.py --plan props.json --rakip <kütüphane>/kanallar/@Rakip/video-* --duzelt props-duzeltilmis.json` — ekran yazısı okunacak kadar kalıyor mu, seslendirmeci söylerken mi beliriyor, söylemeden kayboluyor mu, klip süreleri rakiple uyumlu mu, hareket/kart döngüsü var mı. Kalan FAIL'ler (art arda yazılı kartlar) metin kısaltılarak ya da kart ayrılarak çözülür.
+- **SFX zorunlu ve otomatik:** kurgu ortak `repertuar/VideoDna.tsx` ile kurulur (kanal kodu yazılmaz); `DnaSfx` geçiş/kart/sayı/alıntı/vurgu/alt bant olaylarına tonun SFX paletinden ses koyar, sesin ölçülen vuruş anı olay karesine oturur. SFX'siz video teslim edilmez (`references/sfx.md`).
 
 ## 2. Faz haritası — her faz için hangi dosyayı okuyacaksın
 
@@ -147,6 +149,7 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `kapak_bitir.py "kapak-*.png" --rakip …` | 16:9 1280×720 <2 MB, numaralı sayfa, rakiple ana sayfa akışı karşılaştırması |
 | `metin_kontrol.py --metin metin.txt --dil de` / `--istemler istemler.json` | TTS ve görsel üretiminden önce: TTS'i bozan işaretler, uzun cümle, klişe/makine izi; istemde yazı çıkaracak kelime + "no text" koruması, yasaklı ad |
 | `senkron_kontrol.py vo.mp3 cumleler.json [--video final.mp4]` | zamanlar ileri mi, ilk cümle konuşmayla mı başlıyor, son cümle sesten taşıyor mu, video/ses süresi |
+| `kurgu_denetim.py --plan props.json --rakip <rakip video klasörleri> [--duzelt yeni.json]` | **render öncesi kurgu denetimi** (FAIL = render yok): yazı okunmadan kayboluyor, yazı sesle geç/erken, seslendirmeci bitirmeden kayboluyor, klip süresi rakipten sapmış, aynı görüntü tekrar, kart/hareket döngüsü; `--duzelt` komşu çekimlerden kare ödünç alarak düzeltir (toplam süre sabit). Render sonrası: `--analiz analiz.json --rakip …` (hareket döngüsü) |
 | `kalite_kapisi.py final.mp4 --metin metin.txt --dil de [--brief brief.json]` | **render sonrası kapı** (FAIL = teslim yok): ölü kanca, siyah/donmuş, tek karelik sıçrama, sessizlik, LUFS/tepe, okunmayan cümle, durağan pay, tekrar eden görsel |
 | `yazi_kontrol.py final.mp4` | ekran yazısı: kesik/kenarda, güvenli alan (Shorts telefon arayüzü), üst üste, kontrast < 3:1, bozuk okuma |
 | `karsilastir.py --biz analiz.json --ref r1 r2 r3 [--biz-video --ref-video]` | bizim final vs rakip: iskelet tablosu (±%20), tutmayan satıra eylem, yan yana sayfa |
@@ -177,6 +180,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] Özgünlük: son 3 videoya göre ≥8 eksen farklı, kalip_kontrol temiz
 - [ ] Kendi finalimiz `kare_analiz.py` ile ölçüldü; ilk 30 sn / ilk %30 RAKIP-OLCUM hedeflerinden ±%20 içinde (değilse nedeni DEVAM'da)
 - [ ] 6 kapak üretildi, yazıları birebir kontrol edildi, 6'sı Drive'daki `kapaklar\` klasöründe ve kullanıcıya gönderildi
+- [ ] `kurgu_denetim.py --plan` PASS (render öncesi); SFX katmanı var (`DnaSfx`)
 - [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7
 - [ ] Ses orijinal hızında (hız parametresi/atempo yok)
 - [ ] Gerçek görüntü varsa hepsi CC BY ya da izinli, atıflar açıklamada

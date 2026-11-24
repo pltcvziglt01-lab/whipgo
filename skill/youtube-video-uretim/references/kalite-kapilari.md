@@ -4,6 +4,14 @@ Bu sayfadaki kontroller sayılarla çalışır. **FAIL varsa video teslim edilme
 
 Fikir kaynağı: vidbucks (MIT) kalite kapısı yaklaşımı. Kod bizim, kendi hattımıza (Windows, rapidocr, kare_analiz) göre yazıldı.
 
+## 0. Kurgu denetimi (render'dan önce, `kurgu_denetim.py`)
+Kurgu verisi (`props.json`: çekimler + kelime zamanları) kesin olduğu için izleyicinin fark ettiği hatalar render'dan önce ölçülür:
+- **Yazı süresi:** ekranda kalma ≥ giriş 0,4 sn + kelime / okuma hızı (seste de geçiyorsa 3,2, geçmiyorsa 2,8 kelime/sn) + 0,3 sn; en az 1,3 sn. Sayı kartına +1 sn sayma animasyonu.
+- **Yazı–ses senkronu:** yazının içerik kelimeleri seslendirmede aranır (±6 sn). Yazı, kelime söylendikten > 0,6 sn sonra gelirse geç (> 1,5 sn FAIL), > 2 sn önce gelirse spoiler; seslendirmeci o kelimeleri bitirmeden yazı çıkarsa FAIL.
+- **Klip süresi:** medyan rakibin ±%30'u (FAIL), p90 / <0,8 sn payı / en uzun çekim (UYARI). Rakip = kütüphanedeki ölçümler.
+- **Tekrar:** aynı kaynak parçası iki kez, aynı kart türü 3 kez art arda, vurgular düzenli aralıkla, hareket/geçiş dizisinde A-B-C-A-B-C döngüsü (lag-2/3 eşleşme tesadüfi beklentiden > 0,25 fazla = FAIL; render sonrası `--analiz`).
+- `--duzelt`: yazılı çekimi sonraki (gerekirse önceki, en çok 1,5 sn) yazısız çekimlerden kare alarak uzatır, geç gelen yazıyı öne çeker; toplam kare değişmez, sonuç yeniden denetlenir. Futbol v04'te 44 FAIL → 11 (kalanlar art arda yazılı kartlar: metni kısalt / kartı ayır).
+
 ## 1. Sıra (her videoda)
 
 | Ne zaman | Komut | Ne yakalar |

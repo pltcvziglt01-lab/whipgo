@@ -24,6 +24,8 @@ eksik teknik repertuara eklenir (bkz. §5).
 | Harita | `Harita.tsx` | rota 3 (isik-rota, kesik-rota, ok-yay) — `DnaHarita`; kılavuz etiketli zoom `DnaEtiketliHarita`; bölge/ülke vurgusu `DnaBolge`. Zemin: CC harita/uydu görseli (`zemin`), yoksa DNA'nın 3. arka planı. Koordinatlar ekran oranı (0..1) |
 | Grafik | `Grafik.tsx` | çizgi grafik 3 (cizgi-isik, alan-dolgu, basamak) — `DnaGrafik`; eleme ızgarası (1.171 → 36 → 2) `DnaEleme` |
 | HUD | `Hud.tsx` | medya üstü kalıcı katman 4 (derinlik-cetvel, koordinat, zaman-kodu, tarih-rozeti) — `DnaHud`; değer kamera hareketiyle eş zamanlı akar |
+| Kurgu şablonu | `VideoDna.tsx` | **tüm kanalların ortak montajı**: props.json (çekimler + kelimeler) → Dna* sahneleri + altyazı + doku + bitiş + SFX. Kanal projesi yalnız sarar (`export` + presetler) |
+| SFX | `Sfx.tsx` | olaydan otomatik ses efekti, ton paleti, tepe senkronu, seviye normalizasyonu — `DnaSfx` |
 | Öğrenilmiş | `Preset.tsx` | Premiere presetlerinden zoom / shake / slide / whip / blur-in (338) — `varlik-paketleri.md` |
 
 ## 3. Akış

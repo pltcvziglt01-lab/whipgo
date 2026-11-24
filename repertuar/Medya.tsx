@@ -52,13 +52,13 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
 export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan', 'altin-cerceve'] as const;
 export type CerceveTip = typeof CERCEVE_TIPLERI[number];
 
-export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera = 'sabit', stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
+export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera = 'sabit', hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
   const { palet, font } = stil;
   const ap = <Arkaplan tip={arkaplan} stil={stil} tohum={tohum} />;
-  const md = (x: MedyaKaynak, k: KameraTip = kamera) => <Medya m={x} kamera={k} tohum={tohum} />;
+  const md = (x: MedyaKaynak, k: KameraTip = kamera) => <Medya m={x} kamera={k} hiz={hiz} tohum={tohum} />;
   const kutu = (l: number, tp: number, w: number, h: number, ic: React.ReactNode, ek: React.CSSProperties = {}) => (
     <div style={{ position: 'absolute', left: l, top: tp, width: w, height: h, overflow: 'hidden', ...ek }}>{ic}</div>
   );

@@ -31,7 +31,15 @@ Kullanıcının iki paketi var: **SFX_Pack_Mini** (~80 dosya, @adobebasics) ve *
 | Kalabalık | Applause 25.73 | kapanış (nadiren) |
 | Mizah (ciddi nişte yok) | Anime Wow · Weird Laush · Slap · Discord_Leave · minecraft sfx · Iphone Ringtone | yalnız eğlence/Shorts |
 
-## Remotion'da
+## Otomatik yerleştirme (varsayılan — elle SFX yerleştirilmez)
+`repertuar/VideoDna.tsx` kurgu olaylarından `DnaSfx` olay listesi çıkarır: yumuşak geçiş → whoosh, kelime kartı → kart sesi, sayı → darbe, alıntı → kâğıt, alt bant → tık, vurgu (flas) → darbe. `repertuar/Sfx.tsx`:
+- Ton paleti (`SFX_PALET`: ciddi / gizem / enerjik / sakin; mizah sesleri yok). Video başına her rolden 2 ses seçilir (tohum) ve sırayla döner: tutarlı ses dili, aynı ses art arda yok.
+- Yoğunluk: yumuşak geçişlere rakibin `sfx_orani` olasılığı; iki ses arası ≥ 0,8 sn (çakışmada öncelikli rol kalır); dakika tavanı ciddi 12, gizem 10, enerjik 26, sakin 6.
+- **Senkron:** `SFX_OLCU` her dosyanın ölçülen ses başlangıcı ve **tepe anı** (10 ms zarf). Baştaki sessizlik kırpılır (`trimBefore`), tepe olay karesine oturur (whoosh tepesi kesimde). Eskiden sabit öteleme vardı; `thump` 0,8 sn, `deep-whoosh` 2 sn geç vuruyordu.
+- **Seviye:** tepe seviyesine göre normalize (−3 dBFS × rol seviyesi 0,12–0,32); sessiz kâğıt/deklanşör de duyulur. Yeni ses eklenince ölçüm yeniden alınıp `SFX_OLCU` güncellenir.
+- Kapatmak için `<VideoDna sfx={false} />` (yalnız sesi ffmpeg ile bindiren hatlarda; `sfxPlani` çıktısını `ses_miks.py --sfx` json'una çeviren araç henüz yok, gerekirse yazılacak).
+
+## Remotion'da (elle, özel sahneler için)
 Kanalın hattına bak: Hund'da ses Remotion içinde; Akiya mimarisinde ses Remotion'a KONMAZ, ffmpeg en sonda bindirir (o zaman aşağıdaki ffmpeg yolu).
 ```tsx
 import { Audio, Sequence, staticFile } from 'remotion';

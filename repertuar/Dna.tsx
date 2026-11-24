@@ -11,6 +11,7 @@ import { BolgeVurgu, EtiketliHarita, HaritaNokta, HaritaRota, HaritaTip } from '
 import { CizgiGrafik, ElemeIzgara, GrafikTip } from './Grafik';
 import { Hud, HudTip } from './Hud';
 import { Altyazi, AltyaziTip, BaslikTip, Baslik, Kelime, Konum } from './Yazi';
+import { SfxKatmani, SfxOlay, SfxTon, sfxPlani } from './Sfx';
 
 // stil-dna.json (stil_dna.py ciktisi) -> bilesenler. Video kodu yalniz bunlari kullanir; boylece her video/kanal
 // kendi DNA'siyla bambaska gorunur ve "klasik Claude" gorunumune geri dusmez.
@@ -25,24 +26,50 @@ export type Dna = {
   bitis?: BitisTip;
   /** veri/harita/HUD dili (Harita.tsx, Grafik.tsx, Hud.tsx) */
   harita?: HaritaTip; grafik?: GrafikTip; hud?: HudTip;
+  /** konudan gelen ton (stil_dna.py) — SFX paletini ve yogunlugunu belirler */
+  ton?: string;
 };
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum);
 
 /** arka plan rolleri: 0 = kart/sayi/liste zemini, 1 = cerceveli medyanin arkasi, 2 = bolum basligi */
 export const DnaArkaplan: React.FC<{ dna: Dna; rol?: 0 | 1 | 2 }> = ({ dna, rol = 0 }) => <Arkaplan tip={dna.arkaplan[rol % dna.arkaplan.length]} stil={dnaStil(dna)} />;
 
-/** medya sahnesi: sira numarasina gore tam ekran / cerceveli karar verir (cerceveli_oran kadar), kamerayi dondurur */
+/** kamera plani: DNA'nin kamera hareketleri DONGUSUZ dagitilir (eskiden sira % n -> A-B-C-A-B-C mekanik tekrar).
+ *  Kural: ayni hareket art arda yok; bir onceki-oncekine donus %35; hiz her cekimde 0,75-1,3 arasi. Deterministik (tohum). */
+const kameraOnbellek = new Map<string, { tip: KameraTip; hiz: number }[]>();
+export const kameraSec = (dna: Dna, sira: number) => {
+  const anahtar = dna.tohum + '|' + dna.kamera.join(',');
+  let p = kameraOnbellek.get(anahtar);
+  if (!p) { p = []; kameraOnbellek.set(anahtar, p); }
+  const K = dna.kamera.length ? dna.kamera : (['ken-burns-ice'] as KameraTip[]);
+  while (p.length <= sira) {
+    const i = p.length, r = rastgele(anahtar + 'km' + i);
+    let aday = K.filter((k) => k !== p[i - 1]?.tip);
+    if (!aday.length) aday = [...K];
+    if (aday.length > 1 && p[i - 2] && r() > 0.35) aday = aday.filter((k) => k !== p[i - 2].tip).length ? aday.filter((k) => k !== p[i - 2].tip) : aday;
+    p.push({ tip: aday[Math.floor(r() * aday.length)], hiz: 0.75 + r() * 0.55 });
+  }
+  return p[sira];
+};
+
+/** medya sahnesi: sira numarasina gore tam ekran / cerceveli karar verir (cerceveli_oran kadar), kamerayi dongusuz secer */
 export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; sira: number; etiket?: string; zorla?: CerceveTip }> = ({ dna, m, m2, m3, sira, etiket, zorla }) => {
   const r = rastgele(dna.tohum + 'md' + sira);
   const cerceveli = zorla ? zorla !== 'tam' : r() < dna.iskelet.cerceveli_oran;
-  const kamera = dna.kamera[sira % dna.kamera.length];
+  const { tip: kamera, hiz } = kameraSec(dna, sira);
   const tip: CerceveTip = zorla || (cerceveli ? dna.cerceve[Math.floor(r() * dna.cerceve.length)] : 'tam');
-  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} />;
+  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} />;
 };
 
 export const DnaBaslik: React.FC<{ dna: Dna; metin: string; ust?: string; konum?: Konum; boyut?: number; arkaplanli?: boolean }> = ({ dna, metin, ust, konum, boyut, arkaplanli = true }) => (
   <AbsoluteFill>{arkaplanli ? <DnaArkaplan dna={dna} rol={2} /> : null}<Baslik tip={dna.baslik} metin={metin} ust={ust} stil={dnaStil(dna)} konum={konum} boyut={boyut} /></AbsoluteFill>
 );
+/** SFX katmani: kurgu olaylarindan (gecis/kart/sayi/alinti/vurgu/altbant) otomatik ses efekti. Tum Dna videolarinda ZORUNLU. */
+export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; genelSes?: number }> = ({ dna, olaylar, klasor, genelSes }) => {
+  const ton = (['ciddi', 'gizem', 'enerjik', 'sakin'].includes(dna.ton || '') ? dna.ton : 'ciddi') as SfxTon;
+  const plan = React.useMemo(() => sfxPlani(olaylar, ton, dna.tohum, dna.iskelet.fps || 30, dna.iskelet.sfx_orani ?? 0.5), [olaylar, ton, dna.tohum]);
+  return <SfxKatmani plan={plan} klasor={klasor} genelSes={genelSes} />;
+};
 export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[] }> = ({ dna, kelimeler }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} />);
 export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
 export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number }> = ({ dna, ...p }) => (
