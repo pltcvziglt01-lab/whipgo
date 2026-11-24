@@ -4,7 +4,7 @@
 ```powershell
 winget install --id GitHub.cli -e
 & "C:\Program Files\GitHub CLI\gh.exe" auth login --web --git-protocol https
-git clone https://github.com/<hesap>/yt-uretim C:\otomasyon\yt-uretim
+git clone https://github.com/<kullanici>/whipgo C:\otomasyon\yt-uretim
 cd C:\otomasyon\yt-uretim
 py skill\youtube-video-uretim\scripts\varlik_kur.py indir          # 35 arka plan + 26 filmburn (1080p) Release'den
 py -m pip install -U yt-dlp numpy opencv-python pillow rapidocr websocket-client librosa

@@ -76,7 +76,7 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 - Yerel yol yoksa bağlantı tarayıcıda açılır, salt-okur kullanılır (README, `kanallar/*/EDIT-DILI.md`). Yazma ve ölçüm yalnız yerel senkron klasörde yapılır.
 - Kurallar kütüphanenin `README.md`'sinde, kullanım `references/edit-dili-kutuphanesi.md`'de. Araçların tek kaynağı repodur; kütüphanedeki `_araclar/` ve `remotion/repertuar/` reponun aynasıdır (`kurulum.py ayna`).
 
-**Repo** (`C:\otomasyon\yt-uretim`, özel GitHub): `skill/` (bu skill), `repertuar/` (Remotion edit bileşenleri), `sablon-proje/` (yeni kanal motion projesi + katalog/önizleme kompozisyonları), `fontlar/`, `varlik/` (lisanslı arka plan/filmburn videoları — GitHub Release `varlik-v1`; SFX, Premiere presetleri ve öğrenilmiş preset dili — git). Kurulum ve yeni makine: repo kökündeki `KURULUM.md`.
+**Repo** (GitHub özel `whipgo`, yerel kopya `C:\otomasyon\yt-uretim`): `skill/` (bu skill), `repertuar/` (Remotion edit bileşenleri), `sablon-proje/` (yeni kanal motion projesi + katalog/önizleme kompozisyonları), `fontlar/`, `varlik/` (lisanslı arka plan/filmburn videoları — GitHub Release `varlik-v1`; SFX, Premiere presetleri ve öğrenilmiş preset dili — git). Kurulum ve yeni makine: repo kökündeki `KURULUM.md`.
 
 Sorun çıktığında önce `references/tuzaklar.md` tablosuna bak — yaşanmış hataların çoğunun hazır çözümü orada.
 
