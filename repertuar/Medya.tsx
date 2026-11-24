@@ -1,26 +1,46 @@
 import React, { useMemo } from 'react';
 import { AbsoluteFill, Img, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
-import { Stil, fbm, rastgele, rgba, sinirla } from './temel';
+import { DEKLANSOR, Stil, fbm, rastgele, rgba, sinirla } from './temel';
+import { ZamanBulanik } from './Hareket';
 
 // ---------------- KAMERA (gorsel/klip icindeki hareket) ----------------
 // klasik Claude = her fotoda 'ken-burns-ice' 1.05 + 0.015/sn. Repertuar karistirir; stil_dna 2-3 tip secer.
 export const KAMERA_TIPLERI = ['sabit', 'ken-burns-ice', 'ken-burns-disa', 'pan-sol', 'pan-sag', 'pan-yukari', 'el-kamerasi', 'zoom-darbe', 'dolly-egik', 'paralaks-cift'] as const;
 export type KameraTip = typeof KAMERA_TIPLERI[number];
 
-const kameraDonusum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1): string => {
+// kamera durumu sayisal: CSS sirasi scale(s) translate(x y) rotate(r); x/y birimi '%' (ogenin boyu) ya da 'px'.
+type KameraDurum = { s: number; x: number; y: number; birim: '%' | 'px'; r: number };
+const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1): KameraDurum => {
   const T = t * hiz;
+  const d = (s: number, x = 0, y = 0, birim: '%' | 'px' = '%', r = 0): KameraDurum => ({ s, x, y, birim, r });
   switch (tip) {
-    case 'ken-burns-ice': return `scale(${1.04 + 0.035 * T})`;
-    case 'ken-burns-disa': return `scale(${Math.max(1.02, 1.22 - 0.035 * T)})`;
-    case 'pan-sol': return `scale(1.18) translateX(${6 - 2.2 * T}%)`;
-    case 'pan-sag': return `scale(1.18) translateX(${-6 + 2.2 * T}%)`;
-    case 'pan-yukari': return `scale(1.2) translateY(${6 - 2 * T}%)`;
-    case 'el-kamerasi': { const h = tohum.length; return `scale(1.08) translate(${fbm(T * 0.9, h, 1) * 14}px, ${fbm(h, T * 0.9, 2) * 10}px) rotate(${fbm(T * 0.5, 3, h) * 0.6}deg)`; }
-    case 'zoom-darbe': { const p = sinirla(f / 6); return `scale(${1.25 - 0.17 * (1 - Math.pow(1 - p, 3)) + 0.012 * T})`; }
-    case 'dolly-egik': return `scale(${1.1 + 0.02 * T}) rotate(${-1.2 + 0.5 * T}deg)`;
-    default: return 'none';
+    case 'ken-burns-ice': return d(1.04 + 0.035 * T);
+    case 'ken-burns-disa': return d(Math.max(1.02, 1.22 - 0.035 * T));
+    case 'pan-sol': return d(1.18, 6 - 2.2 * T);
+    case 'pan-sag': return d(1.18, -6 + 2.2 * T);
+    case 'pan-yukari': return d(1.2, 0, 6 - 2 * T);
+    case 'el-kamerasi': { const h = tohum.length; return d(1.08, fbm(T * 0.9, h, 1) * 14, fbm(h, T * 0.9, 2) * 10, 'px', fbm(T * 0.5, 3, h) * 0.6); }
+    case 'zoom-darbe': { const p = sinirla(f / 6); return d(1.25 - 0.17 * (1 - Math.pow(1 - p, 3)) + 0.012 * T); }
+    case 'dolly-egik': return d(1.1 + 0.02 * T, 0, 0, '%', -1.2 + 0.5 * T);
+    default: return d(1);
   }
+};
+const kameraCss = (tip: KameraTip, k: KameraDurum) => tip === 'sabit' ? 'none'
+  : `scale(${k.s})${k.x || k.y ? ` translate(${k.x}${k.birim}, ${k.y}${k.birim})` : ''}${k.r ? ` rotate(${k.r}deg)` : ''}`;
+/** iki kamera durumu arasinda ogenin koselerinin en buyuk ekran kaymasi (px); W/H = oge boyu (kompozisyon boyu ust sinir) */
+const kameraKayma = (a: KameraDurum, b: KameraDurum, W: number, H: number) => {
+  const nokta = (k: KameraDurum, px: number, py: number) => {
+    const rr = (k.r * Math.PI) / 180, c = Math.cos(rr), sn = Math.sin(rr);
+    const tx = k.birim === '%' ? (k.x / 100) * W : k.x, ty = k.birim === '%' ? (k.y / 100) * H : k.y;
+    return [k.s * (c * px - sn * py + tx), k.s * (sn * px + c * py + ty)];
+  };
+  let m = 0;
+  for (const [px, py] of [[-W / 2, -H / 2], [W / 2, -H / 2], [-W / 2, H / 2], [W / 2, H / 2], [0, 0]]) {
+    const [x1, y1] = nokta(a, px, py), [x2, y2] = nokta(b, px, py);
+    m = Math.max(m, Math.hypot(x2 - x1, y2 - y1));
+  }
+  return m;
 };
 
 export type MedyaKaynak = { src: string; video?: boolean; bas?: number; derece?: string };
@@ -33,7 +53,7 @@ const Ham: React.FC<{ m: MedyaKaynak; style?: React.CSSProperties }> = ({ m, sty
 
 export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number; tohum?: string }> = ({ m, kamera = 'sabit', hiz = 1, tohum = 'k' }) => {
   const f = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
   if (kamera === 'paralaks-cift') {
     // sahte 2.5B: arkada bulanik buyuk kopya yavas, onde keskin kopya hizli ve hafif maskeli
@@ -44,7 +64,14 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
       </AbsoluteFill>
     );
   }
-  return <AbsoluteFill style={{ overflow: 'hidden' }}><AbsoluteFill style={{ transform: kameraDonusum(kamera, t, f, tohum, hiz) }}><Ham m={m} /></AbsoluteFill></AbsoluteFill>;
+  // hareket bulanikligi: kamera durumu deklansor araliginda (180 derece) orneklenir; yavas kamerada (kayma < 2 px) tek katman
+  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz);
+  const boy = kamera === 'sabit' ? 0 : kameraKayma(durum(-DEKLANSOR / 2), durum(DEKLANSOR / 2), W, H);
+  return (
+    <AbsoluteFill style={{ overflow: 'hidden' }}>
+      <ZamanBulanik boy={boy} donusum={(dt) => kameraCss(kamera, durum(dt))}><Ham m={m} /></ZamanBulanik>
+    </AbsoluteFill>
+  );
 };
 
 // ---------------- CERCEVE / DUZEN ----------------

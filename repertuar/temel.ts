@@ -131,6 +131,72 @@ export const egri = (ad: HareketAd, t: number): number => {
 /** kare tabanli ilerleme: gec (kare) sonra sure (kare) icinde 0..1, secilen egriyle */
 export const ilerle = (f: number, gec: number, sure: number, ad: HareketAd = 'kubik-hizli') => egri(ad, (f - gec) / Math.max(1, sure));
 
+// ---------- DOGAL HAREKET (AE hissi: kutle, kademe nefesi, ease-in cikis) ----------
+// Kaynak ilkeler (givemotion motion-design notlari, MIT): girisler kutleli yayla durur (sifir hizdan kalkar, hicbir sey
+// "pop" etmez); maske/kayma/solma girisleri asimsiz oturur, asim yalniz kahramanda ve %2'yi gecmez; cikislar ease-in
+// (yavas kalkar, hizla gider), girisin ~%65'i surer; kademeli dizilerde zamanlama tohumlu birkac yuzde oynar (ilk ve son oge
+// sabit); buyuk hareket biraz daha uzun surer. Mevcut egri()/ilerle() DEGISMEDI; bunlar yanina eklenir.
+
+/** kutleli yay, kapali form (durgun halden birakilan sonumlu salinici), t 0..1 -> 0..1, t=1'de tam 1.
+ *  sonum = sonum orani (zeta): 1 = kritik, asimsiz | 0.85 ~ %0,3 | 0.8 ~ %1,2 | 0.78 ~ %1,8 (alt sinir: asim hep < %2). */
+export const yay = (t: number, sonum = 1): number => {
+  t = sinirla(t);
+  if (t >= 1) return 1;
+  const z = sinirla(sonum, 0.78, 1);
+  let x: (u: number) => number;
+  if (z >= 0.999) {
+    const w = 7; // kritik: t=1'de kalan %0,7 normalize edilir
+    x = (u) => 1 - Math.exp(-w * u) * (1 + w * u);
+  } else {
+    const w = 6.2 / z, wd = w * Math.sqrt(1 - z * z); // zarf e^(-6.2) -> t=1'de salinim bitmis
+    x = (u) => 1 - Math.exp(-z * w * u) * (Math.cos(wd * u) + ((z * w) / wd) * Math.sin(wd * u));
+  }
+  return x(t) / x(1);
+};
+
+/** cikis egrisi (ease-in): yavas kalkar, hizla gider. Sure = giris suresinin ~%65'i (cikisSure). */
+export const cikisEgri = (t: number, us = 2.6) => Math.pow(sinirla(t), us);
+export const cikisSure = (girisSure: number) => Math.max(4, Math.round(girisSure * 0.65));
+
+/** ciddi/gizem tonda ya da maske/kayma girislerinde asim yok */
+export const ASIMSIZ_TON = ['ciddi', 'gizem'];
+/** girisin dogal karsiligi: yumusak karakterler kutleli yaya cevrilir, bilerek secilmis karakterler (esnek, geri-sekme,
+ *  ustel-sert, adim-stop, dogrusal) aynen kalir. kahraman=true yalniz tek bir oge icin (asim %1,5), digerleri asimsiz. */
+export const dogal = (ad: HareketAd, t: number, o: { ton?: string; kahraman?: boolean } = {}): number => {
+  const asim = !!o.kahraman && !ASIMSIZ_TON.includes(o.ton || '');
+  switch (ad) {
+    case 'yay-yumusak': return yay(t, asim ? 0.8 : 1);
+    case 'kubik-hizli': return yay(t, asim ? 0.85 : 1);
+    default: return egri(ad, t);
+  }
+};
+export const dogalIlerle = (f: number, gec: number, sure: number, ad: HareketAd, o: { ton?: string; kahraman?: boolean } = {}) =>
+  dogal(ad, (f - gec) / Math.max(1, sure), o);
+
+/** kademeli dizide i. ogenin baslangici, ARALIK BIRIMINDE (gec = kademe(i, n, tohum) * aralik).
+ *  Duz i*aralik yerine: dagilim hafif ease-out (ilk ogeye bir nefes, sonrakiler akar; toplam sure ayni) + ara ogelere
+ *  tohumlu +-%7 sapma. Ilk ve son oge zamanini korur (ritim kayboluyormus gibi gorunmez). Deterministik. */
+export const kademe = (i: number, n: number, tohum: string | number, egim = 0.3): number => {
+  if (n <= 1 || i <= 0) return 0;
+  const son = n - 1;
+  if (i >= son) return son;
+  const u = i / son;
+  const egik = (1 - egim) * u + egim * (1 - (1 - u) * (1 - u));
+  const r = rastgele(`${tohum}:k${i}`)();
+  return egik * son + (r * 2 - 1) * 0.07;
+};
+/** tohumlu sure carpani 1 +- oran (varsayilan %6): ayni dizideki ogeler ayni surede bitmesin */
+export const sapma = (i: number, tohum: string | number, oran = 0.06) => 1 + (rastgele(`${tohum}:s${i}`)() * 2 - 1) * oran;
+
+/** mesafeye gore sure: ref px'lik hareket 'sure' kadar; buyuk hareket alt-dogrusal uzar (0,85x..1,4x). */
+export const mesafeSure = (sure: number, mesafePx: number, ref = 120) => sure * sinirla(Math.pow(Math.max(1, Math.abs(mesafePx)) / ref, 0.2), 0.85, 1.4);
+
+/** deklansor: 180 derece (AE varsayilani) = kare suresinin yarisi, karenin ortasina oturur */
+export const DEKLANSOR = 0.5;
+/** bir degerin deklansor araligindaki degisimi (hareket bulanikligi boyu): fn(kare) -> deger */
+export const kayma = (fn: (kare: number) => number, f: number, perde = DEKLANSOR) => fn(f + perde / 2) - fn(f - perde / 2);
+
 // ---------- STIL (bilesenlere gecen tek nesne) ----------
-export type Stil = { palet: Palet; font: FontCifti; hareket: HareketAd; tohum: string };
-export const stilYap = (p?: string, f?: string, h?: HareketAd, tohum = 'x'): Stil => ({ palet: palet(p), font: fontCifti(f), hareket: h || 'kubik-hizli', tohum });
+/** ton: stil_dna.py'nin konu tonu (ciddi/gizem/enerjik/sakin); verilirse ciddi/gizem tonda hic asim olmaz */
+export type Stil = { palet: Palet; font: FontCifti; hareket: HareketAd; tohum: string; ton?: string };
+export const stilYap = (p?: string, f?: string, h?: HareketAd, tohum = 'x', ton?: string): Stil => ({ palet: palet(p), font: fontCifti(f), hareket: h || 'kubik-hizli', tohum, ton });

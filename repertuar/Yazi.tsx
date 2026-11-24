@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Stil, egri, ilerle, rastgele, rgba, sinirla } from './temel';
+import { Stil, dogalIlerle, egri, ilerle, kademe, kayma, mesafeSure, rastgele, rgba, sapma, sinirla, yay } from './temel';
+import { YonBulanik } from './Hareket';
 
 // BASLIK GIRISLERI — klasik Claude = 'asagidan-yay' (opacity + 30px yukari, yumusak yay). Repertuar onu yalniz rakip
 // ayni seyi yapmiyorsa ve en fazla 1 eksen olarak kullanir.
@@ -29,12 +30,14 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
   const f0 = useCurrentFrame();
   const { fps } = useVideoConfig();
   const f = f0 - gec;
-  const { palet, font, hareket } = stil;
+  const { palet, font, hareket, ton } = stil;
   const m = font.buyukHarf ? metin.toUpperCase() : metin;
+  // kademeli girislerin tohumu: ayni metin her renderda ayni nefesi alir, farkli metin farkli
+  const tY = stil.tohum + '|' + metin;
   const R = renk || palet.murekkep;
   const temel: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: boyut, lineHeight: 1.04, letterSpacing: font.aralik, color: R, maxWidth: maxGenislik, margin: 0 };
   const ustSatir = ust ? (
-    <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: boyut * 0.24, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: boyut * 0.22, opacity: sinirla(f / 10) }}>{ust}</div>
+    <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: boyut * 0.24, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: boyut * 0.22, opacity: yay(f / 12) }}>{ust}</div>
   ) : null;
   const sure = Math.round(fps * 0.7);
   let govde: React.ReactNode;
@@ -42,15 +45,18 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
   switch (tip) {
     case 'maske-yukari': {
       const satirlar = bolSatir(m, Math.max(8, Math.floor(maxGenislik / (boyut * 0.55))));
+      // maske girisi: asimsiz oturur; satirlar ayni aralikla degil, nefesli kademeyle; hizli anda dikey hareket bulanikligi
+      const su = mesafeSure(sure, boyut * 1.15);
       govde = satirlar.map((s, i) => {
-        const p = ilerle(f, i * 5, sure, hareket);
-        return <div key={i} style={{ overflow: 'hidden', paddingBottom: boyut * 0.06 }}><div style={{ ...temel, transform: `translateY(${(1 - p) * 110}%)` }}>{s}</div></div>;
+        const pf = (k: number) => dogalIlerle(k, kademe(i, satirlar.length, tY) * 5, su * sapma(i, tY), hareket, { ton });
+        const p = pf(f);
+        return <div key={i} style={{ overflow: 'hidden', paddingBottom: boyut * 0.06 }}><YonBulanik dy={kayma(pf, f) * boyut * 1.15} style={{ ...temel, transform: `translateY(${(1 - p) * 110}%)` }}>{s}</YonBulanik></div>;
       });
       break;
     }
     case 'harf-dalga':
-      govde = <div style={temel}>{m.split('').map((c, i) => {
-        const p = ilerle(f, i * 1.6, sure * 0.7, hareket === 'yay-yumusak' ? 'geri-sekme' : hareket);
+      govde = <div style={temel}>{m.split('').map((c, i, d) => {
+        const p = dogalIlerle(f, kademe(i, d.length, tY, 0.2) * 1.6, sure * 0.7 * sapma(i, tY, 0.07), hareket === 'yay-yumusak' ? 'geri-sekme' : hareket, { ton });
         return <span key={i} style={{ display: 'inline-block', whiteSpace: 'pre', opacity: sinirla(p * 2), transform: `translateY(${(1 - p) * boyut * 0.5}px) rotate(${(1 - p) * 12}deg)` }}>{c}</span>;
       })}</div>;
       break;
@@ -85,10 +91,14 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
     }
     case 'dikey-yigin': {
       const k = m.split(' ');
+      // 260 px'lik kayma buyuk hareket: sure mesafeyle uzar; son (vurgu) kelime kahraman, tonu izin verirse en cok %1,2 asar
+      const su = mesafeSure(sure, 260);
       govde = k.map((w, i) => {
-        const p = ilerle(f, i * 6, sure, hareket);
+        const son = i === k.length - 1;
+        const pf = (x: number) => dogalIlerle(x, kademe(i, k.length, tY) * 6, su * sapma(i, tY), hareket, { ton, kahraman: son });
+        const p = pf(f);
         const yon = i % 2 === 0 ? -1 : 1;
-        return <div key={i} style={{ ...temel, fontSize: boyut * (i === k.length - 1 ? 1.25 : 1), color: i === k.length - 1 ? palet.vurgu : R, transform: `translateX(${yon * (1 - p) * 260}px)`, opacity: sinirla(p * 1.5), lineHeight: 0.95 }}>{w}</div>;
+        return <YonBulanik key={i} dx={kayma(pf, f) * 260} style={{ ...temel, fontSize: boyut * (son ? 1.25 : 1), color: son ? palet.vurgu : R, transform: `translateX(${yon * (1 - p) * 260}px)`, opacity: sinirla(p * 1.5), lineHeight: 0.95 }}>{w}</YonBulanik>;
       });
       break;
     }
@@ -133,12 +143,14 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
       govde = (
         <div style={{ ...temel, display: 'flex', flexWrap: 'wrap', justifyContent: konum === 'orta' || konum === 'ust-orta' ? 'center' : 'flex-start', columnGap: boyut * 0.24, rowGap: boyut * 0.1 }}>
           {kel.map((k, i) => {
-            const p = ilerle(f, i * 3, sure * 0.6, hareket);
-            const q = ilerle(f, i * 3 + sure * 0.35, sure * 0.5, 'ustel-sert');
+            const g = kademe(i, kel.length, tY) * 3;
+            const pf = (x: number) => dogalIlerle(x, g, sure * 0.6 * sapma(i, tY), hareket, { ton });
+            const p = pf(f);
+            const q = ilerle(f, g + sure * 0.35, sure * 0.5, 'ustel-sert');
             return (
               <div key={i} style={{ overflow: 'hidden', position: 'relative', padding: k.v ? `0 ${boyut * 0.12}px` : 0 }}>
                 {k.v ? <div style={{ position: 'absolute', inset: `${boyut * 0.04}px 0`, background: palet.vurgu, transform: `scaleX(${q})`, transformOrigin: 'left' }} /> : null}
-                <div style={{ position: 'relative', transform: `translateY(${(1 - p) * 105}%)`, color: k.v && q > 0.5 ? (palet.acik ? palet.zemin : '#ffffff') : R }}>{k.w}</div>
+                <YonBulanik dy={kayma(pf, f) * boyut * 1.1} style={{ position: 'relative', transform: `translateY(${(1 - p) * 105}%)`, color: k.v && q > 0.5 ? (palet.acik ? palet.zemin : '#ffffff') : R }}>{k.w}</YonBulanik>
               </div>
             );
           })}

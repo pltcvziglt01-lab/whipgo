@@ -31,7 +31,8 @@ export type Dna = {
   /** ikinci baslik girisi: ardisik kartlar donusumlu (yoksa hep baslik) */
   baslik2?: BaslikTip;
 };
-export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum);
+// ton Stil'e gecer: ciddi/gizem tonda dogal yay asimsiz (temel.ts ASIMSIZ_TON)
+export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum, d.ton);
 
 /** arka plan rolleri: 0 = kart/sayi/liste zemini, 1 = cerceveli medyanin arkasi, 2 = bolum basligi */
 export const DnaArkaplan: React.FC<{ dna: Dna; rol?: 0 | 1 | 2 }> = ({ dna, rol = 0 }) => <Arkaplan tip={dna.arkaplan[rol % dna.arkaplan.length]} stil={dnaStil(dna)} />;
