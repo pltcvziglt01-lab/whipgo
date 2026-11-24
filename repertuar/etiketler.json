@@ -2953,6 +2953,26 @@
    "his": [
     "klasik"
    ]
+  },
+  "derin-deniz": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "deniz",
+    "gizem",
+    "tarih",
+    "bilim",
+    "seyahat"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "karanlik",
+    "belgesel"
+   ]
   }
  },
  "font": {

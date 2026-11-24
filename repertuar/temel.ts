@@ -62,6 +62,8 @@ export const PALETLER: Record<string, Palet> = {
   'zeytin-askeri':   { ad: 'zeytin-askeri',   zemin: '#22261b', zemin2: '#353b29', murekkep: '#eae6d4', soluk: '#a7a68a', vurgu: '#e0b23a', vurgu2: '#c75b39', acik: false },
   'grafit-neon':     { ad: 'grafit-neon',     zemin: '#121314', zemin2: '#1f2124', murekkep: '#f4f4f0', soluk: '#9a9c9f', vurgu: '#c6ff3d', vurgu2: '#7a7cff', acik: false },
   'bordo-krem':      { ad: 'bordo-krem',      zemin: '#2a0d12', zemin2: '#4a1820', murekkep: '#f6eadb', soluk: '#c9a9a0', vurgu: '#f0c987', vurgu2: '#e86a5c', acik: false },
+  // derin-deniz: lacivert abis zemini + deniz turkuazi; ikinci vurgu soluk fener sarisi (deniz gizemi / denizcilik tarihi)
+  'derin-deniz':     { ad: 'derin-deniz',     zemin: '#071a24', zemin2: '#0d2c3b', murekkep: '#e6f3f6', soluk: '#7fa3b0', vurgu: '#4fd1c5', vurgu2: '#e9c46a', acik: false },
   'gece-turkuaz':    { ad: 'gece-turkuaz',    zemin: '#0b1320', zemin2: '#13233a', murekkep: '#eaf2ff', soluk: '#8ea3c0', vurgu: '#2ee6c5', vurgu2: '#ffb547', acik: false },
   'kahve-turuncu':   { ad: 'kahve-turuncu',   zemin: '#1e140d', zemin2: '#3a2517', murekkep: '#f8ecdc', soluk: '#bba08a', vurgu: '#ff8a1f', vurgu2: '#6fc3df', acik: false },
   'kirmizi-zemin':   { ad: 'kirmizi-zemin',   zemin: '#c8251c', zemin2: '#a51b14', murekkep: '#fff6ea', soluk: '#ffd2c4', vurgu: '#111111', vurgu2: '#ffd23f', acik: false },

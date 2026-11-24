@@ -162,7 +162,7 @@ ALTYAZI_AILE = {'kelime-pop': 'kelime', 'tek-kelime': 'kelime', 'vurgu-kalem': '
                 'kutulu': 'kutulu', 'sinema': 'sinema', 'yok': 'yok'}
 PALET_SINIF = {'kum-terrakota': 'acik', 'gazete-sepya': 'acik', 'buz-kobalt': 'acik', 'nane-krem': 'acik', 'pastel-lila': 'acik', 'beton-sari': 'acik',
                'synth-mor': 'koyu-renkli', 'orman-altin': 'koyu-renkli', 'okyanus-mercan': 'koyu-renkli', 'bordo-krem': 'koyu-renkli', 'kahve-turuncu': 'koyu-renkli',
-               'zeytin-askeri': 'koyu-notr', 'grafit-neon': 'koyu-notr', 'gece-turkuaz': 'koyu-notr',
+               'zeytin-askeri': 'koyu-notr', 'grafit-neon': 'koyu-notr', 'gece-turkuaz': 'koyu-notr', 'derin-deniz': 'koyu-renkli',
                'kirmizi-zemin': 'doygun-zemin', 'mavi-zemin': 'doygun-zemin', 'gece-kirmizi': 'koyu-notr'}
 # repertuar ogesi -> kutuphane teknikler/<ad> (kanit sayimi icin)
 TEKNIK = {
