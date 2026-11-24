@@ -6,7 +6,7 @@ Kullanim:
 FAIL  herhangi bir 1 sn pencerede ekranin dortte birinden buyuk bolgede > 3 flas (flas = parlaklikta >= %10'luk
       karsit iki degisim ve koyu taraf < 0,8 goreli parlaklik; kirmizi doygun flas da sayilir) — glitch / flas /
       isik-patlamasi gecisleri art arda gelince olur; nobet riski, YouTube isaretleyebilir
-      ses kirpilmasi: |ornek| >= 0,999 en az 3 ardisik ornek (tepe kirpik)
+      ses kirpilmasi: herhangi bir KANALDA |ornek| >= 0,999 en az 3 ardisik ornek (kanal basina olculur; mono inis kullanilmaz)
 UYARI ani ses dusmesi: konusma ortasinda 30 ms'den kisa tam sessizlik (kesik/dropout)
 Cikis kodu: FAIL varsa 1.
 """
@@ -73,18 +73,39 @@ def flas_say(yol):
     return fps, olaylar
 
 
-def ses_kontrol(yol):
-    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', yol, '-vn', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-'], capture_output=True)
-    x = np.frombuffer(r.stdout, np.float32)
-    if not len(x):
-        return [], []
-    tepe = np.abs(x) >= 0.999
+def kanal_say(yol):
+    r = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'a:0', '-show_entries', 'stream=channels', '-of', 'csv=p=0', yol], capture_output=True, text=True)
+    try:
+        return max(1, int(r.stdout.strip().strip(',').splitlines()[0].strip(',')))
+    except Exception:
+        return 2
+
+
+def kirpik_bul(X, sr=48000):
+    """X: (ornek, kanal). Kirpik = herhangi bir kanalda |x| >= 0,999 en az 3 ardisik ornek (kanallar ayri olculur)."""
     kirpik = []
-    if tepe.any():
+    for k in range(X.shape[1]):
+        tepe = np.abs(X[:, k]) >= 0.999
+        if not tepe.any():
+            continue
         idx = np.flatnonzero(tepe)
         bas = idx[np.r_[True, np.diff(idx) > 1]]
         son = idx[np.r_[np.diff(idx) > 1, True]]
-        kirpik = [(b / 48000, e - b + 1) for b, e in zip(bas, son) if e - b + 1 >= 3]
+        kirpik += [(b / sr, e - b + 1) for b, e in zip(bas, son) if e - b + 1 >= 3]
+    return sorted(kirpik)
+
+
+def ses_kontrol(yol):
+    # -ac verilmez: mono inis ffmpeg pan yasasiyla L+R'yi 1'in ustune tasiyip sahte kirpik uretiyordu
+    n_k = kanal_say(yol)
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', yol, '-vn', '-ar', '48000', '-f', 'f32le', '-'], capture_output=True)
+    x = np.frombuffer(r.stdout, np.float32)
+    x = x[:len(x) // n_k * n_k]
+    if not len(x):
+        return [], []
+    X = x.reshape(-1, n_k)
+    kirpik = kirpik_bul(X)
+    x = X.mean(1)          # dropout olcumu mono ortalama ile
     # dropout: enerjili iki bolge arasinda < 30 ms tam sessizlik
     w = 480  # 10 ms
     n = len(x) // w

@@ -10,7 +10,7 @@ Kontroller (videonun kendi fps'inde, kucuk gri karelerle):
         tam siyah bolum (>=0,5 sn, piksellerin %99,8'i siyah; ilk/son 0,3 sn haric; koyu tasarim/altyazili kare sayilmaz) · donmus goruntu (>=2 sn tam durgun)
         tek karelik sicrama (bir kare oncesinden ve sonrasindan farkli, ikisi birbirine benzer)
         3 sn'den uzun sessizlik (son 2 sn haric) · LUFS hedef±1 disi · gercek tepe > -1 dBTP
-        metin verildiyse: konusmada okunmayan cumle orani > %5 (faster-whisper gerekir)
+        metin verildiyse: konusmada okunmayan cumle orani > %5 (faster-whisper gerekir; @direktif satirlari atilir, yazili sayilar rakamla esitlenir)
         brief verildiyse: sure / en-boy / duragan pay / zorunlu satir
   UYARI duragan (Ken Burns'suz) kare payi > %35 · 8 sn'den uzun hareketsiz cekim
         arka arkaya ayni kadraj (kesimden once/sonra cok benzer) · ayni gorselin baska yerde tekrari
@@ -86,13 +86,103 @@ def ses_olc(yol, hedef):
     return (float(I[-1]) if I else None), (float(tp[-1]) if tp else None), list(zip(bas, son))
 
 
+_EN_BIRIM = {w: i for i, w in enumerate('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split())}
+_EN_BIRIM['nil'] = 0
+_EN_ONLU = {w: 10 * (i + 2) for i, w in enumerate('twenty thirty forty fifty sixty seventy eighty ninety'.split())}
+_DE_BIRIM = {'null': 0, 'ein': 1, 'eins': 1, 'eine': 1, 'zwei': 2, 'drei': 3, 'vier': 4, 'funf': 5, 'fünf': 5, 'sechs': 6, 'sieben': 7, 'acht': 8,
+             'neun': 9, 'zehn': 10, 'elf': 11, 'zwolf': 12, 'zwölf': 12, 'dreizehn': 13, 'vierzehn': 14, 'funfzehn': 15, 'fünfzehn': 15,
+             'sechzehn': 16, 'siebzehn': 17, 'achtzehn': 18, 'neunzehn': 19}
+_DE_ONLU = {'zwanzig': 20, 'dreissig': 30, 'dreißig': 30, 'vierzig': 40, 'funfzig': 50, 'fünfzig': 50, 'sechzig': 60, 'siebzig': 70,
+            'achtzig': 80, 'neunzig': 90}
+
+
+def _de_birlesik(w):
+    """Almanca tek kelimelik sayi (einundzwanzig, dreihundert, zweitausend ...) -> int ya da None."""
+    if w in _DE_BIRIM:
+        return _DE_BIRIM[w]
+    if w in _DE_ONLU:
+        return _DE_ONLU[w]
+    for ayr, carp in (('tausend', 1000), ('hundert', 100)):
+        if ayr in w:
+            sol, sag = w.split(ayr, 1)
+            a = 1 if sol == '' else _de_birlesik(sol)
+            b = 0 if sag == '' else _de_birlesik(sag.lstrip('und') if sag.startswith('und') else sag)
+            if a is not None and b is not None:
+                return a * carp + b
+            return None
+    if 'und' in w:
+        sol, sag = w.split('und', 1)
+        a, b = _de_birlesik(sol), _de_birlesik(sag)
+        if a is not None and b is not None and a < 10 and b in _DE_ONLU.values():
+            return a + b
+    return None
+
+
+def _yil_bol(n):
+    """1100-2099 arasi tam sayi yil gibi okunur (2026 = twenty twenty-six): iki tarafta da 2'li bolunur."""
+    return [str(n // 100), '%02d' % (n % 100)] if 1100 <= n <= 2099 else [str(n)]
+
+
+def sayilari_esitle(metin, dil=None):
+    """Kelime listesi dondurur; yazili sayilar ('twenty-one', 'one hundred and sixteen') ile rakamlar ('21', '116') ayni bicime gelir.
+    Birim-birim kelimeler ayri sayi kalir ('two-one' = '2 1'); 'million/billion' kelime olarak kalir ('116 million')."""
+    de = (dil or '').lower().startswith('de')
+    birim, onlu = (_DE_BIRIM, _DE_ONLU) if de else (_EN_BIRIM, _EN_ONLU)
+    t = re.sub(r'(?<=\d)[,.](?=\d{3})', '', metin.lower())
+    kel = re.findall(r'\w+', t)
+    out = []
+    top = grp = 0
+    son = None   # None: acik sayi yok; 'u' birim/ongun-bitti, 'o' onlu, 'h' yuzlu, 't' binli
+
+    def deger(w):
+        if de:
+            return _de_birlesik(w)
+        return birim.get(w, onlu.get(w))
+
+    def kapat():
+        nonlocal top, grp, son
+        if son is not None:
+            out.extend(_yil_bol(top + grp))
+        top = grp = 0
+        son = None
+    for i, w in enumerate(kel):
+        v = deger(w)
+        if w.isdigit():
+            kapat()
+            out += _yil_bol(int(w)) if len(w) <= 4 else [w]
+        elif w in ('hundred', 'hundert') and son in ('u', 'o'):
+            grp = max(grp, 1) * 100 if son == 'u' and grp < 10 else grp * 100
+            son = 'h'
+        elif w in ('thousand', 'tausend') and son is not None:
+            top += max(grp, 1) * 1000
+            grp, son = 0, 't'
+        elif w in ('and', 'und') and son in ('h', 't') and i + 1 < len(kel) and deger(kel[i + 1]) is not None:
+            continue
+        elif v is not None:
+            if son in ('h', 't') and v < 100:
+                grp += v
+                son = 'u' if v < 20 else 'o'
+            elif son == 'o' and 1 <= v <= 9 and not de:
+                grp += v
+                son = 'u'
+            else:
+                kapat()
+                grp, son = v, ('u' if v < 20 else 'o')
+        else:
+            kapat()
+            out.append(w)
+    kapat()
+    return out
+
+
 def konusma_kontrol(yol, metin_yol, dil):
     try:
         from faster_whisper import WhisperModel
     except ImportError:
         return None, 'faster-whisper yok (py -m pip install faster-whisper) -> metin kontrolu atlandi'
     metin = open(metin_yol, encoding='utf-8-sig').read()
-    metin = '\n'.join(s for s in metin.splitlines() if not s.lstrip().startswith('#'))
+    # kurgu direktifleri konusulmaz: '#' bolum basligi, '@...' satirlari ve satir ici '@etiket' parcalari
+    metin = '\n'.join(re.sub(r'@\S+', ' ', s) for s in metin.splitlines() if not s.lstrip().startswith(('#', '@')))
     cumleler = [c.strip() for c in re.split(r'(?<=[.!?…。！？])\s+', metin) if len(c.split()) >= 3]
     try:  # pip ile gelen nvidia DLL'leri (cublas/cudnn) Windows'ta yol'a eklenmezse CUDA acilmaz
         import glob, nvidia
@@ -111,12 +201,12 @@ def konusma_kontrol(yol, metin_yol, dil):
         duyulan = coz('cuda', 'float16')
     except Exception:
         duyulan = coz('cpu', 'int8')
-    dk = re.findall(r'\w+', duyulan.lower())
+    dk = sayilari_esitle(duyulan, dil)
     uclu = {tuple(dk[i:i + 3]) for i in range(len(dk) - 2)}
     ikili = {tuple(dk[i:i + 2]) for i in range(len(dk) - 1)}
     eksik = []
     for c in cumleler:
-        ck = re.findall(r'\w+', c.lower())
+        ck = sayilari_esitle(c, dil)
         if len(ck) < 3:
             continue
         # cumlenin kelime uclulerinin kaci duyulan metinde var (ikili ile yumusatilir: tek kelime STT hatasi cezalanmasin)

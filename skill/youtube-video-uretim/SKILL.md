@@ -169,7 +169,7 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `yazi_senkron.py video.mp4 [--sozler altyazi.vtt|kelimeler.json]` | **ekran yazısı–ses senkronu ölçümü** (rakip ya da bizim final): 0,25 sn OCR, yazı öğeleri, okuma ihtiyacı, gecikme, ses bitmeden kaybolma → `yazi-senkron.json`; `kanal_isle.py` rakip videosunda otomatik çalıştırır, `kurgu_denetim.py` rakip hedefi olarak okur |
 | `kusur_kontrol.py final.mp4` | **render sonrası kusur kapısı** (FAIL = teslim yok): saniyede > 3 flaş (WCAG 2.3.1, nöbet riski; glitch/flaş geçişleri art arda), ses kırpılması, ani ses düşmesi |
 | `kalite_kapisi.py final.mp4 --metin metin.txt --dil de [--brief brief.json]` | **render sonrası kapı** (FAIL = teslim yok): ölü kanca, siyah/donmuş, tek karelik sıçrama, sessizlik, LUFS/tepe, okunmayan cümle, durağan pay, tekrar eden görsel |
-| `yazi_kontrol.py final.mp4` | ekran yazısı: kesik/kenarda, güvenli alan (Shorts telefon arayüzü), üst üste, kontrast < 3:1, bozuk okuma |
+| `yazi_kontrol.py final.mp4 --plan props.json` | ekran yazısı: kesik/kenarda, güvenli alan (Shorts telefon arayüzü), üst üste, kontrast < 3:1, bozuk okuma. **`--plan` ile yalnız BİZİM yazılarımız denetlenir** (kaynak görüntüdeki pano/altyazı tek satır UYARI); bizim yazı ile kaynak yazısının çakışması UYARI |
 | `karsilastir.py --biz analiz.json --ref r1 r2 r3 [--biz-video --ref-video]` | bizim final vs rakip: iskelet tablosu (±%20), tutmayan satıra eylem, yan yana sayfa |
 | `ses_miks.py --vo vo.mp3 --muzik m.mp3 --sfx sfx.json --video ham.mp4 --cikti final.mp4` / `--vurus m.mp3` | konuşma sıkıştırma + müzik kısma (sidechain) + zamanlı SFX + iki geçişli −14 LUFS; hız değişmez. Vuruş haritası (librosa) |
 | `youtube_kaynak.py ara "sorgu"` / `indir <id> --bas --son` / `kare <id> --anlar` | YouTube'dan CC BY gerçek görüntü: lisans doğrulamalı arama, aralık indirme, kare; `KAYNAKCA.tsv` |
@@ -201,7 +201,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] `kurgu_denetim.py --plan` PASS (render öncesi); SFX katmanı var (`DnaSfx`)
 - [ ] `kusur_kontrol.py` PASS
 - [ ] **İzleyici gibi izle:** finalden her bölümden kareler (qc ızgarası) ve telefon boyutunda (~360 px) bak: yazı ince/küçük mü, arka planla karışıyor mu, okunmadan mı gidiyor, aynı animasyon tekrar mı ediyor. Sayılar temiz çıksa da bu bakış atlanmaz
-- [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7
+- [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py --plan props.json` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7
 - [ ] Ses orijinal hızında (hız parametresi/atempo yok)
 - [ ] Gerçek görüntü varsa hepsi CC BY ya da izinli, atıflar açıklamada
 - [ ] Rakip analiz klasöründe (yerel) indirilmiş video kalmadı (`temizle.py`), kütüphaneye de video konmaz
