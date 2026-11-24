@@ -88,6 +88,12 @@ def k_etiketler():
     for e in E:
         if e in EKSEN.values() and e not in T:
             ekle('UYARI', 'etiket', f'etiketler.json ekseni {e} icin *_TIPLERI bulunamadi')
+    # her gecis tipinin stil_dna GECIS_AILE'de ailesi olmali (rakip farki + YouTube kaniti aileden hesaplanir)
+    sdk = oku(os.path.join(BURASI, 'stil_dna.py'))
+    ga = sdk[sdk.index('GECIS_AILE = {'):sdk.index('}', sdk.index('GECIS_AILE = {'))]
+    ailesiz = [g for g in T.get('gecis', []) if g != 'sert' and f"'{g}':" not in ga]
+    if ailesiz:
+        ekle('FAIL', 'etiket', f'stil_dna.py GECIS_AILE tablosunda ailesi olmayan gecis: {ailesiz}')
     ekle('FAIL' if eksik else 'OK', 'etiket', f'etiketsiz oge: {", ".join(eksik)}' if eksik else f'{sum(map(len, T.values()))} oge etiketli')
     if yetim:
         ekle('UYARI', 'etiket', f'tipte olmayan etiket (silinmis/yeniden adlandirilmis?): {", ".join(yetim)}')
@@ -191,14 +197,13 @@ def k_ts(projeler):
 def k_motor(T):
     konular = [('askeri', 'D-Day landing failures at Omaha beach soldiers'), ('futbol', 'Why Man City cannot win without Pep Guardiola football'),
                ('teknoloji', 'The magnet-free electric motor that changes EV engineering'), ('gizem', 'A submarine vanished in 1945 and was found 46 years later')]
-    kut = kutuphane()
-    rakip = '@ImmersivePast' if kut and os.path.isdir(os.path.join(kut, 'kanallar', '@ImmersivePast')) else None
+    # rakipsiz (yalniz konsept): motor nis iskeletini kutuphaneden bulmali ve tonu konudan dogru cikarmali
+    BEKLENEN_TON = {'askeri': {'ciddi'}, 'futbol': {'enerjik'}, 'teknoloji': {'enerjik', 'ciddi'}, 'gizem': {'gizem', 'ciddi'}}
+    paletler = []
     for ad, konu in konular:
         d = tempfile.mkdtemp(prefix='dogrula-dna-')
         try:
-            cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', konu, '--cikti', d, '--tohum', 'dogrula-' + ad]
-            if rakip:
-                cmd += ['--rakip', rakip]
+            cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', konu, '--cikti', d, '--tohum', 'dogrula-' + ad, '--secenek', '1']
             r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
             if r.returncode:
                 ekle('FAIL', 'motor', f'stil_dna ({ad}) hata: {r.stderr.strip()[-300:]}')
@@ -221,11 +226,16 @@ def k_motor(T):
                 hata.append(f'tona uymayan oge {max(uymayan)}')
             if not dna.get('ton'):
                 hata.append('ton yok')
+            elif dna['ton'] not in BEKLENEN_TON[ad]:
+                hata.append(f"ton {dna['ton']} (beklenen {'/'.join(sorted(BEKLENEN_TON[ad]))})")
+            paletler.append(dna.get('palet'))
             ekle('FAIL' if hata else 'OK', 'motor', f'{ad}: ' + (', '.join(hata) if hata else f"ton {dna.get('ton')}, palet {dna.get('palet')}, bitis {dna.get('bitis')}, baslik {dna.get('baslik')}/{dna.get('baslik2')}"))
         except Exception as e:
             ekle('FAIL', 'motor', f'{ad}: {e}')
         finally:
             shutil.rmtree(d, ignore_errors=True)
+    if len(paletler) >= 3 and len(set(paletler)) == 1:
+        ekle('UYARI', 'motor', f'4 farkli konu ayni paleti aldi ({paletler[0]}): secim konuya yeterince bakmiyor')
 
 
 def kutuphane():

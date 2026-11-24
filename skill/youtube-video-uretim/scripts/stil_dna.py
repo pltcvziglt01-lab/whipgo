@@ -152,7 +152,8 @@ def kagit_sayisi(d):
 # ---------------- aileler ve kutuphane teknik eslemesi ----------------
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
-              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma', 'renk-bandi': 'maske', 'zoom-icinden': 'zoom'}
+              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma', 'renk-bandi': 'maske', 'zoom-icinden': 'zoom',
+              'kareli-kagit': 'maske', 'supurme-inset': 'hareket', 'bulanik-hayalet': 'karartma', 'tint-sizinti': 'flas'}
 RAKIP_GECIS_AILE = [('siyaha', 'karartma'), ('cozunme', 'karartma'), ('beyaza', 'flas'), ('isik', 'flas'), ('flas', 'flas'), ('glitch', 'glitch'),
                     ('kaydirma', 'hareket'), ('whip', 'hareket'), ('itme', 'hareket'), ('zoom_gecis', 'zoom'), ('wipe', 'maske'), ('maske', 'maske')]
 CERCEVE_RAKIP = {'cerceveli_bulanik': 'bulanik-kopya', 'cerceveli_duz_renk': 'inset-golge', 'letterbox': 'letterbox', 'bolunmus': 'bolunmus',
@@ -297,6 +298,7 @@ class Etiket:
 
 
 ETK = Etiket({}, None, {}, None, {})  # dna_uret basinda kurulur
+YT = None  # youtube_dili.YoutubeDili (main'de konu agirliklariyla kurulur)
 # --ton: nise uygun olmayan yuzeyi eler (savas belgeseline pastel lila, saglik kanalina CRT tarama gelmesin)
 TON = {
     'ciddi': {'palet': ['gazete-sepya', 'zeytin-askeri', 'bordo-krem', 'gece-turkuaz', 'grafit-neon', 'kahve-turuncu', 'okyanus-mercan', 'beton-sari', 'kum-terrakota', 'buz-kobalt', 'orman-altin'],
@@ -357,7 +359,17 @@ def ton_bul(metin):
     return (sira[0] if puan[sira[0]] else 'ciddi'), puan, esl
 
 
+_KM = {}
+
+
 def kanal_metni(kd):
+    """(Drive okumasi yavas: surec icinde onbellekli)"""
+    if kd not in _KM:
+        _KM[kd] = _kanal_metni(kd)
+    return _KM[kd]
+
+
+def _kanal_metni(kd):
     """kutuphane kanal klasoru -> nis satiri + video basliklari + etiket/not (ton ve nis eslestirmesi icin)"""
     par = []
     ed = os.path.join(kd, 'EDIT-DILI.md')
@@ -382,6 +394,23 @@ def nis_otomatik(kut, metin, n=4):
     kp, _ = konu_bul(metin)
     ton, _, _ = ton_bul(metin)
     aday = []
+    # hizli yol: youtube-dili.json kanal basina konu/ton tasir (Drive taranmaz); yoksa kutuphane taranir
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from youtube_dili import YoutubeDili
+        ix = YoutubeDili.yukle().d.get('kanallar') or {}
+    except Exception:
+        ix = {}
+    if ix:
+        for ad, k in ix.items():
+            ortus = sum(min(kp.get(c, 0), v) for c, v in (k.get('konu') or {}).items())
+            aday.append((ortus, 1 if k.get('ton') == ton else 0, ad))
+        aday.sort(key=lambda x: (-x[0], -x[1], x[2]))
+        sec = [a for a in aday if a[0] > 0][:n] or [a for a in aday if a[1]][:n] or aday[:n]
+        sec = [a for a in sec if glob.glob(os.path.join(kut, 'kanallar', a[2], 'video-*', 'editdili', 'edit-dili.json'))]
+        if sec:
+            return [a[2] for a in sec]
+        aday = []
     for kd in glob.glob(os.path.join(kut, 'kanallar', '*')):
         ad = os.path.basename(kd)
         if not os.path.isfile(os.path.join(kd, 'kanal.json')) or not glob.glob(os.path.join(kd, 'video-*', 'editdili', 'edit-dili.json')):
@@ -400,6 +429,29 @@ def nis_kanallari(kut, rakip, ton, anahtar, n=12):
     """kutuphanede ayni tondaki (tercihen ayni konudaki) kanallarin olculmus yuzeyi -> secime agirlik + STIL-DNA kaniti"""
     if not kut:
         return []
+    # hizli yol: youtube-dili.json (kanal basina ton, konu, olculmus yuzey) — Google Drive taranmaz (taramak dakikalar suruyor)
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from youtube_dili import YoutubeDili
+        ix = YoutubeDili.yukle().d.get('kanallar') or {}
+    except Exception:
+        ix = {}
+    if ix:
+        kp, _ = konu_bul(anahtar or '')
+        out = []
+        for ad, k in ix.items():
+            if rakip and ad.lower() == rakip.lower():
+                continue
+            if k.get('ton') != ton:
+                continue
+            ortak = round(10 * sum(min(kp.get(c, 0), v) for c, v in (k.get('konu') or {}).items()), 2)
+            aile = sorted(a for a, o in (k.get('gecis') or {}).items() if a != 'sert' and o >= 0.03)
+            pal = k.get('palet') or {}
+            ps = max(pal, key=pal.get) if pal else 'koyu-notr'
+            cer = sorted(c for c, o in (k.get('cerceve') or {}).items() if c != 'tam' and o >= 0.04)
+            out.append({'kanal': ad, 'ortak': ortak, 'oran': k.get('oran'), 'gecis_aileleri': aile, 'palet_sinif': ps, 'cerceve': cer})
+        out.sort(key=lambda x: (-x['ortak'], -(x['oran'] or 0)))
+        return out[:n]
     akel = {w for w in re.findall(r'[a-zçğıöşü0-9]{4,}', (anahtar or '').lower())} - {'with', 'that', 'this', 'from', 'video', 'kanal', 'edit', 'format'}
     out = []
     for kd in glob.glob(os.path.join(kut, 'kanallar', '*')):
@@ -577,7 +629,8 @@ def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile
         aday = [x for x in havuz if x not in yasak] or list(havuz)
     out = []
     while aday and len(out) < n:
-        w = [(agirlik or {}).get(x, 1.0) * (ETK.uyum(eksen, x) if eksen else 1.0) * (0.3 if x in kacin else 1.0) / (1 + (kullanim or {}).get(x, 0)) for x in aday]
+        # YT: YouTube kullanim kaniti (youtube_dili.py; nis + genel, basari agirlikli) 0.6-1.4; eslenemeyen oge 1.0
+        w = [(agirlik or {}).get(x, 1.0) * (ETK.uyum(eksen, x) if eksen else 1.0) * (YT.carpan(eksen, x) if (YT and eksen) else 1.0) * (0.3 if x in kacin else 1.0) / (1 + (kullanim or {}).get(x, 0)) for x in aday]
         x = r.choices(aday, weights=w)[0]
         out.append(x)
         aday = [y for y in aday if y != x and (not aile or aile.get(y) != aile.get(x) or len(aday) <= n)]
@@ -659,7 +712,9 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
         dna['vurgu'] = v
         dna['kayma'] = sec(r, kay, gecmis=g('kayma'), eksen='kayma', kullanim=kul, kacin=k2('kayma'))[0] if kay else None
     kam = L('Medya.tsx', 'KAMERA_TIPLERI')
-    dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], yasak=tuple(Y['kamera']), gecmis=g('kamera'), eksen='kamera', kullanim=kul, n=3, kacin=k2('kamera'))
+    # kamera hareketi GENEL YouTube dilidir (Ken Burns herkesin): rakipte olsa da serbest, YouTube kaniti + konuyla secilir.
+    # Ozgunluk ayirt edici yuzeyden gelir (palet, font, baslik, kartlar, cerceve, gecis ailesi).
+    dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], gecmis=g('kamera'), eksen='kamera', kullanim=kul, n=3, kacin=k2('kamera'))
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
     dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
     bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik']]
@@ -711,6 +766,41 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     dna['ton'] = ton or '-'
     return dna
 
+UYUM_EKSEN = ['palet', 'font', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'baslik2', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman',
+              'doku', 'bitis', 'harita', 'grafik', 'hud']
+
+
+_EN = {}
+
+
+def _eksen_en(e):
+    """eksendeki en uygun ogenin (etiket uyumu x YouTube kaniti) degeri — goreli uyum icin; ETK/YT degisince yeniden"""
+    k = (id(ETK), id(YT), e)
+    if k not in _EN:
+        vals = [(ETK.uyum(e, x) if ETK.et else 1.0) * (YT.carpan(e, x) if YT else 1.0) for x in ((ETK.et or {}).get(e) or {}) if not x.startswith('_')]
+        _EN[k] = max(vals) if vals else 1.0
+    return _EN[k]
+
+
+def uyum_puani(d):
+    """DNA'nin konsepte GORELI uyumu: her secilen oge, kendi eksenindeki en uygun secenege ne kadar yakin
+    (log(oge / eksenin_en_iyisi), 0 = en uygun). Secim dongusu bununla 'en farkli' degil 'farkli VE uygun' olani secer.
+    Tipik: > -0.5 iyi, < -0.9 zayif."""
+    xs = []
+    for e in UYUM_EKSEN:
+        v = d.get(e)
+        for x in (v if isinstance(v, list) else [v]):
+            if not isinstance(x, str) or x.startswith('video:'):
+                continue
+            ek = 'baslik' if e == 'baslik2' else e
+            if x.startswith('filmburn'):
+                x = 'filmburn'
+            u = ETK.uyum(ek, x) if ETK.et else 1.0
+            c = YT.carpan(ek, x) if YT else 1.0
+            xs.append(math.log(max(0.05, u * c) / max(0.05, _eksen_en(ek))))
+    return sum(xs) / len(xs) if xs else 0.0
+
+
 ESIK_DEGISIM = 0.20  # her video rakipten VE kanalin son 3 videosundan en az %20 farkli yuzey (demonetizasyon / AI slop)
 EKSENLER = ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'doku', 'vurgu', 'kayma', 'bitis', 'harita', 'grafik', 'hud']
 
@@ -733,7 +823,7 @@ def rakip_fark(dna, rk):
     k.append(('cerceve', not (set(dna['cerceve']) & set(Y['cerceve']))))
     k.append(('altyazi', ALTYAZI_AILE.get(dna['altyazi']) != Y['altyazi_aile']))
     k.append(('palet/renk', PALET_SINIF.get(dna['palet']) != Y['palet_sinif']))
-    k.append(('kamera', not (set(dna['kamera'][:1]) & set(Y['kamera']))))
+    k.append(('kamera (genel dil, serbest)', True))
     k.append(('doku', not (set(dna['doku']) & set(Y['doku']))))
     k.append(('arkaplan (animasyonlu)', True))  # rakip olcumunde animasyonlu zemin yok -> her zaman yeni eksen
     return k
@@ -886,6 +976,17 @@ def main():
             his[h] = round(his.get(h, 0) + v, 3)
     et = etiket_yukle(rep)
     etk = Etiket(et, a.ton, kp, enerji, his)
+    global YT
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from youtube_dili import YoutubeDili
+        YT = YoutubeDili.yukle().konu(kp)
+        if YT.bos:
+            YT = None
+            print('UYARI youtube-dili.json yok/bos: YouTube kullanim kaniti kullanilmadi (py youtube_dili.py)')
+    except Exception as e:
+        YT = None
+        print('UYARI YouTube kaniti yuklenemedi:', e)
     tb.update({'konu': kp, 'konu_esl': kesl, 'enerji': round(enerji, 1), 'his': his, 'etiket': bool(et)})
     eksik = [f"{e}:{x}" for e, d, ad in [('arkaplan', 'Arkaplan.tsx', 'ARKAPLAN_TIPLERI'), ('gecis', 'Gecis.tsx', 'GECIS_TIPLERI'), ('baslik', 'Yazi.tsx', 'BASLIK_TIPLERI'),
              ('altyazi', 'Yazi.tsx', 'ALTYAZI_TIPLERI'), ('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
@@ -919,10 +1020,11 @@ def main():
             sf = min([fark(d, x) for x in secenekler] or [99])
             ka = max([len(ayni_gorunur(d, x)) for x in diger.values()] or [0])
             kg = kagit_sayisi(d)
-            puan = rf * 3 + min(gf, 12) + min(sf, 10) - klasik_skor(d) * 20 - max(0, ka - ESIK_KANAL_AYNI) * 6 - ka - max(0, kg - 1) * 8
+            uy = uyum_puani(d)
+            puan = rf * 3 + min(gf, 12) + min(sf, 10) - klasik_skor(d) * 20 - max(0, ka - ESIK_KANAL_AYNI) * 6 - ka - max(0, kg - 1) * 8 + 12 * uy
             if en_iyi is None or puan > en_iyi[0]:
                 en_iyi = (puan, d)
-            if rf >= 6 and gf >= 6 and sf >= 6 and klasik_skor(d) == 0 and ka <= ESIK_KANAL_AYNI and kg <= 1:
+            if rf >= 6 and gf >= 6 and sf >= 6 and klasik_skor(d) == 0 and ka <= ESIK_KANAL_AYNI and kg <= 1 and uy >= -0.5:
                 break
         secenekler.append(en_iyi[1])
     for i, d in enumerate(secenekler):

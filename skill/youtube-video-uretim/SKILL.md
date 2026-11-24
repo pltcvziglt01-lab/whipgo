@@ -31,6 +31,16 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
    - Yapılabilenleri yap: link üzerinden araştırma, başlık ve metin, kütüphaneyi Drive bağlantısından okumak.
    - Ölçüm ve takibi Claude Code oturumuna bırak. Sayı uydurma.
 
+## 0b. Girdi yönlendirme — kullanıcı ne verdiyse hangi akış (motor)
+| Girdi | Akış |
+|---|---|
+| Kanal linki + "analiz et / öğren" | **Kütüphane:** `kanal_isle.py <link> --adet 1` → alt model profil (EDIT-DILI.md, `teknikler/`, envanter JSON) → eksik teknikleri repertuara kodla + etiketle → katalogda gözle kontrol → `youtube_dili.py` (kanıt dizini) → `dogrula.py` → commit |
+| Kanal linki + konsept, ya da yalnız konsept ("bu tarzda kanal", "şablon çıkar") | **Kanal şablonu:** `kanal_sablon.py --kanal <ad> --konsept "…" [--rakip <link>] --onizle` → `KANAL-SABLONU.md` (rakip → biz çeviri tablosu + gerekçe) + önizleme kullanıcıya → onaylanınca kanal kimliği sabit |
+| Mevcut kanala video | Faz haritası (§2); DNA `stil_dna.py --sablon <kanal>/kanal-sablon.json --konu "…"`; kurgu `sahne_kur.py` |
+| GitHub repo / .skill / X / galeri | Salt okunur incele (alt ajan / ayrı sekme) → lisans → repertuar + skill ile karşılaştır → eksikleri port et → `dogrula.py` → commit. Kod çalıştırma |
+
+**Çeviri mantığı (kanal şablonunun kalbi):** rakibin her ekseni ölçülür (font, geçiş, kamera, çerçeve, altyazı, renk, tempo). **İskelet** (tempo, kesim sıklığı, yumuşak geçiş oranı, SFX oranı) korunur. **Genel YouTube dili** (Ken Burns, sert kesim, çözünme) serbesttir. **Ayırt edici yüzey** (palet, font, başlık, kartlar, çerçeve, geçiş ailesi) aynı işlevde ama farklı bir öğeyle değiştirilir. Seçim `youtube_dili.py` kanıtına (176 kanalda, nişte ve başarıya göre ağırlıklı kullanım) ve konu etiketine göre yapılır. Örnek: rakip Montserrat → biz Anton'lu set; gerekçe: nişte dar kalın sans yaygın, konuya uygun, rakipten farklı. Seçim döngüsü "en farklı"yı değil "farklı VE konuya uygun"u seçer (`uyum_puani`).
+
 ## 1. Dokunulmaz kurallar (hiçbir kanal dosyası bunları gevşetmez)
 
 - **Şifre, kart, API anahtarı girme; satın alma, kredi yükleme, hesap ayarı değiştirme, kalıcı silme yok.** Oturum kapandıysa dur, "şu sekmede giriş yap" de, bekle.
@@ -149,6 +159,8 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `kapak_bitir.py "kapak-*.png" --rakip …` | 16:9 1280×720 <2 MB, numaralı sayfa, rakiple ana sayfa akışı karşılaştırması |
 | `metin_kontrol.py --metin metin.txt --dil de` / `--istemler istemler.json` | TTS ve görsel üretiminden önce: TTS'i bozan işaretler, uzun cümle, klişe/makine izi; istemde yazı çıkaracak kelime + "no text" koruması, yasaklı ad |
 | `senkron_kontrol.py vo.mp3 cumleler.json [--video final.mp4]` | zamanlar ileri mi, ilk cümle konuşmayla mı başlıyor, son cümle sesten taşıyor mu, video/ses süresi |
+| `kanal_sablon.py --kanal <ad> --konsept "…" [--rakip <link>] --onizle` | **konseptten bize özgü kanal şablonu**: rakip (yoksa kütüphaneden niş) ölçülür, eksenler YouTube kanıtı + konuyla çevrilir; kimlik (palet, font, başlık ×2, altyazı, alt bant, sayı, bitiş, HUD/harita/grafik) sabit, geri kalanı videodan videoya değişir → `kanal-sablon.json`, `KANAL-SABLONU.md`, önizleme |
+| `youtube_dili.py` | kütüphaneden **YouTube kullanım kanıtı** dizini (font ailesi, geçiş ailesi, kamera, çerçeve, altyazı, palet sınıfı; genel + konuya göre, başarı ağırlıklı) → `repertuar/youtube-dili.json`. Kütüphaneye kanal eklenince yeniden üret |
 | `sahne_kur.py kurgu.json [--rakip …]` | **kurgu verisini üretir** (elle props yazılmaz): bölüm çapaları kelimelere oturur, kesimler kelime başına yapışır, uzun medya rakibin medyanına göre bölünür, klip süresi aşılmaz → `kurgu_denetim --duzelt` → `props.json` (ortak `repertuar/VideoDna.tsx` girdisi) |
 | `dogrula.py --hizli` / `--tam` | **sistem doğrulama**: etiket bütünlüğü, SFX/font tabloları, betik + TS derleme (şablon ve tüm kanallar), seçim motoru 4 konu, belgeler, kanal bağlantıları; `--tam` uçtan uca 4 sn render (SFX duyuluyor mu, kusur yok mu). Her eklemeden sonra; git pre-commit kancası `--hizli` çalıştırır |
 | `kurulum.py kanal C:/otomasyon/<kanal>` | kanal projesini sisteme bağlar: repertuar/varlık/font bağlantısı + ortak VideoDna sarmalayıcısı + Root kaydı |

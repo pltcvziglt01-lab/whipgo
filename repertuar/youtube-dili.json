@@ -1,0 +1,7944 @@
+{
+ "olusturma": "2026-11-24 20:52",
+ "kanal_sayisi": 176,
+ "eksen": {
+  "font": {
+   "genel": {
+    "sans-dar": 0.4544,
+    "serif": 0.3009,
+    "sans": 0.1138,
+    "gosteri": 0.0766,
+    "japonca": 0.0369,
+    "slab": 0.0174
+   },
+   "konu": {
+    "haber": {
+     "sans-dar": 0.5901,
+     "serif": 0.2553,
+     "gosteri": 0.0939,
+     "sans": 0.0607
+    },
+    "tarih": {
+     "sans-dar": 0.3519,
+     "serif": 0.3,
+     "sans": 0.1285,
+     "japonca": 0.111,
+     "gosteri": 0.0913,
+     "slab": 0.0174
+    },
+    "askeri": {
+     "sans-dar": 0.429,
+     "serif": 0.3124,
+     "sans": 0.1377,
+     "gosteri": 0.0812,
+     "japonca": 0.0367,
+     "slab": 0.003
+    },
+    "biyografi": {
+     "sans-dar": 0.5817,
+     "serif": 0.4052,
+     "gosteri": 0.0131
+    },
+    "liste": {
+     "serif": 0.4778,
+     "sans-dar": 0.296,
+     "sans": 0.1112,
+     "slab": 0.0741,
+     "japonca": 0.0409
+    },
+    "egitim": {
+     "sans-dar": 0.4334,
+     "serif": 0.2919,
+     "sans": 0.1682,
+     "japonca": 0.0515,
+     "gosteri": 0.0491,
+     "slab": 0.0059
+    },
+    "yasam": {
+     "sans-dar": 0.4007,
+     "serif": 0.2117,
+     "japonca": 0.2011,
+     "gosteri": 0.1426,
+     "sans": 0.0439
+    },
+    "teknoloji": {
+     "sans-dar": 0.5879,
+     "serif": 0.177,
+     "sans": 0.1367,
+     "gosteri": 0.0755,
+     "japonca": 0.0229
+    },
+    "finans": {
+     "sans-dar": 0.435,
+     "serif": 0.2504,
+     "gosteri": 0.1278,
+     "sans": 0.1033,
+     "slab": 0.0834
+    },
+    "muhendislik": {
+     "sans-dar": 0.5358,
+     "serif": 0.2482,
+     "gosteri": 0.1203,
+     "sans": 0.0457,
+     "slab": 0.0365,
+     "japonca": 0.0135
+    },
+    "bilim": {
+     "sans-dar": 0.5132,
+     "sans": 0.3092,
+     "serif": 0.0893,
+     "japonca": 0.0884
+    },
+    "otomotiv": {
+     "serif": 0.5589,
+     "sans-dar": 0.2432,
+     "gosteri": 0.0953,
+     "sans": 0.089,
+     "slab": 0.0136
+    },
+    "gizem": {
+     "serif": 0.5025,
+     "sans-dar": 0.3433,
+     "slab": 0.0737,
+     "sans": 0.0559,
+     "gosteri": 0.0246
+    },
+    "seyahat": {
+     "sans-dar": 0.4033,
+     "serif": 0.3512,
+     "gosteri": 0.2455
+    },
+    "felsefe": {
+     "serif": 0.5684,
+     "sans-dar": 0.2065,
+     "japonca": 0.1348,
+     "sans": 0.0902
+    },
+    "saglik": {
+     "serif": 0.5086,
+     "sans-dar": 0.3362,
+     "sans": 0.1552
+    },
+    "eglence": {
+     "sans-dar": 0.5,
+     "sans": 0.3881,
+     "serif": 0.0746,
+     "gosteri": 0.0373
+    },
+    "korku": {
+     "serif": 0.5486,
+     "sans-dar": 0.4514
+    },
+    "suc": {
+     "sans": 0.6998,
+     "sans-dar": 0.3002
+    },
+    "spor": {
+     "sans-dar": 0.7883,
+     "serif": 0.1554,
+     "japonca": 0.0564
+    }
+   }
+  },
+  "gecis": {
+   "genel": {
+    "sert": 0.723,
+    "karartma": 0.2051,
+    "flas": 0.0271,
+    "zoom": 0.0189,
+    "maske": 0.0107,
+    "glitch": 0.0098,
+    "hareket": 0.0053
+   },
+   "konu": {
+    "haber": {
+     "sert": 0.651,
+     "karartma": 0.2521,
+     "zoom": 0.0298,
+     "flas": 0.0229,
+     "maske": 0.0205,
+     "hareket": 0.02,
+     "glitch": 0.0037
+    },
+    "tarih": {
+     "sert": 0.6571,
+     "karartma": 0.2842,
+     "flas": 0.0258,
+     "zoom": 0.02,
+     "glitch": 0.0076,
+     "maske": 0.0027,
+     "hareket": 0.0027
+    },
+    "askeri": {
+     "sert": 0.728,
+     "karartma": 0.2036,
+     "zoom": 0.027,
+     "flas": 0.0227,
+     "glitch": 0.0106,
+     "maske": 0.0053,
+     "hareket": 0.0028
+    },
+    "biyografi": {
+     "sert": 0.5525,
+     "karartma": 0.2931,
+     "flas": 0.0533,
+     "zoom": 0.0458,
+     "glitch": 0.0351,
+     "hareket": 0.0167,
+     "maske": 0.0036
+    },
+    "liste": {
+     "sert": 0.7632,
+     "karartma": 0.1546,
+     "glitch": 0.029,
+     "flas": 0.0249,
+     "zoom": 0.0147,
+     "maske": 0.0079,
+     "hareket": 0.0057
+    },
+    "egitim": {
+     "sert": 0.6534,
+     "karartma": 0.2774,
+     "flas": 0.0303,
+     "zoom": 0.0205,
+     "maske": 0.009,
+     "hareket": 0.0048,
+     "glitch": 0.0044
+    },
+    "yasam": {
+     "sert": 0.8009,
+     "karartma": 0.1486,
+     "zoom": 0.0209,
+     "flas": 0.0174,
+     "maske": 0.0053,
+     "hareket": 0.0047,
+     "glitch": 0.0021
+    },
+    "teknoloji": {
+     "sert": 0.7507,
+     "karartma": 0.1615,
+     "flas": 0.0566,
+     "zoom": 0.0126,
+     "glitch": 0.012,
+     "maske": 0.0041,
+     "hareket": 0.0025
+    },
+    "finans": {
+     "sert": 0.7433,
+     "karartma": 0.1836,
+     "flas": 0.0353,
+     "zoom": 0.0265,
+     "maske": 0.0058,
+     "glitch": 0.0033,
+     "hareket": 0.0023
+    },
+    "muhendislik": {
+     "sert": 0.7549,
+     "karartma": 0.1743,
+     "zoom": 0.025,
+     "flas": 0.0167,
+     "hareket": 0.012,
+     "maske": 0.0114,
+     "glitch": 0.0058
+    },
+    "bilim": {
+     "sert": 0.7129,
+     "karartma": 0.2466,
+     "flas": 0.0207,
+     "glitch": 0.0094,
+     "zoom": 0.0083,
+     "hareket": 0.0014,
+     "maske": 0.0009
+    },
+    "otomotiv": {
+     "sert": 0.8106,
+     "karartma": 0.1445,
+     "zoom": 0.0129,
+     "flas": 0.0114,
+     "hareket": 0.0078,
+     "glitch": 0.0075,
+     "maske": 0.0052
+    },
+    "gizem": {
+     "sert": 0.7242,
+     "karartma": 0.2246,
+     "flas": 0.0284,
+     "hareket": 0.0119,
+     "zoom": 0.0063,
+     "glitch": 0.0042,
+     "maske": 0.0004
+    },
+    "seyahat": {
+     "sert": 0.6742,
+     "karartma": 0.2178,
+     "zoom": 0.0391,
+     "hareket": 0.0287,
+     "flas": 0.0248,
+     "maske": 0.013,
+     "glitch": 0.0024
+    },
+    "felsefe": {
+     "sert": 0.806,
+     "karartma": 0.1886,
+     "maske": 0.0041,
+     "zoom": 0.0014
+    },
+    "saglik": {
+     "sert": 0.8594,
+     "karartma": 0.0816,
+     "flas": 0.0185,
+     "zoom": 0.0156,
+     "glitch": 0.0117,
+     "maske": 0.0114,
+     "hareket": 0.0018
+    },
+    "eglence": {
+     "sert": 0.4896,
+     "karartma": 0.4791,
+     "zoom": 0.0314
+    },
+    "korku": {
+     "sert": 0.8484,
+     "karartma": 0.0647,
+     "flas": 0.0374,
+     "hareket": 0.0273,
+     "glitch": 0.0111,
+     "zoom": 0.0111
+    },
+    "spor": {
+     "sert": 0.76,
+     "karartma": 0.1792,
+     "flas": 0.049,
+     "glitch": 0.0107,
+     "zoom": 0.0012
+    },
+    "suc": {
+     "sert": 0.5824,
+     "karartma": 0.2637,
+     "hareket": 0.0879,
+     "zoom": 0.0549,
+     "maske": 0.011
+    }
+   }
+  },
+  "kamera": {
+   "genel": {
+    "ken-burns-ice": 0.3881,
+    "sabit": 0.3151,
+    "ken-burns-disa": 0.2097,
+    "pan-yukari": 0.0417,
+    "pan-sag": 0.0243,
+    "pan-sol": 0.0211
+   },
+   "konu": {
+    "haber": {
+     "ken-burns-ice": 0.4449,
+     "sabit": 0.255,
+     "ken-burns-disa": 0.1962,
+     "pan-sag": 0.0369,
+     "pan-yukari": 0.0356,
+     "pan-sol": 0.0314
+    },
+    "tarih": {
+     "ken-burns-ice": 0.4152,
+     "sabit": 0.3572,
+     "ken-burns-disa": 0.1472,
+     "pan-yukari": 0.0395,
+     "pan-sag": 0.0205,
+     "pan-sol": 0.0203
+    },
+    "askeri": {
+     "ken-burns-ice": 0.3899,
+     "sabit": 0.3322,
+     "ken-burns-disa": 0.2081,
+     "pan-yukari": 0.0333,
+     "pan-sol": 0.019,
+     "pan-sag": 0.0175
+    },
+    "biyografi": {
+     "ken-burns-ice": 0.49,
+     "sabit": 0.2828,
+     "ken-burns-disa": 0.1217,
+     "pan-yukari": 0.0716,
+     "pan-sol": 0.0187,
+     "pan-sag": 0.0153
+    },
+    "liste": {
+     "ken-burns-ice": 0.3723,
+     "sabit": 0.2947,
+     "ken-burns-disa": 0.2416,
+     "pan-yukari": 0.0519,
+     "pan-sag": 0.0241,
+     "pan-sol": 0.0153
+    },
+    "egitim": {
+     "ken-burns-ice": 0.3743,
+     "sabit": 0.2639,
+     "ken-burns-disa": 0.2519,
+     "pan-yukari": 0.0729,
+     "pan-sag": 0.0246,
+     "pan-sol": 0.0124
+    },
+    "yasam": {
+     "ken-burns-ice": 0.4051,
+     "sabit": 0.3519,
+     "ken-burns-disa": 0.2078,
+     "pan-yukari": 0.0184,
+     "pan-sag": 0.0113,
+     "pan-sol": 0.0055
+    },
+    "teknoloji": {
+     "ken-burns-ice": 0.3786,
+     "sabit": 0.328,
+     "ken-burns-disa": 0.2004,
+     "pan-sol": 0.0395,
+     "pan-yukari": 0.0294,
+     "pan-sag": 0.024
+    },
+    "finans": {
+     "ken-burns-ice": 0.3506,
+     "ken-burns-disa": 0.2855,
+     "sabit": 0.261,
+     "pan-yukari": 0.0531,
+     "pan-sag": 0.0252,
+     "pan-sol": 0.0246
+    },
+    "muhendislik": {
+     "ken-burns-ice": 0.3967,
+     "sabit": 0.3094,
+     "ken-burns-disa": 0.2156,
+     "pan-yukari": 0.0336,
+     "pan-sag": 0.0271,
+     "pan-sol": 0.0176
+    },
+    "bilim": {
+     "sabit": 0.4421,
+     "ken-burns-ice": 0.3107,
+     "ken-burns-disa": 0.1843,
+     "pan-sol": 0.0328,
+     "pan-yukari": 0.0192,
+     "pan-sag": 0.0109
+    },
+    "otomotiv": {
+     "sabit": 0.3729,
+     "ken-burns-ice": 0.3177,
+     "ken-burns-disa": 0.2434,
+     "pan-sag": 0.0254,
+     "pan-sol": 0.0206,
+     "pan-yukari": 0.0201
+    },
+    "gizem": {
+     "ken-burns-ice": 0.4629,
+     "sabit": 0.3227,
+     "ken-burns-disa": 0.1255,
+     "pan-yukari": 0.0396,
+     "pan-sag": 0.0309,
+     "pan-sol": 0.0183
+    },
+    "seyahat": {
+     "ken-burns-ice": 0.4381,
+     "sabit": 0.2519,
+     "ken-burns-disa": 0.1576,
+     "pan-sag": 0.0617,
+     "pan-yukari": 0.0473,
+     "pan-sol": 0.0433
+    },
+    "felsefe": {
+     "ken-burns-ice": 0.3924,
+     "sabit": 0.335,
+     "ken-burns-disa": 0.149,
+     "pan-yukari": 0.0682,
+     "pan-sag": 0.0554
+    },
+    "saglik": {
+     "sabit": 0.497,
+     "ken-burns-ice": 0.2457,
+     "ken-burns-disa": 0.2194,
+     "pan-yukari": 0.0267,
+     "pan-sag": 0.0074,
+     "pan-sol": 0.0039
+    },
+    "eglence": {
+     "sabit": 0.5193,
+     "ken-burns-disa": 0.2724,
+     "ken-burns-ice": 0.2023,
+     "pan-sol": 0.0038,
+     "pan-sag": 0.0014,
+     "pan-yukari": 0.0007
+    },
+    "korku": {
+     "ken-burns-ice": 0.3734,
+     "sabit": 0.2867,
+     "ken-burns-disa": 0.2014,
+     "pan-yukari": 0.0787,
+     "pan-sag": 0.0346,
+     "pan-sol": 0.0252
+    },
+    "suc": {
+     "ken-burns-disa": 0.4939,
+     "ken-burns-ice": 0.2312,
+     "sabit": 0.2249,
+     "pan-yukari": 0.0375,
+     "pan-sol": 0.0125
+    },
+    "spor": {
+     "sabit": 0.3628,
+     "ken-burns-ice": 0.2814,
+     "ken-burns-disa": 0.2205,
+     "pan-yukari": 0.0778,
+     "pan-sag": 0.0387,
+     "pan-sol": 0.0189
+    }
+   }
+  },
+  "cerceve": {
+   "genel": {
+    "tam": 0.8632,
+    "bulanik-kopya": 0.0632,
+    "inset-golge": 0.0446,
+    "letterbox": 0.0223,
+    "cerceveli_doku/gorsel": 0.0041,
+    "bolunmus": 0.0026
+   },
+   "konu": {
+    "haber": {
+     "tam": 0.9179,
+     "bulanik-kopya": 0.0304,
+     "letterbox": 0.0293,
+     "inset-golge": 0.0212,
+     "bolunmus": 0.0008,
+     "cerceveli_doku/gorsel": 0.0004
+    },
+    "tarih": {
+     "tam": 0.7681,
+     "bulanik-kopya": 0.1051,
+     "inset-golge": 0.0839,
+     "letterbox": 0.0404,
+     "bolunmus": 0.0024,
+     "cerceveli_doku/gorsel": 0.0
+    },
+    "askeri": {
+     "tam": 0.8261,
+     "bulanik-kopya": 0.0719,
+     "inset-golge": 0.0553,
+     "letterbox": 0.0323,
+     "cerceveli_doku/gorsel": 0.0119,
+     "bolunmus": 0.0025
+    },
+    "biyografi": {
+     "tam": 0.7327,
+     "bulanik-kopya": 0.233,
+     "inset-golge": 0.0294,
+     "bolunmus": 0.0034,
+     "letterbox": 0.0015
+    },
+    "liste": {
+     "tam": 0.8744,
+     "bulanik-kopya": 0.0829,
+     "inset-golge": 0.0319,
+     "letterbox": 0.0089,
+     "bolunmus": 0.0016,
+     "cerceveli_doku/gorsel": 0.0003
+    },
+    "egitim": {
+     "tam": 0.8721,
+     "bulanik-kopya": 0.0571,
+     "inset-golge": 0.0414,
+     "letterbox": 0.0251,
+     "bolunmus": 0.0037,
+     "cerceveli_doku/gorsel": 0.0006
+    },
+    "yasam": {
+     "tam": 0.8919,
+     "bulanik-kopya": 0.0813,
+     "inset-golge": 0.0157,
+     "letterbox": 0.0076,
+     "bolunmus": 0.0035
+    },
+    "teknoloji": {
+     "tam": 0.9247,
+     "bulanik-kopya": 0.037,
+     "letterbox": 0.0199,
+     "inset-golge": 0.0171,
+     "bolunmus": 0.001,
+     "cerceveli_doku/gorsel": 0.0003
+    },
+    "finans": {
+     "tam": 0.8424,
+     "bulanik-kopya": 0.0904,
+     "inset-golge": 0.0614,
+     "letterbox": 0.0043,
+     "bolunmus": 0.0016,
+     "cerceveli_doku/gorsel": 0.0
+    },
+    "muhendislik": {
+     "tam": 0.8163,
+     "bulanik-kopya": 0.0821,
+     "inset-golge": 0.0569,
+     "letterbox": 0.0401,
+     "bolunmus": 0.0043,
+     "cerceveli_doku/gorsel": 0.0002
+    },
+    "bilim": {
+     "tam": 0.8304,
+     "cerceveli_doku/gorsel": 0.0814,
+     "inset-golge": 0.0415,
+     "bulanik-kopya": 0.034,
+     "letterbox": 0.0087,
+     "bolunmus": 0.0039
+    },
+    "otomotiv": {
+     "tam": 0.8589,
+     "bulanik-kopya": 0.0662,
+     "inset-golge": 0.0395,
+     "letterbox": 0.0339,
+     "bolunmus": 0.0016,
+     "cerceveli_doku/gorsel": 0.0
+    },
+    "gizem": {
+     "tam": 0.936,
+     "bulanik-kopya": 0.0301,
+     "inset-golge": 0.0181,
+     "letterbox": 0.0087,
+     "bolunmus": 0.0045,
+     "cerceveli_doku/gorsel": 0.0025
+    },
+    "seyahat": {
+     "tam": 0.7137,
+     "inset-golge": 0.1709,
+     "bulanik-kopya": 0.097,
+     "letterbox": 0.0161,
+     "bolunmus": 0.0023
+    },
+    "felsefe": {
+     "tam": 0.8694,
+     "inset-golge": 0.0762,
+     "letterbox": 0.0463,
+     "bulanik-kopya": 0.0081
+    },
+    "saglik": {
+     "tam": 0.9026,
+     "bulanik-kopya": 0.0612,
+     "inset-golge": 0.0233,
+     "letterbox": 0.0083,
+     "bolunmus": 0.0029,
+     "cerceveli_doku/gorsel": 0.0017
+    },
+    "eglence": {
+     "tam": 0.7627,
+     "bulanik-kopya": 0.1645,
+     "inset-golge": 0.0728
+    },
+    "korku": {
+     "tam": 0.9084,
+     "bulanik-kopya": 0.0416,
+     "inset-golge": 0.029,
+     "cerceveli_doku/gorsel": 0.0165,
+     "letterbox": 0.0045,
+     "bolunmus": 0.0
+    },
+    "suc": {
+     "tam": 0.958,
+     "bulanik-kopya": 0.014,
+     "bolunmus": 0.014,
+     "inset-golge": 0.014
+    },
+    "spor": {
+     "tam": 0.9254,
+     "bulanik-kopya": 0.042,
+     "inset-golge": 0.0187,
+     "letterbox": 0.0117,
+     "bolunmus": 0.0023
+    }
+   }
+  },
+  "altyazi": {
+   "genel": {
+    "yok": 0.8172,
+    "kutulu": 0.0749,
+    "sinema": 0.0705,
+    "vurgulu": 0.0251,
+    "kelime": 0.0122
+   },
+   "konu": {
+    "haber": {
+     "yok": 0.9058,
+     "sinema": 0.0486,
+     "vurgulu": 0.0456
+    },
+    "tarih": {
+     "yok": 0.7946,
+     "sinema": 0.1185,
+     "vurgulu": 0.0609,
+     "kutulu": 0.026
+    },
+    "askeri": {
+     "yok": 0.8491,
+     "sinema": 0.0739,
+     "kutulu": 0.054,
+     "vurgulu": 0.023
+    },
+    "biyografi": {
+     "yok": 1.0
+    },
+    "liste": {
+     "yok": 0.9544,
+     "sinema": 0.0456
+    },
+    "egitim": {
+     "yok": 0.7538,
+     "kutulu": 0.1332,
+     "sinema": 0.1129
+    },
+    "yasam": {
+     "yok": 0.6583,
+     "sinema": 0.1472,
+     "kelime": 0.1177,
+     "kutulu": 0.0768
+    },
+    "teknoloji": {
+     "yok": 0.6272,
+     "kutulu": 0.2111,
+     "sinema": 0.09,
+     "kelime": 0.0516,
+     "vurgulu": 0.0201
+    },
+    "finans": {
+     "yok": 0.8546,
+     "kutulu": 0.1117,
+     "sinema": 0.0336
+    },
+    "muhendislik": {
+     "yok": 0.9038,
+     "kutulu": 0.0585,
+     "vurgulu": 0.0377
+    },
+    "bilim": {
+     "yok": 0.8869,
+     "vurgulu": 0.1131
+    },
+    "otomotiv": {
+     "yok": 0.7798,
+     "sinema": 0.1213,
+     "kutulu": 0.0989
+    },
+    "gizem": {
+     "yok": 0.9341,
+     "kelime": 0.0659
+    },
+    "seyahat": {
+     "sinema": 0.5082,
+     "yok": 0.315,
+     "kutulu": 0.1768
+    },
+    "felsefe": {
+     "yok": 0.8632,
+     "vurgulu": 0.1368
+    },
+    "saglik": {
+     "yok": 1.0
+    },
+    "eglence": {
+     "yok": 1.0
+    },
+    "korku": {
+     "yok": 1.0
+    },
+    "suc": {
+     "yok": 1.0
+    },
+    "spor": {
+     "kutulu": 0.5766,
+     "yok": 0.4234
+    }
+   }
+  },
+  "palet": {
+   "genel": {
+    "koyu-notr": 0.6757,
+    "koyu-renkli": 0.2683,
+    "acik": 0.056
+   },
+   "konu": {
+    "haber": {
+     "koyu-notr": 0.6587,
+     "koyu-renkli": 0.2957,
+     "acik": 0.0456
+    },
+    "tarih": {
+     "koyu-notr": 0.6234,
+     "koyu-renkli": 0.2659,
+     "acik": 0.1107
+    },
+    "askeri": {
+     "koyu-notr": 0.7772,
+     "koyu-renkli": 0.1934,
+     "acik": 0.0294
+    },
+    "biyografi": {
+     "koyu-notr": 0.8547,
+     "koyu-renkli": 0.1453
+    },
+    "liste": {
+     "koyu-notr": 0.7751,
+     "koyu-renkli": 0.135,
+     "acik": 0.0899
+    },
+    "egitim": {
+     "koyu-notr": 0.5565,
+     "koyu-renkli": 0.4156,
+     "acik": 0.0279
+    },
+    "yasam": {
+     "koyu-renkli": 0.5176,
+     "koyu-notr": 0.4824
+    },
+    "teknoloji": {
+     "koyu-notr": 0.6854,
+     "koyu-renkli": 0.2902,
+     "acik": 0.0244
+    },
+    "finans": {
+     "koyu-notr": 0.8163,
+     "acik": 0.1115,
+     "koyu-renkli": 0.0722
+    },
+    "muhendislik": {
+     "koyu-notr": 0.6211,
+     "koyu-renkli": 0.2844,
+     "acik": 0.0945
+    },
+    "bilim": {
+     "koyu-notr": 0.7635,
+     "koyu-renkli": 0.1234,
+     "acik": 0.1131
+    },
+    "otomotiv": {
+     "koyu-notr": 0.8923,
+     "koyu-renkli": 0.0816,
+     "acik": 0.0261
+    },
+    "gizem": {
+     "koyu-notr": 0.6416,
+     "koyu-renkli": 0.3584
+    },
+    "seyahat": {
+     "koyu-notr": 0.495,
+     "koyu-renkli": 0.4214,
+     "acik": 0.0835
+    },
+    "felsefe": {
+     "koyu-notr": 0.5869,
+     "koyu-renkli": 0.4131
+    },
+    "saglik": {
+     "koyu-notr": 1.0
+    },
+    "eglence": {
+     "koyu-renkli": 0.7762,
+     "koyu-notr": 0.2238
+    },
+    "korku": {
+     "koyu-notr": 1.0
+    },
+    "suc": {
+     "koyu-notr": 0.6998,
+     "koyu-renkli": 0.3002
+    },
+    "spor": {
+     "koyu-notr": 0.5251,
+     "koyu-renkli": 0.4749
+    }
+   }
+  }
+ },
+ "kanallar": {
+  "@AchterdeMotorkap": {
+   "konu": {
+    "haber": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.571,
+   "oran": 3.81,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "karartma": 0.5506,
+    "sert": 0.1011,
+    "maske": 0.1011,
+    "flas": 0.0787,
+    "hareket": 0.1124,
+    "zoom": 0.0562
+   },
+   "kamera": {
+    "pan-yukari": 0.11,
+    "pan-sag": 0.09,
+    "ken-burns-ice": 0.22,
+    "sabit": 0.24,
+    "ken-burns-disa": 0.2,
+    "pan-sol": 0.14
+   },
+   "cerceve": {
+    "tam": 0.81,
+    "bulanik-kopya": 0.07,
+    "letterbox": 0.07,
+    "inset-golge": 0.05
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.5,
+    "sfx": 0.66
+   }
+  },
+  "@Adventuresinsoloretirement": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.848,
+   "oran": 16.25,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {},
+   "kamera": {
+    "ken-burns-ice": 1.0
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 160.0
+   }
+  },
+  "@AlltagZerlegt": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.297,
+   "oran": 2.66,
+   "font": {
+    "japonca": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.92,
+    "karartma": 0.08
+   },
+   "kamera": {
+    "ken-burns-disa": 0.1481,
+    "sabit": 0.0741,
+    "ken-burns-ice": 0.7778
+   },
+   "cerceve": {
+    "tam": 0.97,
+    "bulanik-kopya": 0.02,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 8.0,
+    "medyan": 11.3,
+    "sfx": 0.33
+   }
+  },
+  "@AmericaWarMachines": {
+   "konu": {
+    "askeri": 0.4,
+    "tarih": 0.2,
+    "biyografi": 0.2,
+    "liste": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.944,
+   "oran": 17.99,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "karartma": 0.6484,
+    "sert": 0.3297,
+    "glitch": 0.022
+   },
+   "kamera": {
+    "ken-burns-ice": 0.7344,
+    "pan-yukari": 0.0781,
+    "ken-burns-disa": 0.1094,
+    "sabit": 0.0625,
+    "pan-sol": 0.0156
+   },
+   "cerceve": {
+    "tam": 0.63,
+    "bulanik-kopya": 0.37,
+    "letterbox": 0.0,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.3,
+    "sfx": 0.47
+   }
+  },
+  "@AmericanAirForceBackThen": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.256,
+   "oran": 2.51,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.866,
+    "flas": 0.0515,
+    "karartma": 0.0515,
+    "hareket": 0.0309
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3772,
+    "ken-burns-disa": 0.1404,
+    "sabit": 0.4561,
+    "pan-sol": 0.0088,
+    "pan-yukari": 0.0088,
+    "pan-sag": 0.0088
+   },
+   "cerceve": {
+    "tam": 0.86,
+    "letterbox": 0.08,
+    "bulanik-kopya": 0.04,
+    "inset-golge": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.15,
+    "sfx": 0.09
+   }
+  },
+  "@AmericanFarmChronicle": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.366,
+   "oran": 2.92,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4848,
+    "ken-burns-disa": 0.4697,
+    "sabit": 0.0455
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 7.6,
+    "sfx": 0.55
+   }
+  },
+  "@AmericasUntoldFarms": {
+   "konu": {
+    "yasam": 0.667,
+    "teknoloji": 0.333
+   },
+   "ton": "sakin",
+   "agirlik": 3.34,
+   "oran": 9.38,
+   "font": {
+    "japonca": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-disa": 0.3774,
+    "sabit": 0.0189,
+    "ken-burns-ice": 0.5849,
+    "pan-sag": 0.0189
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kelime": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.5,
+    "sfx": 0.48
+   }
+  },
+  "@AmericawithAmos": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.795,
+   "oran": 5.02,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.9394,
+    "karartma": 0.0303,
+    "flas": 0.0202,
+    "glitch": 0.0101
+   },
+   "kamera": {
+    "sabit": 0.1646,
+    "ken-burns-disa": 0.2073,
+    "ken-burns-ice": 0.5732,
+    "pan-sol": 0.0183,
+    "pan-yukari": 0.0183,
+    "pan-sag": 0.0183
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.8,
+    "sfx": 0.24
+   }
+  },
+  "@AnneliesGoedGeregeldNa60": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.703,
+   "oran": 4.49,
+   "font": {
+    "slab": 1.0
+   },
+   "gecis": {
+    "karartma": 0.8351,
+    "zoom": 0.1031,
+    "flas": 0.0619
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1053,
+    "ken-burns-disa": 0.5263,
+    "sabit": 0.3158,
+    "pan-sol": 0.0526
+   },
+   "cerceve": {
+    "tam": 0.84,
+    "inset-golge": 0.1,
+    "bulanik-kopya": 0.06
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 8.0,
+    "medyan": 8.1,
+    "sfx": 0.61
+   }
+  },
+  "@Aussie2050": {
+   "konu": {
+    "muhendislik": 0.75,
+    "liste": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.362,
+   "oran": 9.61,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.7576,
+    "karartma": 0.1818,
+    "glitch": 0.0202,
+    "zoom": 0.0202,
+    "hareket": 0.0202
+   },
+   "kamera": {
+    "pan-sag": 0.0127,
+    "ken-burns-disa": 0.3418,
+    "ken-burns-ice": 0.3924,
+    "sabit": 0.2278,
+    "pan-yukari": 0.0253
+   },
+   "cerceve": {
+    "tam": 0.9,
+    "inset-golge": 0.08,
+    "letterbox": 0.01,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.4,
+    "sfx": 0.7
+   }
+  },
+  "@BackroadEstates": {
+   "konu": {
+    "finans": 0.5,
+    "yasam": 0.5
+   },
+   "ton": "sakin",
+   "agirlik": 2.937,
+   "oran": 5.94,
+   "font": {
+    "gosteri": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.9293,
+    "karartma": 0.0606,
+    "flas": 0.0101
+   },
+   "kamera": {
+    "ken-burns-ice": 0.9266,
+    "ken-burns-disa": 0.0183,
+    "pan-yukari": 0.0183,
+    "pan-sag": 0.0092,
+    "sabit": 0.0275
+   },
+   "cerceve": {
+    "tam": 0.51,
+    "bulanik-kopya": 0.49,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.5,
+    "sfx": 0.54
+   }
+  },
+  "@BattleEnsign1": {
+   "konu": {
+    "askeri": 0.8,
+    "haber": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.596,
+   "oran": 12.41,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9796,
+    "karartma": 0.0102,
+    "glitch": 0.0102
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5915,
+    "sabit": 0.1831,
+    "pan-sag": 0.0282,
+    "pan-sol": 0.0423,
+    "ken-burns-disa": 0.1408,
+    "pan-yukari": 0.0141
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 2.1,
+    "sfx": 0.25
+   }
+  },
+  "@BeyondEarthNews-l4h": {
+   "konu": {
+    "bilim": 0.5,
+    "teknoloji": 0.25,
+    "haber": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.697,
+   "oran": 4.46,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.9286,
+    "ken-burns-ice": 0.0476,
+    "ken-burns-disa": 0.0238
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "vurgulu": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 11.3,
+    "sfx": 0.24
+   }
+  },
+  "@Blech_und_Erinnerung": {
+   "konu": {
+    "otomotiv": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 2.896,
+   "oran": 5.66,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.8557,
+    "glitch": 0.0412,
+    "karartma": 0.0619,
+    "maske": 0.0103,
+    "hareket": 0.0206,
+    "zoom": 0.0103
+   },
+   "kamera": {
+    "sabit": 0.1641,
+    "ken-burns-ice": 0.4922,
+    "ken-burns-disa": 0.2891,
+    "pan-sag": 0.0234,
+    "pan-yukari": 0.0312
+   },
+   "cerceve": {
+    "tam": 0.7172,
+    "bulanik-kopya": 0.2727,
+    "inset-golge": 0.0101,
+    "letterbox": 0.0,
+    "cerceveli_doku/gorsel": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.3,
+    "sfx": 0.43
+   }
+  },
+  "@BluePawPrint": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.284,
+   "oran": 2.61,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.8846,
+    "flas": 0.0769,
+    "karartma": 0.0385
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3409,
+    "pan-yukari": 0.1364,
+    "ken-burns-disa": 0.2727,
+    "sabit": 0.25
+   },
+   "cerceve": {
+    "tam": 0.89,
+    "bulanik-kopya": 0.06,
+    "inset-golge": 0.04,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 1.6,
+    "sfx": 0.71
+   }
+  },
+  "@BoneWitness-r6y": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.749,
+   "oran": 4.75,
+   "font": {
+    "gosteri": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.8367,
+    "karartma": 0.1429,
+    "glitch": 0.0204
+   },
+   "kamera": {
+    "ken-burns-ice": 0.6471,
+    "pan-sol": 0.0118,
+    "pan-yukari": 0.0471,
+    "sabit": 0.1529,
+    "ken-burns-disa": 0.0941,
+    "pan-sag": 0.0471
+   },
+   "cerceve": {
+    "tam": 0.72,
+    "bulanik-kopya": 0.26,
+    "letterbox": 0.02,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 4.1,
+    "sfx": 0.37
+   }
+  },
+  "@BritainTechX": {
+   "konu": {
+    "muhendislik": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.765,
+   "oran": 4.84,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7174,
+    "karartma": 0.1739,
+    "flas": 0.0652,
+    "zoom": 0.0109,
+    "glitch": 0.0109,
+    "maske": 0.0217
+   },
+   "kamera": {
+    "sabit": 0.2353,
+    "ken-burns-disa": 0.2745,
+    "ken-burns-ice": 0.4183,
+    "pan-sag": 0.0327,
+    "pan-yukari": 0.0327,
+    "pan-sol": 0.0065
+   },
+   "cerceve": {
+    "tam": 0.8687,
+    "bulanik-kopya": 0.0707,
+    "inset-golge": 0.0303,
+    "bolunmus": 0.0202,
+    "letterbox": 0.0101
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.5,
+    "sfx": 0.57
+   }
+  },
+  "@BuiltonYou": {
+   "konu": {
+    "tarih": 0.667,
+    "muhendislik": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.742,
+   "oran": 4.71,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.9333,
+    "ken-burns-ice": 0.0667
+   },
+   "cerceve": {
+    "tam": 0.54,
+    "inset-golge": 0.25,
+    "bulanik-kopya": 0.21
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 40.0,
+    "medyan": 1.6,
+    "sfx": 0.36
+   }
+  },
+  "@CEDARIRONSTORIES": {
+   "konu": {
+    "gizem": 0.5,
+    "teknoloji": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.279,
+   "oran": 8.77,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.6082,
+    "karartma": 0.3918
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1694,
+    "pan-yukari": 0.0806,
+    "sabit": 0.4677,
+    "ken-burns-disa": 0.2016,
+    "pan-sag": 0.0726,
+    "pan-sol": 0.0081
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kelime": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.15,
+    "sfx": 0.38
+   }
+  },
+  "@CHUCKBERRYARCHİVES": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.855,
+   "oran": 5.39,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3704,
+    "ken-burns-disa": 0.3333,
+    "pan-sol": 0.1481,
+    "sabit": 0.1481
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 14.1,
+    "sfx": 0.19
+   }
+  },
+  "@CampRydex": {
+   "konu": {
+    "teknoloji": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 4.069,
+   "oran": 20.51,
+   "font": {
+    "sans": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.2949,
+    "karartma": 0.3462,
+    "flas": 0.2051,
+    "maske": 0.0513,
+    "zoom": 0.1026
+   },
+   "kamera": {
+    "sabit": 0.1852,
+    "ken-burns-disa": 0.3333,
+    "ken-burns-ice": 0.3704,
+    "pan-yukari": 0.1111
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "letterbox": 0.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.7,
+    "sfx": 0.46
+   }
+  },
+  "@Cenchtech": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 2.944,
+   "oran": 5.99,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "flas": 0.6562,
+    "sert": 0.1667,
+    "karartma": 0.1354,
+    "zoom": 0.0208,
+    "hareket": 0.0208
+   },
+   "kamera": {
+    "sabit": 0.5181,
+    "ken-burns-ice": 0.253,
+    "ken-burns-disa": 0.1687,
+    "pan-sag": 0.012,
+    "pan-yukari": 0.0241,
+    "pan-sol": 0.0241
+   },
+   "cerceve": {
+    "tam": 0.88,
+    "letterbox": 0.05,
+    "inset-golge": 0.05,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 44.0,
+    "medyan": 1.0,
+    "sfx": 0.84
+   }
+  },
+  "@ChinasBiggestMachines": {
+   "konu": {
+    "muhendislik": 0.667,
+    "liste": 0.333
+   },
+   "ton": "enerjik",
+   "agirlik": 2.872,
+   "oran": 5.5,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.875,
+    "karartma": 0.0938,
+    "hareket": 0.0104,
+    "maske": 0.0104,
+    "flas": 0.0104
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3232,
+    "ken-burns-disa": 0.4141,
+    "pan-yukari": 0.0202,
+    "sabit": 0.202,
+    "pan-sag": 0.0404
+   },
+   "cerceve": {
+    "tam": 0.96,
+    "bulanik-kopya": 0.04
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 4.2,
+    "sfx": 0.35
+   }
+  },
+  "@DisasterWatchChannel": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.053,
+   "oran": 6.79,
+   "font": {
+    "sans": 1.0
+   },
+   "gecis": {
+    "sert": 0.9231,
+    "karartma": 0.0769
+   },
+   "kamera": {
+    "ken-burns-disa": 0.3438,
+    "sabit": 0.0938,
+    "ken-burns-ice": 0.375,
+    "pan-sag": 0.1563,
+    "pan-yukari": 0.0313
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.4,
+    "sfx": 0.44
+   }
+  },
+  "@EggoBloxx": {
+   "konu": {
+    "askeri": 0.667,
+    "teknoloji": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.585,
+   "oran": 3.88,
+   "font": {
+    "sans": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.5455,
+    "ken-burns-ice": 0.4091,
+    "ken-burns-disa": 0.0455
+   },
+   "cerceve": {
+    "tam": 0.99,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 5.2,
+    "sfx": 0.39
+   }
+  },
+  "@Empty-Palaces": {
+   "konu": {
+    "muhendislik": 0.5,
+    "seyahat": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.548,
+   "oran": 11.78,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "karartma": 0.5222,
+    "zoom": 0.1444,
+    "sert": 0.1,
+    "hareket": 0.1556,
+    "maske": 0.0667,
+    "flas": 0.0111
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3913,
+    "ken-burns-disa": 0.1522,
+    "sabit": 0.2283,
+    "pan-yukari": 0.1196,
+    "pan-sol": 0.0435,
+    "pan-sag": 0.0652
+   },
+   "cerceve": {
+    "tam": 0.46,
+    "bulanik-kopya": 0.28,
+    "inset-golge": 0.22,
+    "letterbox": 0.04
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 3.4,
+    "sfx": 0.73
+   }
+  },
+  "@Ethos-j7t": {
+   "konu": {
+    "tarih": 0.667,
+    "felsefe": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.785,
+   "oran": 4.96,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.901,
+    "karartma": 0.0594,
+    "maske": 0.0297,
+    "zoom": 0.0099
+   },
+   "kamera": {
+    "ken-burns-disa": 0.1258,
+    "ken-burns-ice": 0.4172,
+    "sabit": 0.4371,
+    "pan-yukari": 0.0199
+   },
+   "cerceve": {
+    "tam": 0.8812,
+    "inset-golge": 0.0594,
+    "bulanik-kopya": 0.0594
+   },
+   "altyazi": {
+    "vurgulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.7,
+    "sfx": 0.52
+   }
+  },
+  "@EverYoungSeniors-tv": {
+   "konu": {
+    "saglik": 0.4,
+    "liste": 0.4,
+    "teknoloji": 0.2
+   },
+   "ton": "sakin",
+   "agirlik": 4.635,
+   "oran": 36.89,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 1.0
+   },
+   "cerceve": {
+    "tam": 0.87,
+    "bulanik-kopya": 0.13
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 8.0,
+    "medyan": 6.3,
+    "sfx": 0.64
+   }
+  },
+  "@EverythingXplaiin": {
+   "konu": {
+    "liste": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 3.207,
+   "oran": 8.09,
+   "font": {
+    "serif": 0.5,
+    "slab": 0.5
+   },
+   "gecis": {
+    "sert": 0.7935,
+    "glitch": 0.0543,
+    "karartma": 0.0652,
+    "flas": 0.0435,
+    "zoom": 0.0326,
+    "maske": 0.0109
+   },
+   "kamera": {
+    "ken-burns-ice": 0.32,
+    "ken-burns-disa": 0.23,
+    "pan-yukari": 0.19,
+    "sabit": 0.17,
+    "pan-sag": 0.07,
+    "pan-sol": 0.02
+   },
+   "cerceve": {
+    "tam": 0.7677,
+    "bulanik-kopya": 0.1818,
+    "letterbox": 0.0303,
+    "inset-golge": 0.0202,
+    "cerceveli_doku/gorsel": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.3,
+    "sfx": 0.4
+   }
+  },
+  "@Explorist": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 2.316,
+   "oran": 2.73,
+   "font": {
+    "gosteri": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.8452,
+    "karartma": 0.1071,
+    "glitch": 0.0357,
+    "zoom": 0.0119,
+    "flas": 0.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4056,
+    "sabit": 0.2133,
+    "ken-burns-disa": 0.2727,
+    "pan-yukari": 0.0769,
+    "pan-sol": 0.014,
+    "pan-sag": 0.0175
+   },
+   "cerceve": {
+    "tam": 0.64,
+    "letterbox": 0.17,
+    "inset-golge": 0.14,
+    "bulanik-kopya": 0.05
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 82.0,
+    "medyan": 0.6,
+    "sfx": 0.39
+   }
+  },
+  "@FlightPath-t9z": {
+   "konu": {
+    "tarih": 0.25,
+    "finans": 0.25,
+    "muhendislik": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.305,
+   "oran": 9.02,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.5,
+    "karartma": 0.45,
+    "hareket": 0.02,
+    "zoom": 0.03
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2604,
+    "pan-yukari": 0.1146,
+    "sabit": 0.3021,
+    "ken-burns-disa": 0.2188,
+    "pan-sol": 0.0729,
+    "pan-sag": 0.0312
+   },
+   "cerceve": {
+    "tam": 0.73,
+    "inset-golge": 0.2,
+    "letterbox": 0.04,
+    "bulanik-kopya": 0.02,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.0,
+    "sfx": 0.2
+   }
+  },
+  "@FlyWithCarla": {
+   "konu": {
+    "gizem": 1.0
+   },
+   "ton": "gizem",
+   "agirlik": 3.556,
+   "oran": 11.88,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.95,
+    "karartma": 0.05
+   },
+   "kamera": {
+    "sabit": 0.2388,
+    "ken-burns-ice": 0.6567,
+    "ken-burns-disa": 0.0746,
+    "pan-sol": 0.0149,
+    "pan-yukari": 0.0149
+   },
+   "cerceve": {
+    "tam": 0.99,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.55,
+    "sfx": 0.4
+   }
+  },
+  "@ForgeCraftEngineering": {
+   "konu": {
+    "askeri": 0.5,
+    "muhendislik": 0.333,
+    "egitim": 0.167
+   },
+   "ton": "ciddi",
+   "agirlik": 2.411,
+   "oran": 3.1,
+   "font": {
+    "sans-dar": 0.5,
+    "japonca": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5814,
+    "ken-burns-disa": 0.2791,
+    "sabit": 0.1163,
+    "pan-yukari": 0.0233
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bolunmus": 0.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 10.0,
+    "sfx": 0.54
+   }
+  },
+  "@ForgottenBritishCities": {
+   "konu": {
+    "tarih": 0.333,
+    "seyahat": 0.333,
+    "egitim": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.45,
+   "oran": 10.59,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.8211,
+    "karartma": 0.1053,
+    "glitch": 0.0211,
+    "flas": 0.0421,
+    "maske": 0.0105
+   },
+   "kamera": {
+    "sabit": 0.4066,
+    "ken-burns-ice": 0.2582,
+    "ken-burns-disa": 0.1648,
+    "pan-yukari": 0.0879,
+    "pan-sag": 0.0549,
+    "pan-sol": 0.0275
+   },
+   "cerceve": {
+    "tam": 0.7723,
+    "inset-golge": 0.0792,
+    "letterbox": 0.0792,
+    "bulanik-kopya": 0.0495,
+    "bolunmus": 0.0198
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.6,
+    "sfx": 0.29
+   }
+  },
+  "@ForgottenFleet1": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.741,
+   "oran": 14.5,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7526,
+    "karartma": 0.1649,
+    "flas": 0.0619,
+    "glitch": 0.0103,
+    "zoom": 0.0103
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3879,
+    "sabit": 0.3621,
+    "ken-burns-disa": 0.0948,
+    "pan-yukari": 0.1121,
+    "pan-sol": 0.0259,
+    "pan-sag": 0.0172
+   },
+   "cerceve": {
+    "tam": 0.83,
+    "inset-golge": 0.09,
+    "bulanik-kopya": 0.08
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.1,
+    "sfx": 0.13
+   }
+  },
+  "@ForgottenWarMemo": {
+   "konu": {
+    "askeri": 0.8,
+    "tarih": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 4.033,
+   "oran": 19.76,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.9167,
+    "karartma": 0.0729,
+    "flas": 0.0104
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3654,
+    "sabit": 0.1538,
+    "ken-burns-disa": 0.3077,
+    "pan-sag": 0.0577,
+    "pan-yukari": 0.0577,
+    "pan-sol": 0.0577
+   },
+   "cerceve": {
+    "tam": 0.89,
+    "inset-golge": 0.07,
+    "bulanik-kopya": 0.04
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 6.0,
+    "sfx": 0.49
+   }
+  },
+  "@FortuneOfNations": {
+   "konu": {
+    "finans": 0.4,
+    "egitim": 0.4,
+    "tarih": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.448,
+   "oran": 10.57,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.3333,
+    "zoom": 0.1667,
+    "karartma": 0.3333,
+    "flas": 0.1667
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5714,
+    "ken-burns-disa": 0.381,
+    "sabit": 0.0476
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 1.9,
+    "sfx": 0.29
+   }
+  },
+  "@FoxholeFiles-e1j": {
+   "konu": {
+    "askeri": 0.833,
+    "teknoloji": 0.167
+   },
+   "ton": "ciddi",
+   "agirlik": 2.376,
+   "oran": 2.96,
+   "font": {
+    "serif": 0.5,
+    "gosteri": 0.1667,
+    "sans-dar": 0.3333
+   },
+   "gecis": {
+    "sert": 0.9486,
+    "maske": 0.0068,
+    "zoom": 0.0034,
+    "karartma": 0.0377,
+    "glitch": 0.0034
+   },
+   "kamera": {
+    "sabit": 0.3262,
+    "ken-burns-ice": 0.3891,
+    "ken-burns-disa": 0.2094,
+    "pan-sag": 0.0077,
+    "pan-yukari": 0.0524,
+    "pan-sol": 0.0152
+   },
+   "cerceve": {
+    "tam": 0.9866,
+    "bulanik-kopya": 0.0134,
+    "bolunmus": 0.0,
+    "letterbox": 0.0,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "vurgulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.1,
+    "sfx": 0.49
+   }
+  },
+  "@Frommilitarytomillionaire": {
+   "konu": {
+    "askeri": 0.667,
+    "yasam": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 4.368,
+   "oran": 28.01,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.8351,
+    "karartma": 0.1031,
+    "zoom": 0.0619
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5814,
+    "sabit": 0.093,
+    "ken-burns-disa": 0.3256
+   },
+   "cerceve": {
+    "tam": 0.83,
+    "letterbox": 0.09,
+    "bulanik-kopya": 0.05,
+    "inset-golge": 0.03
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 1.95,
+    "sfx": 0.37
+   }
+  },
+  "@Frontstaat": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.821,
+   "oran": 5.18,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.5,
+    "karartma": 0.375,
+    "flas": 0.1136,
+    "zoom": 0.0114
+   },
+   "kamera": {
+    "pan-sol": 0.0652,
+    "pan-yukari": 0.0978,
+    "ken-burns-ice": 0.2935,
+    "pan-sag": 0.0543,
+    "ken-burns-disa": 0.3043,
+    "sabit": 0.1848
+   },
+   "cerceve": {
+    "tam": 0.92,
+    "bulanik-kopya": 0.04,
+    "inset-golge": 0.04
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 32.0,
+    "medyan": 2.15,
+    "sfx": 0.55
+   }
+  },
+  "@FrugalLivingDaily": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 4.093,
+   "oran": 21.05,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.977,
+    "maske": 0.0115,
+    "karartma": 0.0115
+   },
+   "kamera": {
+    "sabit": 0.4824,
+    "ken-burns-ice": 0.3294,
+    "ken-burns-disa": 0.1412,
+    "pan-sag": 0.0118,
+    "pan-sol": 0.0235,
+    "pan-yukari": 0.0118
+   },
+   "cerceve": {
+    "tam": 0.5149,
+    "bulanik-kopya": 0.4554,
+    "inset-golge": 0.0297
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 1.6,
+    "sfx": 0.3
+   }
+  },
+  "@GDeutschland2050": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.995,
+   "oran": 6.35,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 1.0
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.7,
+    "sfx": 0.64
+   }
+  },
+  "@GeoGustavoYT": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.765,
+   "oran": 4.84,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "karartma": 0.7826,
+    "sert": 0.1087,
+    "zoom": 0.0543,
+    "maske": 0.0543
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5217,
+    "ken-burns-disa": 0.2609,
+    "sabit": 0.2174
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "cerceveli_doku/gorsel": 0.01,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.05,
+    "sfx": 0.76
+   }
+  },
+  "@GiantsinMotion": {
+   "konu": {
+    "muhendislik": 0.25,
+    "haber": 0.25,
+    "liste": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "enerjik",
+   "agirlik": 3.609,
+   "oran": 12.59,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.95,
+    "karartma": 0.05
+   },
+   "kamera": {
+    "ken-burns-disa": 0.4918,
+    "ken-burns-ice": 0.459,
+    "sabit": 0.0492
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 7.05,
+    "sfx": 0.26
+   }
+  },
+  "@GrainandGravity": {
+   "konu": {
+    "otomotiv": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.87,
+   "oran": 16.64,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7528,
+    "karartma": 0.0899,
+    "flas": 0.1011,
+    "hareket": 0.0449,
+    "zoom": 0.0112
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3239,
+    "ken-burns-disa": 0.1648,
+    "sabit": 0.358,
+    "pan-sag": 0.0795,
+    "pan-yukari": 0.0682,
+    "pan-sol": 0.0057
+   },
+   "cerceve": {
+    "tam": 0.8182,
+    "inset-golge": 0.0909,
+    "bulanik-kopya": 0.0707,
+    "letterbox": 0.0101,
+    "bolunmus": 0.0101,
+    "cerceveli_doku/gorsel": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.5,
+    "sfx": 0.25
+   }
+  },
+  "@Ground-Engineering": {
+   "konu": {
+    "muhendislik": 0.667,
+    "askeri": 0.167,
+    "otomotiv": 0.167
+   },
+   "ton": "ciddi",
+   "agirlik": 2.926,
+   "oran": 5.86,
+   "font": {
+    "gosteri": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.8636,
+    "glitch": 0.0455,
+    "karartma": 0.0455,
+    "maske": 0.0227,
+    "zoom": 0.0227
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5843,
+    "pan-sag": 0.0112,
+    "ken-burns-disa": 0.2809,
+    "sabit": 0.0449,
+    "pan-yukari": 0.0787
+   },
+   "cerceve": {
+    "tam": 0.9703,
+    "bolunmus": 0.0198,
+    "bulanik-kopya": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 38.0,
+    "medyan": 1.6,
+    "sfx": 0.58
+   }
+  },
+  "@Hansbecker-yt": {
+   "konu": {
+    "otomotiv": 0.6,
+    "finans": 0.2,
+    "haber": 0.2
+   },
+   "ton": "enerjik",
+   "agirlik": 3.016,
+   "oran": 6.51,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.8351,
+    "karartma": 0.134,
+    "maske": 0.0103,
+    "zoom": 0.0103,
+    "flas": 0.0103
+   },
+   "kamera": {
+    "ken-burns-disa": 0.3919,
+    "ken-burns-ice": 0.4257,
+    "pan-yukari": 0.0338,
+    "sabit": 0.1351,
+    "pan-sag": 0.0135
+   },
+   "cerceve": {
+    "tam": 0.99,
+    "inset-golge": 0.01,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.3,
+    "sfx": 0.58
+   }
+  },
+  "@HjärtatsRöst": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.934,
+   "oran": 5.92,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.949,
+    "maske": 0.0408,
+    "hareket": 0.0102
+   },
+   "kamera": {
+    "pan-sag": 0.0769,
+    "ken-burns-disa": 0.3462,
+    "ken-burns-ice": 0.4231,
+    "sabit": 0.1538
+   },
+   "cerceve": {
+    "tam": 0.91,
+    "bulanik-kopya": 0.09
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.6,
+    "sfx": 0.57
+   }
+  },
+  "@INGENIUMYT": {
+   "konu": {
+    "askeri": 0.667,
+    "egitim": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.155,
+   "oran": 7.63,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.6458,
+    "karartma": 0.3333,
+    "maske": 0.0208
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4426,
+    "ken-burns-disa": 0.0656,
+    "sabit": 0.4918
+   },
+   "cerceve": {
+    "tam": 0.9406,
+    "bulanik-kopya": 0.0297,
+    "letterbox": 0.0198,
+    "inset-golge": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 5.6,
+    "sfx": 0.21
+   }
+  },
+  "@ImmersivePast": {
+   "konu": {
+    "askeri": 0.2,
+    "tarih": 0.2,
+    "gizem": 0.2,
+    "teknoloji": 0.2,
+    "egitim": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.176,
+   "oran": 7.81,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.88,
+    "karartma": 0.12
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5256,
+    "sabit": 0.2051,
+    "ken-burns-disa": 0.2564,
+    "pan-sag": 0.0128
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "inset-golge": 0.04,
+    "letterbox": 0.01,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 2.7,
+    "sfx": 0.08
+   }
+  },
+  "@InheritanceSecrets-m3e": {
+   "konu": {
+    "finans": 0.333,
+    "teknoloji": 0.333,
+    "yasam": 0.333
+   },
+   "ton": "sakin",
+   "agirlik": 3.699,
+   "oran": 13.86,
+   "font": {},
+   "gecis": {
+    "sert": 0.9798,
+    "karartma": 0.0202
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1236,
+    "sabit": 0.7753,
+    "ken-burns-disa": 0.1011
+   },
+   "cerceve": {
+    "tam": 0.93,
+    "bulanik-kopya": 0.07
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 4.1,
+    "sfx": 0.25
+   }
+  },
+  "@InnovatingCore": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 4.571,
+   "oran": 34.54,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.8488,
+    "glitch": 0.0698,
+    "karartma": 0.0465,
+    "zoom": 0.0233,
+    "hareket": 0.0116
+   },
+   "kamera": {
+    "pan-yukari": 0.0714,
+    "ken-burns-ice": 0.3571,
+    "sabit": 0.25,
+    "ken-burns-disa": 0.2768,
+    "pan-sag": 0.0357,
+    "pan-sol": 0.0089
+   },
+   "cerceve": {
+    "tam": 0.85,
+    "bulanik-kopya": 0.09,
+    "inset-golge": 0.03,
+    "letterbox": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.0,
+    "sfx": 0.45
+   }
+  },
+  "@InsideTheSteels": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.408,
+   "oran": 10.11,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.7629,
+    "karartma": 0.1443,
+    "flas": 0.0825,
+    "glitch": 0.0103
+   },
+   "kamera": {
+    "sabit": 0.3158,
+    "ken-burns-ice": 0.4436,
+    "pan-sol": 0.0226,
+    "ken-burns-disa": 0.1805,
+    "pan-yukari": 0.0376
+   },
+   "cerceve": {
+    "tam": 0.8586,
+    "bulanik-kopya": 0.0808,
+    "inset-golge": 0.0303,
+    "letterbox": 0.0202,
+    "bolunmus": 0.0101
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.3,
+    "sfx": 0.53
+   }
+  },
+  "@InsidetheRanksUSA": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.304,
+   "oran": 9.01,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9588,
+    "glitch": 0.0206,
+    "karartma": 0.0206
+   },
+   "kamera": {
+    "sabit": 0.3621,
+    "ken-burns-ice": 0.5,
+    "ken-burns-disa": 0.0948,
+    "pan-sag": 0.0086,
+    "pan-yukari": 0.0259,
+    "pan-sol": 0.0086
+   },
+   "cerceve": {
+    "tam": 0.9,
+    "bulanik-kopya": 0.05,
+    "inset-golge": 0.03,
+    "letterbox": 0.02,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.15,
+    "sfx": 0.48
+   }
+  },
+  "@JaimeHeinecke": {
+   "konu": {
+    "muhendislik": 0.5,
+    "haber": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.231,
+   "oran": 8.31,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.9839,
+    "sabit": 0.0161
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 4.2,
+    "sfx": 0.79
+   }
+  },
+  "@JohnWayneLegacyYT": {
+   "konu": {
+    "teknoloji": 0.5,
+    "otomotiv": 0.5
+   },
+   "ton": "enerjik",
+   "agirlik": 3.709,
+   "oran": 14.01,
+   "font": {
+    "gosteri": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.25,
+    "ken-burns-disa": 0.1667,
+    "pan-sol": 0.125,
+    "pan-sag": 0.0833,
+    "sabit": 0.375
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 4.0,
+    "medyan": 35.5,
+    "sfx": 0.63
+   }
+  },
+  "@KennyRogersLegacyYT": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.393,
+   "oran": 9.95,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1974,
+    "pan-sag": 0.0789,
+    "ken-burns-disa": 0.1842,
+    "sabit": 0.4342,
+    "pan-sol": 0.1053
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 4.0,
+    "medyan": 18.5,
+    "sfx": 0.4
+   }
+  },
+  "@KızılyumrukTR": {
+   "konu": {
+    "egitim": 0.5,
+    "eglence": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.635,
+   "oran": 4.13,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.6162,
+    "karartma": 0.3434,
+    "zoom": 0.0404
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2963,
+    "sabit": 0.4815,
+    "ken-burns-ice": 0.2222
+   },
+   "cerceve": {
+    "tam": 0.8788,
+    "inset-golge": 0.0707,
+    "bulanik-kopya": 0.0505
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.25,
+    "sfx": 0.39
+   }
+  },
+  "@LakshmanD-h7x2e": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 1.693,
+   "oran": 1.0,
+   "font": {},
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5,
+    "ken-burns-disa": 0.5
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 112.8,
+    "sfx": 0.0
+   }
+  },
+  "@LostAmericanChildhood1": {
+   "konu": {
+    "tarih": 0.333,
+    "gizem": 0.333,
+    "liste": 0.333
+   },
+   "ton": "enerjik",
+   "agirlik": 3.378,
+   "oran": 9.78,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7126,
+    "karartma": 0.1264,
+    "flas": 0.0805,
+    "glitch": 0.046,
+    "hareket": 0.0345
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2752,
+    "pan-sol": 0.0271,
+    "ken-burns-disa": 0.155,
+    "sabit": 0.4419,
+    "pan-sag": 0.0426,
+    "pan-yukari": 0.0581
+   },
+   "cerceve": {
+    "tam": 0.8673,
+    "bulanik-kopya": 0.0816,
+    "inset-golge": 0.0408,
+    "letterbox": 0.0102,
+    "cerceveli_doku/gorsel": 0.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 28.0,
+    "medyan": 1.2,
+    "sfx": 0.25
+   }
+  },
+  "@LucianoPavarottiLegacyYT": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.533,
+   "oran": 3.63,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5,
+    "pan-sol": 0.3333,
+    "ken-burns-disa": 0.1667
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 56.6,
+    "sfx": 0.36
+   }
+  },
+  "@MikesMotorhome": {
+   "konu": {
+    "otomotiv": 0.5,
+    "yasam": 0.5
+   },
+   "ton": "sakin",
+   "agirlik": 3.11,
+   "oran": 7.25,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "karartma": 0.573,
+    "sert": 0.4045,
+    "zoom": 0.0225
+   },
+   "kamera": {
+    "ken-burns-ice": 0.413,
+    "sabit": 0.3043,
+    "ken-burns-disa": 0.2609,
+    "pan-sol": 0.0217
+   },
+   "cerceve": {
+    "tam": 0.8687,
+    "bulanik-kopya": 0.1111,
+    "inset-golge": 0.0202,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.25,
+    "sfx": 0.49
+   }
+  },
+  "@MéxicoInnovador": {
+   "konu": {
+    "teknoloji": 0.5,
+    "otomotiv": 0.5
+   },
+   "ton": "enerjik",
+   "agirlik": 3.062,
+   "oran": 6.86,
+   "font": {
+    "sans": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "karartma": 0.6082,
+    "sert": 0.3093,
+    "zoom": 0.0825
+   },
+   "kamera": {
+    "sabit": 0.209,
+    "ken-burns-disa": 0.3134,
+    "ken-burns-ice": 0.4627,
+    "pan-sag": 0.0149
+   },
+   "cerceve": {
+    "tam": 0.87,
+    "letterbox": 0.09,
+    "bulanik-kopya": 0.03,
+    "inset-golge": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 2.45,
+    "sfx": 0.47
+   }
+  },
+  "@NederlandseAutowereld": {
+   "konu": {
+    "liste": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.783,
+   "oran": 4.95,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.8247,
+    "karartma": 0.1443,
+    "maske": 0.0206,
+    "glitch": 0.0103
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3963,
+    "ken-burns-disa": 0.4024,
+    "pan-yukari": 0.0183,
+    "sabit": 0.1585,
+    "pan-sag": 0.0183,
+    "pan-sol": 0.0061
+   },
+   "cerceve": {
+    "tam": 0.91,
+    "bulanik-kopya": 0.05,
+    "inset-golge": 0.03,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 4.4,
+    "sfx": 0.67
+   }
+  },
+  "@NordykeCamaeho": {
+   "konu": {
+    "askeri": 0.571,
+    "yasam": 0.143,
+    "biyografi": 0.143,
+    "eglence": 0.143
+   },
+   "ton": "ciddi",
+   "agirlik": 2.656,
+   "oran": 4.24,
+   "font": {
+    "serif": 0.3333,
+    "gosteri": 0.1667,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "karartma": 0.9497,
+    "sert": 0.0503
+   },
+   "kamera": {
+    "ken-burns-disa": 0.1897,
+    "sabit": 0.6506,
+    "pan-sol": 0.0171,
+    "ken-burns-ice": 0.1331,
+    "pan-sag": 0.0062,
+    "pan-yukari": 0.0033
+   },
+   "cerceve": {
+    "bulanik-kopya": 0.56,
+    "tam": 0.36,
+    "inset-golge": 0.08
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 6.8,
+    "sfx": 0.17
+   }
+  },
+  "@Northwoods-Fox": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 3.0,
+   "oran": 6.39,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.8556,
+    "glitch": 0.0889,
+    "karartma": 0.0444,
+    "zoom": 0.0111
+   },
+   "kamera": {
+    "pan-sol": 0.0145,
+    "pan-yukari": 0.08,
+    "sabit": 0.3273,
+    "ken-burns-disa": 0.2291,
+    "ken-burns-ice": 0.32,
+    "pan-sag": 0.0291
+   },
+   "cerceve": {
+    "tam": 0.9798,
+    "letterbox": 0.0101,
+    "bulanik-kopya": 0.0101,
+    "bolunmus": 0.0,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 32.0,
+    "medyan": 1.25,
+    "sfx": 0.42
+   }
+  },
+  "@NurZhum-w7r": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.763,
+   "oran": 4.83,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.6562,
+    "karartma": 0.2292,
+    "flas": 0.0729,
+    "maske": 0.0312,
+    "glitch": 0.0104
+   },
+   "kamera": {
+    "ken-burns-disa": 0.0465,
+    "ken-burns-ice": 0.407,
+    "sabit": 0.407,
+    "pan-yukari": 0.093,
+    "pan-sol": 0.0116,
+    "pan-sag": 0.0349
+   },
+   "cerceve": {
+    "tam": 0.78,
+    "bulanik-kopya": 0.08,
+    "inset-golge": 0.08,
+    "bolunmus": 0.03,
+    "letterbox": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.4,
+    "sfx": 0.17
+   }
+  },
+  "@Officialwildlaura": {
+   "konu": {
+    "bilim": 0.333,
+    "saglik": 0.333,
+    "haber": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.779,
+   "oran": 15.11,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7553,
+    "karartma": 0.1383,
+    "flas": 0.0745,
+    "glitch": 0.0319
+   },
+   "kamera": {
+    "sabit": 0.3409,
+    "ken-burns-ice": 0.3712,
+    "ken-burns-disa": 0.2197,
+    "pan-sol": 0.0152,
+    "pan-yukari": 0.0379,
+    "pan-sag": 0.0152
+   },
+   "cerceve": {
+    "tam": 0.8911,
+    "bulanik-kopya": 0.0396,
+    "inset-golge": 0.0396,
+    "letterbox": 0.0198,
+    "bolunmus": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.1,
+    "sfx": 0.2
+   }
+  },
+  "@OkeanosHistory": {
+   "konu": {
+    "tarih": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.556,
+   "oran": 3.74,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.6087,
+    "karartma": 0.3696,
+    "zoom": 0.0217
+   },
+   "kamera": {
+    "sabit": 0.3483,
+    "ken-burns-ice": 0.3596,
+    "ken-burns-disa": 0.191,
+    "pan-sag": 0.0787,
+    "pan-sol": 0.0225
+   },
+   "cerceve": {
+    "tam": 0.58,
+    "bulanik-kopya": 0.32,
+    "inset-golge": 0.07,
+    "letterbox": 0.03
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.6,
+    "sfx": 0.4
+   }
+  },
+  "@OnceUponAnEngine": {
+   "konu": {
+    "bilim": 0.5,
+    "tarih": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.497,
+   "oran": 11.15,
+   "font": {
+    "japonca": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.94,
+    "zoom": 0.02,
+    "glitch": 0.02,
+    "karartma": 0.02
+   },
+   "kamera": {
+    "sabit": 0.1972,
+    "ken-burns-ice": 0.5775,
+    "ken-burns-disa": 0.1831,
+    "pan-sag": 0.0141,
+    "pan-yukari": 0.0282
+   },
+   "cerceve": {
+    "tam": 0.8416,
+    "inset-golge": 0.1188,
+    "bulanik-kopya": 0.0198,
+    "bolunmus": 0.0198,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.7,
+    "sfx": 0.44
+   }
+  },
+  "@ParkTrap_YT": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.267,
+   "oran": 8.65,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.8462,
+    "karartma": 0.0769,
+    "glitch": 0.033,
+    "zoom": 0.022,
+    "hareket": 0.022
+   },
+   "kamera": {
+    "sabit": 0.322,
+    "ken-burns-ice": 0.2542,
+    "ken-burns-disa": 0.2203,
+    "pan-yukari": 0.1864,
+    "pan-sol": 0.0169
+   },
+   "cerceve": {
+    "tam": 0.99,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 1.5,
+    "sfx": 0.48
+   }
+  },
+  "@PersimmonArchive": {
+   "konu": {
+    "finans": 0.5,
+    "biyografi": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.278,
+   "oran": 8.76,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7579,
+    "karartma": 0.1053,
+    "glitch": 0.0316,
+    "hareket": 0.0316,
+    "flas": 0.0421,
+    "zoom": 0.0211,
+    "maske": 0.0105
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2391,
+    "sabit": 0.4293,
+    "ken-burns-disa": 0.163,
+    "pan-yukari": 0.1033,
+    "pan-sag": 0.0435,
+    "pan-sol": 0.0217
+   },
+   "cerceve": {
+    "tam": 0.87,
+    "bulanik-kopya": 0.06,
+    "inset-golge": 0.06,
+    "bolunmus": 0.01,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 32.0,
+    "medyan": 1.5,
+    "sfx": 0.21
+   }
+  },
+  "@PrimeDiscoveryX": {
+   "konu": {
+    "korku": 0.5,
+    "gizem": 0.5
+   },
+   "ton": "gizem",
+   "agirlik": 4.225,
+   "oran": 24.16,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.8901,
+    "karartma": 0.044,
+    "hareket": 0.022,
+    "glitch": 0.011,
+    "flas": 0.022,
+    "zoom": 0.011
+   },
+   "kamera": {
+    "sabit": 0.2514,
+    "ken-burns-disa": 0.2179,
+    "ken-burns-ice": 0.3687,
+    "pan-yukari": 0.1117,
+    "pan-sag": 0.0223,
+    "pan-sol": 0.0279
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "cerceveli_doku/gorsel": 0.03,
+    "inset-golge": 0.02,
+    "bulanik-kopya": 0.01,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 28.0,
+    "medyan": 1.95,
+    "sfx": 0.49
+   }
+  },
+  "@RESONANCEWITHIN-Naville": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.841,
+   "oran": 16.14,
+   "font": {
+    "sans": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2667,
+    "sabit": 0.3,
+    "ken-burns-disa": 0.2,
+    "pan-yukari": 0.2333
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 10.5,
+    "sfx": 0.35
+   }
+  },
+  "@ReichonRecord": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.25,
+    "teknoloji": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.876,
+   "oran": 5.53,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.6327,
+    "karartma": 0.3265,
+    "glitch": 0.0204,
+    "flas": 0.0204
+   },
+   "kamera": {
+    "sabit": 0.4444,
+    "ken-burns-ice": 0.3651,
+    "ken-burns-disa": 0.1429,
+    "pan-yukari": 0.0476
+   },
+   "cerceve": {
+    "tam": 0.74,
+    "inset-golge": 0.14,
+    "bulanik-kopya": 0.1,
+    "letterbox": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 3.4,
+    "sfx": 0.52
+   }
+  },
+  "@RichardHallowayCryptids": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "gizem",
+   "agirlik": 3.036,
+   "oran": 6.66,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7812,
+    "flas": 0.1562,
+    "karartma": 0.0625
+   },
+   "kamera": {
+    "sabit": 0.5417,
+    "ken-burns-ice": 0.3125,
+    "ken-burns-disa": 0.125,
+    "pan-yukari": 0.0208
+   },
+   "cerceve": {
+    "tam": 0.55,
+    "inset-golge": 0.44,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 6.5,
+    "sfx": 0.12
+   }
+  },
+  "@RickHarrisonCoins": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 4.091,
+   "oran": 21.01,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.963,
+    "karartma": 0.037
+   },
+   "kamera": {
+    "ken-burns-disa": 0.5641,
+    "ken-burns-ice": 0.3333,
+    "sabit": 0.0256,
+    "pan-yukari": 0.0513,
+    "pan-sag": 0.0256
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 8.0,
+    "sfx": 0.49
+   }
+  },
+  "@Romanlangfeld": {
+   "konu": {
+    "tarih": 0.5,
+    "teknoloji": 0.5
+   },
+   "ton": "sakin",
+   "agirlik": 3.149,
+   "oran": 7.58,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.1667,
+    "ken-burns-ice": 0.8167,
+    "ken-burns-disa": 0.0167
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.8,
+    "sfx": 0.56
+   }
+  },
+  "@RussellRoss-s6u": {
+   "konu": {
+    "askeri": 0.25,
+    "teknoloji": 0.25,
+    "muhendislik": 0.25,
+    "otomotiv": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.587,
+   "oran": 12.29,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.7653,
+    "karartma": 0.2245,
+    "maske": 0.0102
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3766,
+    "ken-burns-disa": 0.4481,
+    "sabit": 0.1623,
+    "pan-sol": 0.0065,
+    "pan-yukari": 0.0065
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "bulanik-kopya": 0.03,
+    "letterbox": 0.02,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.7,
+    "sfx": 0.56
+   }
+  },
+  "@SURVIVALTECHYT": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.834,
+   "oran": 16.02,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.6889,
+    "flas": 0.0667,
+    "karartma": 0.1333,
+    "zoom": 0.0556,
+    "glitch": 0.0556
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2917,
+    "sabit": 0.2222,
+    "ken-burns-ice": 0.4583,
+    "pan-yukari": 0.0139,
+    "pan-sag": 0.0139
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "letterbox": 0.01,
+    "bulanik-kopya": 0.01,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 2.2,
+    "sfx": 0.32
+   }
+  },
+  "@SeitenblickTV": {
+   "konu": {
+    "finans": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.353,
+   "oran": 2.87,
+   "font": {
+    "sans": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "karartma": 0.4674,
+    "sert": 0.2609,
+    "zoom": 0.1087,
+    "flas": 0.1087,
+    "maske": 0.0543
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5,
+    "ken-burns-disa": 0.25,
+    "sabit": 0.1389,
+    "pan-yukari": 0.0833,
+    "pan-sag": 0.0278
+   },
+   "cerceve": {
+    "tam": 0.79,
+    "bulanik-kopya": 0.15,
+    "letterbox": 0.03,
+    "inset-golge": 0.03,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.05,
+    "sfx": 0.24
+   }
+  },
+  "@SiliconUpClose": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 2.98,
+   "oran": 6.24,
+   "font": {},
+   "gecis": {
+    "sert": 0.901,
+    "karartma": 0.099
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3134,
+    "sabit": 0.5224,
+    "ken-burns-disa": 0.1493,
+    "pan-yukari": 0.0149
+   },
+   "cerceve": {
+    "tam": 0.88,
+    "letterbox": 0.07,
+    "bulanik-kopya": 0.02,
+    "inset-golge": 0.02,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.1,
+    "sfx": 0.27
+   }
+  },
+  "@SpongeTruth": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.335,
+   "oran": 9.33,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.8652,
+    "glitch": 0.0449,
+    "karartma": 0.0449,
+    "zoom": 0.0225,
+    "maske": 0.0112,
+    "flas": 0.0112
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2719,
+    "ken-burns-ice": 0.2456,
+    "pan-yukari": 0.0702,
+    "sabit": 0.4123
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "bulanik-kopya": 0.06
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 1.9,
+    "sfx": 0.43
+   }
+  },
+  "@SpurVerloren": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.978,
+   "oran": 6.23,
+   "font": {
+    "japonca": 1.0
+   },
+   "gecis": {
+    "sert": 0.38,
+    "karartma": 0.5,
+    "flas": 0.1,
+    "zoom": 0.02
+   },
+   "kamera": {
+    "sabit": 0.5867,
+    "ken-burns-disa": 0.16,
+    "ken-burns-ice": 0.24,
+    "pan-sol": 0.0133
+   },
+   "cerceve": {
+    "tam": 0.63,
+    "inset-golge": 0.23,
+    "bulanik-kopya": 0.12,
+    "letterbox": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.75,
+    "sfx": 0.33
+   }
+  },
+  "@StatesAhead": {
+   "konu": {
+    "bilim": 0.75,
+    "muhendislik": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.71,
+   "oran": 4.53,
+   "font": {},
+   "gecis": {
+    "sert": 0.7576,
+    "karartma": 0.2121,
+    "flas": 0.0303
+   },
+   "kamera": {
+    "ken-burns-disa": 0.157,
+    "sabit": 0.562,
+    "ken-burns-ice": 0.2562,
+    "pan-sol": 0.0083,
+    "pan-yukari": 0.0165
+   },
+   "cerceve": {
+    "tam": 0.8788,
+    "inset-golge": 0.101,
+    "bulanik-kopya": 0.0202,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 34.0,
+    "medyan": 1.3,
+    "sfx": 0.52
+   }
+  },
+  "@StillInsideFilms": {
+   "konu": {
+    "askeri": 0.667,
+    "teknoloji": 0.167,
+    "muhendislik": 0.167
+   },
+   "ton": "ciddi",
+   "agirlik": 2.873,
+   "oran": 5.51,
+   "font": {
+    "gosteri": 0.8,
+    "sans-dar": 0.2
+   },
+   "gecis": {
+    "karartma": 0.8356,
+    "maske": 0.1107,
+    "flas": 0.0101,
+    "zoom": 0.0134,
+    "sert": 0.0201,
+    "glitch": 0.0101
+   },
+   "kamera": {
+    "pan-sag": 0.0425,
+    "sabit": 0.5222,
+    "ken-burns-disa": 0.1324,
+    "ken-burns-ice": 0.2228,
+    "pan-yukari": 0.0528,
+    "pan-sol": 0.0273
+   },
+   "cerceve": {
+    "bulanik-kopya": 0.5467,
+    "tam": 0.4433,
+    "inset-golge": 0.0067,
+    "bolunmus": 0.0033
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 6.8,
+    "sfx": 0.04
+   }
+  },
+  "@SvenskaBilar": {
+   "konu": {
+    "muhendislik": 0.333,
+    "otomotiv": 0.333,
+    "haber": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.866,
+   "oran": 5.46,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9286,
+    "maske": 0.0306,
+    "karartma": 0.0408
+   },
+   "kamera": {
+    "pan-yukari": 0.0062,
+    "ken-burns-disa": 0.4188,
+    "ken-burns-ice": 0.4,
+    "pan-sag": 0.0375,
+    "sabit": 0.1375
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "bulanik-kopya": 0.06
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.1,
+    "sfx": 0.56
+   }
+  },
+  "@TVLIfeYT": {
+   "konu": {
+    "finans": 0.5,
+    "yasam": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.997,
+   "oran": 6.37,
+   "font": {
+    "gosteri": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.5652,
+    "karartma": 0.2826,
+    "zoom": 0.1522
+   },
+   "kamera": {
+    "sabit": 0.26,
+    "ken-burns-ice": 0.12,
+    "pan-yukari": 0.13,
+    "pan-sol": 0.02,
+    "ken-burns-disa": 0.43,
+    "pan-sag": 0.04
+   },
+   "cerceve": {
+    "tam": 0.93,
+    "inset-golge": 0.04,
+    "bulanik-kopya": 0.03,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 38.0,
+    "medyan": 1.3,
+    "sfx": 0.4
+   }
+  },
+  "@TactCoreYT": {
+   "konu": {
+    "askeri": 0.6,
+    "tarih": 0.1,
+    "suc": 0.1,
+    "teknoloji": 0.1,
+    "egitim": 0.1
+   },
+   "ton": "ciddi",
+   "agirlik": 3.111,
+   "oran": 7.26,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {},
+   "kamera": {
+    "ken-burns-disa": 1.0
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 171.1
+   }
+  },
+  "@TacticalHorizonn": {
+   "konu": {
+    "askeri": 0.5,
+    "finans": 0.25,
+    "spor": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.576,
+   "oran": 12.15,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.9263,
+    "karartma": 0.0421,
+    "glitch": 0.0211,
+    "flas": 0.0105,
+    "zoom": 0.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3017,
+    "sabit": 0.3593,
+    "ken-burns-disa": 0.2136,
+    "pan-yukari": 0.0712,
+    "pan-sag": 0.0407,
+    "pan-sol": 0.0136
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "inset-golge": 0.0,
+    "letterbox": 0.0,
+    "bulanik-kopya": 0.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 50.0,
+    "medyan": 1.3,
+    "sfx": 0.6
+   }
+  },
+  "@Techlophobia": {
+   "konu": {
+    "teknoloji": 0.667,
+    "seyahat": 0.333
+   },
+   "ton": "enerjik",
+   "agirlik": 4.263,
+   "oran": 25.14,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.8842,
+    "flas": 0.0737,
+    "karartma": 0.0211,
+    "zoom": 0.0211
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3473,
+    "ken-burns-disa": 0.2874,
+    "sabit": 0.2575,
+    "pan-yukari": 0.0419,
+    "pan-sag": 0.0299,
+    "pan-sol": 0.0359
+   },
+   "cerceve": {
+    "tam": 0.88,
+    "bulanik-kopya": 0.11,
+    "inset-golge": 0.01,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 46.0,
+    "medyan": 1.2,
+    "sfx": 0.44
+   }
+  },
+  "@TheAffordableFix": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 4.625,
+   "oran": 36.53,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7447,
+    "karartma": 0.1702,
+    "flas": 0.0638,
+    "glitch": 0.0213
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4918,
+    "sabit": 0.3443,
+    "ken-burns-disa": 0.1148,
+    "pan-yukari": 0.0328,
+    "pan-sol": 0.0164
+   },
+   "cerceve": {
+    "tam": 0.9394,
+    "bulanik-kopya": 0.0606,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 34.0,
+    "medyan": 1.7,
+    "sfx": 0.24
+   }
+  },
+  "@TheBillyGrahamLegacy-x1m": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.501,
+   "oran": 11.19,
+   "font": {},
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "pan-sol": 0.0455,
+    "sabit": 0.3182,
+    "ken-burns-disa": 0.2273,
+    "ken-burns-ice": 0.2273,
+    "pan-sag": 0.0909,
+    "pan-yukari": 0.0909
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 10.2,
+    "sfx": 0.32
+   }
+  },
+  "@TheDarkScenario": {
+   "konu": {
+    "askeri": 0.5,
+    "teknoloji": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.805,
+   "oran": 5.08,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "karartma": 1.0
+   },
+   "kamera": {
+    "sabit": 0.2737,
+    "ken-burns-disa": 0.2105,
+    "ken-burns-ice": 0.4105,
+    "pan-yukari": 0.0105,
+    "pan-sag": 0.0947
+   },
+   "cerceve": {
+    "tam": 0.7273,
+    "inset-golge": 0.1515,
+    "letterbox": 0.101,
+    "cerceveli_doku/gorsel": 0.0101,
+    "bulanik-kopya": 0.0101
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.35,
+    "sfx": 0.27
+   }
+  },
+  "@TheEbersoleReels": {
+   "konu": {
+    "gizem": 0.667,
+    "askeri": 0.333
+   },
+   "ton": "gizem",
+   "agirlik": 2.876,
+   "oran": 5.53,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "karartma": 0.9604,
+    "zoom": 0.0396
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5,
+    "sabit": 0.4048,
+    "ken-burns-disa": 0.0476,
+    "pan-sag": 0.0476
+   },
+   "cerceve": {
+    "tam": 0.86,
+    "bulanik-kopya": 0.08,
+    "inset-golge": 0.03,
+    "letterbox": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.7,
+    "sfx": 0.25
+   }
+  },
+  "@TheExpensiveLook": {
+   "konu": {
+    "finans": 0.333,
+    "yasam": 0.333,
+    "liste": 0.333
+   },
+   "ton": "enerjik",
+   "agirlik": 3.918,
+   "oran": 17.51,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.8085,
+    "karartma": 0.1064,
+    "flas": 0.0426,
+    "maske": 0.0319,
+    "zoom": 0.0106
+   },
+   "kamera": {
+    "sabit": 0.3256,
+    "ken-burns-ice": 0.5233,
+    "pan-sol": 0.0116,
+    "ken-burns-disa": 0.1163,
+    "pan-yukari": 0.0233
+   },
+   "cerceve": {
+    "tam": 0.93,
+    "bulanik-kopya": 0.03,
+    "inset-golge": 0.02,
+    "letterbox": 0.01,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 28.0,
+    "medyan": 1.75,
+    "sfx": 0.25
+   }
+  },
+  "@TheHistoryFrontline": {
+   "konu": {
+    "tarih": 0.4,
+    "askeri": 0.2,
+    "teknoloji": 0.2,
+    "liste": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.131,
+   "oran": 7.42,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.0484,
+    "sabit": 0.9516
+   },
+   "cerceve": {
+    "tam": 0.92,
+    "bulanik-kopya": 0.08,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.2,
+    "sfx": 0.11
+   }
+  },
+  "@TheQuietRecord1": {
+   "konu": {
+    "gizem": 1.0
+   },
+   "ton": "gizem",
+   "agirlik": 3.669,
+   "oran": 13.43,
+   "font": {
+    "sans-dar": 0.5,
+    "slab": 0.5
+   },
+   "gecis": {
+    "sert": 0.7188,
+    "karartma": 0.1562,
+    "flas": 0.0729,
+    "hareket": 0.0417,
+    "zoom": 0.0104
+   },
+   "kamera": {
+    "sabit": 0.4946,
+    "ken-burns-ice": 0.2903,
+    "ken-burns-disa": 0.1613,
+    "pan-yukari": 0.0215,
+    "pan-sag": 0.0323
+   },
+   "cerceve": {
+    "tam": 0.9192,
+    "inset-golge": 0.0505,
+    "bulanik-kopya": 0.0303,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 2.8,
+    "sfx": 0.16
+   }
+  },
+  "@TheUniformYears": {
+   "konu": {
+    "tarih": 0.333,
+    "seyahat": 0.333,
+    "liste": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.108,
+   "oran": 7.23,
+   "font": {},
+   "gecis": {
+    "karartma": 0.9596,
+    "sert": 0.0404
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5882,
+    "ken-burns-disa": 0.1029,
+    "pan-sol": 0.0441,
+    "pan-sag": 0.1176,
+    "sabit": 0.0882,
+    "pan-yukari": 0.0588
+   },
+   "cerceve": {
+    "tam": 0.81,
+    "bulanik-kopya": 0.19
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.7,
+    "sfx": 0.12
+   }
+  },
+  "@TheUnreturned-b2k": {
+   "konu": {
+    "gizem": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.783,
+   "oran": 4.95,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.6869,
+    "karartma": 0.2424,
+    "flas": 0.0707
+   },
+   "kamera": {
+    "ken-burns-ice": 0.413,
+    "pan-sag": 0.0435,
+    "sabit": 0.3913,
+    "pan-yukari": 0.0435,
+    "pan-sol": 0.0217,
+    "ken-burns-disa": 0.087
+   },
+   "cerceve": {
+    "tam": 0.8788,
+    "bulanik-kopya": 0.0404,
+    "bolunmus": 0.0404,
+    "letterbox": 0.0404,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 6.1,
+    "sfx": 0.66
+   }
+  },
+  "@TheVisitorFilesEN": {
+   "konu": {
+    "askeri": 0.5,
+    "bilim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.514,
+   "oran": 11.36,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "karartma": 0.9118,
+    "zoom": 0.0294,
+    "flas": 0.0294,
+    "sert": 0.0294
+   },
+   "kamera": {
+    "sabit": 0.6203,
+    "pan-sag": 0.0127,
+    "ken-burns-ice": 0.2911,
+    "ken-burns-disa": 0.0759
+   },
+   "cerceve": {
+    "tam": 0.8182,
+    "bulanik-kopya": 0.1515,
+    "letterbox": 0.0202,
+    "inset-golge": 0.0101
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 4.7,
+    "sfx": 0.62
+   }
+  },
+  "@TheWW2Legacy": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.125,
+    "muhendislik": 0.125,
+    "otomotiv": 0.125,
+    "egitim": 0.125
+   },
+   "ton": "ciddi",
+   "agirlik": 2.019,
+   "oran": 1.77,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 1.0
+   },
+   "cerceve": {
+    "inset-golge": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 5.0,
+    "sfx": 0.0
+   }
+  },
+  "@ThomasBecker-q6xT": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.883,
+   "oran": 5.57,
+   "font": {},
+   "gecis": {
+    "karartma": 1.0
+   },
+   "kamera": {
+    "sabit": 1.0
+   },
+   "cerceve": {
+    "tam": 0.7822,
+    "inset-golge": 0.1188,
+    "bulanik-kopya": 0.099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 46.4,
+    "sfx": 0.85
+   }
+  },
+  "@TimsAmerica": {
+   "konu": {
+    "spor": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "enerjik",
+   "agirlik": 3.606,
+   "oran": 12.54,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.6966,
+    "karartma": 0.2809,
+    "flas": 0.0225
+   },
+   "kamera": {
+    "sabit": 0.359,
+    "ken-burns-ice": 0.2564,
+    "pan-yukari": 0.1026,
+    "pan-sag": 0.0641,
+    "ken-burns-disa": 0.2051,
+    "pan-sol": 0.0128
+   },
+   "cerceve": {
+    "tam": 0.9,
+    "inset-golge": 0.05,
+    "bulanik-kopya": 0.04,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 6.6,
+    "sfx": 0.51
+   }
+  },
+  "@ToolWiseNZ": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.011,
+   "oran": 6.47,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.623,
+    "glitch": 0.2459,
+    "karartma": 0.1311
+   },
+   "kamera": {
+    "sabit": 0.25,
+    "ken-burns-ice": 0.0833,
+    "ken-burns-disa": 0.6667
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 3.2,
+    "sfx": 0.23
+   }
+  },
+  "@TrevorMatthews-o8j": {
+   "konu": {
+    "teknoloji": 0.333,
+    "otomotiv": 0.333,
+    "haber": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.16,
+   "oran": 2.19,
+   "font": {
+    "gosteri": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.9596,
+    "karartma": 0.0404
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4394,
+    "ken-burns-disa": 0.3485,
+    "sabit": 0.1364,
+    "pan-sag": 0.0152,
+    "pan-yukari": 0.0606
+   },
+   "cerceve": {
+    "tam": 0.99,
+    "bulanik-kopya": 0.01,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 0.8,
+    "sfx": 0.41
+   }
+  },
+  "@TwoSidesOfWar": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.828,
+   "oran": 5.22,
+   "font": {
+    "japonca": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.899,
+    "karartma": 0.0707,
+    "maske": 0.0101,
+    "zoom": 0.0101,
+    "flas": 0.0101
+   },
+   "kamera": {
+    "pan-sol": 0.029,
+    "sabit": 0.5809,
+    "ken-burns-disa": 0.0913,
+    "pan-yukari": 0.0705,
+    "ken-burns-ice": 0.2282
+   },
+   "cerceve": {
+    "tam": 0.9505,
+    "bulanik-kopya": 0.0297,
+    "inset-golge": 0.0099,
+    "bolunmus": 0.0099,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 54.0,
+    "medyan": 1.0,
+    "sfx": 0.33
+   }
+  },
+  "@UnderTheAtlasYT": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.994,
+   "oran": 18.97,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.7576,
+    "karartma": 0.2424
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4459,
+    "sabit": 0.2703,
+    "pan-yukari": 0.0946,
+    "pan-sol": 0.0405,
+    "ken-burns-disa": 0.1216,
+    "pan-sag": 0.027
+   },
+   "cerceve": {
+    "tam": 0.9802,
+    "bulanik-kopya": 0.0099,
+    "inset-golge": 0.0099,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 8.0,
+    "medyan": 6.1,
+    "sfx": 0.46
+   }
+  },
+  "@UnderTheHeadline": {
+   "konu": {
+    "haber": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.327,
+   "oran": 9.25,
+   "font": {},
+   "gecis": {
+    "karartma": 0.6024,
+    "sert": 0.3976
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5333,
+    "sabit": 0.4667
+   },
+   "cerceve": {
+    "tam": 0.84,
+    "letterbox": 0.13,
+    "inset-golge": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 21.9,
+    "sfx": 0.33
+   }
+  },
+  "@Undertold-usa": {
+   "konu": {
+    "tarih": 0.5,
+    "biyografi": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.639,
+   "oran": 4.15,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.5109,
+    "karartma": 0.2283,
+    "glitch": 0.0761,
+    "zoom": 0.1413,
+    "flas": 0.0217,
+    "hareket": 0.0217
+   },
+   "kamera": {
+    "ken-burns-ice": 0.8824,
+    "pan-yukari": 0.0588,
+    "sabit": 0.0588
+   },
+   "cerceve": {
+    "tam": 0.61,
+    "bulanik-kopya": 0.38,
+    "inset-golge": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 4.1,
+    "sfx": 0.18
+   }
+  },
+  "@UnexplainedRecords-g5q": {
+   "konu": {
+    "gizem": 0.2,
+    "finans": 0.2,
+    "bilim": 0.2,
+    "liste": 0.2,
+    "egitim": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 4.416,
+   "oran": 29.45,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.9286,
+    "karartma": 0.0408,
+    "glitch": 0.0102,
+    "flas": 0.0102,
+    "maske": 0.0102
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3733,
+    "pan-yukari": 0.1,
+    "pan-sol": 0.0467,
+    "sabit": 0.2,
+    "ken-burns-disa": 0.2533,
+    "pan-sag": 0.0267
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "cerceveli_doku/gorsel": 0.0,
+    "inset-golge": 0.0,
+    "bulanik-kopya": 0.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.25,
+    "sfx": 0.3
+   }
+  },
+  "@UnseenHollywood-x8l": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.028,
+   "oran": 6.6,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9798,
+    "glitch": 0.0202
+   },
+   "kamera": {
+    "ken-burns-ice": 0.6212,
+    "sabit": 0.1061,
+    "ken-burns-disa": 0.1515,
+    "pan-yukari": 0.0455,
+    "pan-sag": 0.0455,
+    "pan-sol": 0.0303
+   },
+   "cerceve": {
+    "tam": 0.7129,
+    "bulanik-kopya": 0.1485,
+    "inset-golge": 0.1188,
+    "letterbox": 0.0198
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.4,
+    "sfx": 0.18
+   }
+  },
+  "@UntoldWarArchives": {
+   "konu": {
+    "muhendislik": 0.333,
+    "askeri": 0.167,
+    "tarih": 0.167,
+    "otomotiv": 0.167,
+    "egitim": 0.167
+   },
+   "ton": "ciddi",
+   "agirlik": 3.058,
+   "oran": 6.83,
+   "font": {
+    "slab": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 1.0
+   },
+   "cerceve": {
+    "letterbox": 0.901,
+    "inset-golge": 0.099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 542.9,
+    "sfx": 0.0
+   }
+  },
+  "@UppfunnetSverige": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.652,
+   "oran": 4.22,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "karartma": 0.9697,
+    "sert": 0.0303
+   },
+   "kamera": {
+    "sabit": 0.2576,
+    "ken-burns-ice": 0.6818,
+    "ken-burns-disa": 0.0303,
+    "pan-yukari": 0.0152,
+    "pan-sag": 0.0152
+   },
+   "cerceve": {
+    "tam": 0.62,
+    "bulanik-kopya": 0.38
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 6.9,
+    "sfx": 0.03
+   }
+  },
+  "@VerborgeneOrteDeutschlands": {
+   "konu": {
+    "korku": 0.5,
+    "gizem": 0.5
+   },
+   "ton": "gizem",
+   "agirlik": 3.476,
+   "oran": 10.89,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7978,
+    "karartma": 0.0899,
+    "hareket": 0.0337,
+    "flas": 0.0562,
+    "glitch": 0.0112,
+    "zoom": 0.0112
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3791,
+    "sabit": 0.3297,
+    "ken-burns-disa": 0.1813,
+    "pan-sag": 0.0495,
+    "pan-yukari": 0.0385,
+    "pan-sol": 0.022
+   },
+   "cerceve": {
+    "tam": 0.87,
+    "bulanik-kopya": 0.08,
+    "inset-golge": 0.04,
+    "letterbox": 0.01,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 1.8,
+    "sfx": 0.22
+   }
+  },
+  "@VergessenesÜberlebenswissen": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.929,
+   "oran": 5.88,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7634,
+    "karartma": 0.1075,
+    "flas": 0.0968,
+    "glitch": 0.0108,
+    "hareket": 0.0108,
+    "zoom": 0.0108
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3161,
+    "ken-burns-disa": 0.1451,
+    "sabit": 0.4508,
+    "pan-yukari": 0.057,
+    "pan-sol": 0.0052,
+    "pan-sag": 0.0259
+   },
+   "cerceve": {
+    "tam": 0.8687,
+    "inset-golge": 0.0808,
+    "bulanik-kopya": 0.0505,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.3,
+    "sfx": 0.21
+   }
+  },
+  "@VintageLagacy": {
+   "konu": {
+    "tarih": 0.333,
+    "gizem": 0.333,
+    "finans": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.678,
+   "oran": 13.56,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "karartma": 0.96,
+    "sert": 0.04
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4211,
+    "pan-yukari": 0.1184,
+    "sabit": 0.3289,
+    "ken-burns-disa": 0.1316
+   },
+   "cerceve": {
+    "tam": 0.96,
+    "inset-golge": 0.02,
+    "bulanik-kopya": 0.01,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 3.1,
+    "sfx": 0.25
+   }
+  },
+  "@VivianSinclairStyle": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.89,
+   "oran": 16.99,
+   "font": {
+    "serif": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "karartma": 0.75,
+    "sert": 0.25
+   },
+   "kamera": {
+    "ken-burns-disa": 0.4074,
+    "ken-burns-ice": 0.4259,
+    "sabit": 0.1296,
+    "pan-yukari": 0.0185,
+    "pan-sag": 0.0185
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 8.8,
+    "sfx": 0.43
+   }
+  },
+  "@VyroSports": {
+   "konu": {
+    "spor": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 1.737,
+   "oran": 1.09,
+   "font": {
+    "sans-dar": 0.8333,
+    "japonca": 0.1667
+   },
+   "gecis": {
+    "sert": 0.7751,
+    "karartma": 0.1765,
+    "flas": 0.0242,
+    "glitch": 0.0208,
+    "zoom": 0.0035
+   },
+   "kamera": {
+    "sabit": 0.3494,
+    "ken-burns-ice": 0.307,
+    "ken-burns-disa": 0.2359,
+    "pan-yukari": 0.0661,
+    "pan-sol": 0.0149,
+    "pan-sag": 0.0268
+   },
+   "cerceve": {
+    "tam": 0.8993,
+    "bulanik-kopya": 0.0705,
+    "letterbox": 0.0201,
+    "bolunmus": 0.0067,
+    "inset-golge": 0.0034
+   },
+   "altyazi": {
+    "kutulu": 0.6667,
+    "yok": 0.3333
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 1.6,
+    "sfx": 0.49
+   }
+  },
+  "@WICK_PROJECT": {
+   "konu": {
+    "askeri": 0.25,
+    "teknoloji": 0.25,
+    "muhendislik": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 3.782,
+   "oran": 15.15,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.8854,
+    "karartma": 0.1042,
+    "zoom": 0.0104
+   },
+   "kamera": {
+    "sabit": 0.1029,
+    "ken-burns-disa": 0.2941,
+    "ken-burns-ice": 0.5294,
+    "pan-sag": 0.0147,
+    "pan-yukari": 0.0588
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.8,
+    "sfx": 0.44
+   }
+  },
+  "@WWIIUncovered": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.24,
+   "oran": 8.39,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.58,
+    "zoom": 0.42
+   },
+   "kamera": {
+    "ken-burns-disa": 0.4,
+    "sabit": 0.1333,
+    "ken-burns-ice": 0.4667
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 4.0,
+    "medyan": 17.85,
+    "sfx": 0.61
+   }
+  },
+  "@WWIIUntoldSStories": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.212,
+   "oran": 8.13,
+   "font": {
+    "serif": 0.5,
+    "japonca": 0.5
+   },
+   "gecis": {
+    "karartma": 0.75,
+    "sert": 0.24,
+    "maske": 0.01
+   },
+   "kamera": {
+    "ken-burns-disa": 0.3043,
+    "ken-burns-ice": 0.2236,
+    "sabit": 0.4286,
+    "pan-sag": 0.0373,
+    "pan-sol": 0.0062
+   },
+   "cerceve": {
+    "tam": 0.7921,
+    "bulanik-kopya": 0.1683,
+    "letterbox": 0.0198,
+    "inset-golge": 0.0099,
+    "bolunmus": 0.0099
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.4,
+    "sfx": 0.48
+   }
+  },
+  "@WarfareGeniuss": {
+   "konu": {
+    "askeri": 0.25,
+    "teknoloji": 0.25,
+    "spor": 0.25,
+    "biyografi": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.807,
+   "oran": 5.09,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.6733,
+    "flas": 0.2277,
+    "karartma": 0.099
+   },
+   "kamera": {
+    "pan-yukari": 0.0513,
+    "sabit": 0.4103,
+    "ken-burns-ice": 0.2564,
+    "ken-burns-disa": 0.2308,
+    "pan-sol": 0.0513
+   },
+   "cerceve": {
+    "tam": 0.96,
+    "bulanik-kopya": 0.03,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 8.0,
+    "medyan": 0.55,
+    "sfx": 0.45
+   }
+  },
+  "@WarriorArchives-b8q": {
+   "konu": {
+    "askeri": 0.571,
+    "tarih": 0.286,
+    "teknoloji": 0.143
+   },
+   "ton": "ciddi",
+   "agirlik": 3.263,
+   "oran": 8.61,
+   "font": {
+    "serif": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.9192,
+    "karartma": 0.0202,
+    "hareket": 0.0202,
+    "zoom": 0.0202,
+    "glitch": 0.0101,
+    "flas": 0.0101
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2288,
+    "ken-burns-ice": 0.4915,
+    "pan-sol": 0.0254,
+    "pan-yukari": 0.0169,
+    "sabit": 0.2034,
+    "pan-sag": 0.0339
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02,
+    "inset-golge": 0.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 2.4,
+    "sfx": 0.33
+   }
+  },
+  "@WasdieZeitverbarg": {
+   "konu": {
+    "askeri": 0.25,
+    "tarih": 0.25,
+    "haber": 0.25,
+    "egitim": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.772,
+   "oran": 4.88,
+   "font": {},
+   "gecis": {
+    "sert": 0.9381,
+    "karartma": 0.0206,
+    "maske": 0.0103,
+    "hareket": 0.0103,
+    "glitch": 0.0103,
+    "zoom": 0.0103
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4408,
+    "ken-burns-disa": 0.3816,
+    "sabit": 0.1118,
+    "pan-sag": 0.0329,
+    "pan-yukari": 0.0197,
+    "pan-sol": 0.0132
+   },
+   "cerceve": {
+    "tam": 0.96,
+    "bulanik-kopya": 0.04
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 3.2,
+    "sfx": 0.41
+   }
+  },
+  "@Wasserschweigen": {
+   "konu": {
+    "gizem": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.603,
+   "oran": 12.51,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.7794,
+    "sabit": 0.1176,
+    "pan-sol": 0.0441,
+    "ken-burns-disa": 0.0294,
+    "pan-sag": 0.0294
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.8,
+    "sfx": 0.72
+   }
+  },
+  "@WhereTheyStood": {
+   "konu": {
+    "askeri": 0.333,
+    "seyahat": 0.333,
+    "egitim": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 3.524,
+   "oran": 11.48,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.9394,
+    "karartma": 0.0303,
+    "flas": 0.0202,
+    "hareket": 0.0101
+   },
+   "kamera": {
+    "pan-yukari": 0.0202,
+    "ken-burns-ice": 0.6061,
+    "sabit": 0.202,
+    "ken-burns-disa": 0.1313,
+    "pan-sag": 0.0101,
+    "pan-sol": 0.0303
+   },
+   "cerceve": {
+    "tam": 0.73,
+    "inset-golge": 0.25,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 2.7,
+    "sfx": 0.33
+   }
+  },
+  "@WiseTech067": {
+   "konu": {
+    "finans": 0.5,
+    "teknoloji": 0.5
+   },
+   "ton": "enerjik",
+   "agirlik": 3.917,
+   "oran": 17.48,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.8421,
+    "flas": 0.0658,
+    "karartma": 0.0526,
+    "glitch": 0.0132,
+    "zoom": 0.0132,
+    "maske": 0.0132
+   },
+   "kamera": {
+    "ken-burns-ice": 0.213,
+    "pan-yukari": 0.0787,
+    "sabit": 0.2315,
+    "ken-burns-disa": 0.3333,
+    "pan-sag": 0.0509,
+    "pan-sol": 0.0926
+   },
+   "cerceve": {
+    "tam": 0.9703,
+    "bulanik-kopya": 0.0099,
+    "letterbox": 0.0099,
+    "bolunmus": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 36.0,
+    "medyan": 1.65,
+    "sfx": 0.36
+   }
+  },
+  "@WohnenimRuhestand": {
+   "konu": {
+    "yasam": 1.0
+   },
+   "ton": "sakin",
+   "agirlik": 2.664,
+   "oran": 4.28,
+   "font": {
+    "japonca": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.7778,
+    "karartma": 0.1222,
+    "hareket": 0.0333,
+    "flas": 0.0222,
+    "glitch": 0.0111,
+    "maske": 0.0222,
+    "zoom": 0.0111
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4317,
+    "pan-sag": 0.036,
+    "ken-burns-disa": 0.2734,
+    "sabit": 0.2302,
+    "pan-yukari": 0.0216,
+    "pan-sol": 0.0072
+   },
+   "cerceve": {
+    "tam": 0.89,
+    "bulanik-kopya": 0.05,
+    "inset-golge": 0.04,
+    "bolunmus": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 4.0,
+    "sfx": 0.36
+   }
+  },
+  "@ZuhauseInDeutschland-c7u": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.732,
+   "oran": 4.65,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.9,
+    "karartma": 0.09,
+    "zoom": 0.01
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4276,
+    "ken-burns-disa": 0.4145,
+    "sabit": 0.1316,
+    "pan-sag": 0.0066,
+    "pan-yukari": 0.0197
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "inset-golge": 0.02,
+    "letterbox": 0.02,
+    "bulanik-kopya": 0.01,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.3,
+    "sfx": 0.6
+   }
+  },
+  "@antiquesgallery02": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.441,
+   "oran": 10.49,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.6875,
+    "karartma": 0.2396,
+    "zoom": 0.0625,
+    "glitch": 0.0104
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3704,
+    "sabit": 0.5309,
+    "ken-burns-disa": 0.037,
+    "pan-yukari": 0.037,
+    "pan-sol": 0.0247
+   },
+   "cerceve": {
+    "tam": 0.9798,
+    "bulanik-kopya": 0.0202,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "vurgulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 38.0,
+    "medyan": 1.7,
+    "sfx": 0.25
+   }
+  },
+  "@australiaorbit": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.426,
+   "oran": 3.16,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.9394,
+    "karartma": 0.0505,
+    "zoom": 0.0101,
+    "flas": 0.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5133,
+    "ken-burns-disa": 0.1903,
+    "pan-sag": 0.1106,
+    "pan-sol": 0.0973,
+    "sabit": 0.0796,
+    "pan-yukari": 0.0088
+   },
+   "cerceve": {
+    "tam": 0.7879,
+    "inset-golge": 0.202,
+    "bulanik-kopya": 0.0101
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.1,
+    "sfx": 0.48
+   }
+  },
+  "@bandspar": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.688,
+   "oran": 4.41,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "karartma": 0.53,
+    "sert": 0.47
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2745,
+    "sabit": 0.4706,
+    "ken-burns-ice": 0.2157,
+    "pan-yukari": 0.0196,
+    "pan-sol": 0.0196
+   },
+   "cerceve": {
+    "tam": 0.85,
+    "bulanik-kopya": 0.09,
+    "inset-golge": 0.06
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 3.9,
+    "sfx": 0.47
+   }
+  },
+  "@beiderfahne": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.649,
+   "oran": 4.2,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.88,
+    "karartma": 0.12
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2062,
+    "ken-burns-ice": 0.3196,
+    "sabit": 0.3608,
+    "pan-sol": 0.0619,
+    "pan-sag": 0.0515
+   },
+   "cerceve": {
+    "tam": 0.89,
+    "bulanik-kopya": 0.08,
+    "letterbox": 0.02,
+    "cerceveli_doku/gorsel": 0.01,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.2,
+    "sfx": 0.75
+   }
+  },
+  "@biblioteca5656": {
+   "konu": {
+    "felsefe": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.8,
+   "oran": 5.05,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-disa": 0.1707,
+    "ken-burns-ice": 0.3902,
+    "sabit": 0.1463,
+    "pan-yukari": 0.1585,
+    "pan-sag": 0.1341
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 6.8,
+    "sfx": 0.65
+   }
+  },
+  "@britvaultyt": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 1.693,
+   "oran": 1.0,
+   "font": {
+    "gosteri": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.9286,
+    "zoom": 0.0204,
+    "karartma": 0.0306,
+    "flas": 0.0204
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5644,
+    "ken-burns-disa": 0.1534,
+    "sabit": 0.1288,
+    "pan-sol": 0.0798,
+    "pan-sag": 0.0675,
+    "pan-yukari": 0.0061
+   },
+   "cerceve": {
+    "tam": 0.59,
+    "inset-golge": 0.38,
+    "bulanik-kopya": 0.02,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 36.0,
+    "medyan": 1.9,
+    "sfx": 0.44
+   }
+  },
+  "@cognatura": {
+   "konu": {
+    "tarih": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.555,
+   "oran": 11.87,
+   "font": {
+    "serif": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "karartma": 0.8163,
+    "sert": 0.0918,
+    "zoom": 0.0918
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4853,
+    "ken-burns-disa": 0.1765,
+    "sabit": 0.25,
+    "pan-sag": 0.0147,
+    "pan-yukari": 0.0441,
+    "pan-sol": 0.0294
+   },
+   "cerceve": {
+    "tam": 0.87,
+    "inset-golge": 0.1,
+    "bulanik-kopya": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.7,
+    "sfx": 0.22
+   }
+  },
+  "@dayonefilmsofficial": {
+   "konu": {
+    "askeri": 0.5,
+    "felsefe": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.655,
+   "oran": 13.23,
+   "font": {
+    "japonca": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.5455,
+    "ken-burns-ice": 0.2273,
+    "ken-burns-disa": 0.2273
+   },
+   "cerceve": {
+    "tam": 0.5758,
+    "inset-golge": 0.2525,
+    "letterbox": 0.1717
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 0.6,
+    "sfx": 1.0
+   }
+  },
+  "@deutschlands-geschichte": {
+   "konu": {
+    "tarih": 0.667,
+    "askeri": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.995,
+   "oran": 6.35,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.7872,
+    "karartma": 0.1383,
+    "zoom": 0.0319,
+    "maske": 0.0106,
+    "glitch": 0.0106,
+    "flas": 0.0213
+   },
+   "kamera": {
+    "sabit": 0.4245,
+    "pan-yukari": 0.0472,
+    "ken-burns-disa": 0.1604,
+    "ken-burns-ice": 0.3302,
+    "pan-sag": 0.0189,
+    "pan-sol": 0.0189
+   },
+   "cerceve": {
+    "tam": 0.79,
+    "inset-golge": 0.11,
+    "bulanik-kopya": 0.07,
+    "letterbox": 0.03,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 20.0,
+    "medyan": 3.35,
+    "sfx": 0.26
+   }
+  },
+  "@deutschlandsorbit": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.235,
+   "oran": 2.44,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.93,
+    "karartma": 0.04,
+    "zoom": 0.02,
+    "flas": 0.01
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4898,
+    "ken-burns-disa": 0.1633,
+    "pan-sol": 0.1156,
+    "pan-sag": 0.1361,
+    "sabit": 0.0952
+   },
+   "cerceve": {
+    "tam": 0.81,
+    "inset-golge": 0.16,
+    "bulanik-kopya": 0.02,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 32.0,
+    "medyan": 2.0,
+    "sfx": 0.24
+   }
+  },
+  "@diearbeiterjahreyt": {
+   "konu": {
+    "tarih": 0.5,
+    "muhendislik": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.284,
+   "oran": 2.61,
+   "font": {
+    "slab": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.96,
+    "flas": 0.02,
+    "karartma": 0.02
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3077,
+    "ken-burns-disa": 0.2115,
+    "pan-sol": 0.1923,
+    "pan-sag": 0.1154,
+    "sabit": 0.1538,
+    "pan-yukari": 0.0192
+   },
+   "cerceve": {
+    "bulanik-kopya": 0.51,
+    "tam": 0.44,
+    "inset-golge": 0.05
+   },
+   "altyazi": {
+    "vurgulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 24.0,
+    "medyan": 2.85,
+    "sfx": 0.35
+   }
+  },
+  "@europefindsout": {
+   "konu": {
+    "muhendislik": 0.5,
+    "yasam": 0.5
+   },
+   "ton": "enerjik",
+   "agirlik": 3.242,
+   "oran": 8.41,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7732,
+    "flas": 0.1237,
+    "karartma": 0.1031
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2903,
+    "sabit": 0.5645,
+    "pan-yukari": 0.0161,
+    "ken-burns-disa": 0.129
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 1.5,
+    "sfx": 0.19
+   }
+  },
+  "@fabrik_geheimnisse": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.528,
+   "oran": 3.61,
+   "font": {
+    "gosteri": 1.0
+   },
+   "gecis": {
+    "sert": 0.8384,
+    "karartma": 0.101,
+    "flas": 0.0606
+   },
+   "kamera": {
+    "sabit": 0.469,
+    "ken-burns-disa": 0.0885,
+    "ken-burns-ice": 0.3982,
+    "pan-sag": 0.0265,
+    "pan-yukari": 0.0177
+   },
+   "cerceve": {
+    "tam": 0.82,
+    "inset-golge": 0.09,
+    "letterbox": 0.06,
+    "bolunmus": 0.02,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.3,
+    "sfx": 0.18
+   }
+  },
+  "@firearmsvault": {
+   "konu": {
+    "askeri": 0.4,
+    "egitim": 0.4,
+    "tarih": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.26,
+   "oran": 8.58,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.7174,
+    "karartma": 0.1304,
+    "flas": 0.1087,
+    "hareket": 0.0326,
+    "glitch": 0.0109
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3077,
+    "ken-burns-disa": 0.1692,
+    "pan-sol": 0.0385,
+    "sabit": 0.3692,
+    "pan-yukari": 0.0615,
+    "pan-sag": 0.0538
+   },
+   "cerceve": {
+    "tam": 0.8367,
+    "bulanik-kopya": 0.0918,
+    "inset-golge": 0.051,
+    "bolunmus": 0.0204,
+    "letterbox": 0.0,
+    "cerceveli_doku/gorsel": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 4.3,
+    "sfx": 0.22
+   }
+  },
+  "@forgottenamericanweapons": {
+   "konu": {
+    "askeri": 0.5,
+    "liste": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.546,
+   "oran": 11.76,
+   "font": {
+    "serif": 0.5,
+    "japonca": 0.5
+   },
+   "gecis": {
+    "sert": 0.8105,
+    "karartma": 0.1158,
+    "flas": 0.0526,
+    "glitch": 0.0211
+   },
+   "kamera": {
+    "ken-burns-ice": 0.327,
+    "sabit": 0.3396,
+    "pan-sol": 0.044,
+    "ken-burns-disa": 0.239,
+    "pan-sag": 0.0126,
+    "pan-yukari": 0.0377
+   },
+   "cerceve": {
+    "tam": 0.7624,
+    "inset-golge": 0.198,
+    "bulanik-kopya": 0.0297,
+    "letterbox": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 28.0,
+    "medyan": 1.65,
+    "sfx": 0.21
+   }
+  },
+  "@hfyterrazorn": {
+   "konu": {
+    "askeri": 0.5,
+    "bilim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.943,
+   "oran": 5.98,
+   "font": {
+    "sans": 1.0
+   },
+   "gecis": {},
+   "kamera": {
+    "ken-burns-disa": 0.2,
+    "sabit": 0.4,
+    "pan-sol": 0.2,
+    "ken-burns-ice": 0.2
+   },
+   "cerceve": {
+    "cerceveli_doku/gorsel": 0.66,
+    "tam": 0.34
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 2.0,
+    "medyan": 301.5
+   }
+  },
+  "@hikka666": {
+   "konu": {
+    "askeri": 0.5,
+    "liste": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.826,
+   "oran": 5.21,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.3333,
+    "glitch": 0.2151,
+    "karartma": 0.2258,
+    "zoom": 0.1075,
+    "flas": 0.1183
+   },
+   "kamera": {
+    "sabit": 0.1222,
+    "ken-burns-disa": 0.2,
+    "ken-burns-ice": 0.6667,
+    "pan-sol": 0.0111
+   },
+   "cerceve": {
+    "tam": 0.92,
+    "bulanik-kopya": 0.05,
+    "inset-golge": 0.02,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 40.0,
+    "medyan": 0.55,
+    "sfx": 0.51
+   }
+  },
+  "@livedinside (2)": {
+   "konu": {
+    "askeri": 0.5,
+    "teknoloji": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 1.0,
+   "oran": 0,
+   "font": {},
+   "gecis": {
+    "sert": 0.4913,
+    "karartma": 0.4111,
+    "zoom": 0.0348,
+    "maske": 0.0453,
+    "hareket": 0.0174
+   },
+   "kamera": {
+    "sabit": 0.3899,
+    "ken-burns-ice": 0.409,
+    "ken-burns-disa": 0.1395,
+    "pan-sag": 0.0384,
+    "pan-yukari": 0.0233
+   },
+   "cerceve": {
+    "tam": 0.9532,
+    "letterbox": 0.0268,
+    "bulanik-kopya": 0.0134,
+    "inset-golge": 0.0033,
+    "bolunmus": 0.0033
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.8,
+    "sfx": 0.19
+   }
+  },
+  "@nescands": {
+   "konu": {
+    "askeri": 0.4,
+    "muhendislik": 0.2,
+    "haber": 0.2,
+    "liste": 0.2
+   },
+   "ton": "ciddi",
+   "agirlik": 3.041,
+   "oran": 6.7,
+   "font": {
+    "sans": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.871,
+    "karartma": 0.1183,
+    "zoom": 0.0108
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5,
+    "ken-burns-disa": 0.2381,
+    "sabit": 0.2143,
+    "pan-sol": 0.0238,
+    "pan-yukari": 0.0119,
+    "pan-sag": 0.0119
+   },
+   "cerceve": {
+    "tam": 0.81,
+    "bulanik-kopya": 0.09,
+    "inset-golge": 0.07,
+    "letterbox": 0.02,
+    "cerceveli_doku/gorsel": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.7,
+    "sfx": 0.28
+   }
+  },
+  "@paulmccartneyarchives": {
+   "konu": {
+    "seyahat": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.645,
+   "oran": 4.18,
+   "font": {
+    "sans-dar": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.91,
+    "zoom": 0.04,
+    "karartma": 0.03,
+    "flas": 0.02
+   },
+   "kamera": {
+    "ken-burns-ice": 0.5533,
+    "pan-sol": 0.0733,
+    "pan-sag": 0.1,
+    "sabit": 0.14,
+    "ken-burns-disa": 0.1267,
+    "pan-yukari": 0.0067
+   },
+   "cerceve": {
+    "tam": 0.64,
+    "inset-golge": 0.35,
+    "bulanik-kopya": 0.01
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 34.0,
+    "medyan": 1.7,
+    "sfx": 0.4
+   }
+  },
+  "@realfarmerss": {
+   "konu": {
+    "yasam": 1.0
+   },
+   "ton": "sakin",
+   "agirlik": 3.028,
+   "oran": 6.6,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1538,
+    "sabit": 0.7692,
+    "ken-burns-disa": 0.0769
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 2.8,
+    "sfx": 0.21
+   }
+  },
+  "@rentenklar_de": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.359,
+   "oran": 9.58,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "maske": 0.837,
+    "karartma": 0.163
+   },
+   "kamera": {
+    "sabit": 0.2857,
+    "ken-burns-ice": 0.2143,
+    "pan-yukari": 0.2143,
+    "ken-burns-disa": 0.2143,
+    "pan-sol": 0.0714
+   },
+   "cerceve": {
+    "tam": 0.91,
+    "bulanik-kopya": 0.05,
+    "bolunmus": 0.04
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 10.0,
+    "medyan": 7.0,
+    "sfx": 0.46
+   }
+  },
+  "@ryoga.training": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 3.225,
+   "oran": 8.25,
+   "font": {
+    "sans": 1.0
+   },
+   "gecis": {
+    "karartma": 0.6053,
+    "sert": 0.3947
+   },
+   "kamera": {
+    "ken-burns-ice": 0.375,
+    "pan-yukari": 0.375,
+    "ken-burns-disa": 0.25
+   },
+   "cerceve": {
+    "tam": 0.7071,
+    "bulanik-kopya": 0.202,
+    "letterbox": 0.0505,
+    "inset-golge": 0.0404
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 8.4,
+    "sfx": 0.62
+   }
+  },
+  "@steeldossier": {
+   "konu": {
+    "askeri": 0.5,
+    "muhendislik": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.3,
+   "oran": 2.67,
+   "font": {
+    "serif": 0.25,
+    "sans-dar": 0.75
+   },
+   "gecis": {
+    "sert": 0.592,
+    "karartma": 0.3779,
+    "zoom": 0.0201,
+    "maske": 0.01
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4302,
+    "sabit": 0.4737,
+    "pan-yukari": 0.0222,
+    "ken-burns-disa": 0.06,
+    "pan-sag": 0.0139
+   },
+   "cerceve": {
+    "tam": 0.83,
+    "letterbox": 0.0733,
+    "inset-golge": 0.0833,
+    "bulanik-kopya": 0.0133
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 0.6667,
+    "koyu-notr": 0.3333
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.4,
+    "sfx": 0.29
+   }
+  },
+  "@stopwastingstuff": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 5.175,
+   "oran": 64.05,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.7717,
+    "karartma": 0.163,
+    "zoom": 0.0217,
+    "glitch": 0.0217,
+    "flas": 0.0217
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2313,
+    "sabit": 0.3433,
+    "ken-burns-ice": 0.3731,
+    "pan-yukari": 0.0373,
+    "pan-sag": 0.0149
+   },
+   "cerceve": {
+    "tam": 0.83,
+    "inset-golge": 0.11,
+    "letterbox": 0.03,
+    "bulanik-kopya": 0.02,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 1.6,
+    "sfx": 0.31
+   }
+  },
+  "@tct-i3b": {
+   "konu": {
+    "askeri": 0.5,
+    "tarih": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.386,
+   "oran": 9.87,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.5824,
+    "karartma": 0.2967,
+    "flas": 0.1099,
+    "zoom": 0.011
+   },
+   "kamera": {
+    "sabit": 0.5978,
+    "ken-burns-ice": 0.3152,
+    "pan-yukari": 0.0761,
+    "ken-burns-disa": 0.0109
+   },
+   "cerceve": {
+    "tam": 0.51,
+    "letterbox": 0.45,
+    "bulanik-kopya": 0.04,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "sinema": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 4.55,
+    "sfx": 0.54
+   }
+  },
+  "@thomas.kessler": {
+   "konu": {
+    "otomotiv": 1.0
+   },
+   "ton": "enerjik",
+   "agirlik": 3.35,
+   "oran": 9.49,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "sabit": 0.875,
+    "pan-sol": 0.0312,
+    "ken-burns-disa": 0.0938
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "inset-golge": 0.05
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.65,
+    "sfx": 0.69
+   }
+  },
+  "@tiefblick_doku": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.552,
+   "oran": 11.83,
+   "font": {},
+   "gecis": {
+    "sert": 0.8557,
+    "karartma": 0.1443
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4359,
+    "sabit": 0.3077,
+    "ken-burns-disa": 0.2051,
+    "pan-sag": 0.0256,
+    "pan-yukari": 0.0256
+   },
+   "cerceve": {
+    "tam": 0.71,
+    "letterbox": 0.23,
+    "inset-golge": 0.03,
+    "bulanik-kopya": 0.03
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 2.2,
+    "sfx": 0.37
+   }
+  },
+  "@ustazen": {
+   "konu": {
+    "teknoloji": 0.5,
+    "felsefe": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.447,
+   "oran": 3.25,
+   "font": {
+    "sans": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "karartma": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.625,
+    "sabit": 0.375
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 16.0,
+    "sfx": 0.0
+   }
+  },
+  "@waqasmughal9249": {
+   "konu": {
+    "muhendislik": 0.5,
+    "haber": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 3.616,
+   "oran": 12.68,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.3571,
+    "karartma": 0.4694,
+    "zoom": 0.1531,
+    "flas": 0.0204
+   },
+   "kamera": {
+    "sabit": 0.3333,
+    "ken-burns-ice": 0.3509,
+    "pan-yukari": 0.0526,
+    "pan-sag": 0.1053,
+    "ken-burns-disa": 0.1404,
+    "pan-sol": 0.0175
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "bulanik-kopya": 0.03,
+    "inset-golge": 0.02,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.2,
+    "sfx": 0.37
+   }
+  },
+  "@wreck_files213": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 1.718,
+   "oran": 1.05,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9792,
+    "karartma": 0.0208
+   },
+   "kamera": {
+    "ken-burns-disa": 0.3571,
+    "ken-burns-ice": 0.1667,
+    "sabit": 0.4286,
+    "pan-yukari": 0.0357,
+    "pan-sag": 0.0119
+   },
+   "cerceve": {
+    "tam": 0.9293,
+    "bulanik-kopya": 0.0303,
+    "inset-golge": 0.0303,
+    "letterbox": 0.0101,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 4.0,
+    "sfx": 0.42
+   }
+  },
+  "UC71deAhlwXo_5QXug-sCEYw": {
+   "konu": {
+    "muhendislik": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.768,
+   "oran": 4.86,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.88,
+    "karartma": 0.11,
+    "zoom": 0.01
+   },
+   "kamera": {
+    "sabit": 0.4921,
+    "ken-burns-ice": 0.3333,
+    "ken-burns-disa": 0.1032,
+    "pan-sol": 0.0317,
+    "pan-yukari": 0.0238,
+    "pan-sag": 0.0159
+   },
+   "cerceve": {
+    "tam": 0.8614,
+    "bulanik-kopya": 0.1287,
+    "letterbox": 0.0099
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.3,
+    "sfx": 0.53
+   }
+  },
+  "UCCC5h8it2nXWuNJ8aJf4l1w": {
+   "konu": {
+    "askeri": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 1.875,
+   "oran": 1.4,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.7363,
+    "karartma": 0.2308,
+    "flas": 0.022,
+    "maske": 0.011
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3118,
+    "pan-sag": 0.0108,
+    "pan-yukari": 0.043,
+    "sabit": 0.4409,
+    "ken-burns-disa": 0.1828,
+    "pan-sol": 0.0108
+   },
+   "cerceve": {
+    "tam": 0.93,
+    "bulanik-kopya": 0.06,
+    "letterbox": 0.01,
+    "inset-golge": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 0.9,
+    "sfx": 0.44
+   }
+  },
+  "UCI2iWyB2dPRwO2eJmzkPIxQ": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.975,
+   "oran": 6.21,
+   "font": {},
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4494,
+    "ken-burns-disa": 0.1685,
+    "pan-sag": 0.1011,
+    "pan-sol": 0.0899,
+    "pan-yukari": 0.1573,
+    "sabit": 0.0337
+   },
+   "cerceve": {
+    "tam": 1.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 12.0,
+    "medyan": 5.1,
+    "sfx": 0.02
+   }
+  },
+  "UCMcuocuVxyxmFQczJfBqPwg": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 2.396,
+   "oran": 3.04,
+   "font": {
+    "serif": 0.5,
+    "gosteri": 0.5
+   },
+   "gecis": {
+    "sert": 0.8736,
+    "flas": 0.0575,
+    "karartma": 0.069
+   },
+   "kamera": {
+    "sabit": 0.3947,
+    "ken-burns-disa": 0.1842,
+    "ken-burns-ice": 0.3421,
+    "pan-yukari": 0.0263,
+    "pan-sag": 0.0526
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "bulanik-kopya": 0.04,
+    "inset-golge": 0.01,
+    "letterbox": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 30.0,
+    "medyan": 1.1,
+    "sfx": 0.24
+   }
+  },
+  "UCWaxH2PBOn7Rzm86fIbO1BA": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.172,
+   "oran": 7.78,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "karartma": 0.6939,
+    "sert": 0.1531,
+    "zoom": 0.0918,
+    "flas": 0.0612
+   },
+   "kamera": {
+    "ken-burns-ice": 0.3789,
+    "pan-yukari": 0.0211,
+    "sabit": 0.4211,
+    "ken-burns-disa": 0.1474,
+    "pan-sag": 0.0316
+   },
+   "cerceve": {
+    "tam": 0.9091,
+    "bulanik-kopya": 0.0707,
+    "inset-golge": 0.0101,
+    "bolunmus": 0.0101,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 5.1,
+    "sfx": 0.26
+   }
+  },
+  "UCYjRQ6T2BxBnJtPytI9OnNg": {
+   "konu": {
+    "tarih": 0.667,
+    "seyahat": 0.333
+   },
+   "ton": "ciddi",
+   "agirlik": 2.517,
+   "oran": 3.56,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.1529,
+    "sabit": 0.7059,
+    "ken-burns-disa": 0.1412
+   },
+   "cerceve": {
+    "tam": 0.98,
+    "bulanik-kopya": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "acik": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 22.0,
+    "medyan": 3.1,
+    "sfx": 0.42
+   }
+  },
+  "UC_pgj3zfGvbS6kh2EG49Dyg": {
+   "konu": {
+    "saglik": 0.5,
+    "liste": 0.5
+   },
+   "ton": "sakin",
+   "agirlik": 3.723,
+   "oran": 14.23,
+   "font": {
+    "serif": 1.0
+   },
+   "gecis": {
+    "sert": 0.98,
+    "glitch": 0.01,
+    "maske": 0.01
+   },
+   "kamera": {
+    "sabit": 0.2385,
+    "ken-burns-disa": 0.3769,
+    "ken-burns-ice": 0.3538,
+    "pan-yukari": 0.0308
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 3.1,
+    "sfx": 0.35
+   }
+  },
+  "UCcHD70S7-n2428ZyadImbzQ": {
+   "konu": {
+    "teknoloji": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.605,
+   "oran": 3.98,
+   "font": {
+    "sans-dar": 0.5,
+    "sans": 0.5
+   },
+   "gecis": {
+    "sert": 0.5347,
+    "karartma": 0.4158,
+    "flas": 0.0495
+   },
+   "kamera": {
+    "sabit": 0.3857,
+    "ken-burns-ice": 0.3429,
+    "ken-burns-disa": 0.2143,
+    "pan-sol": 0.0571
+   },
+   "cerceve": {
+    "tam": 0.7624,
+    "bulanik-kopya": 0.099,
+    "letterbox": 0.0693,
+    "inset-golge": 0.0693
+   },
+   "altyazi": {
+    "kutulu": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 5.45,
+    "sfx": 0.65
+   }
+  },
+  "UCgECFdEepWOw_pRMO8kypGw": {
+   "konu": {
+    "finans": 0.5,
+    "bilim": 0.5
+   },
+   "ton": "ciddi",
+   "agirlik": 2.853,
+   "oran": 5.38,
+   "font": {
+    "sans": 0.5,
+    "sans-dar": 0.5
+   },
+   "gecis": {
+    "sert": 0.77,
+    "karartma": 0.21,
+    "glitch": 0.01,
+    "hareket": 0.01
+   },
+   "kamera": {
+    "ken-burns-disa": 0.4196,
+    "ken-burns-ice": 0.3566,
+    "sabit": 0.1748,
+    "pan-sag": 0.028,
+    "pan-sol": 0.014,
+    "pan-yukari": 0.007
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "letterbox": 0.03,
+    "bulanik-kopya": 0.01,
+    "inset-golge": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 18.0,
+    "medyan": 4.0,
+    "sfx": 0.77
+   }
+  },
+  "UCgqj1jiyAqlh8k1lAzfhnpg": {
+   "konu": {},
+   "ton": "ciddi",
+   "agirlik": 3.944,
+   "oran": 18.0,
+   "font": {
+    "sans-dar": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 1.0
+   },
+   "kamera": {
+    "ken-burns-ice": 0.4187,
+    "pan-sol": 0.0063,
+    "ken-burns-disa": 0.3188,
+    "pan-sag": 0.0125,
+    "pan-yukari": 0.0813,
+    "sabit": 0.1625
+   },
+   "cerceve": {
+    "tam": 1.0,
+    "bulanik-kopya": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 3.2,
+    "sfx": 0.28
+   }
+  },
+  "UCm14H705J2X6ntTOGwzJ3Cg": {
+   "konu": {
+    "saglik": 1.0
+   },
+   "ton": "sakin",
+   "agirlik": 1.0,
+   "oran": 0.0,
+   "font": {
+    "sans-dar": 0.75,
+    "serif": 0.25
+   },
+   "gecis": {
+    "sert": 0.5055,
+    "karartma": 0.3132,
+    "maske": 0.0495,
+    "zoom": 0.0934,
+    "flas": 0.0165,
+    "glitch": 0.011,
+    "hareket": 0.011
+   },
+   "kamera": {
+    "pan-yukari": 0.0542,
+    "ken-burns-ice": 0.3421,
+    "ken-burns-disa": 0.3325,
+    "sabit": 0.2421,
+    "pan-sol": 0.004,
+    "pan-sag": 0.0251
+   },
+   "cerceve": {
+    "tam": 0.796,
+    "inset-golge": 0.0896,
+    "bulanik-kopya": 0.0746,
+    "cerceveli_doku/gorsel": 0.01,
+    "letterbox": 0.0249,
+    "bolunmus": 0.005
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 17.0,
+    "medyan": 3.95,
+    "sfx": 0.5
+   }
+  },
+  "UCs9gtDvyROqy3PzrAytjFyw": {
+   "konu": {
+    "askeri": 0.5,
+    "suc": 0.25,
+    "liste": 0.25
+   },
+   "ton": "ciddi",
+   "agirlik": 2.901,
+   "oran": 5.69,
+   "font": {
+    "sans": 1.0
+   },
+   "gecis": {
+    "sert": 0.5824,
+    "karartma": 0.2637,
+    "hareket": 0.0879,
+    "zoom": 0.0549,
+    "maske": 0.011
+   },
+   "kamera": {
+    "sabit": 0.3214,
+    "ken-burns-disa": 0.2768,
+    "ken-burns-ice": 0.3304,
+    "pan-yukari": 0.0536,
+    "pan-sol": 0.0179
+   },
+   "cerceve": {
+    "tam": 0.94,
+    "bulanik-kopya": 0.02,
+    "bolunmus": 0.02,
+    "inset-golge": 0.02
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 5.6,
+    "sfx": 0.46
+   }
+  },
+  "UCtE9-gkx9yDO91SSpuggpbw": {
+   "konu": {
+    "finans": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.2,
+   "oran": 2.32,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.9479,
+    "karartma": 0.0521
+   },
+   "kamera": {
+    "ken-burns-disa": 0.4474,
+    "ken-burns-ice": 0.4079,
+    "pan-sag": 0.0263,
+    "sabit": 0.0921,
+    "pan-yukari": 0.0263
+   },
+   "cerceve": {
+    "tam": 0.9596,
+    "inset-golge": 0.0404,
+    "bulanik-kopya": 0.0,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 14.0,
+    "medyan": 4.5,
+    "sfx": 0.73
+   }
+  },
+  "video_8Y4uWlCrQ7c": {
+   "konu": {
+    "yasam": 0.5,
+    "egitim": 0.5
+   },
+   "ton": "sakin",
+   "agirlik": 1.0,
+   "oran": 0.0,
+   "font": {
+    "gosteri": 0.5,
+    "serif": 0.5
+   },
+   "gecis": {
+    "sert": 0.4947,
+    "karartma": 0.4842,
+    "glitch": 0.0211
+   },
+   "kamera": {
+    "ken-burns-ice": 0.7323,
+    "ken-burns-disa": 0.0472,
+    "sabit": 0.1969,
+    "pan-yukari": 0.0236
+   },
+   "cerceve": {
+    "tam": 0.95,
+    "bulanik-kopya": 0.05,
+    "letterbox": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 16.0,
+    "medyan": 4.05,
+    "sfx": 0.41
+   }
+  },
+  "video_FyI0JzcUaUg": {
+   "konu": {
+    "egitim": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 1.0,
+   "oran": 0.0,
+   "font": {
+    "sans-dar": 1.0
+   },
+   "gecis": {
+    "sert": 0.7692,
+    "flas": 0.0659,
+    "karartma": 0.1209,
+    "maske": 0.022,
+    "zoom": 0.011,
+    "glitch": 0.011
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2286,
+    "pan-yukari": 0.0286,
+    "sabit": 0.3143,
+    "ken-burns-ice": 0.3905,
+    "pan-sol": 0.0095,
+    "pan-sag": 0.0286
+   },
+   "cerceve": {
+    "tam": 0.83,
+    "bulanik-kopya": 0.09,
+    "inset-golge": 0.07,
+    "bolunmus": 0.01
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 32.0,
+    "medyan": 1.65,
+    "sfx": 0.22
+   }
+  }
+ }
+}

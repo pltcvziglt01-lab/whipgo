@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""KANAL SABLONU — bir konsept (ve istege bagli rakip kanal linki) -> BIZE OZGU kanal sunus stili.
+Rakibin edit dili olculur, her eksen YouTube'da gercekte kullanilanlara (kutuphane: youtube_dili.py) ve konuya (etiketler)
+gore "cevrilir": rakip Montserrat -> biz Anton'lu set (nisteki basarili kanallarda dar kalin sans yaygin, konuya uygun, rakipten farkli).
+Iskelet (tempo, kesim, gecis sikligi, SFX orani) rakipten/nisten korunur; yuzey bizimdir ve diger kanallarimizdan ayridir.
+
+Kullanim:
+  py kanal_sablon.py --kanal <ad> --konsept "<kanalin konusu, hedef kitle, ornek video basliklari>" [--rakip <link|@Handle> ...] [--onizle]
+Ciktilar (C:/otomasyon/<ad>/):
+  kanal-sablon.json   kimlik (her videoda sabit) + degisken eksenler + iskelet + ceviri tablosu  -> stil_dna.py --sablon
+  KANAL-SABLONU.md    insan okur: rakip -> biz ceviri tablosu ve gerekceler, kimlik karti
+  sablon/             secim motoru ciktilari (STIL-DNA.md, A/B/C secenekleri), onizleme kareleri (--onizle)
+Video basina: py stil_dna.py --sablon C:/otomasyon/<ad>/kanal-sablon.json --konu "<video basligi + anlatilan olay>" --cikti C:/otomasyon/<ad>/vNN
+Rakip kutuphanede yoksa kanal_isle.py ile en populer 3 videosu olculur (indirir, olcer, siler).
+"""
+import argparse, datetime, glob, json, os, re, shutil, subprocess, sys
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+BURASI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BURASI)
+KOK = os.path.abspath(os.path.join(BURASI, '..', '..', '..'))
+SABLON_PROJE = os.path.join(KOK, 'sablon-proje')
+CHROME = r'C:\otomasyon\ranks\motion\node_modules\.remotion\chrome-headless-shell\win64\chrome-headless-shell-win64\chrome-headless-shell.exe'
+# kanal kimligi: izleyicinin kanali tanidigi eksenler — her videoda ayni. Geri kalanlar videodan videoya degisir (>= %20 ozgunluk).
+KIMLIK = ['palet', 'font', 'hareket', 'bitis', 'baslik', 'baslik2', 'altyazi', 'altbant', 'sayi', 'hud', 'harita', 'grafik']
+DEGISKEN = ['arkaplan', 'gecis', 'kamera', 'cerceve', 'doku', 'alinti', 'liste', 'zaman', 'vurgu', 'kayma']
+
+
+def handle_coz(x):
+    import kanal_isle
+    return kanal_isle.kanal_ad(x)
+
+
+def rakip_hazirla(rakipler, kut):
+    """link/@ -> kutuphanede olculmus @Handle; yoksa kanal_isle.py --adet 3 ile olcer"""
+    out = []
+    for x in rakipler:
+        h = handle_coz(x)
+        kd = os.path.join(kut, 'kanallar', h)
+        olculmus = glob.glob(os.path.join(kd, 'video-*', 'editdili', 'edit-dili.json'))
+        if not olculmus:
+            print(f'{h}: kutuphanede yok -> en populer 3 video olculuyor (kanal_isle.py; indir-olc-sil)...')
+            r = subprocess.run([sys.executable, '-I', os.path.join(BURASI, 'kanal_isle.py'), x, '--kim', 'polat-claude', '--kok', kut, '--adet', '3'],
+                               capture_output=True, text=True, encoding='utf-8', errors='replace')
+            print('  ' + (r.stdout.strip().splitlines() or [''])[-1])
+            if not glob.glob(os.path.join(kd, 'video-*', 'editdili', 'edit-dili.json')):
+                sys.exit(f'HATA: {h} olculemedi: {(r.stderr or r.stdout)[-600:]}')
+        out.append(h)
+    return out
+
+
+def en_cok(d, n=2):
+    return [(k, v) for k, v in sorted((d or {}).items(), key=lambda t: -t[1]) if v > 0][:n]
+
+
+def ceviri_tablosu(dna, rakipler, kut, yt, sd):
+    """eksen basina: rakibin olculen kullanimi -> bizim secim + gerekce (YouTube kaniti, konu uyumu, rakipten fark)"""
+    import youtube_dili as Y
+    kat, _ = Y.font_katalog()
+    oz = {}
+    for h in rakipler:
+        o = Y.kanal_ozellik(os.path.join(kut, 'kanallar', h), sd, kat)
+        for e, d in o.items():
+            if e == 'tempo':
+                continue
+            for k, v in d.items():
+                oz.setdefault(e, {})[k] = oz.setdefault(e, {}).get(k, 0) + v / len(rakipler)
+    # rakibin font adi (en sik ilk aday) — ceviride "rakip Montserrat" diyebilmek icin
+    font_adi = {}
+    for h in rakipler:
+        for fa in glob.glob(os.path.join(kut, 'kanallar', h, 'video-*', 'editdili', 'font-aday.json')):
+            try:
+                for x in json.load(open(fa, encoding='utf-8')):
+                    ad = sorted(x.get('adaylar') or [], key=lambda c: c.get('skor', 99))
+                    if ad:
+                        font_adi[ad[0]['font']] = font_adi.get(ad[0]['font'], 0) + 1
+            except (ValueError, OSError, TypeError):
+                pass
+    setler = Y.font_setleri()
+    satirlar = []
+
+    def neden(eksen, oge):
+        parca = []
+        k = yt.kanit(eksen, oge) if yt else None
+        if k is not None:
+            parca.append(f"YouTube kaniti {k:.2f} ({yt.neden(eksen, oge)})")
+        u = sd.ETK.uyum(eksen, oge) if sd.ETK.et else None
+        if u is not None:
+            parca.append(f"konu uyumu {u:.2f} ({sd.ETK.neden(eksen, oge)})")
+        return '; '.join(parca)
+
+    # font
+    rf = ', '.join(f'{a} ({n})' for a, n in sorted(font_adi.items(), key=lambda t: -t[1])[:2]) or '-'
+    bf = setler.get(dna['font'], '?')
+    satirlar.append({'eksen': 'font', 'rakip': f"{rf} · aile: {', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('font')))}",
+                     'biz': f"{dna['font']} (baslik {bf}, aile {yt.esle('font', dna['font']) if yt else '?'})", 'neden': neden('font', dna['font'])})
+    # gecis
+    satirlar.append({'eksen': 'gecis', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('gecis'), 3)),
+                     'biz': ', '.join(x.split(':')[0] for x in dna['gecis']) + f" (yumusak oran {dna['iskelet']['yumusak_oran']} — iskelet rakipten)",
+                     'neden': '; '.join(f"{x.split(':')[0]}: {neden('gecis', x.split(':')[0]) or 'olcum yok'}" for x in dna['gecis'][:3])})
+    for e in ('kamera', 'cerceve'):
+        satirlar.append({'eksen': e, 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get(e), 3)) or '-',
+                         'biz': ', '.join(dna.get(e) or []), 'neden': '; '.join(f"{x}: {neden(e, x) or 'olcum yok'}" for x in (dna.get(e) or [])[:3])})
+    satirlar.append({'eksen': 'altyazi', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('altyazi'))) or '-', 'biz': dna['altyazi'], 'neden': neden('altyazi', dna['altyazi'])})
+    satirlar.append({'eksen': 'palet', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('palet'))) or '-',
+                     'biz': f"{dna['palet']} ({sd.PALET_SINIF.get(dna['palet'], '?')})", 'neden': neden('palet', dna['palet'])})
+    for e in ('baslik', 'altbant', 'sayi', 'bitis', 'hud', 'harita', 'grafik'):
+        if dna.get(e):
+            satirlar.append({'eksen': e, 'rakip': '(olculmez; EDIT-DILI.md gozlemi)', 'biz': dna[e] + (f" + {dna['baslik2']}" if e == 'baslik' and dna.get('baslik2') else ''), 'neden': neden(e, dna[e])})
+    return satirlar
+
+
+def onizle(dna, hedef):
+    """Onizleme kompozisyonu: kimligin 6 karelik karti"""
+    if not os.path.exists(CHROME):
+        print('UYARI onizleme atlandi: chrome-headless-shell yok')
+        return []
+    pj = os.path.join(hedef, 'onizleme-props.json')
+    json.dump({'dna': dna, 'foto': ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], 'presetler': []}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
+    cikti = []
+    for i, f in enumerate([15, 75, 140, 200, 260, 330]):
+        out = os.path.join(hedef, f'onizleme-{i + 1}.jpg')
+        r = subprocess.run(['node', os.path.join('node_modules', '@remotion', 'cli', 'remotion-cli.js'), 'still', 'src/index.ts', 'Onizleme', out, f'--props={pj}',
+                            f'--frame={f}', '--scale=0.5', f'--browser-executable={CHROME}', '--log=error'], capture_output=True, text=True, encoding='utf-8', errors='replace', cwd=SABLON_PROJE)
+        if os.path.exists(out):
+            cikti.append(out)
+        elif r.returncode:
+            print('UYARI onizleme karesi', f, (r.stderr or '')[-300:])
+            break
+    if len(cikti) >= 2:
+        sayfa = os.path.join(hedef, 'ONIZLEME.jpg')
+        girdi = sum((['-i', c] for c in cikti), [])
+        n = len(cikti)
+        kol = 3 if n > 3 else n
+        sat = (n + kol - 1) // kol
+        yer = '|'.join(f'{(i % kol)}*w0_{(i // kol)}*h0'.replace('*w0', '*960').replace('*h0', '*540').replace('_', '_') for i in range(n))
+        yer = '|'.join(f'{(i % kol) * 960}_{(i // kol) * 540}' for i in range(n))
+        subprocess.run(['ffmpeg', '-v', 'error', '-y'] + girdi + ['-filter_complex', f"xstack=inputs={n}:layout={yer}:fill=black", sayfa])
+        if os.path.exists(sayfa):
+            cikti.append(sayfa)
+    return cikti
+
+
+def md_yaz(yol, s):
+    L = [f"# Kanal sablonu — {s['kanal']}", '', f"**Konsept:** {s['konsept']}", '',
+         f"Ton **{s['ton']}** · konu {', '.join(f'{k} {v:.2f}' for k, v in sorted(s['konu'].items(), key=lambda t: -t[1])[:4]) or '-'} · "
+         f"rakip/nis: {', '.join(s['rakip'])} ({s['rakip_kaynak']}) · olusturma {s['olusturma']}", '',
+         '## Kimlik (her videoda ayni — kanal bununla taninir)', '', '| eksen | secim |', '|---|---|']
+    L += [f'| {e} | {v if not isinstance(v, list) else ", ".join(map(str, v))} |' for e, v in s['kimlik'].items()]
+    L += ['', f"Videodan videoya degisen eksenler: {', '.join(s['degisken'])} (stil_dna.py --sablon her videoda >= %20 farkli secer).", '',
+          '## Rakip -> biz ceviri tablosu', '', 'Iskelet (tempo, kesim sikligi, yumusak gecis orani, SFX orani) rakipten/nisten KORUNUR; yuzey bize ozgu.', '',
+          '| eksen | rakip (olculen) | biz | neden |', '|---|---|---|---|']
+    L += [f"| {r['eksen']} | {r['rakip']} | {r['biz']} | {r['neden']} |" for r in s['ceviri']]
+    isk = s['iskelet']
+    L += ['', '## Iskelet (korunan)', '', f"- ilk 30 sn medyan cekim {isk.get('ilk30_medyan_sn')} sn, kesim/dk {isk.get('ilk30_kesim_dk')}, genel medyan {isk.get('genel_medyan_sn')} sn",
+          f"- yumusak gecis orani {isk.get('yumusak_oran')}, gecis {isk.get('gecis_kare')} kare, SFX orani {isk.get('sfx_orani')}, cerceveli oran {isk.get('cerceveli_oran')}", '',
+          '## Kullanim', '', f"`py stil_dna.py --sablon {s['yol']} --konu \"<video basligi + anlatilan olay>\" --cikti C:/otomasyon/{s['kanal']}/vNN`", '']
+    if s.get('onizleme'):
+        L += ['## Onizleme', ''] + [f'- `{p}`' for p in s['onizleme']] + ['']
+    open(yol, 'w', encoding='utf-8').write('\n'.join(L))
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--kanal', required=True, help='kanal klasor adi (C:/otomasyon/<ad>)')
+    ap.add_argument('--konsept', required=True)
+    ap.add_argument('--rakip', nargs='*', default=[], help='rakip kanal linki ya da @Handle (birden cok olabilir); yoksa nis kutuphaneden')
+    ap.add_argument('--kanallar', default=r'C:\otomasyon')
+    ap.add_argument('--kok', help='edit kutuphanesi')
+    ap.add_argument('--onizle', action='store_true')
+    ap.add_argument('--zorla', action='store_true', help='var olan kanal-sablon.json uzerine yaz')
+    a = ap.parse_args()
+    import stil_dna as sd
+    import youtube_dili as Y
+    kut = sd.kutuphane_bul(a.kok)
+    if not kut:
+        sys.exit('HATA: edit kutuphanesi bulunamadi')
+    kd = os.path.join(a.kanallar, a.kanal)
+    yol = os.path.join(kd, 'kanal-sablon.json')
+    if os.path.exists(yol) and not a.zorla:
+        sys.exit(f'HATA: {yol} var. Kanal kimligi degismemeli; bilincli yenilemek icin --zorla')
+    hedef = os.path.join(kd, 'sablon')
+    os.makedirs(hedef, exist_ok=True)
+    rakipler = rakip_hazirla(a.rakip, kut) if a.rakip else []
+    # secim motoru: konsept + rakip (yoksa nis); 3 secenek, kanal adi -> diger kanallarla ayni gorunum yok
+    cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', a.konsept, '--cikti', hedef, '--kanal', a.kanal, '--kanallar', a.kanallar,
+           '--secenek', '3', '--tohum', 'sablon-' + a.kanal]
+    if rakipler:
+        cmd += ['--rakip', ','.join(rakipler)]
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    print('\n'.join(x for x in r.stdout.splitlines() if x.startswith(('rakip verilmedi', 'ton:', 'A:', 'B:', 'C:', 'UYARI'))))
+    if r.returncode:
+        sys.exit('HATA stil_dna: ' + (r.stderr or r.stdout)[-1500:])
+    if not rakipler:
+        m = re.search(r'nis kanallari \(kutuphane, konsepte gore\): (\S+)', r.stdout)
+        rakipler = m.group(1).split(',') if m else []
+        kaynak = 'nis (kutuphane, konsepte gore)'
+    else:
+        kaynak = 'verilen rakip'
+    # secenekler arasindan konsepte en uygun olani (goreli uyum) sec
+    secenek = [json.load(open(p, encoding='utf-8')) for p in sorted(glob.glob(os.path.join(hedef, 'stil-dna-[A-Z].json')))]
+    kp, _ = sd.konu_bul(a.konsept)
+    ton = secenek[0].get('ton')
+    sd.ETK = sd.Etiket(sd.etiket_yukle(sd.repertuar_bul(None, kut)), ton, kp, sd.TON_ENERJI.get(ton, 2.5),
+                       {h: v for k, v in kp.items() for h in sd.KONU_HIS.get(k, [])})
+    sd.YT = Y.YoutubeDili.yukle().konu(kp)
+    if sd.YT.bos:
+        sd.YT = None
+    puan = [(sd.uyum_puani(d), i) for i, d in enumerate(secenek)]
+    en = max(puan)[1]
+    dna = secenek[en]
+    print('secenek uyumu: ' + ', '.join(f'{chr(65 + i)} {p:+.2f}' for p, i in puan) + f' -> {chr(65 + en)}')
+    shutil.copy(os.path.join(hedef, f'stil-dna-{chr(65 + en)}.json'), os.path.join(hedef, 'stil-dna.json'))
+    s = {'kanal': a.kanal, 'konsept': a.konsept, 'olusturma': datetime.datetime.now().strftime('%Y-%m-%d %H:%M'), 'yol': yol.replace('\\', '/'),
+         'rakip': rakipler, 'rakip_kaynak': kaynak, 'ton': ton, 'konu': {k: round(v, 3) for k, v in kp.items()},
+         'kimlik': {e: dna[e] for e in KIMLIK if dna.get(e) is not None}, 'degisken': DEGISKEN, 'iskelet': dna['iskelet'],
+         'ceviri': ceviri_tablosu(dna, rakipler, kut, sd.YT, sd), 'uyum': round(max(puan)[0], 3)}
+    if a.onizle:
+        s['onizleme'] = onizle(dna, hedef)
+    json.dump(s, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    md_yaz(os.path.join(kd, 'KANAL-SABLONU.md'), s)
+    print(f"-> {yol}\n-> {os.path.join(kd, 'KANAL-SABLONU.md')}")
+    for rr in s['ceviri'][:6]:
+        print(f"  {rr['eksen']:8} rakip: {rr['rakip'][:60]:60} -> biz: {rr['biz'][:50]}")
+
+
+if __name__ == '__main__':
+    main()
