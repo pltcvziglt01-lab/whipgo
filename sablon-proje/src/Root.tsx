@@ -1,3 +1,7 @@
+import { KatIsci1 } from './kat/KatIsci1';
+import { KatIsci2 } from './kat/KatIsci2';
+import { KatIsci3 } from './kat/KatIsci3';
+import { KatIsci4 } from './kat/KatIsci4';
 import { VideoDna } from './VideoDna';
 import React from 'react';
 import { AbsoluteFill, Composition } from 'remotion';
@@ -181,5 +185,9 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="VideoDna" component={VideoDna as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: {} as any, veri: { klasor: '', fps: 30, toplam: 30, cekimler: [], kelimeler: [] } }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: Math.max(30, props.veri.toplam) })} />
+        <Composition id="KatIsci1" component={KatIsci1} durationInFrames={150} fps={30} width={1920} height={1080} />
+      <Composition id="KatIsci2" component={KatIsci2} durationInFrames={150} fps={30} width={1920} height={1080} />
+      <Composition id="KatIsci3" component={KatIsci3} durationInFrames={150} fps={30} width={1920} height={1080} />
+      <Composition id="KatIsci4" component={KatIsci4} durationInFrames={150} fps={30} width={1920} height={1080} />
   </>
 );
