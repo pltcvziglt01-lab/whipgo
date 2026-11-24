@@ -20,12 +20,12 @@ Kontroller (FAIL = teslim yok; UYARI = bak, gerekceyle birak):
   TEKRAR ayni kart turu 3+ kez art arda · flas/vurgu duzenli aralikla (dongu) · hareket etiketleri dongusel (A-B-C-A-B-C):
         lag-2/3 eslesme orani tesadufi beklentiden > 0,25 fazla · tek hareket payi rakipten > 0,2 fazla
   CERCEVE (plan) gerceklesen cerceveli cekim orani: DnaMedya secimi birebir taklit (temel.ts `rastgele` portu,
-        rastgele(tohum + 'md' + sira) < iskelet.cerceveli_oran); adet ya da sure payi hedeften ±%5 disi -> UYARI
+        cerceveSec: kotali, son 8 cekimde kullanilan tip secilmez); adet ya da sure payi hedeften ±%5 disi -> UYARI
   KAYNAK YAZISI (plan) alt bant / altyazi / kelime karti gelen cekimin kaynak penceresinde (kb, kb + sure) alt ucte birde
         gomulu yazi (kaynak videonun kendi altyazisi, haber bandi) -> UYARI "kaynak yazisiyla cakisma". Olcum:
         py kaynak_yazi.py <motion>/public/<klasor> --plan props.json  (yazmazsa kontrol atlanir, ozet satiri soyler)
         --duzelt: cekimi ayni kaynagin yazisiz penceresine kaydirir (kb); yoksa alt bantli cekime etiket_ust: true
-        (alt bandi ust koseye alma isareti — VideoDna.tsx'te uygulanmasi gerekir; uygulanana kadar UYARI kalir)
+        (alt bandi / kelime kartini / altyaziyi ust ucte bire alma isareti; VideoDna.tsx uygular)
 Cikis kodu: FAIL varsa 1.
 """
 import argparse, json, math, os, re, statistics as st, sys
@@ -242,29 +242,68 @@ def rastgele(tohum):
 
 
 # ---------------------------------------------------------------- cerceve orani (Dna.tsx DnaMedya taklidi)
+CERCEVE_YAKIN = 8       # Dna.tsx CERCEVE_YAKIN (CERCEVE_PAY = 0.6 tavani secimde dogrudan kullanilmaz, denge kuralindan cikar)
+
+
+def cerceve_dizisi(dna, n):
+    """Dna.tsx cerceveSec birebir: sira 0..n-1 icin cerceve tipi ('tam' = tam ekran). Kotali dagitim: son CERCEVE_YAKIN cekimde
+    kullanilan tip secilmez, yalniz en az kullanilanin en fazla 1 fazlasi aday, adaylar arasi eksige gore agirlikli tohumlu secim."""
+    oran = dna['iskelet']['cerceveli_oran']
+    K = [t for t in dict.fromkeys(dna.get('cerceve') or []) if t != 'tam']
+    say, p = {}, []
+    for i in range(n):
+        r = rastgele(f"{dna['tohum']}md{i}")
+        if not K or r() >= oran:
+            p.append('tam')
+            continue
+        yakin = {t for t in p[max(0, i - CERCEVE_YAKIN):] if t != 'tam'}
+        enaz = min(say.get(t, 0) for t in K)
+        aday = [t for t in K if t not in yakin and say.get(t, 0) <= enaz + 1]
+        if not aday:
+            def son(t):
+                return len(p) - 1 - p[::-1].index(t) if t in p else -1      # lastIndexOf
+            onceki = p[i - 1] if i > 0 else None
+            denge = [t for t in K if say.get(t, 0) <= enaz + 1 and onceki != t]
+            digerleri = [t for t in K if onceki != t]
+            havuz = denge or digerleri or K
+            eski = min(son(t) for t in havuz)
+            aday = [t for t in havuz if son(t) == eski]
+        w = [enaz + 2 - say.get(t, 0) for t in aday]
+        u = r() * sum(w)
+        t = aday[-1]
+        for k in range(len(aday)):
+            u -= w[k]
+            if u < 0:
+                t = aday[k]
+                break
+        say[t] = say.get(t, 0) + 1
+        p.append(t)
+    return p
+
+
 def cerceve_olc(props):
-    """DnaMedya: r = rastgele(tohum + 'md' + sira); cerceveli = r() < cerceveli_oran; tip = cerceve[floor(r() * n)].
-    VideoDna her cekime sira = cekim indeksi verir; medya gorunen cekimler: kart yok ya da kelime karti (sayi/alinti medya gostermez)."""
+    """DnaMedya: tip = cerceveSec(dna, sira) (cerceve_dizisi). VideoDna her cekime sira = cekim indeksi verir (kartli cekimler de
+    diziyi ilerletir); medya gorunen cekimler: kart yok ya da kelime karti (sayi/alinti medya gostermez)."""
     dna = props.get('dna') or {}
     oran = (dna.get('iskelet') or {}).get('cerceveli_oran')
     if oran is None or not dna.get('tohum'):
         return None
-    tipler = dna.get('cerceve') or []
     fps = props['veri']['fps']
+    cekimler = props['veri']['cekimler']
+    dizi = cerceve_dizisi(dna, len(cekimler))
     n = cer = 0
     sure_top = sure_cer = 0.0
     tur = Counter()
-    for i, c in enumerate(props['veri']['cekimler']):
+    for i, c in enumerate(cekimler):
         if (c.get('kart') or {}).get('tur') in ('sayi', 'alinti'):
             continue
-        r = rastgele(f"{dna['tohum']}md{i}")
         s = c['kare'] / fps
         n += 1
         sure_top += s
-        if r() < oran:
+        if dizi[i] != 'tam':
             cer += 1
             sure_cer += s
-            tur[tipler[math.floor(r() * len(tipler))] if tipler else '?'] += 1
+            tur[dizi[i]] += 1
     if not n:
         return None
     return {'hedef': oran, 'adet': n, 'cerceveli': cer, 'oran': cer / n, 'sure_oran': sure_cer / sure_top if sure_top else 0, 'tur': dict(tur)}
@@ -347,7 +386,7 @@ def kaynak_denetle(props, cek, ky):
     dna = props.get('dna') or {}
     altyazi_var = (dna.get('altyazi') or 'yok') != 'yok'
     kel = v.get('kelimeler') or []
-    bulgular, ozet = [], {'denetlenen': 0, 'olculmemis': 0, 'cakisma': 0, 'bekleyen_ust': 0}
+    bulgular, ozet = [], {'denetlenen': 0, 'olculmemis': 0, 'cakisma': 0, 'ust_alinan': 0}
     for i, c in enumerate(v['cekimler']):
         if i not in ky:
             continue
@@ -366,9 +405,8 @@ def kaynak_denetle(props, cek, ky):
         yer = f"#{i} {cek[i]['bas']:.1f}s {tur}"
         gm = '; '.join(f"\"{x['metin'][:32]}\" ({x['bas']:.0f}-{x['bit']:.0f}s)" for x in g[:2])
         bilgi = {'i': i, 'tur': tur, 'src': src}
-        if tur == 'altbant' and c.get('etiket_ust'):
-            ozet['bekleyen_ust'] += 1
-            bulgular.append(('UYARI', 'kaynak-yazisi-etiket-ust', yer, f"etiket_ust isaretli ama VideoDna.tsx henuz uygulamiyor: alt bant hala {gm} ustunde", bilgi))
+        if c.get('etiket_ust'):
+            ozet['ust_alinan'] += 1      # VideoDna.tsx uyguluyor: alt bant / kelime karti / altyazi ust ucte birde cizilir
             continue
         ozet['cakisma'] += 1
         bulgular.append(('UYARI', 'kaynak-yazisi-cakisma', yer, f"kaynak '{os.path.basename(src)}' {a:.1f}-{b:.1f}s alt ucte birde gomulu yazi: {gm}", bilgi))
@@ -377,7 +415,7 @@ def kaynak_denetle(props, cek, ky):
 
 def kaynak_duzelt(props, ky, asgari_kare=18):
     """cakisan cekimi ayni kaynagin yazisiz (olculmus) penceresine kaydir (kb degisir, en yakin pencere, ayni parca baska cekimde
-    kullanilmiyor); bulunamazsa alt bantli cekime etiket_ust: true (alt bandi ust koseye almak icin; VideoDna.tsx'te uygulanmali)."""
+    kullanilmiyor); bulunamazsa cekime etiket_ust: true (alt bant / kelime karti / altyazi ust ucte bire alinir; VideoDna.tsx uygular)."""
     v = props['veri']
     fps = v['fps']
     cek, _ = plan_ogeleri(v)
@@ -405,11 +443,9 @@ def kaynak_duzelt(props, ky, asgari_kare=18):
             temiz, s = min(aday, key=lambda x: abs(x[1] - kb0) + (0 if x[0] else 10))   # kaplamasiz pencere 10 sn'ye kadar daha uzakta olabilir
             c['kb'] = round(s, 3)
             islem.append(f"#{i} ({bi['tur']}): kb {kb0:.2f} -> {s:.2f} sn ('{os.path.basename(src)}' {'kaplama yazisiz' if temiz else 'alt ucte biri yazisiz'} pencere, {s - kb0:+.1f} sn)")
-        elif bi['tur'] == 'altbant':
-            c['etiket_ust'] = True
-            islem.append(f"#{i} (altbant): '{os.path.basename(src)}' icinde yazisiz {sure:.1f} sn pencere yok -> etiket_ust: true (VideoDna.tsx uygulamali)")
         else:
-            islem.append(f"#{i} ({bi['tur']}): yazisiz pencere yok, cozulmedi — baska kaynak sec ya da altyazi konumunu tasi")
+            c['etiket_ust'] = True
+            islem.append(f"#{i} ({bi['tur']}): '{os.path.basename(src)}' icinde yazisiz {sure:.1f} sn pencere yok -> etiket_ust: true (yazi ust ucte bire alinir)")
     return props, islem
 
 
@@ -612,7 +648,7 @@ def main():
         bulgular += kbul
         olculen_kaynak = sum(1 for s, yj in ky.values() if yj)
         ozet['kaynak gomulu yazi'] = (f"{kozet['denetlenen']} alt yazili cekim denetlendi, {kozet['cakisma']} cakisma"
-                                      + (f", {kozet['bekleyen_ust']} etiket_ust bekliyor" if kozet['bekleyen_ust'] else '')
+                                      + (f", {kozet['ust_alinan']} cekimde etiket_ust ile ust ucte bire alinmis" if kozet['ust_alinan'] else '')
                                       + (f", {kozet['olculmemis']} cekimin kaynak penceresi olculmemis" if kozet['olculmemis'] else '')
                                       + ('' if olculen_kaynak else f" — kaynak_yazi.py calistirilmamis: py kaynak_yazi.py {public or '<public>'}/{veri.get('klasor', '')} --plan {a.plan}"))
         kartd = dongu([c['kart'] or 'medya' for c in cek])
@@ -641,7 +677,7 @@ def main():
             toplam = (sum(c['kare'] for c in veri['cekimler']), sum(c['kare'] for c in yeni['veri']['cekimler']))
             ozet['duzeltme'] = f"{len(islem)} islem · FAIL {sum(b[0] == 'FAIL' for b in bulgular)} -> {sum(b[0] == 'FAIL' for b in b2)} · toplam kare {toplam[0]} -> {toplam[1]}"
             ozet['kaynak gomulu yazi (duzeltme sonrasi)'] = (f"{kozet['cakisma']} -> {kozet2['cakisma']} cakisma"
-                                                            + (f", {kozet2['bekleyen_ust']} etiket_ust bekliyor (VideoDna.tsx uygulamali)" if kozet2['bekleyen_ust'] else ''))
+                                                            + (f", {kozet2['ust_alinan']} cekimde etiket_ust ile ust ucte bire alinmis" if kozet2['ust_alinan'] else ''))
             nf = rapor(os.path.basename(a.duzelt), b2, ozet, cikti, islem)
             print(f'duzeltildi -> {a.duzelt} | {ozet["duzeltme"]} | rapor {cikti}')
             sys.exit(1 if nf else 0)
