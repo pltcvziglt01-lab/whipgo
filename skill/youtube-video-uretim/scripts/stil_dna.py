@@ -194,6 +194,7 @@ KONU_KELIME = {
     'suc': ['crime', 'murder', 'killer', 'heist', 'scam', 'fraud', 'cartel', 'mafia', 'prison', 'police', 'detective', 'trial', 'cold case', 'serial',
             'cinayet', 'suç', 'verbrechen', 'mord', 'crimen', 'misdaad', 'moord', 'forensic'],
     'korku': ['horror', 'haunted', 'ghost', 'paranormal', 'creepy', 'cryptid', 'scary', 'demon', 'korku', 'abandoned', 'nightmare', 'terrifying'],
+    'deniz': ['ship', 'shipwreck', 'wreck', 'sea', 'ocean', 'naval', 'maritime', 'sailor', 'submarine', 'u-boat', 'fleet', 'voyage', 'lighthouse', 'schiff', 'meer', 'gemi', 'deniz'],
     'gizem': ['shipwreck', 'wreck', 'ghost ship', 'lost at sea', 'bermuda', 'mystery', 'mysteri', 'unsolved', 'disappear', 'vanish', 'missing', 'conspiracy', 'secret', 'ufo', 'alien', 'unexplained', 'lost',
               'never returned', 'unreturned', 'gizem', 'kayıp', 'misterio', 'geheimnis', 'rätsel', 'raadsel'],
     'finans': ['money', 'finance', 'economy', 'stock', 'invest', 'rich', 'billion', 'million', 'salary', 'paycheck', 'debt', 'tax', 'inflation',
@@ -222,8 +223,8 @@ KONU_KELIME = {
 # konu -> ton oyu (ton_bul'a eklenir) ve tercih edilen his
 KONU_TON = {'askeri': 'ciddi', 'tarih': 'ciddi', 'haber': 'ciddi', 'finans': 'ciddi', 'biyografi': 'ciddi', 'felsefe': 'ciddi', 'muhendislik': 'ciddi',
             'suc': 'gizem', 'korku': 'gizem', 'gizem': 'gizem', 'spor': 'enerjik', 'oyun': 'enerjik', 'otomotiv': 'enerjik', 'teknoloji': 'enerjik',
-            'liste': 'enerjik', 'eglence': 'enerjik', 'saglik': 'sakin', 'yasam': 'sakin', 'seyahat': 'sakin'}
-KONU_HIS = {'askeri': ['belgesel', 'resmi', 'teknik', 'arsiv'], 'tarih': ['arsiv', 'belgesel', 'sinematik', 'sicak'],
+            'liste': 'enerjik', 'eglence': 'enerjik', 'saglik': 'sakin', 'yasam': 'sakin', 'seyahat': 'sakin', 'deniz': 'ciddi'}
+KONU_HIS = {'deniz': ['sinematik', 'belgesel', 'karanlik'], 'askeri': ['belgesel', 'resmi', 'teknik', 'arsiv'], 'tarih': ['arsiv', 'belgesel', 'sinematik', 'sicak'],
             'suc': ['karanlik', 'sinematik', 'arsiv', 'resmi'], 'korku': ['karanlik', 'sinematik', 'retro'], 'gizem': ['karanlik', 'sinematik', 'teknik'],
             'finans': ['modern', 'temiz', 'resmi'], 'teknoloji': ['modern', 'teknik', 'neon', 'temiz'], 'bilim': ['teknik', 'modern', 'temiz'],
             'muhendislik': ['teknik', 'modern', 'belgesel'], 'otomotiv': ['dinamik', 'modern', 'teknik'], 'spor': ['dinamik', 'modern'],
@@ -240,7 +241,8 @@ def kelime_var(w, m):
     """kelime basi sinirli eslesme (car != scary); 4 harften kisa kelimelerde kelime sonu da sinirli (gun != gundem)"""
     w = w.strip()
     # 4+ harfte en fazla 4 harflik ek (mysteri+ous, vanish+ed) — 'invest' 'investigative'i yakalamaz
-    son = r'(?![a-z0-9çğıöşüäß])' if len(w) <= 3 else r'[a-zçğıöşüäß]{0,4}(?![a-z0-9çğıöşüäß])'
+    ek = r'(?:s|es|ies|ed|d|ing|ings|er|ers|ion|ions|al|ly|ous|ic|ics|y|ment|ments|ance|ence|ist|ists|ism|e|en|ung|ungen|lar|ler|i|ı|u|ü|n|in|ın|un|ün|sch|isch|ische|ischen)?'
+    son = r'(?![a-z0-9çğıöşüäß])' if len(w) <= 3 else ek + r'(?![a-z0-9çğıöşüäß])'
     return re.search(r'(?<![a-z0-9çğıöşüäß])' + re.escape(w) + son, m) is not None
 
 
@@ -363,10 +365,13 @@ def ton_bul(metin):
 _KM = {}
 
 
+URETIM_AI = re.compile(r'\bai[ -]?(?:g[oö]r[uü]n[uü]ml[uü]|ses\w*|voice\w*|generated|image\w*|g[oö]rsel\w*|anlat\w*|narrat\w*|art|video\w*|sahne\w*)', re.I)
+
+
 def kanal_metni(kd):
-    """(Drive okumasi yavas: surec icinde onbellekli)"""
+    """(Drive okumasi yavas: surec icinde onbellekli). 'AI ses / AI gorunumlu sahne' uretim teknigidir, konu degil: ayiklanir."""
     if kd not in _KM:
-        _KM[kd] = _kanal_metni(kd)
+        _KM[kd] = URETIM_AI.sub(' ', _kanal_metni(kd))
     return _KM[kd]
 
 
@@ -997,8 +1002,7 @@ def main():
     if sablon:
         if not a.rakip and not a.rakip_json:
             a.rakip = ','.join(sablon.get('rakip') or sablon.get('nis') or [])
-        if not a.ton and sablon.get('ton'):
-            a.ton = sablon['ton']
+        sablon_ton = sablon.get('ton')
         print(f"kanal sablonu: {a.sablon} | kimlik sabit: {', '.join(sablon.get('kimlik', {}))}")
     if not a.rakip and not a.rakip_json:
         hs = nis_otomatik(kut, konu0 + ' ' + ((sablon or {}).get('konsept') or ''))
@@ -1031,6 +1035,16 @@ def main():
         if t2 != tb['ton']:
             tb['kaynak'] += f" + konu oyu ({tb['ton']} -> {t2})"
         tb['ton'], tb['puan'] = t2, {k: round(v, 2) for k, v in oy.items()}
+    # sablonlu kanal: ton kanaldan gelir; ama videonun anlattigi olay belirgin bicimde daha agir/sakin bir ton istiyorsa
+    # (futbol kanalinda trajedi, savas kanalinda sakin bir anma) video tonu gecer — kimlik eksenleri yine sabit
+    if sablon and sablon.get('ton') and tb.get('kaynak') != 'elle verildi':
+        tv, pv, _ = ton_bul(a.konu)
+        if tv != sablon['ton'] and pv.get(tv, 0) >= 2 and tv in ('ciddi', 'gizem', 'sakin'):
+            tb['kaynak'] = f"video olayi kanal tonunu ezdi ({sablon['ton']} -> {tv})"
+            tb['ton'] = tv
+        else:
+            tb['kaynak'] = 'kanal sablonu tonu'
+            tb['ton'] = sablon['ton']
     # konseptte acik ton sozcugu ('calm', 'relaxing', 'ruhig'...) konu tonunu ezer (--ton verilmediyse)
     if tb.get('kaynak') != 'elle verildi' and re.search(r'\b(calm|relaxing|relaxed|soothing|gentle|cozy|ruhig|entspannt|sakin|huzurlu|dingin)\b', konu.lower()):
         tb['kaynak'] += ' + konseptte acik sakin sozcugu -> sakin'

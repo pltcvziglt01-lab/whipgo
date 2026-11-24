@@ -121,7 +121,8 @@
     "seyahat",
     "bilim",
     "tarih",
-    "muhendislik"
+    "muhendislik",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -159,7 +160,8 @@
     "tarih",
     "biyografi",
     "gizem",
-    "felsefe"
+    "felsefe",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -178,7 +180,8 @@
     "bilim",
     "finans",
     "askeri",
-    "muhendislik"
+    "muhendislik",
+    "deniz"
    ],
    "enerji": 3,
    "his": [
@@ -2707,7 +2710,8 @@
     "bilim",
     "finans",
     "saglik",
-    "muhendislik"
+    "muhendislik",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -2809,7 +2813,8 @@
     "seyahat",
     "bilim",
     "saglik",
-    "yasam"
+    "yasam",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -2883,7 +2888,8 @@
     "askeri",
     "gizem",
     "muhendislik",
-    "felsefe"
+    "felsefe",
+    "deniz"
    ],
    "enerji": 3,
    "his": [
@@ -3374,7 +3380,8 @@
     "muhendislik",
     "suc",
     "felsefe",
-    "teknoloji"
+    "teknoloji",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -3400,7 +3407,8 @@
     "gizem",
     "biyografi",
     "haber",
-    "muhendislik"
+    "muhendislik",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -3424,7 +3432,8 @@
     "tarih",
     "biyografi",
     "egitim",
-    "haber"
+    "haber",
+    "deniz"
    ],
    "enerji": 2,
    "his": [
@@ -3595,7 +3604,8 @@
     "bilim",
     "gizem",
     "askeri",
-    "korku"
+    "korku",
+    "deniz"
    ],
    "enerji": 3,
    "his": [
@@ -3618,7 +3628,8 @@
     "suc",
     "gizem",
     "haber",
-    "teknoloji"
+    "teknoloji",
+    "deniz"
    ],
    "enerji": 3,
    "his": [

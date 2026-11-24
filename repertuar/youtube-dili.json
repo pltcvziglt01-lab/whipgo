@@ -1,5 +1,5 @@
 {
- "olusturma": "2026-11-24 20:52",
+ "olusturma": "2026-11-24 21:43",
  "kanal_sayisi": 176,
  "eksen": {
   "font": {
@@ -13,111 +13,110 @@
    },
    "konu": {
     "haber": {
-     "sans-dar": 0.5901,
-     "serif": 0.2553,
-     "gosteri": 0.0939,
-     "sans": 0.0607
+     "sans-dar": 0.6221,
+     "serif": 0.2425,
+     "gosteri": 0.0892,
+     "sans": 0.0462
     },
     "tarih": {
-     "sans-dar": 0.3519,
-     "serif": 0.3,
-     "sans": 0.1285,
-     "japonca": 0.111,
-     "gosteri": 0.0913,
-     "slab": 0.0174
+     "sans-dar": 0.3569,
+     "serif": 0.3266,
+     "sans": 0.1184,
+     "gosteri": 0.0959,
+     "japonca": 0.0851,
+     "slab": 0.0171
+    },
+    "deniz": {
+     "sans-dar": 0.5887,
+     "serif": 0.1718,
+     "sans": 0.1304,
+     "slab": 0.0937,
+     "japonca": 0.0154
     },
     "askeri": {
-     "sans-dar": 0.429,
-     "serif": 0.3124,
-     "sans": 0.1377,
-     "gosteri": 0.0812,
-     "japonca": 0.0367,
-     "slab": 0.003
-    },
-    "biyografi": {
-     "sans-dar": 0.5817,
-     "serif": 0.4052,
-     "gosteri": 0.0131
+     "sans-dar": 0.4285,
+     "serif": 0.3149,
+     "sans": 0.1412,
+     "gosteri": 0.0781,
+     "japonca": 0.0344,
+     "slab": 0.0028
     },
     "liste": {
-     "serif": 0.4778,
-     "sans-dar": 0.296,
-     "sans": 0.1112,
-     "slab": 0.0741,
-     "japonca": 0.0409
+     "serif": 0.5371,
+     "sans-dar": 0.1773,
+     "sans": 0.124,
+     "slab": 0.1041,
+     "japonca": 0.0575
     },
     "egitim": {
-     "sans-dar": 0.4334,
-     "serif": 0.2919,
-     "sans": 0.1682,
-     "japonca": 0.0515,
-     "gosteri": 0.0491,
-     "slab": 0.0059
+     "sans-dar": 0.4132,
+     "serif": 0.3125,
+     "sans": 0.1795,
+     "japonca": 0.0459,
+     "gosteri": 0.0437,
+     "slab": 0.0052
     },
     "yasam": {
-     "sans-dar": 0.4007,
-     "serif": 0.2117,
-     "japonca": 0.2011,
-     "gosteri": 0.1426,
-     "sans": 0.0439
-    },
-    "teknoloji": {
-     "sans-dar": 0.5879,
-     "serif": 0.177,
-     "sans": 0.1367,
-     "gosteri": 0.0755,
-     "japonca": 0.0229
+     "sans-dar": 0.3942,
+     "japonca": 0.2136,
+     "serif": 0.1714,
+     "gosteri": 0.1497,
+     "sans": 0.0711
     },
     "finans": {
-     "sans-dar": 0.435,
-     "serif": 0.2504,
-     "gosteri": 0.1278,
-     "sans": 0.1033,
-     "slab": 0.0834
+     "sans-dar": 0.3862,
+     "serif": 0.3198,
+     "gosteri": 0.1319,
+     "slab": 0.1283,
+     "sans": 0.0339
     },
     "muhendislik": {
-     "sans-dar": 0.5358,
-     "serif": 0.2482,
-     "gosteri": 0.1203,
-     "sans": 0.0457,
-     "slab": 0.0365,
-     "japonca": 0.0135
+     "sans-dar": 0.5264,
+     "serif": 0.2554,
+     "gosteri": 0.1411,
+     "slab": 0.0414,
+     "sans": 0.028,
+     "japonca": 0.0077
     },
     "bilim": {
-     "sans-dar": 0.5132,
-     "sans": 0.3092,
-     "serif": 0.0893,
-     "japonca": 0.0884
+     "sans": 0.38,
+     "sans-dar": 0.3287,
+     "serif": 0.1827,
+     "japonca": 0.1086
     },
     "otomotiv": {
-     "serif": 0.5589,
-     "sans-dar": 0.2432,
-     "gosteri": 0.0953,
-     "sans": 0.089,
-     "slab": 0.0136
+     "serif": 0.6876,
+     "sans-dar": 0.1837,
+     "sans": 0.0651,
+     "gosteri": 0.0449,
+     "slab": 0.0186
     },
     "gizem": {
-     "serif": 0.5025,
-     "sans-dar": 0.3433,
-     "slab": 0.0737,
-     "sans": 0.0559,
-     "gosteri": 0.0246
+     "serif": 0.516,
+     "sans-dar": 0.3878,
+     "gosteri": 0.0444,
+     "slab": 0.0295,
+     "sans": 0.0224
+    },
+    "teknoloji": {
+     "sans-dar": 0.5386,
+     "serif": 0.2465,
+     "sans": 0.1845,
+     "gosteri": 0.0305
     },
     "seyahat": {
-     "sans-dar": 0.4033,
-     "serif": 0.3512,
-     "gosteri": 0.2455
+     "sans-dar": 0.5465,
+     "serif": 0.2669,
+     "gosteri": 0.1866
     },
     "felsefe": {
-     "serif": 0.5684,
-     "sans-dar": 0.2065,
-     "japonca": 0.1348,
-     "sans": 0.0902
+     "serif": 0.6683,
+     "japonca": 0.3317
     },
     "saglik": {
-     "serif": 0.5086,
-     "sans-dar": 0.3362,
-     "sans": 0.1552
+     "serif": 0.508,
+     "sans-dar": 0.312,
+     "sans": 0.18
     },
     "eglence": {
      "sans-dar": 0.5,
@@ -125,18 +124,23 @@
      "serif": 0.0746,
      "gosteri": 0.0373
     },
+    "biyografi": {
+     "sans-dar": 0.5,
+     "serif": 0.481,
+     "gosteri": 0.019
+    },
     "korku": {
      "serif": 0.5486,
      "sans-dar": 0.4514
     },
     "suc": {
-     "sans": 0.6998,
-     "sans-dar": 0.3002
+     "sans": 0.6774,
+     "sans-dar": 0.3226
     },
     "spor": {
-     "sans-dar": 0.7883,
-     "serif": 0.1554,
-     "japonca": 0.0564
+     "sans-dar": 0.7995,
+     "serif": 0.142,
+     "japonca": 0.0586
     }
    }
   },
@@ -152,150 +156,157 @@
    },
    "konu": {
     "haber": {
-     "sert": 0.651,
-     "karartma": 0.2521,
-     "zoom": 0.0298,
-     "flas": 0.0229,
+     "sert": 0.664,
+     "karartma": 0.2419,
+     "zoom": 0.0286,
+     "flas": 0.022,
      "maske": 0.0205,
-     "hareket": 0.02,
-     "glitch": 0.0037
+     "hareket": 0.0192,
+     "glitch": 0.0039
     },
     "tarih": {
-     "sert": 0.6571,
-     "karartma": 0.2842,
-     "flas": 0.0258,
-     "zoom": 0.02,
-     "glitch": 0.0076,
-     "maske": 0.0027,
-     "hareket": 0.0027
+     "sert": 0.6474,
+     "karartma": 0.294,
+     "flas": 0.0251,
+     "zoom": 0.0195,
+     "glitch": 0.0083,
+     "hareket": 0.003,
+     "maske": 0.0026
+    },
+    "deniz": {
+     "sert": 0.779,
+     "karartma": 0.1741,
+     "flas": 0.0332,
+     "hareket": 0.0078,
+     "zoom": 0.0037,
+     "glitch": 0.0022
     },
     "askeri": {
-     "sert": 0.728,
-     "karartma": 0.2036,
-     "zoom": 0.027,
-     "flas": 0.0227,
-     "glitch": 0.0106,
-     "maske": 0.0053,
-     "hareket": 0.0028
-    },
-    "biyografi": {
-     "sert": 0.5525,
-     "karartma": 0.2931,
-     "flas": 0.0533,
-     "zoom": 0.0458,
-     "glitch": 0.0351,
-     "hareket": 0.0167,
-     "maske": 0.0036
+     "sert": 0.7221,
+     "karartma": 0.2104,
+     "zoom": 0.026,
+     "flas": 0.0233,
+     "glitch": 0.0104,
+     "maske": 0.0052,
+     "hareket": 0.0027
     },
     "liste": {
-     "sert": 0.7632,
-     "karartma": 0.1546,
-     "glitch": 0.029,
-     "flas": 0.0249,
-     "zoom": 0.0147,
-     "maske": 0.0079,
-     "hareket": 0.0057
+     "sert": 0.7317,
+     "karartma": 0.1615,
+     "glitch": 0.0378,
+     "flas": 0.036,
+     "zoom": 0.0193,
+     "hareket": 0.0074,
+     "maske": 0.0063
     },
     "egitim": {
-     "sert": 0.6534,
-     "karartma": 0.2774,
-     "flas": 0.0303,
-     "zoom": 0.0205,
-     "maske": 0.009,
-     "hareket": 0.0048,
-     "glitch": 0.0044
+     "sert": 0.636,
+     "karartma": 0.2765,
+     "flas": 0.0411,
+     "zoom": 0.0251,
+     "maske": 0.0114,
+     "hareket": 0.0059,
+     "glitch": 0.0041
     },
     "yasam": {
-     "sert": 0.8009,
-     "karartma": 0.1486,
-     "zoom": 0.0209,
-     "flas": 0.0174,
-     "maske": 0.0053,
-     "hareket": 0.0047,
+     "sert": 0.774,
+     "karartma": 0.1745,
+     "zoom": 0.0278,
+     "flas": 0.0139,
+     "maske": 0.0042,
+     "hareket": 0.0037,
+     "glitch": 0.0017
+    },
+    "finans": {
+     "sert": 0.7709,
+     "karartma": 0.1674,
+     "flas": 0.0265,
+     "zoom": 0.0237,
+     "glitch": 0.0041,
+     "maske": 0.0041,
+     "hareket": 0.0032
+    },
+    "muhendislik": {
+     "sert": 0.7415,
+     "karartma": 0.1764,
+     "zoom": 0.0286,
+     "flas": 0.019,
+     "hareket": 0.0149,
+     "maske": 0.0119,
+     "glitch": 0.0078
+    },
+    "bilim": {
+     "sert": 0.8382,
+     "karartma": 0.1231,
+     "flas": 0.0205,
+     "glitch": 0.0112,
+     "zoom": 0.0038,
+     "maske": 0.0016,
+     "hareket": 0.0015
+    },
+    "otomotiv": {
+     "sert": 0.8404,
+     "karartma": 0.1247,
+     "zoom": 0.0128,
+     "glitch": 0.0087,
+     "maske": 0.0076,
+     "hareket": 0.0044,
+     "flas": 0.0014
+    },
+    "gizem": {
+     "sert": 0.6899,
+     "karartma": 0.2798,
+     "flas": 0.0144,
+     "hareket": 0.0075,
+     "zoom": 0.0063,
      "glitch": 0.0021
     },
     "teknoloji": {
-     "sert": 0.7507,
-     "karartma": 0.1615,
-     "flas": 0.0566,
-     "zoom": 0.0126,
-     "glitch": 0.012,
-     "maske": 0.0041,
-     "hareket": 0.0025
-    },
-    "finans": {
-     "sert": 0.7433,
-     "karartma": 0.1836,
-     "flas": 0.0353,
-     "zoom": 0.0265,
-     "maske": 0.0058,
-     "glitch": 0.0033,
-     "hareket": 0.0023
-    },
-    "muhendislik": {
-     "sert": 0.7549,
-     "karartma": 0.1743,
-     "zoom": 0.025,
-     "flas": 0.0167,
-     "hareket": 0.012,
-     "maske": 0.0114,
-     "glitch": 0.0058
-    },
-    "bilim": {
-     "sert": 0.7129,
-     "karartma": 0.2466,
-     "flas": 0.0207,
-     "glitch": 0.0094,
-     "zoom": 0.0083,
-     "hareket": 0.0014,
-     "maske": 0.0009
-    },
-    "otomotiv": {
-     "sert": 0.8106,
-     "karartma": 0.1445,
-     "zoom": 0.0129,
-     "flas": 0.0114,
-     "hareket": 0.0078,
-     "glitch": 0.0075,
-     "maske": 0.0052
-    },
-    "gizem": {
-     "sert": 0.7242,
-     "karartma": 0.2246,
-     "flas": 0.0284,
-     "hareket": 0.0119,
-     "zoom": 0.0063,
-     "glitch": 0.0042,
-     "maske": 0.0004
+     "sert": 0.6739,
+     "karartma": 0.2277,
+     "flas": 0.0625,
+     "glitch": 0.0176,
+     "zoom": 0.0113,
+     "hareket": 0.0038,
+     "maske": 0.0032
     },
     "seyahat": {
-     "sert": 0.6742,
-     "karartma": 0.2178,
-     "zoom": 0.0391,
-     "hareket": 0.0287,
-     "flas": 0.0248,
-     "maske": 0.013,
-     "glitch": 0.0024
+     "sert": 0.7206,
+     "karartma": 0.1744,
+     "flas": 0.0356,
+     "zoom": 0.0351,
+     "hareket": 0.0224,
+     "maske": 0.0101,
+     "glitch": 0.0019
     },
     "felsefe": {
-     "sert": 0.806,
-     "karartma": 0.1886,
-     "maske": 0.0041,
-     "zoom": 0.0014
+     "sert": 0.9667,
+     "karartma": 0.02,
+     "maske": 0.01,
+     "zoom": 0.0033
     },
     "saglik": {
-     "sert": 0.8594,
-     "karartma": 0.0816,
-     "flas": 0.0185,
-     "zoom": 0.0156,
-     "glitch": 0.0117,
-     "maske": 0.0114,
-     "hareket": 0.0018
+     "sert": 0.8696,
+     "karartma": 0.0757,
+     "flas": 0.0171,
+     "zoom": 0.0145,
+     "glitch": 0.0108,
+     "maske": 0.0106,
+     "hareket": 0.0017
     },
     "eglence": {
      "sert": 0.4896,
      "karartma": 0.4791,
      "zoom": 0.0314
+    },
+    "biyografi": {
+     "sert": 0.5798,
+     "karartma": 0.25,
+     "zoom": 0.0662,
+     "glitch": 0.0456,
+     "flas": 0.0292,
+     "hareket": 0.0241,
+     "maske": 0.0052
     },
     "korku": {
      "sert": 0.8484,
@@ -306,10 +317,10 @@
      "zoom": 0.0111
     },
     "spor": {
-     "sert": 0.76,
-     "karartma": 0.1792,
-     "flas": 0.049,
-     "glitch": 0.0107,
+     "sert": 0.7176,
+     "karartma": 0.1926,
+     "flas": 0.0814,
+     "glitch": 0.0073,
      "zoom": 0.0012
     },
     "suc": {
@@ -332,131 +343,130 @@
    },
    "konu": {
     "haber": {
-     "ken-burns-ice": 0.4449,
-     "sabit": 0.255,
-     "ken-burns-disa": 0.1962,
-     "pan-sag": 0.0369,
-     "pan-yukari": 0.0356,
+     "ken-burns-ice": 0.4477,
+     "sabit": 0.2531,
+     "ken-burns-disa": 0.1956,
+     "pan-sag": 0.0374,
+     "pan-yukari": 0.0347,
      "pan-sol": 0.0314
     },
     "tarih": {
-     "ken-burns-ice": 0.4152,
-     "sabit": 0.3572,
-     "ken-burns-disa": 0.1472,
-     "pan-yukari": 0.0395,
-     "pan-sag": 0.0205,
-     "pan-sol": 0.0203
+     "sabit": 0.3808,
+     "ken-burns-ice": 0.3776,
+     "ken-burns-disa": 0.157,
+     "pan-yukari": 0.0431,
+     "pan-sag": 0.0209,
+     "pan-sol": 0.0206
+    },
+    "deniz": {
+     "ken-burns-ice": 0.421,
+     "sabit": 0.3168,
+     "ken-burns-disa": 0.1934,
+     "pan-yukari": 0.046,
+     "pan-sag": 0.0169,
+     "pan-sol": 0.0059
     },
     "askeri": {
-     "ken-burns-ice": 0.3899,
-     "sabit": 0.3322,
-     "ken-burns-disa": 0.2081,
-     "pan-yukari": 0.0333,
-     "pan-sol": 0.019,
+     "ken-burns-ice": 0.3834,
+     "sabit": 0.3438,
+     "ken-burns-disa": 0.2042,
+     "pan-yukari": 0.0329,
+     "pan-sol": 0.0182,
      "pan-sag": 0.0175
     },
-    "biyografi": {
-     "ken-burns-ice": 0.49,
-     "sabit": 0.2828,
-     "ken-burns-disa": 0.1217,
-     "pan-yukari": 0.0716,
-     "pan-sol": 0.0187,
-     "pan-sag": 0.0153
-    },
     "liste": {
-     "ken-burns-ice": 0.3723,
-     "sabit": 0.2947,
-     "ken-burns-disa": 0.2416,
-     "pan-yukari": 0.0519,
-     "pan-sag": 0.0241,
-     "pan-sol": 0.0153
+     "ken-burns-ice": 0.3731,
+     "sabit": 0.3164,
+     "ken-burns-disa": 0.2041,
+     "pan-yukari": 0.061,
+     "pan-sag": 0.0272,
+     "pan-sol": 0.0182
     },
     "egitim": {
-     "ken-burns-ice": 0.3743,
-     "sabit": 0.2639,
-     "ken-burns-disa": 0.2519,
-     "pan-yukari": 0.0729,
-     "pan-sag": 0.0246,
-     "pan-sol": 0.0124
+     "ken-burns-ice": 0.3741,
+     "sabit": 0.262,
+     "ken-burns-disa": 0.2509,
+     "pan-yukari": 0.0752,
+     "pan-sag": 0.0259,
+     "pan-sol": 0.0119
     },
     "yasam": {
-     "ken-burns-ice": 0.4051,
-     "sabit": 0.3519,
-     "ken-burns-disa": 0.2078,
-     "pan-yukari": 0.0184,
-     "pan-sag": 0.0113,
-     "pan-sol": 0.0055
-    },
-    "teknoloji": {
-     "ken-burns-ice": 0.3786,
-     "sabit": 0.328,
-     "ken-burns-disa": 0.2004,
-     "pan-sol": 0.0395,
-     "pan-yukari": 0.0294,
-     "pan-sag": 0.024
+     "ken-burns-ice": 0.3887,
+     "sabit": 0.3384,
+     "ken-burns-disa": 0.2305,
+     "pan-yukari": 0.0229,
+     "pan-sag": 0.0124,
+     "pan-sol": 0.0071
     },
     "finans": {
-     "ken-burns-ice": 0.3506,
-     "ken-burns-disa": 0.2855,
-     "sabit": 0.261,
-     "pan-yukari": 0.0531,
-     "pan-sag": 0.0252,
-     "pan-sol": 0.0246
+     "ken-burns-ice": 0.3584,
+     "ken-burns-disa": 0.325,
+     "sabit": 0.203,
+     "pan-yukari": 0.0536,
+     "pan-sol": 0.0305,
+     "pan-sag": 0.0294
     },
     "muhendislik": {
-     "ken-burns-ice": 0.3967,
-     "sabit": 0.3094,
-     "ken-burns-disa": 0.2156,
-     "pan-yukari": 0.0336,
-     "pan-sag": 0.0271,
-     "pan-sol": 0.0176
+     "ken-burns-ice": 0.4016,
+     "sabit": 0.2895,
+     "ken-burns-disa": 0.221,
+     "pan-yukari": 0.0369,
+     "pan-sag": 0.031,
+     "pan-sol": 0.02
     },
     "bilim": {
-     "sabit": 0.4421,
-     "ken-burns-ice": 0.3107,
-     "ken-burns-disa": 0.1843,
-     "pan-sol": 0.0328,
-     "pan-yukari": 0.0192,
-     "pan-sag": 0.0109
+     "sabit": 0.3769,
+     "ken-burns-ice": 0.3304,
+     "ken-burns-disa": 0.2141,
+     "pan-sol": 0.0395,
+     "pan-yukari": 0.0278,
+     "pan-sag": 0.0114
     },
     "otomotiv": {
-     "sabit": 0.3729,
-     "ken-burns-ice": 0.3177,
-     "ken-burns-disa": 0.2434,
-     "pan-sag": 0.0254,
-     "pan-sol": 0.0206,
-     "pan-yukari": 0.0201
+     "sabit": 0.3813,
+     "ken-burns-ice": 0.3098,
+     "ken-burns-disa": 0.2721,
+     "pan-yukari": 0.0155,
+     "pan-sag": 0.0131,
+     "pan-sol": 0.0082
     },
     "gizem": {
-     "ken-burns-ice": 0.4629,
-     "sabit": 0.3227,
-     "ken-burns-disa": 0.1255,
-     "pan-yukari": 0.0396,
-     "pan-sag": 0.0309,
-     "pan-sol": 0.0183
+     "ken-burns-ice": 0.477,
+     "sabit": 0.3072,
+     "ken-burns-disa": 0.1233,
+     "pan-yukari": 0.0436,
+     "pan-sag": 0.0316,
+     "pan-sol": 0.0172
+    },
+    "teknoloji": {
+     "ken-burns-ice": 0.3957,
+     "sabit": 0.3233,
+     "ken-burns-disa": 0.197,
+     "pan-sol": 0.0383,
+     "pan-yukari": 0.0282,
+     "pan-sag": 0.0175
     },
     "seyahat": {
-     "ken-burns-ice": 0.4381,
-     "sabit": 0.2519,
-     "ken-burns-disa": 0.1576,
-     "pan-sag": 0.0617,
-     "pan-yukari": 0.0473,
-     "pan-sol": 0.0433
+     "ken-burns-ice": 0.418,
+     "sabit": 0.2532,
+     "ken-burns-disa": 0.1863,
+     "pan-sag": 0.0547,
+     "pan-yukari": 0.0461,
+     "pan-sol": 0.0417
     },
     "felsefe": {
-     "ken-burns-ice": 0.3924,
-     "sabit": 0.335,
-     "ken-burns-disa": 0.149,
-     "pan-yukari": 0.0682,
-     "pan-sag": 0.0554
+     "sabit": 0.509,
+     "ken-burns-ice": 0.2912,
+     "ken-burns-disa": 0.1931,
+     "pan-yukari": 0.0067
     },
     "saglik": {
-     "sabit": 0.497,
-     "ken-burns-ice": 0.2457,
-     "ken-burns-disa": 0.2194,
-     "pan-yukari": 0.0267,
-     "pan-sag": 0.0074,
-     "pan-sol": 0.0039
+     "sabit": 0.5332,
+     "ken-burns-ice": 0.228,
+     "ken-burns-disa": 0.2036,
+     "pan-yukari": 0.0247,
+     "pan-sag": 0.0069,
+     "pan-sol": 0.0036
     },
     "eglence": {
      "sabit": 0.5193,
@@ -465,6 +475,14 @@
      "pan-sol": 0.0038,
      "pan-sag": 0.0014,
      "pan-yukari": 0.0007
+    },
+    "biyografi": {
+     "ken-burns-ice": 0.4813,
+     "sabit": 0.308,
+     "ken-burns-disa": 0.1016,
+     "pan-yukari": 0.0743,
+     "pan-sag": 0.0221,
+     "pan-sol": 0.0126
     },
     "korku": {
      "ken-burns-ice": 0.3734,
@@ -475,19 +493,19 @@
      "pan-sol": 0.0252
     },
     "suc": {
-     "ken-burns-disa": 0.4939,
-     "ken-burns-ice": 0.2312,
-     "sabit": 0.2249,
-     "pan-yukari": 0.0375,
-     "pan-sol": 0.0125
+     "ken-burns-disa": 0.5101,
+     "ken-burns-ice": 0.2238,
+     "sabit": 0.2177,
+     "pan-yukari": 0.0363,
+     "pan-sol": 0.0121
     },
     "spor": {
-     "sabit": 0.3628,
-     "ken-burns-ice": 0.2814,
-     "ken-burns-disa": 0.2205,
-     "pan-yukari": 0.0778,
-     "pan-sag": 0.0387,
-     "pan-sol": 0.0189
+     "sabit": 0.3702,
+     "ken-burns-ice": 0.2742,
+     "ken-burns-disa": 0.2232,
+     "pan-yukari": 0.0752,
+     "pan-sag": 0.0328,
+     "pan-sol": 0.0245
     }
    }
   },
@@ -502,132 +520,138 @@
    },
    "konu": {
     "haber": {
-     "tam": 0.9179,
-     "bulanik-kopya": 0.0304,
-     "letterbox": 0.0293,
-     "inset-golge": 0.0212,
+     "tam": 0.9199,
+     "bulanik-kopya": 0.0305,
+     "letterbox": 0.0281,
+     "inset-golge": 0.0203,
      "bolunmus": 0.0008,
      "cerceveli_doku/gorsel": 0.0004
     },
     "tarih": {
-     "tam": 0.7681,
-     "bulanik-kopya": 0.1051,
-     "inset-golge": 0.0839,
-     "letterbox": 0.0404,
-     "bolunmus": 0.0024,
+     "tam": 0.7638,
+     "bulanik-kopya": 0.1112,
+     "inset-golge": 0.0882,
+     "letterbox": 0.0349,
+     "bolunmus": 0.0019,
      "cerceveli_doku/gorsel": 0.0
     },
-    "askeri": {
-     "tam": 0.8261,
-     "bulanik-kopya": 0.0719,
-     "inset-golge": 0.0553,
-     "letterbox": 0.0323,
-     "cerceveli_doku/gorsel": 0.0119,
-     "bolunmus": 0.0025
+    "deniz": {
+     "tam": 0.8817,
+     "bulanik-kopya": 0.0545,
+     "letterbox": 0.0454,
+     "inset-golge": 0.0127,
+     "bolunmus": 0.0057
     },
-    "biyografi": {
-     "tam": 0.7327,
-     "bulanik-kopya": 0.233,
-     "inset-golge": 0.0294,
-     "bolunmus": 0.0034,
-     "letterbox": 0.0015
+    "askeri": {
+     "tam": 0.8351,
+     "bulanik-kopya": 0.0684,
+     "inset-golge": 0.0538,
+     "letterbox": 0.0291,
+     "cerceveli_doku/gorsel": 0.0112,
+     "bolunmus": 0.0024
     },
     "liste": {
-     "tam": 0.8744,
-     "bulanik-kopya": 0.0829,
-     "inset-golge": 0.0319,
-     "letterbox": 0.0089,
-     "bolunmus": 0.0016,
-     "cerceveli_doku/gorsel": 0.0003
+     "tam": 0.8586,
+     "bulanik-kopya": 0.0927,
+     "inset-golge": 0.0363,
+     "letterbox": 0.0104,
+     "bolunmus": 0.0017,
+     "cerceveli_doku/gorsel": 0.0004
     },
     "egitim": {
-     "tam": 0.8721,
+     "tam": 0.8739,
      "bulanik-kopya": 0.0571,
-     "inset-golge": 0.0414,
-     "letterbox": 0.0251,
+     "inset-golge": 0.0412,
+     "letterbox": 0.0236,
      "bolunmus": 0.0037,
-     "cerceveli_doku/gorsel": 0.0006
+     "cerceveli_doku/gorsel": 0.0005
     },
     "yasam": {
-     "tam": 0.8919,
-     "bulanik-kopya": 0.0813,
-     "inset-golge": 0.0157,
-     "letterbox": 0.0076,
-     "bolunmus": 0.0035
-    },
-    "teknoloji": {
-     "tam": 0.9247,
-     "bulanik-kopya": 0.037,
-     "letterbox": 0.0199,
-     "inset-golge": 0.0171,
-     "bolunmus": 0.001,
-     "cerceveli_doku/gorsel": 0.0003
+     "tam": 0.8988,
+     "bulanik-kopya": 0.0759,
+     "inset-golge": 0.0164,
+     "letterbox": 0.0061,
+     "bolunmus": 0.0028
     },
     "finans": {
-     "tam": 0.8424,
-     "bulanik-kopya": 0.0904,
-     "inset-golge": 0.0614,
-     "letterbox": 0.0043,
-     "bolunmus": 0.0016,
+     "tam": 0.9204,
+     "bulanik-kopya": 0.0474,
+     "inset-golge": 0.0258,
+     "letterbox": 0.0042,
+     "bolunmus": 0.0022,
      "cerceveli_doku/gorsel": 0.0
     },
     "muhendislik": {
-     "tam": 0.8163,
-     "bulanik-kopya": 0.0821,
-     "inset-golge": 0.0569,
-     "letterbox": 0.0401,
-     "bolunmus": 0.0043,
+     "tam": 0.8134,
+     "bulanik-kopya": 0.0842,
+     "inset-golge": 0.0536,
+     "letterbox": 0.043,
+     "bolunmus": 0.0055,
      "cerceveli_doku/gorsel": 0.0002
     },
     "bilim": {
-     "tam": 0.8304,
-     "cerceveli_doku/gorsel": 0.0814,
-     "inset-golge": 0.0415,
-     "bulanik-kopya": 0.034,
-     "letterbox": 0.0087,
-     "bolunmus": 0.0039
+     "tam": 0.8341,
+     "cerceveli_doku/gorsel": 0.0903,
+     "inset-golge": 0.0507,
+     "bulanik-kopya": 0.0143,
+     "letterbox": 0.0063,
+     "bolunmus": 0.0044
     },
     "otomotiv": {
-     "tam": 0.8589,
-     "bulanik-kopya": 0.0662,
-     "inset-golge": 0.0395,
-     "letterbox": 0.0339,
-     "bolunmus": 0.0016,
+     "tam": 0.8452,
+     "bulanik-kopya": 0.0704,
+     "letterbox": 0.0454,
+     "inset-golge": 0.0389,
      "cerceveli_doku/gorsel": 0.0
     },
     "gizem": {
-     "tam": 0.936,
-     "bulanik-kopya": 0.0301,
-     "inset-golge": 0.0181,
-     "letterbox": 0.0087,
-     "bolunmus": 0.0045,
-     "cerceveli_doku/gorsel": 0.0025
+     "tam": 0.9498,
+     "bulanik-kopya": 0.0248,
+     "inset-golge": 0.0139,
+     "letterbox": 0.0066,
+     "cerceveli_doku/gorsel": 0.0031,
+     "bolunmus": 0.0018
+    },
+    "teknoloji": {
+     "tam": 0.9071,
+     "bulanik-kopya": 0.0405,
+     "letterbox": 0.0292,
+     "inset-golge": 0.0213,
+     "bolunmus": 0.0015,
+     "cerceveli_doku/gorsel": 0.0004
     },
     "seyahat": {
-     "tam": 0.7137,
-     "inset-golge": 0.1709,
-     "bulanik-kopya": 0.097,
-     "letterbox": 0.0161,
-     "bolunmus": 0.0023
+     "tam": 0.7505,
+     "inset-golge": 0.1354,
+     "bulanik-kopya": 0.0999,
+     "letterbox": 0.0126,
+     "bolunmus": 0.0018
     },
     "felsefe": {
-     "tam": 0.8694,
-     "inset-golge": 0.0762,
-     "letterbox": 0.0463,
-     "bulanik-kopya": 0.0081
+     "tam": 0.6786,
+     "inset-golge": 0.1875,
+     "letterbox": 0.1139,
+     "bulanik-kopya": 0.02
     },
     "saglik": {
-     "tam": 0.9026,
-     "bulanik-kopya": 0.0612,
-     "inset-golge": 0.0233,
-     "letterbox": 0.0083,
-     "bolunmus": 0.0029,
-     "cerceveli_doku/gorsel": 0.0017
+     "tam": 0.9002,
+     "bulanik-kopya": 0.0661,
+     "inset-golge": 0.0217,
+     "letterbox": 0.0077,
+     "bolunmus": 0.0027,
+     "cerceveli_doku/gorsel": 0.0016
     },
     "eglence": {
      "tam": 0.7627,
      "bulanik-kopya": 0.1645,
      "inset-golge": 0.0728
+    },
+    "biyografi": {
+     "tam": 0.7092,
+     "bulanik-kopya": 0.2434,
+     "inset-golge": 0.0425,
+     "bolunmus": 0.0049,
+     "letterbox": 0.0
     },
     "korku": {
      "tam": 0.9084,
@@ -638,17 +662,17 @@
      "bolunmus": 0.0
     },
     "suc": {
-     "tam": 0.958,
-     "bulanik-kopya": 0.014,
-     "bolunmus": 0.014,
-     "inset-golge": 0.014
+     "tam": 0.9594,
+     "bulanik-kopya": 0.0135,
+     "bolunmus": 0.0135,
+     "inset-golge": 0.0135
     },
     "spor": {
-     "tam": 0.9254,
-     "bulanik-kopya": 0.042,
-     "inset-golge": 0.0187,
-     "letterbox": 0.0117,
-     "bolunmus": 0.0023
+     "tam": 0.9168,
+     "bulanik-kopya": 0.0479,
+     "inset-golge": 0.0194,
+     "letterbox": 0.0135,
+     "bolunmus": 0.0024
     }
    }
   },
@@ -662,83 +686,85 @@
    },
    "konu": {
     "haber": {
-     "yok": 0.9058,
-     "sinema": 0.0486,
-     "vurgulu": 0.0456
+     "yok": 0.9098,
+     "sinema": 0.0466,
+     "vurgulu": 0.0436
     },
     "tarih": {
-     "yok": 0.7946,
-     "sinema": 0.1185,
-     "vurgulu": 0.0609,
-     "kutulu": 0.026
+     "yok": 0.7962,
+     "sinema": 0.105,
+     "vurgulu": 0.0732,
+     "kutulu": 0.0255
+    },
+    "deniz": {
+     "yok": 0.862,
+     "sinema": 0.0864,
+     "vurgulu": 0.0516
     },
     "askeri": {
-     "yok": 0.8491,
-     "sinema": 0.0739,
-     "kutulu": 0.054,
-     "vurgulu": 0.023
-    },
-    "biyografi": {
-     "yok": 1.0
+     "yok": 0.8509,
+     "sinema": 0.0631,
+     "kutulu": 0.06,
+     "vurgulu": 0.0259
     },
     "liste": {
-     "yok": 0.9544,
-     "sinema": 0.0456
+     "yok": 0.9371,
+     "sinema": 0.0629
     },
     "egitim": {
-     "yok": 0.7538,
-     "kutulu": 0.1332,
-     "sinema": 0.1129
+     "yok": 0.778,
+     "kutulu": 0.1202,
+     "sinema": 0.1019
     },
     "yasam": {
-     "yok": 0.6583,
-     "sinema": 0.1472,
-     "kelime": 0.1177,
-     "kutulu": 0.0768
-    },
-    "teknoloji": {
-     "yok": 0.6272,
-     "kutulu": 0.2111,
-     "sinema": 0.09,
-     "kelime": 0.0516,
-     "vurgulu": 0.0201
+     "yok": 0.5887,
+     "sinema": 0.2091,
+     "kelime": 0.1408,
+     "kutulu": 0.0613
     },
     "finans": {
-     "yok": 0.8546,
-     "kutulu": 0.1117,
-     "sinema": 0.0336
+     "yok": 0.7706,
+     "kutulu": 0.158,
+     "sinema": 0.0714
     },
     "muhendislik": {
-     "yok": 0.9038,
-     "kutulu": 0.0585,
-     "vurgulu": 0.0377
+     "yok": 0.8883,
+     "kutulu": 0.0679,
+     "vurgulu": 0.0437
     },
     "bilim": {
-     "yok": 0.8869,
-     "vurgulu": 0.1131
+     "yok": 0.9373,
+     "vurgulu": 0.0627
     },
     "otomotiv": {
-     "yok": 0.7798,
-     "sinema": 0.1213,
-     "kutulu": 0.0989
+     "yok": 0.9475,
+     "sinema": 0.0525
     },
     "gizem": {
-     "yok": 0.9341,
-     "kelime": 0.0659
+     "yok": 0.8418,
+     "kelime": 0.1582
+    },
+    "teknoloji": {
+     "yok": 0.8353,
+     "kutulu": 0.1445,
+     "sinema": 0.0202
     },
     "seyahat": {
-     "sinema": 0.5082,
-     "yok": 0.315,
-     "kutulu": 0.1768
+     "sinema": 0.6168,
+     "yok": 0.2454,
+     "kutulu": 0.1378
     },
     "felsefe": {
-     "yok": 0.8632,
-     "vurgulu": 0.1368
+     "yok": 0.6634,
+     "vurgulu": 0.3366
     },
     "saglik": {
      "yok": 1.0
     },
     "eglence": {
+     "yok": 1.0
+    },
+    "biyografi": {
      "yok": 1.0
     },
     "korku": {
@@ -748,8 +774,8 @@
      "yok": 1.0
     },
     "spor": {
-     "kutulu": 0.5766,
-     "yok": 0.4234
+     "kutulu": 0.599,
+     "yok": 0.401
     }
    }
   },
@@ -761,75 +787,74 @@
    },
    "konu": {
     "haber": {
-     "koyu-notr": 0.6587,
-     "koyu-renkli": 0.2957,
-     "acik": 0.0456
+     "koyu-notr": 0.6926,
+     "koyu-renkli": 0.2637,
+     "acik": 0.0436
     },
     "tarih": {
-     "koyu-notr": 0.6234,
-     "koyu-renkli": 0.2659,
-     "acik": 0.1107
+     "koyu-notr": 0.5882,
+     "koyu-renkli": 0.2715,
+     "acik": 0.1403
+    },
+    "deniz": {
+     "koyu-notr": 0.6316,
+     "koyu-renkli": 0.3167,
+     "acik": 0.0516
     },
     "askeri": {
-     "koyu-notr": 0.7772,
-     "koyu-renkli": 0.1934,
-     "acik": 0.0294
-    },
-    "biyografi": {
-     "koyu-notr": 0.8547,
-     "koyu-renkli": 0.1453
+     "koyu-notr": 0.7811,
+     "koyu-renkli": 0.1886,
+     "acik": 0.0302
     },
     "liste": {
-     "koyu-notr": 0.7751,
-     "koyu-renkli": 0.135,
-     "acik": 0.0899
+     "koyu-notr": 0.6736,
+     "koyu-renkli": 0.2023,
+     "acik": 0.124
     },
     "egitim": {
-     "koyu-notr": 0.5565,
-     "koyu-renkli": 0.4156,
-     "acik": 0.0279
+     "koyu-notr": 0.5852,
+     "koyu-renkli": 0.3896,
+     "acik": 0.0252
     },
     "yasam": {
-     "koyu-renkli": 0.5176,
-     "koyu-notr": 0.4824
-    },
-    "teknoloji": {
-     "koyu-notr": 0.6854,
-     "koyu-renkli": 0.2902,
-     "acik": 0.0244
+     "koyu-notr": 0.5399,
+     "koyu-renkli": 0.4601
     },
     "finans": {
-     "koyu-notr": 0.8163,
-     "acik": 0.1115,
-     "koyu-renkli": 0.0722
+     "koyu-notr": 0.7856,
+     "acik": 0.1576,
+     "koyu-renkli": 0.0567
     },
     "muhendislik": {
-     "koyu-notr": 0.6211,
-     "koyu-renkli": 0.2844,
-     "acik": 0.0945
+     "koyu-notr": 0.6782,
+     "koyu-renkli": 0.2378,
+     "acik": 0.084
     },
     "bilim": {
-     "koyu-notr": 0.7635,
-     "koyu-renkli": 0.1234,
-     "acik": 0.1131
+     "koyu-notr": 0.8006,
+     "koyu-renkli": 0.1368,
+     "acik": 0.0627
     },
     "otomotiv": {
-     "koyu-notr": 0.8923,
-     "koyu-renkli": 0.0816,
-     "acik": 0.0261
+     "koyu-notr": 0.8882,
+     "koyu-renkli": 0.1118
     },
     "gizem": {
-     "koyu-notr": 0.6416,
-     "koyu-renkli": 0.3584
+     "koyu-notr": 0.629,
+     "koyu-renkli": 0.371
+    },
+    "teknoloji": {
+     "koyu-notr": 0.6954,
+     "koyu-renkli": 0.287,
+     "acik": 0.0176
     },
     "seyahat": {
-     "koyu-notr": 0.495,
-     "koyu-renkli": 0.4214,
-     "acik": 0.0835
+     "koyu-renkli": 0.5492,
+     "koyu-notr": 0.3857,
+     "acik": 0.0651
     },
     "felsefe": {
-     "koyu-notr": 0.5869,
-     "koyu-renkli": 0.4131
+     "koyu-notr": 1.0
     },
     "saglik": {
      "koyu-notr": 1.0
@@ -838,16 +863,19 @@
      "koyu-renkli": 0.7762,
      "koyu-notr": 0.2238
     },
+    "biyografi": {
+     "koyu-notr": 1.0
+    },
     "korku": {
      "koyu-notr": 1.0
     },
     "suc": {
-     "koyu-notr": 0.6998,
-     "koyu-renkli": 0.3002
+     "koyu-notr": 0.6774,
+     "koyu-renkli": 0.3226
     },
     "spor": {
-     "koyu-notr": 0.5251,
-     "koyu-renkli": 0.4749
+     "koyu-renkli": 0.6353,
+     "koyu-notr": 0.3647
     }
    }
   }
@@ -925,9 +953,7 @@
    }
   },
   "@AlltagZerlegt": {
-   "konu": {
-    "tarih": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 2.297,
    "oran": 2.66,
@@ -963,10 +989,10 @@
   },
   "@AmericaWarMachines": {
    "konu": {
-    "askeri": 0.4,
-    "tarih": 0.2,
-    "biyografi": 0.2,
-    "liste": 0.2
+    "tarih": 0.333,
+    "deniz": 0.333,
+    "askeri": 0.222,
+    "liste": 0.111
    },
    "ton": "ciddi",
    "agirlik": 3.944,
@@ -1080,8 +1106,7 @@
   },
   "@AmericasUntoldFarms": {
    "konu": {
-    "yasam": 0.667,
-    "teknoloji": 0.333
+    "yasam": 1.0
    },
    "ton": "sakin",
    "agirlik": 3.34,
@@ -1192,8 +1217,7 @@
   },
   "@Aussie2050": {
    "konu": {
-    "muhendislik": 0.75,
-    "liste": 0.25
+    "muhendislik": 1.0
    },
    "ton": "ciddi",
    "agirlik": 3.362,
@@ -1276,8 +1300,8 @@
   },
   "@BattleEnsign1": {
    "konu": {
-    "askeri": 0.8,
-    "haber": 0.2
+    "askeri": 0.667,
+    "haber": 0.333
    },
    "ton": "ciddi",
    "agirlik": 3.596,
@@ -1316,8 +1340,9 @@
   },
   "@BeyondEarthNews-l4h": {
    "konu": {
-    "bilim": 0.5,
-    "teknoloji": 0.25,
+    "tarih": 0.25,
+    "deniz": 0.25,
+    "bilim": 0.25,
     "haber": 0.25
    },
    "ton": "ciddi",
@@ -1524,8 +1549,7 @@
   },
   "@BuiltonYou": {
    "konu": {
-    "tarih": 0.667,
-    "muhendislik": 0.333
+    "tarih": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.742,
@@ -1559,8 +1583,7 @@
   },
   "@CEDARIRONSTORIES": {
    "konu": {
-    "gizem": 0.5,
-    "teknoloji": 0.5
+    "gizem": 1.0
    },
    "ton": "ciddi",
    "agirlik": 3.279,
@@ -1629,8 +1652,7 @@
   },
   "@CampRydex": {
    "konu": {
-    "teknoloji": 0.5,
-    "egitim": 0.5
+    "egitim": 1.0
    },
    "ton": "ciddi",
    "agirlik": 4.069,
@@ -1714,8 +1736,7 @@
   },
   "@ChinasBiggestMachines": {
    "konu": {
-    "muhendislik": 0.667,
-    "liste": 0.333
+    "muhendislik": 1.0
    },
    "ton": "enerjik",
    "agirlik": 2.872,
@@ -1789,8 +1810,7 @@
   },
   "@EggoBloxx": {
    "konu": {
-    "askeri": 0.667,
-    "teknoloji": 0.333
+    "askeri": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.585,
@@ -1910,9 +1930,9 @@
   },
   "@EverYoungSeniors-tv": {
    "konu": {
-    "saglik": 0.4,
-    "liste": 0.4,
-    "teknoloji": 0.2
+    "saglik": 0.5,
+    "teknoloji": 0.25,
+    "liste": 0.25
    },
    "ton": "sakin",
    "agirlik": 4.635,
@@ -2119,7 +2139,8 @@
   "@ForgeCraftEngineering": {
    "konu": {
     "askeri": 0.5,
-    "muhendislik": 0.333,
+    "deniz": 0.167,
+    "muhendislik": 0.167,
     "egitim": 0.167
    },
    "ton": "ciddi",
@@ -2329,8 +2350,7 @@
   },
   "@FoxholeFiles-e1j": {
    "konu": {
-    "askeri": 0.833,
-    "teknoloji": 0.167
+    "askeri": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.376,
@@ -2458,9 +2478,7 @@
    }
   },
   "@FrugalLivingDaily": {
-   "konu": {
-    "finans": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 4.093,
    "oran": 21.05,
@@ -2499,9 +2517,7 @@
    }
   },
   "@GDeutschland2050": {
-   "konu": {
-    "teknoloji": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 2.995,
    "oran": 6.35,
@@ -2569,10 +2585,12 @@
   },
   "@GiantsinMotion": {
    "konu": {
-    "muhendislik": 0.25,
-    "haber": 0.25,
-    "liste": 0.25,
-    "egitim": 0.25
+    "tarih": 0.167,
+    "deniz": 0.167,
+    "muhendislik": 0.167,
+    "haber": 0.167,
+    "liste": 0.167,
+    "egitim": 0.167
    },
    "ton": "enerjik",
    "agirlik": 3.609,
@@ -2608,8 +2626,7 @@
   },
   "@GrainandGravity": {
    "konu": {
-    "otomotiv": 0.5,
-    "egitim": 0.5
+    "egitim": 1.0
    },
    "ton": "ciddi",
    "agirlik": 3.87,
@@ -2655,9 +2672,8 @@
   },
   "@Ground-Engineering": {
    "konu": {
-    "muhendislik": 0.667,
-    "askeri": 0.167,
-    "otomotiv": 0.167
+    "muhendislik": 0.75,
+    "askeri": 0.25
    },
    "ton": "ciddi",
    "agirlik": 2.926,
@@ -2817,11 +2833,11 @@
   },
   "@ImmersivePast": {
    "konu": {
-    "askeri": 0.2,
-    "tarih": 0.2,
-    "gizem": 0.2,
-    "teknoloji": 0.2,
-    "egitim": 0.2
+    "deniz": 0.333,
+    "askeri": 0.167,
+    "tarih": 0.167,
+    "gizem": 0.167,
+    "egitim": 0.167
    },
    "ton": "ciddi",
    "agirlik": 3.176,
@@ -2859,9 +2875,8 @@
   },
   "@InheritanceSecrets-m3e": {
    "konu": {
-    "finans": 0.333,
-    "teknoloji": 0.333,
-    "yasam": 0.333
+    "finans": 0.5,
+    "yasam": 0.5
    },
    "ton": "sakin",
    "agirlik": 3.699,
@@ -3055,10 +3070,7 @@
    }
   },
   "@JohnWayneLegacyYT": {
-   "konu": {
-    "teknoloji": 0.5,
-    "otomotiv": 0.5
-   },
+   "konu": {},
    "ton": "enerjik",
    "agirlik": 3.709,
    "oran": 14.01,
@@ -3092,9 +3104,7 @@
    }
   },
   "@KennyRogersLegacyYT": {
-   "konu": {
-    "teknoloji": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 3.393,
    "oran": 9.95,
@@ -3197,9 +3207,8 @@
   },
   "@LostAmericanChildhood1": {
    "konu": {
-    "tarih": 0.333,
-    "gizem": 0.333,
-    "liste": 0.333
+    "tarih": 0.5,
+    "liste": 0.5
    },
    "ton": "enerjik",
    "agirlik": 3.378,
@@ -3277,8 +3286,7 @@
   },
   "@MikesMotorhome": {
    "konu": {
-    "otomotiv": 0.5,
-    "yasam": 0.5
+    "yasam": 1.0
    },
    "ton": "sakin",
    "agirlik": 3.11,
@@ -3358,9 +3366,7 @@
    }
   },
   "@NederlandseAutowereld": {
-   "konu": {
-    "liste": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 2.783,
    "oran": 4.95,
@@ -3836,9 +3842,8 @@
   },
   "@ReichonRecord": {
    "konu": {
-    "askeri": 0.5,
-    "tarih": 0.25,
-    "teknoloji": 0.25
+    "askeri": 0.667,
+    "tarih": 0.333
    },
    "ton": "ciddi",
    "agirlik": 2.876,
@@ -3878,9 +3883,7 @@
    }
   },
   "@RichardHallowayCryptids": {
-   "konu": {
-    "finans": 1.0
-   },
+   "konu": {},
    "ton": "gizem",
    "agirlik": 3.036,
    "oran": 6.66,
@@ -3955,8 +3958,7 @@
   },
   "@Romanlangfeld": {
    "konu": {
-    "tarih": 0.5,
-    "teknoloji": 0.5
+    "teknoloji": 1.0
    },
    "ton": "sakin",
    "agirlik": 3.149,
@@ -3990,10 +3992,9 @@
   },
   "@RussellRoss-s6u": {
    "konu": {
-    "askeri": 0.25,
-    "teknoloji": 0.25,
-    "muhendislik": 0.25,
-    "otomotiv": 0.25
+    "askeri": 0.333,
+    "teknoloji": 0.333,
+    "otomotiv": 0.333
    },
    "ton": "ciddi",
    "agirlik": 3.587,
@@ -4075,8 +4076,7 @@
   },
   "@SeitenblickTV": {
    "konu": {
-    "finans": 0.5,
-    "egitim": 0.5
+    "egitim": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.353,
@@ -4235,8 +4235,7 @@
   },
   "@StatesAhead": {
    "konu": {
-    "bilim": 0.75,
-    "muhendislik": 0.25
+    "bilim": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.71,
@@ -4321,9 +4320,8 @@
   },
   "@SvenskaBilar": {
    "konu": {
-    "muhendislik": 0.333,
-    "otomotiv": 0.333,
-    "haber": 0.333
+    "otomotiv": 0.5,
+    "haber": 0.5
    },
    "ton": "ciddi",
    "agirlik": 2.866,
@@ -4361,8 +4359,7 @@
   },
   "@TVLIfeYT": {
    "konu": {
-    "finans": 0.5,
-    "yasam": 0.5
+    "yasam": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.997,
@@ -4404,11 +4401,11 @@
   },
   "@TactCoreYT": {
    "konu": {
-    "askeri": 0.6,
-    "tarih": 0.1,
-    "suc": 0.1,
-    "teknoloji": 0.1,
-    "egitim": 0.1
+    "askeri": 0.556,
+    "tarih": 0.111,
+    "suc": 0.111,
+    "teknoloji": 0.111,
+    "egitim": 0.111
    },
    "ton": "ciddi",
    "agirlik": 3.111,
@@ -4436,9 +4433,7 @@
   },
   "@TacticalHorizonn": {
    "konu": {
-    "askeri": 0.5,
-    "finans": 0.25,
-    "spor": 0.25
+    "askeri": 1.0
    },
    "ton": "ciddi",
    "agirlik": 3.576,
@@ -4483,8 +4478,7 @@
   },
   "@Techlophobia": {
    "konu": {
-    "teknoloji": 0.667,
-    "seyahat": 0.333
+    "seyahat": 1.0
    },
    "ton": "enerjik",
    "agirlik": 4.263,
@@ -4761,7 +4755,8 @@
   },
   "@TheQuietRecord1": {
    "konu": {
-    "gizem": 1.0
+    "deniz": 0.667,
+    "gizem": 0.333
    },
    "ton": "gizem",
    "agirlik": 3.669,
@@ -4842,7 +4837,8 @@
   },
   "@TheUnreturned-b2k": {
    "konu": {
-    "gizem": 1.0
+    "deniz": 0.667,
+    "gizem": 0.333
    },
    "ton": "ciddi",
    "agirlik": 2.783,
@@ -4885,8 +4881,7 @@
   },
   "@TheVisitorFilesEN": {
    "konu": {
-    "askeri": 0.5,
-    "bilim": 0.5
+    "askeri": 1.0
    },
    "ton": "ciddi",
    "agirlik": 3.514,
@@ -5267,11 +5262,9 @@
   },
   "@UnexplainedRecords-g5q": {
    "konu": {
-    "gizem": 0.2,
-    "finans": 0.2,
-    "bilim": 0.2,
-    "liste": 0.2,
-    "egitim": 0.2
+    "finans": 0.333,
+    "bilim": 0.333,
+    "egitim": 0.333
    },
    "ton": "ciddi",
    "agirlik": 4.416,
@@ -5515,9 +5508,8 @@
   },
   "@VintageLagacy": {
    "konu": {
-    "tarih": 0.333,
-    "gizem": 0.333,
-    "finans": 0.333
+    "tarih": 0.5,
+    "gizem": 0.5
    },
    "ton": "ciddi",
    "agirlik": 3.678,
@@ -5639,8 +5631,8 @@
   "@WICK_PROJECT": {
    "konu": {
     "askeri": 0.25,
+    "deniz": 0.25,
     "teknoloji": 0.25,
-    "muhendislik": 0.25,
     "egitim": 0.25
    },
    "ton": "ciddi",
@@ -5757,10 +5749,8 @@
   },
   "@WarfareGeniuss": {
    "konu": {
-    "askeri": 0.25,
-    "teknoloji": 0.25,
-    "spor": 0.25,
-    "biyografi": 0.25
+    "askeri": 0.5,
+    "spor": 0.5
    },
    "ton": "ciddi",
    "agirlik": 2.807,
@@ -6257,9 +6247,7 @@
    }
   },
   "@biblioteca5656": {
-   "konu": {
-    "felsefe": 1.0
-   },
+   "konu": {},
    "ton": "ciddi",
    "agirlik": 2.8,
    "oran": 5.05,
@@ -7024,8 +7012,7 @@
   },
   "@steeldossier": {
    "konu": {
-    "askeri": 0.5,
-    "muhendislik": 0.5
+    "askeri": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.3,
@@ -7111,8 +7098,9 @@
   },
   "@tct-i3b": {
    "konu": {
-    "askeri": 0.5,
-    "tarih": 0.5
+    "askeri": 0.333,
+    "tarih": 0.333,
+    "deniz": 0.333
    },
    "ton": "ciddi",
    "agirlik": 3.386,
@@ -7221,8 +7209,7 @@
   },
   "@ustazen": {
    "konu": {
-    "teknoloji": 0.5,
-    "felsefe": 0.5
+    "teknoloji": 1.0
    },
    "ton": "ciddi",
    "agirlik": 2.447,
@@ -7690,7 +7677,10 @@
    }
   },
   "UCgqj1jiyAqlh8k1lAzfhnpg": {
-   "konu": {},
+   "konu": {
+    "deniz": 0.667,
+    "tarih": 0.333
+   },
    "ton": "ciddi",
    "agirlik": 3.944,
    "oran": 18.0,

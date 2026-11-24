@@ -40,10 +40,13 @@ def rakip_hazirla(rakipler, kut):
         h = handle_coz(x)
         kd = os.path.join(kut, 'kanallar', h)
         olculmus = glob.glob(os.path.join(kd, 'video-*', 'editdili', 'edit-dili.json'))
-        if not olculmus:
-            print(f'{h}: kutuphanede yok -> en populer 3 video olculuyor (kanal_isle.py; indir-olc-sil)...')
-            r = subprocess.run([sys.executable, '-I', os.path.join(BURASI, 'kanal_isle.py'), x, '--kim', 'polat-claude', '--kok', kut, '--adet', '3'],
-                               capture_output=True, text=True, encoding='utf-8', errors='replace')
+        if len(olculmus) < 3:
+            ne = 'kutuphanede yok' if not olculmus else f'kutuphanede {len(olculmus)} videoyla olculmus (profil icin yeterli, sablon icin degil)'
+            print(f'{h}: {ne} -> en populer 3 video olculuyor (kanal_isle.py --adet 3; indir-olc-sil)...')
+            r = subprocess.run([sys.executable, '-I', os.path.join(BURASI, 'kanal_isle.py'), x, '--kim', 'polat-claude', '--kok', kut, '--adet', '3']
+                               + (['--zorla'] if olculmus else []), capture_output=True, text=True, encoding='utf-8', errors='replace')
+            if olculmus:
+                print(f'  UYARI {h}: yeni 2 video olculdu; kutuphane profili (EDIT-DILI.md) 1 videoya gore — sonraki kutuphane turunda guncelle')
             print('  ' + (r.stdout.strip().splitlines() or [''])[-1])
             if not glob.glob(os.path.join(kd, 'video-*', 'editdili', 'edit-dili.json')):
                 sys.exit(f'HATA: {h} olculemedi: {(r.stderr or r.stdout)[-600:]}')
@@ -120,7 +123,20 @@ def ceviri_tablosu(dna, rakipler, kut, yt, sd):
     return satirlar
 
 
-def onizle(dna, hedef, konsept=''):
+ONIZLEME_METIN = {
+    'en': {'bolum': 'Chapter 1', 'baslik2': 'What Really Happened', 'yer': 'Location', 'tarih': 'Date', 'sayiUst': 'Key figure', 'sayiAlt': 'the number behind the story',
+           'alinti': 'It was never supposed to happen.', 'kim': 'Eyewitness', 'listeBaslik': 'Three reasons',
+           'liste': ['The first warning', 'The second mistake', 'The final decision'], 'altyazi': 'Nobody expected this to change everything'},
+    'de': {'bolum': 'Kapitel 1', 'baslik2': 'Was wirklich geschah', 'yer': 'Ort', 'tarih': 'Datum', 'sayiUst': 'Schlüsselzahl', 'sayiAlt': 'die Zahl hinter der Geschichte',
+           'alinti': 'Das hätte nie passieren dürfen.', 'kim': 'Augenzeuge', 'listeBaslik': 'Drei Gründe',
+           'liste': ['Die erste Warnung', 'Der zweite Fehler', 'Die letzte Entscheidung'], 'altyazi': 'Niemand hat erwartet dass sich alles ändert'},
+    'tr': {'bolum': 'Bölüm 1', 'baslik2': 'Gerçekte Ne Oldu', 'yer': 'Yer', 'tarih': 'Tarih', 'sayiUst': 'Kilit sayı', 'sayiAlt': 'hikâyenin arkasındaki sayı',
+           'alinti': 'Bunun olmaması gerekiyordu.', 'kim': 'Görgü tanığı', 'listeBaslik': 'Üç neden',
+           'liste': ['İlk uyarı', 'İkinci hata', 'Son karar'], 'altyazi': 'Kimse her şeyin değişeceğini beklemiyordu'},
+}
+
+
+def onizle(dna, hedef, konsept='', foto=None, dil='en'):
     """Onizleme kompozisyonu: kimligin tum eksenleri (11 esit sahne); kareler sahne oturdugu anda (Onizleme.tsx ONIZLEME_S/OTURMA)"""
     for eski in glob.glob(os.path.join(hedef, 'onizleme-*.jpg')) + glob.glob(os.path.join(hedef, 'ONIZLEME.jpg')):
         os.remove(eski)
@@ -131,7 +147,21 @@ def onizle(dna, hedef, konsept=''):
     m = re.search(r"(?:(?<=\s)|^)[\"“‘']([^\"”]{8,90}?)[\"”’'](?=[\s,.;:)]|$)", konsept or '')
     baslik = m.group(1) if m else ' '.join((konsept or 'The Story Nobody Told').split()[:6]).strip(' .,:;')
     pj = os.path.join(hedef, 'onizleme-props.json')
-    json.dump({'dna': dna, 'foto': ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], 'presetler': [], 'metin': {'baslik': baslik}}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
+    metin = dict(ONIZLEME_METIN.get(dil, ONIZLEME_METIN['en']), baslik=baslik)
+    # gorseller: --foto (sablon-proje/public altina goreli ya da mutlak yol -> public/sablon-onizleme/ altina kopya); yoksa notr ornek
+    fotolar = ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg']
+    if foto:
+        hedef_pub = os.path.join(SABLON_PROJE, 'public', 'sablon-onizleme')
+        os.makedirs(hedef_pub, exist_ok=True)
+        fotolar = []
+        for i, f in enumerate(foto[:3]):
+            kaynak = f if os.path.isabs(f) else os.path.join(SABLON_PROJE, 'public', f)
+            if os.path.isfile(kaynak):
+                ad = f'f{i}{os.path.splitext(kaynak)[1].lower()}'
+                shutil.copy(kaynak, os.path.join(hedef_pub, ad))
+                fotolar.append(f'sablon-onizleme/{ad}')
+        fotolar = (fotolar + ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'])[:3]
+    json.dump({'dna': dna, 'foto': fotolar, 'presetler': [], 'metin': metin}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
     S, OTUR, n = 60, 40, 11
     d = int((dna.get('iskelet') or {}).get('gecis_kare') or 8)
     kareler = [i * (S - d) + OTUR for i in range(n)]
@@ -183,6 +213,8 @@ def main():
     ap.add_argument('--kanallar', default=r'C:\otomasyon')
     ap.add_argument('--kok', help='edit kutuphanesi')
     ap.add_argument('--onizle', action='store_true')
+    ap.add_argument('--foto', nargs='*', default=[], help='onizleme icin konuya uygun 1-3 gorsel (mutlak yol ya da sablon-proje/public altina goreli)')
+    ap.add_argument('--dil', default='en', choices=['en', 'de', 'tr'], help='onizleme metinlerinin dili (kitlenin dili)')
     ap.add_argument('--zorla', action='store_true', help='var olan kanal-sablon.json uzerine yaz')
     a = ap.parse_args()
     import stil_dna as sd
@@ -231,7 +263,7 @@ def main():
          'kimlik': {e: dna[e] for e in KIMLIK if dna.get(e) is not None}, 'degisken': DEGISKEN, 'iskelet': dna['iskelet'],
          'ceviri': ceviri_tablosu(dna, rakipler, kut, sd.YT, sd), 'uyum': round(max(puan)[0], 3)}
     if a.onizle:
-        s['onizleme'] = onizle(dna, hedef, a.konsept)
+        s['onizleme'] = onizle(dna, hedef, a.konsept, a.foto, a.dil)
     json.dump(s, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     md_yaz(os.path.join(kd, 'KANAL-SABLONU.md'), s)
     print(f"-> {yol}\n-> {os.path.join(kd, 'KANAL-SABLONU.md')}")
