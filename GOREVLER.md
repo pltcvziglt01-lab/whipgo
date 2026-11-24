@@ -28,7 +28,7 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
 | 22 | `OKUNUR.enaz` 32 -> 36 px (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
 | 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
-| 26 | Tek doygun vurgu: GrenliGradyan, IsikKacagi, tint-sizinti, Karsilastirma, kirmizi-zemin paleti vurgu2'yi ana renk gibi kullaniyor | katalogda vurgu2 ikincil | acik |
+| 26 | Tek doygun vurgu: kalan `tint-sizinti` (Gecis.tsx; GrenliGradyan, IsikKacagi, Karsilastirma, kirmizi-zemin duzeltildi) | katalogda vurgu2 ikincil | acik |
 | 18 | (izin gerekir) CC0 SFX paketleri ve lisanslı stok medya avı (Wikimedia/Openverse) + kredi satırları | kullanıcı indirme onayı | bekliyor |
 
 ## Kapanan (2026-11-24)

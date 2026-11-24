@@ -297,7 +297,7 @@ const SekilYuzen: React.FC<P> = ({ stil, hiz, tohum }) => {
 const IsikKacagi: React.FC<P> = ({ stil, hiz }) => {
   const { t, W, H } = useZaman(hiz!);
   const { palet } = stil;
-  const lek = [palet.vurgu, palet.vurgu2, '#ffcf7a'];
+  const lek = [palet.vurgu, '#ffcf7a', palet.vurgu]; // tek doygun vurgu + sicak notr isik (vurgu2 ana renk gibi kullanilmaz)
   return (
     <AbsoluteFill style={{ background: palet.zemin, overflow: 'hidden' }}>
       {lek.map((c, i) => {

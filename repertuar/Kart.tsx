@@ -511,7 +511,7 @@ export const Karsilastirma: React.FC<{ sol: { ad: string; deger: number }; sag: 
       <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 40, color: palet.soluk, marginTop: 18 }}>{x.ad}</div>
     </div>
   );
-  return <AbsoluteFill style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 160 }}>{sut(sol, palet.vurgu2)}{sut(sag, palet.vurgu)}</AbsoluteFill>;
+  return <AbsoluteFill style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 160 }}>{sut(sol, palet.soluk)}{sut(sag, palet.vurgu)}</AbsoluteFill>;
 };
 
 // ---------- ZAMAN CIZELGESI ----------

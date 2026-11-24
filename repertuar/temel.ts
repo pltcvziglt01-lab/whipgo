@@ -71,7 +71,7 @@ export const PALETLER: Record<string, Palet> = {
   'derin-deniz':     { ad: 'derin-deniz',     zemin: '#071a24', zemin2: '#0d2c3b', murekkep: '#e6f3f6', soluk: '#7fa3b0', vurgu: '#4fd1c5', vurgu2: '#e9c46a', acik: false },
   'gece-turkuaz':    { ad: 'gece-turkuaz',    zemin: '#0b1320', zemin2: '#13233a', murekkep: '#eaf2ff', soluk: '#8ea3c0', vurgu: '#2ee6c5', vurgu2: '#ffb547', acik: false },
   'kahve-turuncu':   { ad: 'kahve-turuncu',   zemin: '#1e140d', zemin2: '#3a2517', murekkep: '#f8ecdc', soluk: '#bba08a', vurgu: '#ff8a1f', vurgu2: '#6fc3df', acik: false },
-  'kirmizi-zemin':   { ad: 'kirmizi-zemin',   zemin: '#c8251c', zemin2: '#a51b14', murekkep: '#fff6ea', soluk: '#ffd2c4', vurgu: '#111111', vurgu2: '#ffd23f', acik: false },
+  'kirmizi-zemin':   { ad: 'kirmizi-zemin',   zemin: '#c8251c', zemin2: '#a51b14', murekkep: '#fff6ea', soluk: '#ffd2c4', vurgu: '#ffd23f', vurgu2: '#111111', acik: false },  // tek doygun vurgu: sari; siyah ikincil
   'mavi-zemin':      { ad: 'mavi-zemin',      zemin: '#1d3fd6', zemin2: '#142fa8', murekkep: '#ffffff', soluk: '#c3cdfa', vurgu: '#ffe14d', vurgu2: '#ff5c8a', acik: false },
   // klasik — yalniz rakip ayni seyi kullaniyorsa karsilastirma icin; stil_dna secmez
   'gece-kirmizi':    { ad: 'gece-kirmizi',    zemin: '#05070b', zemin2: '#0b0f16', murekkep: '#eef1f5', soluk: '#93a0ae', vurgu: '#cf2b20', vurgu2: '#dba43a', acik: false },
