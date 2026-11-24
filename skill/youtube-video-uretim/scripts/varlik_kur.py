@@ -241,6 +241,9 @@ def kanal(a):
     n = sert_bag(os.path.join(KOK, 'fontlar', '*.ttf'), os.path.join(pub, 'fontlar'))
     for alt, desen in (('arkaplan', '*.mp4'), ('filmburn', '*.mp4'), ('sfx', '*'), ('', '*.json')):
         n += sert_bag(os.path.join(V, alt, desen), os.path.join(pub, 'varlik', alt))
+    # CC0 SFX kutuphanesi (alt klasorleriyle: sfx-kit, uisfx, opus-sound-directory, turev)
+    for alt in sorted({os.path.relpath(os.path.dirname(f), V) for f in glob.glob(os.path.join(V, 'sfx-cc0', '**', '*'), recursive=True) if os.path.isfile(f)}):
+        n += sert_bag(os.path.join(V, alt, '*'), os.path.join(pub, 'varlik', alt))
     print(f'{n} dosya baglandi -> {pub}')
     print('Kanal bagli. VideoNN.tsx: import dna from "./vNN/stil-dna.json"; bilesenler: ./repertuar/Dna. Varlik guncellenince bu komutu tekrar calistir.')
 

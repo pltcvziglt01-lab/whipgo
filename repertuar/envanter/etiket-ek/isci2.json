@@ -1,0 +1,16 @@
+{
+  "_aciklama": "Isci 2 (Opus galerisi baslik teknikleri) etiket onerisi. Ana oturum etiketler.json -> baslik'a birlestirir. Sozluk: stil_dna.py KONU_KELIME anahtarlari, HISLER; ton {ciddi, enerjik, gizem, sakin}. rgb-tek-kare-giris yalniz enerjik (galeri yasak listesi: RGB kaymasi ciddi/gizem tonda secilmez; bilesen de enerjik disi tonda kanal kaymasini kapatir). karma-boy-satir icin galerideki 'klasik' his sozlukte yok -> 'resmi'.",
+  "_ozel": ["kelime-dongusu"],
+  "_ozel_neden": {
+    "kelime-dongusu": "metin 'Sabit {a|b|c}' bicimini bekler (yuva degerleri sirayla doner). Siradan baslikta dongu yok, son kelime vurguya doner; secim motoru yalniz liste anlatiminda (sehirler, adlar, urunler) kullanmali."
+  },
+  "baslik": {
+    "harf-toplanma": { "ton": ["ciddi", "gizem", "enerjik"], "konu": ["teknoloji", "tarih", "bilim", "gizem"], "enerji": 3, "his": ["sinematik", "karanlik", "dinamik"], "kaynak": ["opus-galeri"] },
+    "kelime-dongusu": { "ton": ["enerjik", "sakin", "ciddi"], "konu": ["liste", "teknoloji", "seyahat", "tarih"], "enerji": 3, "his": ["modern", "temiz"], "kaynak": ["opus-galeri"] },
+    "dev-kayan-kelime-bandi": { "ton": ["enerjik", "ciddi"], "konu": ["haber", "spor", "teknoloji"], "enerji": 4, "his": ["modern", "dinamik"], "kaynak": ["opus-galeri"] },
+    "karma-boy-satir": { "ton": ["ciddi", "sakin", "enerjik"], "konu": ["felsefe", "biyografi", "tarih", "haber"], "enerji": 2, "his": ["sinematik", "modern", "resmi"], "kaynak": ["opus-galeri"] },
+    "kelime-kelime-renk-vurgu": { "ton": ["ciddi", "sakin", "enerjik"], "konu": ["egitim", "teknoloji", "haber", "finans"], "enerji": 2, "his": ["modern", "temiz"], "kaynak": ["opus-galeri"] },
+    "rgb-tek-kare-giris": { "ton": ["enerjik"], "konu": ["teknoloji", "oyun", "haber"], "enerji": 4, "his": ["teknik", "neon", "dinamik"], "kaynak": ["opus-galeri"] },
+    "kelime-yigini-kolaj": { "ton": ["enerjik"], "konu": ["eglence", "spor", "haber"], "enerji": 5, "his": ["dinamik", "retro"], "kaynak": ["opus-galeri"] }
+  }
+}

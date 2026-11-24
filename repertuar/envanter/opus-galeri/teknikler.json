@@ -1,0 +1,1832 @@
+{
+ "kanal": "opus-galeri",
+ "nis": "skillry.dev Opus 5.5 galerisi: 418 videonun hepsi (motion 229, explainer 68, 3D 56, oyun 65). İlk 20 belgesel-yakın video ayrıntılı, tümü 0,25 sn kare ızgarasıyla iki turda alt ajanlarla etiketlendi. kac_video = tekniğin görüldüğü farklı video sayısı (418 içinde).",
+ "konu": [
+  "tarih",
+  "teknoloji",
+  "finans",
+  "bilim",
+  "haber",
+  "egitim"
+ ],
+ "ton": "karisik",
+ "ae_hissi": "Kod üretimi videolar iki uçta: en iyileri (kloss-xyz, nummanali, asei-ikarashi, cboyack, gdgtify, abhinayguptha) tek kare darbe girişleri, nesne üzerinden geçiş, ölçülü palet ve sayaç/grafik senkronuyla AE'ye yaklaşıyor. Uzun olanlar (henkvaness 5,6 dk, stewchan2 1,9 dk, triglyceee 3,5 dk) ise tek tip yerleşim, kamerasız slayt hissi, 6-8 sn tam durgunluk ve %1-1,5 yükseklikte okunmaz yazıyla 'Claude yaptı' görünüyor. 20 videonun 18'inde ana zayıflık minik yazı.",
+ "kaynak_dosyalar": "KURALLAR.md (kurallar), ornek-kareler/ (14 ızgara, her biri 10 sn, kare başı 0,25 sn)",
+ "teknikler": [
+  {
+   "ad": "cubuk-trend",
+   "eksen": "grafik",
+   "tarif": "Dikey çubuklar tabandan ~4 karede (1 sn) ease-out ile, 0,1-0,25 sn kademeli büyür; değer etiketi çubuğun tepesine binip sayar; vurgulanacak çubuk(lar) vurgu renginde, diğerleri gri-arduvaz. Bitince tepe noktalarından ince trend çizgisi (nokta işaretli) 2 karede çizilir, kesikli ok ileri fırlar; çıkışta bulanıklaşarak söner. Yatay varyant: satırlar arası %6, değer çubuk bitince solar, ince güven aralığı bıyığı. Repertuarda çubuk grafik tipi yok (Grafik.tsx yalnız çizgi/alan/basamak).",
+   "kanit": "asei-ikarashi-437835 s001 @ 00:09.25–00:10.00, s002 @ 00:10.00–00:11.50; triglyceee-161719 s019 @ 03:08.25–03:10.00; arthurkatcher-604161 s003 @ 00:26.25–00:30.00; henkvaness-975279 s031–s032 (yatay)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "finans",
+     "haber",
+     "teknoloji",
+     "spor",
+     "saglik",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "temiz",
+     "teknik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 24
+  },
+  {
+   "ad": "italik-vurgu",
+   "eksen": "baslik",
+   "tarif": "Tek satırlık cümle kelime kelime (1-2 karede bir kelime, %60 griden + 6-8 px yukarı) kurulur; anahtar kelime(ler) ayrı bir serif İTALİK'e ve vurgu rengine geçer (sans gövde + serif italik vurgu, ya da serif + italik son kelime). Dergi/editoryal his; kutu, alt çizgi gerektirmez.",
+   "kanit": "henkvaness-975279 s003–s004 @ 00:23.00–00:35.00; stewchan2-369810 s003 @ 00:22.00–00:23.00; gdgtify-929495 s001",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "egitim",
+     "felsefe",
+     "biyografi",
+     "haber",
+     "bilim"
+    ],
+    "enerji": 2,
+    "his": [
+     "klasik",
+     "temiz",
+     "sinematik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 22
+  },
+  {
+   "ad": "nesne-dalisi",
+   "eksen": "gecis",
+   "tarif": "Çıkan sahnenin merkez nesnesi (düğüm, ikon, sayı halkası) kameraya doğru 1→~6x ölçeklenir (4 kare/0,25 sn'lik 4 adım = ~1 sn, ease-in); nesnenin dolgu rengi ekranı kapladığı anda yeni sahnenin zemini olur ve yeni başlık o rengin üstünde maskeden yükselir. Bulanıklık yok, kesme yok: yeni sahne eski nesnenin içinden doğar. Ters yönü: yeni sahnenin nesnesi noktadan büyür.",
+   "kanit": "kloss-xyz-067876 s016 @ 02:32.75–02:34.00 (Σ düğümü → turuncu zemin → '83 YEARS.'); s008 @ 01:19.25 (rakam görseli → satranç tahtası karo çözünmesi)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "tarih",
+     "teknoloji",
+     "bilim",
+     "egitim",
+     "finans"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik",
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 20
+  },
+  {
+   "ad": "bolum-cetveli",
+   "eksen": "hud",
+   "tarif": "Kalıcı yönlendirme: üstte ince yıl cetveli ('18…'26) üzerinde bölüm ilerledikçe kayan yuvarlak pim; ya da altta 5 noktalı ray, aradaki çizgi sahne rengiyle dolar, dolan nokta rengini korur; ya da sağ üstte vurgu renkli ince ilerleme çizgisi. Uzun videoda izleyiciye 'neredeyiz' bilgisini yazısız verir. derinlik-cetvel'in zaman/bölüm karşılığı.",
+   "kanit": "retropunkai-277590 s001–s004 @ 00:05.25–00:40.00; rpa-dake-593915 s001–s002; kloss-xyz-067876 s002; asei-ikarashi-437835 s001",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "egitim",
+     "biyografi",
+     "muhendislik",
+     "liste",
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 17
+  },
+  {
+   "ad": "yil-tarama",
+   "eksen": "zaman",
+   "tarif": "Dev yıllar 0,25-0,5 sn'de bir değişir: ya içi boş kontur rakamlar halka içinde yatay tarama glitch'iyle loşdan parlağa (geriye doğru 2017→1943), ya da her yıl ayrı düz zeminde (lacivert/fildişi/gri dönüşümlü) sert kesimle; hedef yılda durup sahneye bağlanır. Slot makinesi varyantı: yıl ve değer rakamları dikey hareket bulanıklığıyla eşzamanlı döner. buyuk-yil'den farkı: 1,6 sn/adım yerine 4-8 kat hızlı montaj, zaman sıçraması hissi.",
+   "kanit": "kloss-xyz-067876 s015–s016 @ 02:23.25–02:31.25; triglyceee-161719 s018–s019 @ 02:56.75–03:00.75; cboyack-407181 s001 @ 00:01.00–00:04.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "teknoloji",
+     "finans",
+     "askeri",
+     "biyografi"
+    ],
+    "enerji": 4,
+    "his": [
+     "sinematik",
+     "dinamik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 10
+  },
+  {
+   "ad": "ustu-cizili-degisim",
+   "eksen": "baslik",
+   "tarif": "Yanlış/eski ifade yazılır, vurgu renkli çizgi 1 karede üstünden geçer (önce yanlış kelime %60 gri olur), doğru ifade altından vurgu renginde maskeyle yükselir. \"Herkes X sanır → aslında Y\" anlatımı; belgesel efsane-gerçek kalıbı.",
+   "kanit": "fire-ozgur-130104 s001 @ 00:00.50–00:02.00; inoue-aix-234322 s003 @ 00:28.50-00:30.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "egitim",
+     "finans",
+     "haber",
+     "felsefe"
+    ],
+    "enerji": 3,
+    "his": [
+     "klasik",
+     "modern",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 10,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "nokta-oran-izgarasi",
+   "eksen": "grafik",
+   "tarif": "20'lik satır ya da 10x10 ızgara: kutular her karede (0,25 sn) bir tane soldan sağa/satır satır vurgu rengine döner, büyük sayı eşzamanlı sayar (74→96→100) ve '19 / 20' satırı altta solar; tersi olan tek kutu en son farklı renkte yanar. İsteğe bağlı çıkış: noktalar parçacık olarak dağılıp sonraki nesneye uçar. eleme-izgara'dan farkı: siluet elemesi değil, oran dolumu.",
+   "kanit": "henkvaness-975279 s008 @ 01:17.00–01:20.00; asei-ikarashi-437835 s002 @ 00:11.75–00:13.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "saglik",
+     "finans",
+     "haber",
+     "bilim",
+     "egitim"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern",
+     "resmi"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 9
+  },
+  {
+   "ad": "hayalet-yil",
+   "eksen": "hud",
+   "tarif": "Güncel başlığın/sayının arkasında aynı bilginin dev (çerçeve yüksekliğinin %30-50'si) yalnız konturlu ya da %8-40 opak hali filigran olarak durur (yıl, ay, sayı, '140'); sahne değişince çapraz solarak yenisine geçer. Boş zemine derinlik ve 'nerede/ne zaman' bilgisi verir. 5 videoda görüldü.",
+   "kanit": "kloss-xyz-067876 s015 @ 02:18.00–02:29.00; asei-ikarashi-437835 s001 @ 00:01.50–00:03.75; nummanali-340931 s002; tejasthange3-128242 s001 @ 00:02.50–00:04.75; triglyceee-161719 s002",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "gizem",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "teknoloji",
+     "finans",
+     "haber",
+     "askeri",
+     "spor"
+    ],
+    "enerji": 2,
+    "his": [
+     "modern",
+     "sinematik",
+     "resmi"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 9
+  },
+  {
+   "ad": "odak-karartma",
+   "eksen": "katman",
+   "tarif": "Bir sahnede odak yeni öğeye geçtiğinde eski öğeler silinmez, 0,25-0,5 sn'de %40 parlaklığa/opaklığa iner; anahtar anda yalnız kahraman öğe ve bir karşıtı parlak kalır (diğerleri karartılır ya da sahne temiz gradyan perdeye çekilir). Panel, grafik, kart yığınlarında genel kural olarak uygulanabilir.",
+   "kanit": "arthurkatcher-604161 s002 @ 00:10.75–00:18.00; stewchan2-369810 s005 @ 00:41.25–00:42.50; amberpromptai-345137 s003",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin",
+     "gizem",
+     "enerjik"
+    ],
+    "konu": [
+     "egitim",
+     "teknoloji",
+     "finans",
+     "bilim",
+     "haber",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern",
+     "sinematik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 8
+  },
+  {
+   "ad": "bolum-numarasi",
+   "eksen": "baslik",
+   "tarif": "Bölüm kapağı: içi boş (yalnız ~1,5 px kontur) dev serif numara '01'…'08' (%14 yükseklik) 0,25 sn'de solar, sağında küçük vurgu renkli çizgi ikon; ardından dolu serif başlık (%7) ve altında italik gri alt satır kademeli gelir. Uzun videoda bölüm sınırlarını tutarlı işaretler; sonraki bölüm numarası bir öncekinin konturundan dolarak geçebilir.",
+   "kanit": "henkvaness-975279 s009 @ 01:27.25–01:30.00; s012 @ 01:57.00–01:59.00; s026 @ 04:26.50–04:28.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin",
+     "gizem"
+    ],
+    "konu": [
+     "tarih",
+     "egitim",
+     "biyografi",
+     "suc",
+     "liste",
+     "felsefe"
+    ],
+    "enerji": 2,
+    "his": [
+     "klasik",
+     "belgesel",
+     "temiz"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 7
+  },
+  {
+   "ad": "cubuk-yarisi",
+   "eksen": "grafik",
+   "tarif": "Sıralama tablosu/çubuk yarışı: satırlar değer değiştikçe yer değiştirir (1-2 karede bir kayma), vurgulu satır yukarı tırmanırken diğerlerini iter, sıra sayısı rulo olarak değişir; tepede kısa darbe. Zaman içinde ülke/şirket/ordu sıralaması için.",
+   "kanit": "hugon001-609629 s002 @ 00:10.50-00:12.00; hugon001-609629 s002 @ 00:10.25–00:12.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "finans",
+     "spor",
+     "tarih",
+     "askeri",
+     "teknoloji"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 7,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "belge-tarama-isigi",
+   "eksen": "hud",
+   "tarif": "Belge/fotoğraf üstünden renkli yatay tarama çizgisi 2 karede iner, köşe parantezleri kilitlenir, ilgili satırlar sarıyla vurgulanır, ardından içerik satır kartlarına ayrılır. Kanıt/belge inceleme anı.",
+   "kanit": "soumymaheshwri-825921 s002 @00:17.25–00:19.50; sudo-kiran-335993 s001 @ 00:06.25-00:09.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "suc",
+     "haber",
+     "tarih",
+     "askeri"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "arsiv"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 5,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "meclis-yarim-daire",
+   "eksen": "grafik",
+   "tarif": "Açık zeminde N koltuk (ör. 395) eş merkezli yarım daire sıralarında nokta (çerçevenin ~%45 genişliği), ortada büyük toplam sayı. Önce tüm noktalar gri hayalet olarak gelir (0,5 sn), sonra her grup açısal sırayla nokta nokta boyanır: küçükler 6 karede, çoğunluk 10 karede (~2,5 sn) süpürür; en son lejant (renk karesi + ad + sayı) solar. Seçim, oylama, bölünme, meclis sandalyesi gibi oran anlatımı.",
+   "kanit": "triglyceee-161719 s019 @ 03:01.25–03:08.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "haber",
+     "tarih",
+     "biyografi",
+     "finans"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "temiz",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 2
+  },
+  {
+   "ad": "sansur-bandi",
+   "eksen": "alinti",
+   "tarif": "Sepya kâğıt dokulu belge, çapraz yumuşak gölge bandı; mono satırlar daktiloyla yazılır (~5 kelime/kare), sonra siyah karartma bantları anahtar kelimelerin üstüne soldan sağa birer birer (her 2 karede bir, toplam 6) çekilir; sonda kırmızı 'UNSOLVED/GİZLİ' damgası aşımla ve hafif dönüşle iner, kenara el yazısı not daire içine alınır. Gizli belge, dava, istihbarat anlatımı.",
+   "kanit": "abhinayguptha-259981 s001–s002 @ 00:09.25–00:12.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "suc",
+     "askeri",
+     "gizem",
+     "tarih",
+     "haber"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "karanlik",
+     "sinematik"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 2
+  },
+  {
+   "ad": "dunya-haritasi-yakinlasma",
+   "eksen": "harita",
+   "tarif": "İnce açık çizgili dünya haritası gelir, üstte rulo sayı (930→500+) döner, kamera ülkeye yaklaşır, bölge dolgusu ve şehir etiketleri belirir; sonraki kelimeler haritanın üstüne biner. Ya da nokta matrisli harita üstüne bayraklı çipler 0,25 sn arayla düşer.",
+   "kanit": "ratheejaisal-154698 s002 @00:14.25-00:16.00; smitjaineditor-843957 s003 @00:25.50-00:29.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "haber",
+     "tarih",
+     "seyahat",
+     "finans",
+     "askeri"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3,
+   "kac_video": 2,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "harf-toplanma",
+   "eksen": "baslik",
+   "tarif": "Önceki başlık 1 karede yatay şeritlere yırtılır; yeni başlığın harfleri rastgele konum, dönüş ve bulanıklıkla ekrana dağılmış gelir ve ~6 karede (1,5 sn) yerlerine kilitlenir; kilitlenince arkada sıcak ışık yayılır, kenarlarda soluk isimler yavaşça süzülür. scramble'dan farkı: karakter değişimi değil, uzaysal toplanma.",
+   "kanit": "kloss-xyz-067876 s004 @ 00:31.50–00:34.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "tarih",
+     "bilim",
+     "gizem"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 31
+  },
+  {
+   "ad": "cizim-dolgu",
+   "eksen": "sahne",
+   "tarif": "İllüstrasyon/ikon önce kontur olarak çizilir (stroke-dashoffset, 3 kare-2 sn, kenarda hafif titreşim), sonra dolgu rengi içten ya da alttan akar; mürekkep varyantında fırça çizgisi tam genişlikte 2 sn'de çizilir, ardından katmanlar derinlik sisi olarak 3 kademede solar. 11 prompt'ta da kural olarak geçiyor ('wireframe/line art first, then fill').",
+   "kanit": "retropunkai-277590 s002 @ 00:16.75–00:20.50; amberpromptai-345137 s001 @ 00:00.75–00:08.00; rpa-dake-593915 s001",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "muhendislik",
+     "tarih",
+     "egitim",
+     "bilim",
+     "saglik"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "sicak",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 23
+  },
+  {
+   "ad": "parcacik-toplanma",
+   "eksen": "gecis",
+   "tarif": "Nesne/siluet/logo binlerce noktadan toplanarak oluşur ya da noktalara dağılarak sonraki şekle akar (1-3 sn, ease-out); tarih belgeselinde sepya zemin üstünde silüetin tozdan doğması, haritada noktaların ülke şekline toplanması olarak kullanılabilir.",
+   "kanit": "argbeknwn-466818 s001 @ 00:00.25-00:08.25; genelab-999-088672 s001 @ 00:07.00–00:09.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "bilim",
+     "teknoloji",
+     "gizem"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 23,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "renk-zemin-kelime-darbesi",
+   "eksen": "gecis",
+   "tarif": "Her anahtar kelime kendi tam ekran düz zemin renginde 2 karede (0,5 sn) sert kesmeyle gelir (turuncu/siyah/krem dönüşümlü); kelime kutu-vurgu, köşeli parantez ya da italikle değişir, ritim konuşma vurgusuna kilitli. Uzun videoda kanca ve bölüm geçişi montajı için; gövdede kullanılmaz.",
+   "kanit": "friskyggg-054427 s001 @ 00:02.00-00:04.00; heyiammallik-293397 s001 @ 00:00.00-00:04.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans",
+     "haber",
+     "liste"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 21,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "ag-buyume",
+   "eksen": "grafik",
+   "tarif": "Düğümler tek tek belirir (ilk 6 sn seyrek, sonra yoğun; ~25 düğüm/8 sn), kenarlar ince çizgi olarak çizilir, kenar boyunca küçük halka darbeleri ve ışık noktaları akar; düğüm yarıçapı skorla 1x→2,2x büyür, içindeki sayı güncellenir. Odak anında yalnız iki düğüm parlak kalır, diğerleri %40'a iner. Bağlantı, etki ağı, örgüt şeması, ticaret ağı anlatımı.",
+   "kanit": "stewchan2-369810 s003–s005 @ 00:23.00–00:42.50; kgonia7-746268 s005 @ 00:50.00–00:54.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem",
+     "sakin"
+    ],
+    "konu": [
+     "teknoloji",
+     "suc",
+     "finans",
+     "haber",
+     "bilim"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "modern",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 19
+  },
+  {
+   "ad": "surec-zinciri",
+   "eksen": "liste",
+   "tarif": "Başlık satırı 1 karede sol üstte solar; 3-5 dairesel ikon düğümü noktalı bağlayıcılarla soldan sağa her ~0,5 sn'de bir gelir: önce halka çizilir (stroke), sonra glif küçük aşımla düşer, altına tek satır etiket; son düğüm vurgu rengiyle bir kez nabız atar. Ardından düğümler hafif yüzer (durgun kalmaz).",
+   "kanit": "asei-ikarashi-437835 s001 @ 00:04.25–00:06.75; rpa-dake-593915 s001 (ikon kurulumları)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "egitim",
+     "teknoloji",
+     "muhendislik",
+     "saglik",
+     "finans"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 18
+  },
+  {
+   "ad": "kart-yelpaze-dagilma",
+   "eksen": "kart",
+   "tarif": "Fotoğraf/belge kartları yelpaze olarak 3 karede açılır, merkez kart büyür; ya da dağınık kartlar dönerek merkeze çekilip tek karta toplanır. Arşiv fotoğrafı seçkisi için uyarlanır (UI ürün demolarındaki örnekler hariç).",
+   "kanit": "francoxavier33-341663 s002 @ 00:18.25–00:20.00; gouthamjay8-910269 s001 @ 00:05.50–00:07.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "biyografi",
+     "tarih",
+     "liste"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 18,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "dergi-cercevesi",
+   "eksen": "hud",
+   "tarif": "Sabit editoryal çerçeve: üstte ince çizgi, solda kanal/yayın adı, ortada bölüm etiketi, sağda sayfa no; altta ince çizgi ve künye satırı; yan boşluk %6. İçerik bu çerçevenin içinde 'sayfa' gibi değişir (sayfa-cevirme-golge ile).",
+   "kanit": "signalz-jp-918002 s001–s004",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "egitim",
+     "finans",
+     "haber",
+     "biyografi"
+    ],
+    "enerji": 1,
+    "his": [
+     "klasik",
+     "resmi",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 14
+  },
+  {
+   "ad": "olcek-yolculugu",
+   "eksen": "kamera",
+   "tarif": "Tek kesintisiz kamera log-ölçek hızıyla uzaklaşır: nesne ~1 sn'de yarıya iner, her ölçek bölgesi 5-8 sn (tekne→okyanus→atmosfer→Dünya noktası→Ay yörüngesi→Güneş sistemi…); bölgeler arası her şey 1-2 px noktaya küçülüp karanlığa iner (1,25-2 sn), sonraki yapı noktadan büyür. Yörünge halkaları ölçek ipucu. EKSİK olan eklenmeli: köşede ölçek okuması (10^n m / km) ve bölge adı, aksi halde 5+ sn okunur bir şey kalmıyor.",
+   "kanit": "kgonia7-746268 s001–s006 @ 00:00.00–01:00.00 (en net s002)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "bilim",
+     "egitim",
+     "seyahat",
+     "muhendislik"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 12
+  },
+  {
+   "ad": "birikimli-sahne",
+   "eksen": "sahne",
+   "tarif": "Tüm bölüm boyunca aynı zemin (silüet, kum, gökyüzü) kalır; her vuruş bir öğe ekler ya da çizgiyle inşa eder (kubbe kaburgaları 3 sn'de aşağıdan yukarı çizilir, vinç kolu kalkar, cam dolgu alttan dolar); odak yeni öğeye geçince eskiler %40'a iner. Üstte tarih çipi + başlık her vuruşta renk değiştirerek değişir, altta sayaçlı açıklama kartı. Durum biriktiği için izleyici süreci görür.",
+   "kanit": "retropunkai-277590 s002 @ 00:10.00–00:20.00; amberpromptai-345137 s003 @ 00:24.00–00:30.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "muhendislik",
+     "tarih",
+     "egitim",
+     "bilim",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "sicak",
+     "oyunbaz",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 11
+  },
+  {
+   "ad": "kelime-dongusu",
+   "eksen": "baslik",
+   "tarif": "Sabit cümlede tek bir yuva (ad, şehir, dil, ürün) 0,5-0,75 sn arayla bulanık solmayla ya da dikey kaydırmayla değişir; üstteki sabit küçük etiket bağlamı tutar; son değerde durup vurgu rengine geçer. Liste anlatımını tek kadraja sığdırır.",
+   "kanit": "iammxfschr-955831 s003 @ 00:26.50–00:28.75; itisrazak-332386 s003 @ 00:21.50–00:26.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "liste",
+     "teknoloji",
+     "seyahat",
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 11,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "gun-gece-renk",
+   "eksen": "doku",
+   "tarif": "Aynı sahne sabit kalırken ışık/palet 3-4 karede kaydırılır: gündüz→gün batımı→gece (lambalar 1 karede yanar), ya da mevsim döngüsü; zaman geçişini kesmeden anlatır.",
+   "kanit": "itsolelehmann-762215 s002 @ 00:14.50–00:15.50 ve s003 @ 00:; itsolelehmann-762215 s003 @ 00:21.75–00:24.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "tarih",
+     "seyahat",
+     "biyografi",
+     "muhendislik"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "sicak",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 11,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "egik-kart-akisi",
+   "eksen": "kart",
+   "tarif": "Kartlar (haber kupürü, belge, fotoğraf) −8°..+10° eğik 3B düzlemde 1 karede bir düşerek yığılır ya da perspektifli şerit olarak akar; yığın 0,5 sn içinde kaymış ızgaraya dönüşür; yanında sayaç eşzamanlı sayar.",
+   "kanit": "helloshiva0801-438284 s002 @ 00:00:10.25–00:00:15.25; iammukeshm-421585 s002 @ 00:12.00-00:14.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "haber",
+     "tarih",
+     "suc",
+     "finans"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "arsiv",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 10,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "patlatilmis-gorunum",
+   "eksen": "sahne",
+   "tarif": "Nesne yan profile döner (4 kare), sonra parçalar eksen boyunca ayrışır (5-6 kare, ease-out), her parçaya ince lider çizgili etiket bağlanır; ters sırayla toplanır. Silah, motor, bina kesiti anlatımı.",
+   "kanit": "aichrislee-476025 s001 @ 00:03.50-00:09.75; felipemoller-936736 s001 @ 00:08.50–00:09.50, s002 @ 00:16",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "muhendislik",
+     "askeri",
+     "otomotiv",
+     "bilim"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 8,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "sayfa-cevirme-golge",
+   "eksen": "gecis",
+   "tarif": "Yeni sayfa sağdan girer: kâğıt kenarının solunda genişliğin ~%3'ü kadar yumuşak gölge, 1 karede (0,25 sn) ekranı geçer; ardından üst satırdaki ince çizgi soldan çizilir ve sayfa numarası (p.NN) bir artar. Editoryal/dergi kanallarında bölüm içi geçiş.",
+   "kanit": "signalz-jp-918002 s001 @ 00:02.00–00:02.50, 00:06.00–00:06.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "egitim",
+     "finans",
+     "haber",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "resmi",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 7
+  },
+  {
+   "ad": "defter-listesi",
+   "eksen": "liste",
+   "tarif": "Tablo satırları her karede (0,25 sn) bir tane %20→%100 opaklıkla gelir; sayılar sağa hizalı, ad ile sayı arasında noktalı çizgi (leader); 10 satır 2,5 sn. Bitince başlığın etrafına elle çizilmiş kırmızı elips çizilir. Sıralama, bütçe, kayıp listesi için gazete/dergi hissi.",
+   "kanit": "signalz-jp-918002 s002 @ 00:10.25–00:13.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "finans",
+     "liste",
+     "haber",
+     "tarih",
+     "spor"
+    ],
+    "enerji": 2,
+    "his": [
+     "klasik",
+     "resmi",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 7
+  },
+  {
+   "ad": "ters-zemin-sayilar",
+   "eksen": "sayi",
+   "tarif": "Ritim kırıcı: sahne aniden tam ekran doygun vurgu rengine (hafif çapraz çizgi doku) geçer (daire taşmasıyla, 2 kare), siyah yazı; 2-3 istatistik sütunu hızla sayar (37→47→48, 3 kare, rakamlar ara değerde kırpılarak) ve her birinin altında ince siyah çizgi; sol üstte küçük başlık. 1,5 sn sonra koyu sahneye döner. Kalıcı HUD öğeleri bu sahnede siyaha döner.",
+   "kanit": "asei-ikarashi-437835 s001 @ 00:06.75–00:08.50; emollick-019567 s001 @ 00:02.00–00:02.50 (tek kelime kırmızı zemin)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "finans",
+     "haber",
+     "spor",
+     "teknoloji",
+     "liste"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 7
+  },
+  {
+   "ad": "dev-kayan-kelime-bandi",
+   "eksen": "baslik",
+   "tarif": "Ekrandan taşan dev kelime kenardan kırpılarak sürekli kayar (marquee) ya da altta çapraz mono kayan şerit akar; üstteki slogan 1 sn arayla değişir.",
+   "kanit": "melvynx-638493 s001 @ 00:01.75–00:03.75; robvjourney-237474 s001 @00:07.00-00:09.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "haber",
+     "spor",
+     "teknoloji"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 7,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "kisi-karti",
+   "eksen": "altbant",
+   "tarif": "Kişi tanıtımı tam ekran kart: sağda 2 px krem kenarlı dikdörtgen portre çerçevesi (genişliğin %33'ü, yüksekliğin %85'i; gerçek foto ya da rol silueti), solda yığın: küçük konturlu rol çipi, %11 ağır ad, 2 satır tarih + açıklama, köşede hayalet yıl. Çerçeve 1 karede, metin bloğu kademeli. (Kaynakta hareket zayıf; bizde yavaş push + maske girişleriyle kurulmalı.)",
+   "kanit": "triglyceee-161719 s002 @ 00:12.50–00:14.00; s006 @ 00:50.75–00:52.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "biyografi",
+     "tarih",
+     "haber",
+     "suc",
+     "askeri"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "resmi"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 6
+  },
+  {
+   "ad": "kalici-bag-nesnesi",
+   "eksen": "katman",
+   "tarif": "Videonun simgesi olan tek bir nesne (parlak noktalı sarmal, turuncu daire) grafik sahnelerinde kenarda %20 opaklıkta bekler; sahne aralarında 1 karede bulanıklıkla merkeze kahraman olarak büyür ve geri çekilir. Çapraz geçişsiz bağ kurar, videoya kimlik verir (prompt'larda 'persistent element' 39 kümede).",
+   "kanit": "nummanali-340931 s004 @ 00:35.75–00:36.50, 00:39.75; s005 @ 00:43.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim",
+     "finans",
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "sinematik",
+     "teknik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 6
+  },
+  {
+   "ad": "kolaj-geri-cekilme",
+   "eksen": "gecis",
+   "tarif": "Tam ekran sahne 1-4 karede geri çekilip önceki sahnelerin kartlarından oluşan kolaj duvarına karışır, kamera uzaklaşıp duvarı noktaya küçültür; sonraki başlık ya da tek kart oradan büyür. Bölüm sonu özeti (\"şu ana kadar\") için.",
+   "kanit": "kikelopezdesign-173471 s002 @ 00:16.00-00:19.50; l3d1c-752011 s003 @ 00:21.50–00:23.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "egitim",
+     "biyografi",
+     "liste"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 6,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "akan-serit",
+   "eksen": "zaman",
+   "tarif": "Çok öğeli kronoloji: her 0,5 sn'de bir öğe (ad %5,5 yükseklik kalın, altında kaynak renkli çip ve mono alt satır); arkada dev hayalet ay/yıl adı, sağ üstte sıra sayacı (001→101), sağda yörüngede ilerleyen parlak kuyruklu nokta, geçmiş konumlar noktalı iz olarak kalır. Kilometre taşlarında 1 kare flaş + genişleyen halka + öğe 1 sn'ye uzar (yavaşlama). 101 öğe ~25 sn.",
+   "kanit": "nummanali-340931 s002–s004 @ 00:10.00–00:35.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "tarih",
+     "spor",
+     "liste",
+     "haber"
+    ],
+    "enerji": 4,
+    "his": [
+     "teknik",
+     "modern",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 5
+  },
+  {
+   "ad": "geri-sarma-ozet",
+   "eksen": "zaman",
+   "tarif": "Bölüm/video sonu özeti: daha önceki sahnelerin 1-1,5 sn'lik parçaları ters sırada art arda gelir, köşede sayaç geri sayar (9→0); ya da her öğe kendi tam ekran rengiyle 2 karede (0,5 sn) sert kesilir, ilk karesi daha açık flaş. Ritim ikiye katlanır, izleyiciye 'yol haritası' verir.",
+   "kanit": "emollick-019567 s006–s007 @ 00:53.00–01:10.00; triglyceee-161719 s018 @ 02:51.25–02:56.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "egitim",
+     "haber",
+     "liste"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 5
+  },
+  {
+   "ad": "karsitlik-paneli",
+   "eksen": "kart",
+   "tarif": "İki sütunlu 'skor tablosu': sol %55 bir tarafın rengi + ikon + başlık, sağ %45 karşı tarafın rengi + ikon; sol başlık 1 sn sonra 0,25 sn solmayla değişir, sağ altta küçük portreli beyaz konuşma balonu alıntıyla açılır. Aynı panel video boyunca tekrar dönerek iki tarafın hamlelerini sayar.",
+   "kanit": "triglyceee-161719 s003 @ 00:25.25–00:30.25; s006 @ 00:54.00–00:59.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "askeri",
+     "spor",
+     "biyografi"
+    ],
+    "enerji": 3,
+    "his": [
+     "resmi",
+     "belgesel",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 5
+  },
+  {
+   "ad": "yirtik-kagit",
+   "eksen": "gecis",
+   "tarif": "Yeni sahne yırtık kenarlı kâğıt şeridi olarak 2 karede kayıp eskisini örter; kâğıt dokusu ve hafif gölge; arkası kraft/sepya zemin. Arşiv ve el yapımı belgesel dili.",
+   "kanit": "felipemoller-936736 s003 @ 00:25.00–00:25.50; helloshiva0801-438284 s001 @ 00:02.75 ve 00:06.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi",
+     "egitim",
+     "seyahat"
+    ],
+    "enerji": 2,
+    "his": [
+     "sicak",
+     "arsiv",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 5,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "nokta-kure",
+   "eksen": "harita",
+   "tarif": "Nokta matrisli dönen dünya küresi; nokta kümeleri 3 karede küreye toplanır, üstünde rota yayları çizilir, sayaç eşzamanlı sayar; küre büyüyüp maske olarak yeni sahneyi açabilir.",
+   "kanit": "georgejimenez98-427173 s003 @ 00:27.00–00:28.25; manuelogomigo-052364 s001 @ 00:05.25–00:07.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "haber",
+     "teknoloji",
+     "finans",
+     "seyahat"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "teknik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 5,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "ekran-icinde-ekran",
+   "eksen": "gecis",
+   "tarif": "Sahne ~0,45 ölçeğe küçülerek koyu zeminde iç içe ince renkli dikdörtgenlerden (100/80/60/40 %) oluşan bir tünelin içindeki çerçeveye oturur; sonraki sahne aynı çerçevenin içinden 0,45→1'e 3-4 karede (0,75-1 sn) büyür. Köşede derinlik sayacı (1, 2, 3…). Arşiv görüntüsüne 'girme', hikâye içinde hikâye, belge içinden belgeye geçiş için.",
+   "kanit": "emollick-019567 s001 @ 00:02.50–00:05.00; s002 @ 00:10.00–00:10.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "egitim",
+     "teknoloji",
+     "eglence",
+     "gizem"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "oyunbaz",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 4
+  },
+  {
+   "ad": "murekkep-duman-ortusu",
+   "eksen": "gecis",
+   "tarif": "Sahne dikey mürekkep/parçacık şeridiyle 3 karede süpürülür ya da organik leke maskesiyle 4 karede açılır; arkada kâğıt dokulu zemin.",
+   "kanit": "justincooperman-188876 s002 @ 00:12.00-00:13.25; michaelzsguo-782312 s001 @ 00:08.75–00:09.50, s007 @ 01:00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi",
+     "felsefe"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "arsiv",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 4,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "spot-konisi",
+   "eksen": "katman",
+   "tarif": "Koyu sahnede yumuşak ışık konisi (fener/spot) 4 sn'de süzülür, sis katmanı yavaş kayar; başlık geniş harf aralığıyla solar. envanter README'deki \"el feneri ışık konisi\" adayıyla aynı.",
+   "kanit": "kamstudiolabs-100086 s001 @ 00:03.50–00:08.00; maxhirsch13-600983 s002 @ 00:13.25–00:16.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "gizem",
+     "suc",
+     "korku",
+     "tarih"
+    ],
+    "enerji": 1,
+    "his": [
+     "karanlik",
+     "sinematik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 4,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "karma-boy-satir",
+   "eksen": "baslik",
+   "tarif": "Tek taban çizgisinde ağır büyük harf kavram kelimeleri (%4 yükseklik) ile küçük zarif serif bağlaçlar (%1,5) karışık dizilir ('FLOOR belongs to US.'); her kelime 0,25 sn'de taban maskesinden yükselir. Ağır kelimeler bazen ekran kenarına dayanan dikey kelimelerle çerçeve kurar; altın ince çizgi 'ip' gibi kelimeleri taşır.",
+   "kanit": "gdgtify-929495 s001–s002 @ 00:00.00–00:16.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "felsefe",
+     "biyografi",
+     "tarih",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "sinematik",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 3
+  },
+  {
+   "ad": "harfe-dalis",
+   "eksen": "gecis",
+   "tarif": "Tüm kompozisyon seçilen bir harfin içine doğru ~8x ölçeklenir (5 kare = 1,25 sn, hızlanan ease-in, bulanıklık yok); harfin rengi ekranı doldurunca (1 kare) yeni sahne o renkten açılır. zoom-icinden'den farkı: çapa noktası bir harfin iç boşluğu/gövdesi, blur yok, sonda düz renk tam ekran kalır.",
+   "kanit": "gdgtify-929495 s002 @ 00:18.25–00:19.50 ('WAITING' → 'AIT' → krem tam ekran → yeni 'WAIT')",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "felsefe",
+     "egitim",
+     "haber",
+     "teknoloji"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 2
+  },
+  {
+   "ad": "dongu-semasi",
+   "eksen": "grafik",
+   "tarif": "Üçgen dizilmiş 3 yuvarlak düğüm; parlak kuyruklu bir sinyal noktası her 0,75 sn'de üçgeni bir tur döner, aktif düğümün kenarı renk atar, büyük döngü sayacı her turda bir artar, sağda log satırı eklenir; döngü bitince son düğüm yeşile döner ve parlar. Süreç/kısır döngü/ekonomik çevrim anlatımı.",
+   "kanit": "arthurkatcher-604161 s002–s003 @ 00:18.00–00:25.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans",
+     "bilim",
+     "egitim"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "modern"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 2
+  },
+  {
+   "ad": "yanan-belge-sayac",
+   "eksen": "sayi",
+   "tarif": "Bir nesne (banknot, belge, harita) soldan sağa kor kenarlı alev cephesiyle 3 sn'de yanarak kaybolur, kıvılcımlar savrulur; üstte yıl, altta değer slot makinesi rakamlarıyla (dikey hareket bulanıklığı) eşzamanlı döner, değer eşiği geçince beyazdan kırmızıya döner, sonda ease-out ile durur. Ardından eliptik iris ile büyük yüzde (turuncu→kırmızı gradyan) açılır.",
+   "kanit": "cboyack-407181 s001 @ 00:00.00–00:06.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "finans",
+     "tarih",
+     "haber",
+     "suc"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 2
+  },
+  {
+   "ad": "gri-ton-damga",
+   "eksen": "doku",
+   "tarif": "Duruş/kayıp anı: tüm sahne 1 karede griye (doygunluk 0) döner, dev döndürülmüş lastik damga (DURDU / YASAKLANDI) 1,6→1,0 ölçekle iner; damga sonunda kırmızıya döner; sonraki bölümde renk geri gelir. Duygu değişimini renk kanalıyla anlatır.",
+   "kanit": "retropunkai-277590 s002 @ 00:13.75–00:15.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "saglik",
+     "askeri",
+     "muhendislik"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 2
+  },
+  {
+   "ad": "siluet-katman",
+   "eksen": "sahne",
+   "tarif": "Sepya kâğıt zemin üstünde koyu siluetler (heykel, gemi, kuşlar) kendi küçük hareketleriyle katmanlanır, siluet parçacıklardan toplanarak doğar; üstte küçük serif yıl + alıntı. Tek ton, AE arşiv belgeseli hissi.",
+   "kanit": "michaelzsguo-782312 s007 @ 01:02.50–01:08.50; 1littlecoder-378066 s001 @ 00:01.00-00:09.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi",
+     "askeri"
+    ],
+    "enerji": 1,
+    "his": [
+     "arsiv",
+     "sinematik",
+     "klasik"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 2,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "iliski-cipleri",
+   "eksen": "grafik",
+   "tarif": "İki-üç renkli yuvarlak köşeli çip (kurum/parti/kişi adı) dirsekli ince bağlayıcıyla birleşir: ikinci çip kenardan 2 karede (0,5 sn) kayar, çizgi onun arkasından çizilir, altta 2 satır açıklama. Bölünme/birleşme/soy ağacı için en az öğeyle ilişki gösterir.",
+   "kanit": "triglyceee-161719 s005 @ 00:40.00–00:42.00, s011 @ 01:31.25–01:33.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "biyografi",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "temiz",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 1
+  },
+  {
+   "ad": "iki-kulvar-zaman",
+   "eksen": "zaman",
+   "tarif": "Üstte başlık bandı; iki renkli kulvar (ör. muhalefet / iktidar) arasında ince beyaz yıl ekseni; renkli etiket çipleri sağdan (en eski) sola her 2 karede bir gelir, eksene kısa çizgiyle bağlanır; ~4,5 sn'de 18 çip. İki tarafın paralel tarihini tek ekranda özetler.",
+   "kanit": "triglyceee-161719 s017 @ 02:45.50–02:50.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "askeri",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "belgesel",
+     "temiz"
+    ]
+   },
+   "oncelik": 2,
+   "kac_video": 1,
+   "kac_video_not": "toplu etiketlemede yakalanmadı; ilk ayrıntılı incelemede triglyceee-161719 s017"
+  },
+  {
+   "ad": "kilometre-tasi-halka",
+   "eksen": "vurus",
+   "tarif": "Önemli olayda 1 kare gri flaş (+%25 parlaklık), nesneden genişleyen ince beyaz halka (çerçeve genişliğinin %4→%20'si, 2-3 kare), başlık kontur işlemi alır ve akış o öğede yavaşlar.",
+   "kanit": "nummanali-340931 s002 @ 00:17.00–00:17.75; s004 @ 00:33.00–00:33.75",
+   "repertuarda": "Vurus.tsx (seviye 1-2: halka + flaş)",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "tarih",
+     "spor"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik",
+     "teknik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 72,
+   "kac_video_not": "vurus:darbe sayımı (genel tip; bu varyant alt küme)"
+  },
+  {
+   "ad": "egik-cift-serit",
+   "eksen": "gecis",
+   "tarif": "~20° eğik iki katmanlı şerit (turuncu üstte, sarı altta) 1 karede (0,25 sn) hızlı ease-in ile ekranı süpürür, arkasında yeni sahne koyu ve boş açılır.",
+   "kanit": "asei-ikarashi-437835 s001 @ 00:03.50–00:04.00",
+   "repertuarda": "renk-bandi",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans",
+     "spor"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 39,
+   "kac_video_not": "gecis:renk-bandi sayımı (genel tip; bu varyant alt küme)"
+  },
+  {
+   "ad": "terminal-daktilo",
+   "eksen": "alinti",
+   "tarif": "Mono büyük harf, kare başı ~1 karakter, blok imleç yanıp söner; turuncu kenarlı terminal panelinde kullanıcı satırı beyaz '>' ile, yanıt vurgu renginde; satırlar 7 sn boyunca eklenir, ekran hiç donmaz.",
+   "kanit": "kloss-xyz-067876 s003 @ 00:22.00–00:24.00; s005 @ 00:47.75–00:54.00",
+   "repertuarda": "daktilo-belge",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "tarih",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 33,
+   "kac_video_not": "stil:terminal-mono sayımı (genel tip; bu varyant alt küme)"
+  },
+  {
+   "ad": "esik-renkli-halka",
+   "eksen": "sayi",
+   "tarif": "Halka sayaç eşiklerde renk değiştirir (beyaz → sarı 134 → kırmızı 140), arkada dev hayalet sayı %8 opak. halka tipine 'esikler' parametresi.",
+   "kanit": "tejasthange3-128242 s001 @ 00:02.50–00:04.75",
+   "repertuarda": "halka",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans",
+     "spor",
+     "saglik"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 19,
+   "kac_video_not": "sayi:halka sayımı (genel tip; bu varyant alt küme)"
+  },
+  {
+   "ad": "kelime-kelime-renk-vurgu",
+   "eksen": "baslik",
+   "tarif": "İki satırlık başlıkta ikinci satır vurgu renginde ayrı kademeyle (0,25 sn) gelir ya da cümlenin anahtar kelimesi/noktası vurgu renginde kalır; üstte numaralı küçük etiket (\"01 · ...\").",
+   "kanit": "javi-llofriu-059888 s002 @ 00:11.00–00:12.00; jhylee95-452427 s002 @ 00:13.00-00:15.00; s003 @ 00:21",
+   "repertuarda": "renkli-aktif (altyazi) ve kutu-vurgu (yakın)",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "egitim",
+     "teknoloji",
+     "haber",
+     "finans"
+    ],
+    "enerji": 2,
+    "his": [
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 16,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "nesneden-daire-tasmasi",
+   "eksen": "gecis",
+   "tarif": "Vurgu rengi daire ekrandaki bir öğenin (ikon, düğüm) merkezinden büyür ve köşeleri aşacak kadar taşar (0,3 sn); yeni sahne o renkte başlar. maske-daire'ye çıkış noktası (x,y) parametresi eklenmesi yeter.",
+   "kanit": "asei-ikarashi-437835 s001 @ 00:06.50–00:07.00; prompt kümesi R15 (8 prompt, 0,3-0,35 sn)",
+   "repertuarda": "maske-daire",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans",
+     "egitim"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 13,
+   "kac_video_not": "yeni:gecis:renk-dairesi-tasma sayımı (genel tip; bu varyant alt küme)"
+  },
+  {
+   "ad": "rgb-tek-kare-giris",
+   "eksen": "baslik",
+   "tarif": "Her başlık 1 karelik (0,25 sn) girişte %105 ölçek, kırmızı/camgöbeği kanal kayması (metin genişliğinin ~%3'ü), geniş harf aralığı ve hafif bulanıklıkla, karenin genel parlaklığı +%25 iken gelir; sonraki karede keskin, %100, sıkı aralıklı oturur. glitch-rgb geçişinin başlık girişi hali.",
+   "kanit": "nummanali-340931 s001 @ 00:02.00–00:02.50; s004 @ 00:36.00",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "oyun",
+     "haber"
+    ],
+    "enerji": 4,
+    "his": [
+     "teknik",
+     "neon",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 7
+  },
+  {
+   "ad": "kelime-yigini-kolaj",
+   "eksen": "baslik",
+   "tarif": "Farklı boy, dönüş ve renkte kelimeler 1 karede bir üst üste yığılarak poster kolajı kurar, geometrik şekillerle kesişir; sonda yığın 4-5 karede sarsılıp dağılır.",
+   "kanit": "kloss-xyz-941143 s002 @ 00:17.00–00:20.00, s003 @ 00:20; pankajkumar-dev-718609 s003 @ 00:21.00-00:27.50",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence",
+     "spor",
+     "haber"
+    ],
+    "enerji": 5,
+    "his": [
+     "dinamik",
+     "retro"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 7,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "hizlanan-sayac",
+   "eksen": "sayi",
+   "tarif": "Sayaç üstel ivmeyle sayar (499→34.859, 0,25 sn'de bir sıçrama) ya da 0→1.000.000 ease-out ile 1,75 sn'de; bitince küçük birim etiketi sabitlenir. sayac tipine \"ustel\" eğri parametresi.",
+   "kanit": "kloss-xyz-941143 s002 @ 00:14.00–00:16.00; leowenai-125931 s002 @ 00:10.00–00:12.25",
+   "repertuarda": "sayac",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "finans",
+     "teknoloji",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 7,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "isik-seridi-supurme",
+   "eksen": "gecis",
+   "tarif": "Başlık/sahne 2 karede yatay parlak bir ışık çizgisine çöker, çizgi 1 kare kalır, yeni sahne aynı çizgiden dikey açılır.",
+   "kanit": "madhav-xo-524440 s001 @ 00:06.00–00:07.00; sonali-sahu-09-350200 s002 @00:17.75-00:18.25",
+   "repertuarda": "Bitis isik suzulmesi (yakın)",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik",
+     "neon"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 6,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "tunel",
+   "eksen": "gecis",
+   "tarif": "Yarım ton noktalı ya da çizgili eş merkezli halkalar merkezden dışa dalga olarak yayılıp tünele dönüşür, kamera içine dalar, tam ekran vurgu rengine patlar.",
+   "kanit": "leowenai-125931 s001 @ 00:06.75–00:09.75; s002 @ 00:10; leowenai-125931 s002 @ 00:10.00–00:13.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim",
+     "gizem"
+    ],
+    "enerji": 4,
+    "his": [
+     "neon",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 6,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "hizli-montaj",
+   "eksen": "zaman",
+   "tarif": "Her biri 1-2 kare (0,25-0,5 sn) süren, her kesimde zemin rengi değişen teknik/görüntü montajı; özet ya da kanca için 2-3 sn. geri-sarma-ozet ile birlikte düşünülmeli.",
+   "kanit": "ghinaiya-nirmal-308943 s002 @ 00:10.75–00:12.75; ishuagra02-922825 s001 @ 00:08.00-00:09.25",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "liste",
+     "teknoloji",
+     "spor"
+    ],
+    "enerji": 5,
+    "his": [
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 6,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "piksel-merdiven-silme",
+   "eksen": "gecis",
+   "tarif": "Sahne büyüyen kare bloklarla merdiven şeklinde 2-3 karede silinir/açılır (pikselleşip beyaza çözülür).",
+   "kanit": "heyiammallik-293397 s002 @ 00:00:15.00–00:00:15.75; pankajkumar-dev-718609 s002 @ 00:18.75-00:19.75",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "gizem"
+    ],
+    "konu": [
+     "teknoloji",
+     "oyun",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "retro",
+     "modern"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 5,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  },
+  {
+   "ad": "stil-dongusu",
+   "eksen": "sahne",
+   "tarif": "Sabit kompozisyon kalır, her 1-2 karede arka plan, palet ve doku tamamen değişir (blueprint, çizgi roman, piksel, gazete); ya da aynı konuşmacı görüntüsü anlatım vuruşlarında farklı illüstrasyon dünyalarına döner.",
+   "kanit": "ambiguous-ai-389509 s001 @ 00:01.00-00:09.75; ambiguous-ai-389509 s001 @ 00:07.00, 00:08.00, 00:09.25; s",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence",
+     "egitim"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1,
+   "kac_video": 4,
+   "kaynak": "418 video toplu etiketleme (2. tur)"
+  }
+ ]
+}

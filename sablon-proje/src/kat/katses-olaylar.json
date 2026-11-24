@@ -1,0 +1,23 @@
+{
+ "_aciklama": "KatSes test kompozisyonu: her SFX rolu kendi diliminde (kare 30 fps). olaylar dilim basina goredir. Hem KatSes.tsx hem olcum betigi bunu okur.",
+ "dilimler": [
+  {"rol": "gecis", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "gecis"}], "not": "kesimde whoosh, tepe kesimde"},
+  {"rol": "kart", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "kart"}], "not": "kart girisi"},
+  {"rol": "sayi", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "sayi"}], "not": "sayi karti: darbe"},
+  {"rol": "alinti", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "alinti"}], "not": "alinti: kagit"},
+  {"rol": "vurgu", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "vurgu"}], "not": "flas vurgusu: darbe"},
+  {"rol": "altbant", "uzunluk": 40, "olaylar": [{"kare": 18, "rol": "altbant"}], "not": "alt bant: kisa tik"},
+  {"rol": "yukselme", "uzunluk": 110, "olaylar": [{"kare": 100, "rol": "yukselme"}], "not": "yukselme: tepe ana oturur"},
+  {"rol": "sayac", "uzunluk": 70, "olaylar": [{"kare": 10, "rol": "sayac", "sure": 42}], "not": "ease-out tik dizisi + son vurus"},
+  {"rol": "yazma", "uzunluk": 60, "olaylar": [{"kare": 8, "rol": "yazma", "adet": 16, "aralik": 2}], "not": "harf basina tik"},
+  {"rol": "liste-madde", "uzunluk": 70, "olaylar": [{"kare": 10, "rol": "liste-madde", "adet": 4, "aralik": 12}], "not": "madde basina tik/pop"},
+  {"rol": "grafik-cubuk", "uzunluk": 70, "olaylar": [{"kare": 10, "rol": "grafik-cubuk", "adet": 6, "aralik": 7}], "not": "perdesi yukselen tik"},
+  {"rol": "harita-rota", "uzunluk": 75, "olaylar": [{"kare": 8, "rol": "harita-rota", "sure": 45}], "not": "suzulme varista tepe + varis"},
+  {"rol": "bolum", "uzunluk": 90, "olaylar": [{"kare": 60, "rol": "bolum"}], "not": "1-2 sn yukselme + alcak darbe"},
+  {"rol": "doruk", "uzunluk": 90, "olaylar": [{"kare": 14, "rol": "kart"}, {"kare": 40, "rol": "gecis"}, {"kare": 70, "rol": "doruk"}], "not": "kart kuyrugu kesilir, gecis susar, sessizlik, vurus"},
+  {"rol": "degisim", "uzunluk": 50, "olaylar": [{"kare": 15, "rol": "degisim", "sure": 12}], "not": "ustu cizilirken cizik"},
+  {"rol": "belge", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "belge"}], "not": "kagit"},
+  {"rol": "foto", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "foto"}], "not": "deklansor"},
+  {"rol": "glitch", "uzunluk": 45, "olaylar": [{"kare": 20, "rol": "glitch"}], "not": "yalniz enerjik tonda"}
+ ]
+}

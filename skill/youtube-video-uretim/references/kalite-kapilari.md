@@ -4,6 +4,8 @@ Bu sayfadaki kontroller sayılarla çalışır. **FAIL varsa video teslim edilme
 
 Fikir kaynağı: vidbucks (MIT) kalite kapısı yaklaşımı. Kod bizim, kendi hattımıza (Windows, rapidocr, kare_analiz) göre yazıldı.
 
+**Adım kapısı:** teslimden önce `py scripts/adim_kontrol.py <video klasörü>` PASS zorunlu — üretim defterinde her faz kanıtlı, hiçbir faz atlanmamış (`references/uretim-defteri.md`); yerel AI triyajı hiçbir kapıyı "yanlış alarm" diye kapatamaz.
+
 ## 0. Kurgu denetimi (render'dan önce, `kurgu_denetim.py`)
 Kurgu verisi (`props.json`: çekimler + kelime zamanları) kesin olduğu için izleyicinin fark ettiği hatalar render'dan önce ölçülür:
 - **Yazı süresi:** ekranda kalma ≥ giriş 0,4 sn + kelime / okuma hızı (seste de geçiyorsa 3,2, geçmiyorsa 2,8 kelime/sn) + 0,3 sn; en az 1,3 sn. Sayı kartına +1 sn sayma animasyonu.

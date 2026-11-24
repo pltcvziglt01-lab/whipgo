@@ -2,6 +2,8 @@
 
 Kayıt yeri DEVAM §1/§2'de yazılı değilse kullanıcıya sor (masaüstü klasörü + Drive linki), sonra DEVAM'a yaz.
 
+**Teslimden önce `py scripts/adim_kontrol.py <video klasörü>` PASS zorunlu** — üretim defteri tam, her faz kanıtlı, hiçbir faz atlanmamış (`references/uretim-defteri.md`); FAIL varken teslim yok.
+
 ## baslik-aciklama.txt
 1. **BAŞLIK** (seçilen)
 2. **AÇIKLAMA** — ilk 2 cümle her videoda yeniden yazılır (şablon kopyalanmaz); 2 paragraf; bölüm zamanları `scripts/bolum_zamanlari.py cumleler.json metin.txt` (her bölümün ilk cümlesinin `t` değeri, ilki 0:00); yorum sorusu; 3 hashtag.

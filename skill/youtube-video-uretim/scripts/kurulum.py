@@ -73,7 +73,31 @@ def ayna(a):
             n += kopyala(f, os.path.join(k, 'remotion', 'repertuar', os.path.basename(f)), a.deneme)
     for f in glob.glob(os.path.join(KOK, 'sablon-proje', 'katalog', '*.jpg')):
         n += kopyala(f, os.path.join(k, 'remotion', 'repertuar', 'katalog', os.path.basename(f)), a.deneme)
+    n += ayna_cc0(k, a.deneme)
     print(f'{n} dosya guncellendi (lisansli varliklar aynaya girmez).')
+
+
+def ayna_cc0(k, deneme):
+    """SFX kutuphanesinin (repertuar/sfx-kutuphane.json) kullandigi CC0 sesler + paket lisanslari -> remotion/varlik/sfx-cc0/.
+    YALNIZ sfx-cc0/: lisansli Adobe paketi (varlik/sfx) asla kopyalanmaz."""
+    import json
+    kj = os.path.join(KOK, 'repertuar', 'sfx-kutuphane.json')
+    if not os.path.isfile(kj):
+        return 0
+    j = json.load(open(kj, encoding='utf-8'))
+    yollar = set()
+    for d, s in j.get('sesler', {}).items():
+        yollar.update([d] + list(s.get('seri') or []))
+    yollar = {d for d in yollar if d.startswith('sfx-cc0/')}
+    for p in glob.glob(os.path.join(KOK, 'varlik', 'sfx-cc0', '*', 'LICENSE*')) + glob.glob(os.path.join(KOK, 'varlik', 'sfx-cc0', '*', 'kaynak.json')):
+        yollar.add(os.path.relpath(p, os.path.join(KOK, 'varlik')).replace(os.sep, '/'))
+    n = 0
+    for d in sorted(yollar):
+        assert d.startswith('sfx-cc0/'), d
+        kaynak = os.path.join(KOK, 'varlik', d)
+        if os.path.isfile(kaynak):
+            n += kopyala(kaynak, os.path.join(k, 'remotion', 'varlik', d), deneme)
+    return n
 
 
 def paketle(a):

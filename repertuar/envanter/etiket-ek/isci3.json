@@ -1,0 +1,279 @@
+{
+  "sayi": {
+    "ters-zemin-sayilar": {
+      "ton": [
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "finans",
+        "haber",
+        "spor",
+        "teknoloji",
+        "liste"
+      ],
+      "enerji": 4,
+      "his": [
+        "modern",
+        "dinamik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "yanan-belge-sayac": {
+      "ton": [
+        "ciddi",
+        "enerjik",
+        "gizem"
+      ],
+      "konu": [
+        "finans",
+        "tarih",
+        "haber",
+        "suc"
+      ],
+      "enerji": 3,
+      "his": [
+        "sinematik",
+        "karanlik",
+        "dinamik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "esik-renkli-halka": {
+      "ton": [
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "teknoloji",
+        "finans",
+        "spor",
+        "saglik"
+      ],
+      "enerji": 3,
+      "his": [
+        "modern",
+        "dinamik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "hizlanan-sayac": {
+      "ton": [
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "finans",
+        "teknoloji",
+        "haber"
+      ],
+      "enerji": 3,
+      "his": [
+        "modern"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    }
+  },
+  "zaman": {
+    "geri-sarma-ozet": {
+      "ton": [
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "tarih",
+        "egitim",
+        "haber",
+        "liste"
+      ],
+      "enerji": 4,
+      "his": [
+        "dinamik",
+        "modern"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "akan-serit": {
+      "ton": [
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "teknoloji",
+        "tarih",
+        "spor",
+        "liste",
+        "haber"
+      ],
+      "enerji": 4,
+      "his": [
+        "teknik",
+        "modern",
+        "karanlik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "iki-kulvar-zaman": {
+      "ton": [
+        "ciddi",
+        "sakin"
+      ],
+      "konu": [
+        "tarih",
+        "haber",
+        "askeri",
+        "biyografi"
+      ],
+      "enerji": 2,
+      "his": [
+        "resmi",
+        "belgesel",
+        "temiz"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "hizli-montaj": {
+      "ton": [
+        "enerjik"
+      ],
+      "konu": [
+        "liste",
+        "teknoloji",
+        "spor"
+      ],
+      "enerji": 5,
+      "his": [
+        "dinamik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    }
+  },
+  "alinti": {
+    "sansur-bandi": {
+      "ton": [
+        "gizem",
+        "ciddi"
+      ],
+      "konu": [
+        "suc",
+        "askeri",
+        "gizem",
+        "tarih",
+        "haber"
+      ],
+      "enerji": 2,
+      "his": [
+        "arsiv",
+        "karanlik",
+        "sinematik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "terminal-daktilo": {
+      "ton": [
+        "ciddi",
+        "gizem"
+      ],
+      "konu": [
+        "teknoloji",
+        "tarih",
+        "suc"
+      ],
+      "enerji": 2,
+      "his": [
+        "teknik",
+        "karanlik"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    }
+  },
+  "liste": {
+    "surec-zinciri": {
+      "ton": [
+        "sakin",
+        "enerjik",
+        "ciddi"
+      ],
+      "konu": [
+        "egitim",
+        "teknoloji",
+        "muhendislik",
+        "saglik",
+        "finans"
+      ],
+      "enerji": 2,
+      "his": [
+        "temiz",
+        "modern"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    },
+    "defter-listesi": {
+      "ton": [
+        "ciddi",
+        "sakin"
+      ],
+      "konu": [
+        "finans",
+        "liste",
+        "haber",
+        "tarih",
+        "spor"
+      ],
+      "enerji": 2,
+      "his": [
+        "arsiv",
+        "resmi",
+        "temiz"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    }
+  },
+  "altbant": {
+    "kisi-karti": {
+      "ton": [
+        "ciddi",
+        "sakin"
+      ],
+      "konu": [
+        "biyografi",
+        "tarih",
+        "haber",
+        "suc",
+        "askeri"
+      ],
+      "enerji": 2,
+      "his": [
+        "belgesel",
+        "resmi"
+      ],
+      "kaynak": [
+        "opus-galeri"
+      ]
+    }
+  }
+}

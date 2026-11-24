@@ -153,7 +153,11 @@ def kagit_sayisi(d):
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
               'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma', 'renk-bandi': 'maske', 'zoom-icinden': 'zoom',
-              'kareli-kagit': 'maske', 'supurme-inset': 'hareket', 'bulanik-hayalet': 'karartma', 'tint-sizinti': 'flas', 'nesne-dalisi': 'zoom'}
+              'kareli-kagit': 'maske', 'supurme-inset': 'hareket', 'bulanik-hayalet': 'karartma', 'tint-sizinti': 'flas', 'nesne-dalisi': 'zoom',
+              # galeri isci1 gecisleri (aile onerileri isci1.json'dan)
+              'parcacik-toplanma': 'maske', 'renk-zemin-kelime-darbesi': 'flas', 'sayfa-cevirme-golge': 'hareket', 'kolaj-geri-cekilme': 'zoom',
+              'yirtik-kagit': 'maske', 'murekkep-duman-ortusu': 'maske', 'ekran-icinde-ekran': 'zoom', 'harfe-dalis': 'zoom', 'egik-cift-serit': 'maske',
+              'nesneden-daire-tasmasi': 'maske', 'tunel': 'zoom', 'isik-seridi-supurme': 'tv', 'piksel-merdiven-silme': 'glitch'}
 RAKIP_GECIS_AILE = [('siyaha', 'karartma'), ('cozunme', 'karartma'), ('beyaza', 'flas'), ('isik', 'flas'), ('flas', 'flas'), ('glitch', 'glitch'),
                     ('kaydirma', 'hareket'), ('whip', 'hareket'), ('itme', 'hareket'), ('zoom_gecis', 'zoom'), ('wipe', 'maske'), ('maske', 'maske')]
 CERCEVE_RAKIP = {'cerceveli_bulanik': 'bulanik-kopya', 'cerceveli_duz_renk': 'inset-golge', 'letterbox': 'letterbox', 'bolunmus': 'bolunmus',
@@ -626,6 +630,38 @@ def med(xs):
     return round(xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2, 3)
 
 # ---------------- secim ----------------
+# tur ici varyant eksenleri (Dna.tsx VARYANT_EKSEN) ve ikinci varyantta secilmeyenler
+VARYANT_EKSEN = [('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'), ('liste', 'Kart.tsx', 'LISTE_TIPLERI'),
+                 ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI')]
+VARYANT_DISI = {'zaman': ('yil-tarama',), 'grafik': ('eleme-izgara',)}
+
+
+def varyant_tamamla(dna, rep, konu=''):
+    """ESKI DNA'yi (tur ici varyant / baslik2 / harita / grafik / hud eksenleri yok) yeni sahne dili icin tamamlar. Birincil eksenler
+    DEGISMEZ (videonun gorunusu korunur); eksikler tohumdan deterministik, tonun etiket kapisindan secilir. -> eklenen eksenler."""
+    global ETK
+    ton = dna.get('ton') if dna.get('ton') in TON else None
+    ETK = Etiket(etiket_yukle(rep), ton, konu_bul(konu)[0] if konu else {}, None, {})
+    L = lambda d, a: tsx_liste(rep, d, a)
+    r2 = random.Random(int(hashlib.md5(((dna.get('tohum') or 'dna') + '|v2').encode()).hexdigest()[:8], 16))
+    eklenen = []
+    if not dna.get('baslik2') and dna.get('baslik'):
+        bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b not in (dna['baslik'], KLASIK['baslik'], 'ustu-cizili-degisim', 'bolum-numarasi')]
+        dna['baslik2'] = sec(r2, bas, eksen='baslik')[0]
+        eklenen.append('baslik2')
+    for eksen, dosya, ad in [('harita', 'Harita.tsx', 'HARITA_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI'), ('hud', 'Hud.tsx', 'HUD_TIPLERI')]:
+        if not dna.get(eksen) and os.path.isfile(os.path.join(rep, dosya)):
+            dna[eksen] = sec(r2, [x for x in L(dosya, ad) if not (eksen == 'grafik' and x == 'eleme-izgara')], eksen=eksen)[0]
+            eklenen.append(eksen)
+    for eksen, dosya, ad in VARYANT_EKSEN:
+        if dna.get(eksen) and not dna.get(eksen + '2') and os.path.isfile(os.path.join(rep, dosya)):
+            havuz = [x for x in L(dosya, ad) if x != dna[eksen] and x not in VARYANT_DISI.get(eksen, ()) and ETK.kapi(eksen, x)]   # ikinci varyant da ton kapisina tabi; tona uyan yoksa = birinci
+            if havuz:
+                dna[eksen + '2'] = sec(r2, havuz, eksen=eksen)[0]
+                eklenen.append(eksen + '2')
+    return eklenen
+
+
 def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile=(), agirlik=None, kacin=(), eksen=None):
     """havuzdan n oge: yasak/rakip ailesi disi; once kanalin son 3 videosunda VE diger kanallarin son DNA'sinda olmayanlar,
     sonra yalniz kanal gecmisinde olmayanlar, en son hepsi; az kullanilan agirlikli."""
@@ -796,7 +832,7 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
     dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']) + KK('cerceve'), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
     # ozel kullanim basliklari (eski|yeni degisimi, bolum numarasi) kelime karti girisi olarak secilmez; sahne kurucu acikca kullanir
-    OZEL_BASLIK = {'ustu-cizili-degisim', 'bolum-numarasi'}
+    OZEL_BASLIK = {'ustu-cizili-degisim', 'bolum-numarasi', 'kelime-dongusu'}
     bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik'] and b not in OZEL_BASLIK]
     # iki baslik girisi: kelime kartlari arasinda donusumlu (art arda ayni giris animasyonu yok — givemotion kurali)
     b2 = sec(r, bas, yasak=KK('baslik'), gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'), n=2)
@@ -831,6 +867,15 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
         dna[e] = list(v) if isinstance(v, list) else v
     if sabit.get('bitis') in ('arsiv-proje', 'sinema-film'):
         dna['doku'] = [x for x in dna.get('doku', []) if x not in ('gren', 'vinyet')]
+    # tur ici ikinci varyantlar (sayi2, alinti2, liste2, zaman2, grafik2): VideoDna ayni turden ardisik kartlarda donusumlu kullanir
+    # (baslik/baslik2 gibi) -> 12 dk boyunca tek sablon tekrar etmez. AYRI tohum: birincil secimler eski DNA'larla birebir ayni kalir.
+    # Kanal sablonu varyanti sabitlediyse (KIMLIK) o kalir. zaman2'de yil-tarama yok (yil-tarama 'yil' sahne turunun kendisi).
+    r2 = random.Random(int(hashlib.md5((tohum + '|v2').encode()).hexdigest()[:8], 16))
+    for eksen, dosya, ad in VARYANT_EKSEN:
+        if eksen not in dna or (eksen + '2') in sabit or not os.path.isfile(os.path.join(rep, dosya)):
+            continue
+        havuz = [x for x in L(dosya, ad) if x != dna[eksen] and x not in VARYANT_DISI.get(eksen, ()) and ETK.kapi(eksen, x)]   # ikinci varyant da ton kapisina tabi; tona uyan yoksa = birinci
+        dna[eksen + '2'] = sec(r2, havuz, yasak=KK(eksen), gecmis=g(eksen + '2'), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0] if havuz else dna[eksen]
     # iskelet (rakipten)
     isk = rk['iskelet']
     fps = 30
@@ -846,8 +891,8 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     dna['ton'] = ton or '-'
     return dna
 
-UYUM_EKSEN = ['palet', 'font', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'baslik2', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman',
-              'doku', 'bitis', 'harita', 'grafik', 'hud']
+UYUM_EKSEN = ['palet', 'font', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'baslik2', 'altyazi', 'altbant', 'sayi', 'sayi2', 'alinti', 'alinti2',
+              'liste', 'liste2', 'zaman', 'zaman2', 'doku', 'bitis', 'harita', 'grafik', 'grafik2', 'hud']
 
 
 _EN = {}
@@ -872,7 +917,7 @@ def uyum_puani(d):
         for x in (v if isinstance(v, list) else [v]):
             if not isinstance(x, str) or x.startswith('video:'):
                 continue
-            ek = 'baslik' if e == 'baslik2' else e
+            ek = e[:-1] if e.endswith('2') else e     # baslik2/sayi2/... kendi ekseninin etiketleriyle
             if x.startswith('filmburn'):
                 x = 'filmburn'
             u = ETK.uyum(ek, x) if ETK.et else 1.0
@@ -951,10 +996,11 @@ def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None, diger=None):
     s += ['', '## Secim nedenleri (etiketler)', '']
     for i, d in enumerate(secenekler):
         sat = []
-        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'alinti', 'liste', 'zaman', 'altbant', 'doku', 'bitis', 'harita', 'grafik', 'hud']:
+        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'sayi2', 'alinti', 'alinti2', 'liste', 'liste2',
+                  'zaman', 'zaman2', 'altbant', 'doku', 'bitis', 'harita', 'grafik', 'grafik2', 'hud']:
             for x in (d.get(e) if isinstance(d.get(e), list) else [d.get(e)]):
                 if isinstance(x, str) and not x.startswith('video:'):
-                    sat.append(f"{e}/{x}: {ETK.neden(e, x)}")
+                    sat.append(f"{e}/{x}: {ETK.neden(e[:-1] if e.endswith('2') else e, x)}")
         uyumsuz = [x for x in sat if 'UYUMSUZ' in x]
         s.append(f"- **{chr(65 + i)}** — tona uymayan oge: {len(uyumsuz)}" + (f" ({'; '.join(uyumsuz)})" if uyumsuz else ''))
         s += [f"  - {x}" for x in sat]
@@ -1002,9 +1048,19 @@ def main():
     ap.add_argument('--kanal', help='bu videonun kanali (varsayilan: --cikti yolundan, ornek C:\\otomasyon\\ranks\\video10 -> ranks)')
     ap.add_argument('--kimlik-uret', action='store_true', help='kanal_sablon.py kullanir: palet/font/baslik baska kanalda olmayacak (kesin)')
     ap.add_argument('--sablon', help='kanal-sablon.json (kanal_sablon.py): kimlik eksenleri sabit, nis iskeleti ve ton sablondan')
+    ap.add_argument('--tamamla', help='ESKI stil-dna.json ya da props.json: birincil eksenler korunur, eksik tur ici varyantlar (sayi2, alinti2, liste2, '
+                    'zaman2, grafik2) + baslik2/harita/grafik/hud eklenir, dosya yerinde guncellenir (--cikti verilirse oraya)')
     a = ap.parse_args()
     kut = kutuphane_bul(a.kok)
     rep = repertuar_bul(a.repertuar, kut)
+    if a.tamamla:
+        d0 = json.load(open(a.tamamla, encoding='utf-8'))
+        dna = d0['dna'] if 'dna' in d0 and 'veri' in d0 else d0
+        ek = varyant_tamamla(dna, rep, a.konu)
+        hedef = a.cikti if a.cikti and a.cikti != '.' else a.tamamla
+        json.dump(d0, open(hedef, 'w', encoding='utf-8'), ensure_ascii=False, indent=None if 'veri' in d0 else 1)
+        print(f"tamamlandi -> {hedef} | eklenen: {', '.join(f'{e}={dna[e]}' for e in ek) or 'yok (zaten tam)'}")
+        return
     vk = varlik_bul(a.varlik)
     sablon = json.load(open(a.sablon, encoding='utf-8')) if a.sablon else None
     konu0 = a.konu + (' ' + open(a.konu_dosya, encoding='utf-8', errors='replace').read()[:3000] if a.konu_dosya and os.path.isfile(a.konu_dosya) else '')

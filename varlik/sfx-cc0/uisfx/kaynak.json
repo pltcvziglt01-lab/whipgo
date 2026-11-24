@@ -1,0 +1,14 @@
+{
+ "url": "https://github.com/romainsimon/uisfx",
+ "commit": "9950fe66f993a6660dab9c2651dcbcd899ffd83b",
+ "commit_tarihi": "2026-09-08T22:33:57+02:00",
+ "indirme_tarihi": "2026-11-24",
+ "lisans": "CC0-1.0",
+ "lisans_dosyasi": [
+  "LICENSE-AUDIO"
+ ],
+ "atif_gerekli": false,
+ "kapsam": "packages/uisfx/sounds/<paket>/*.mp3 (12 paket x 78 UI sesi; .ogg kopyalari alinmadi)",
+ "dosya_sayisi": 936,
+ "not": "Kod MIT; ses dosyalari LICENSE-AUDIO ile CC0 (packages/uisfx/sounds). .generated klasoru kapsam disi ve alinmadi."
+}

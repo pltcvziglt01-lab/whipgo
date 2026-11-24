@@ -1,0 +1,13 @@
+{
+ "url": "https://github.com/wyzowl/sfx-kit",
+ "commit": "92780e7ab0cdfb557497a988089c47f46e8c7412",
+ "commit_tarihi": "2026-10-20T08:49:06+01:00",
+ "indirme_tarihi": "2026-11-24",
+ "lisans": "CC0-1.0",
+ "lisans_dosyasi": [
+  "LICENSE"
+ ],
+ "atif_gerekli": false,
+ "kapsam": "sounds/**/*.wav (320 ses, 48 kHz 24-bit)",
+ "dosya_sayisi": 320
+}

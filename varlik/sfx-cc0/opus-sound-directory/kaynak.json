@@ -1,0 +1,43 @@
+{
+ "url": "https://github.com/Tguntenaar/opus-sound-directory",
+ "commit": "b2a5766693be325a4e608a64a5a8c10969968feb",
+ "commit_tarihi": "2026-10-19T18:12:13-05:00",
+ "indirme_tarihi": "2026-11-24",
+ "lisans": "CC0-1.0",
+ "lisans_dosyasi": [
+  "ASSETS-LICENSE.md",
+  "LICENSES/CC0-1.0.txt"
+ ],
+ "atif_gerekli": false,
+ "kapsam": "public/assets/<slug>/out.mp3 (SFX ve ortam; muzik yataklari dislandi)",
+ "dosya_sayisi": 42,
+ "not": "Kod MIT; ASSETS-LICENSE.md: public/assets altindaki proje sesleri CC0. Sesler sentezleme betikleriyle uretilmis (ucuncu taraf ornek yok).",
+ "dislanan_muzik": [
+  "ad-bed-15-upbeat",
+  "ad-bed-30-lifestyle",
+  "ad-bed-30-tech-promo",
+  "ad-bed-6-bumper",
+  "ad-bed-60-story",
+  "adventure-title-theme-24s",
+  "ambient-bed-lofi",
+  "calendar-chaos-to-order-33s",
+  "chaos-calm-01",
+  "chaos-calm-02",
+  "chaos-calm-03",
+  "chaos-calm-04",
+  "chaos-calm-05",
+  "devlog-build-drop-56s",
+  "guitar-fingerstyle-loop",
+  "guitar-funk-rhythm-loop",
+  "guitar-neo-soul-lick",
+  "guitar-slow-blues-bed-20s",
+  "kinetic-type-128-bed-30s",
+  "organ-fugue-exposition-30s",
+  "pixel-seaside-cozy-loop-32s",
+  "podcast-intro-10s",
+  "synthwave-drive-20s",
+  "ugc-ad-promo-bed-20s",
+  "ui-morph-showreel-120",
+  "wireframe-explainer-vo-bed-20s"
+ ]
+}

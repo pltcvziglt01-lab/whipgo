@@ -1,6 +1,6 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Stil, rastgele, rgba, sinirla } from './temel';
+import { AbsoluteFill, Freeze, useCurrentFrame, useVideoConfig } from 'remotion';
+import { OKUNUR, Stil, rastgele, rgba, sinirla, yay } from './temel';
 
 // VURUS PAKETI — bir olayin (sayi karti, vurgu kelimesi, bolum kesimi) TEK KAREDE senkron darbesi:
 // ezilme (squash) + sonumlu kamera sarsintisi + tek flas + genisleyen halka + kivilcim. SFX'in olculen tepesi ayni kareye
@@ -8,15 +8,22 @@ import { Stil, rastgele, rgba, sinirla } from './temel';
 // seviye 0 = kapali (sakin ton), 1 = kucuk (sarsinti 6 px + halka; ciddi/gizem), 2 = buyuk (+ezilme, flas), 3 = tam (+kivilcim; enerjik).
 // Flas tek seferlik (WCAG: saniyede 3 flas siniri asilmaz; kusur_kontrol.py olcer).
 export type VurusSeviye = 0 | 1 | 2 | 3;
+/** darbe: yukaridaki paket (seviyeyle). kilometre-tasi-halka (Opus galerisi, 72 video): onemli olayda 1 kare gri flas (+%25
+ *  parlaklik), nesneden genisleyen ince beyaz halka (kadraj genisliginin %4 -> %20'si, 3 karede), etiket kontur olarak gelir ve
+ *  0,5 sn'de dolar; akis o ogede yavaslar (alttaki icerik ~0,45 sn %40 hiza iner, sonraki 2 sn'de fark kapanir: toplam sure ve
+ *  ses senkronu degismez). Seviye 0 yine kapatir; diger seviyeler bu tipte ayni. */
+export const VURUS_TIPLERI = ['darbe', 'kilometre-tasi-halka'] as const;
+export type VurusTip = typeof VURUS_TIPLERI[number];
 
 const sonum = (t: number, hiz: number) => Math.exp(-t * hiz);
 
-export const Vurus: React.FC<{ stil: Stil; seviye?: VurusSeviye; gec?: number; x?: number; y?: number; tohum?: string; children: React.ReactNode }> = ({
-  stil, seviye = 2, gec = 0, x = 0.5, y = 0.5, tohum = 'v', children,
+export const Vurus: React.FC<{ stil: Stil; seviye?: VurusSeviye; gec?: number; x?: number; y?: number; tohum?: string; tip?: VurusTip; etiket?: string; children: React.ReactNode }> = ({
+  stil, seviye = 2, gec = 0, x = 0.5, y = 0.5, tohum = 'v', tip = 'darbe', etiket, children,
 }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   if (!seviye) return <>{children}</>;
+  if (tip === 'kilometre-tasi-halka') return <KilometreTasi stil={stil} gec={gec} x={x} y={y} etiket={etiket}>{children}</KilometreTasi>;
   const t = (f - gec) / fps; // saniye, vurustan beri
   const aktif = t >= 0 && t < 1.2;
   // ezilme: 70 ms ezik (scaleY .88 / scaleX 1.07), sonra elastik yerlesme
@@ -59,6 +66,40 @@ export const Vurus: React.FC<{ stil: Stil; seviye?: VurusSeviye; gec?: number; x
         </svg>
       ) : null}
       {flas > 0.01 ? <AbsoluteFill style={{ background: `radial-gradient(circle at ${x * 100}% ${y * 100}%, ${rgba('#ffffff', flas)} 0%, ${rgba(stil.palet.vurgu, flas * 0.4)} 40%, transparent 75%)`, mixBlendMode: 'screen', pointerEvents: 'none' }} /> : null}
+    </AbsoluteFill>
+  );
+};
+
+/** yavaslama: alttaki icerigin zamani g(f) = f - D * tumsek(f - gec); tumsek 0,45 sn'de 0 -> 1 (hiz ~%40'a iner), 2 sn'de 1 -> 0
+ *  (hiz ~%110, fark kapanir). Pencere disinda Freeze kullanilmaz (icerik kendi zamaninda). */
+const KilometreTasi: React.FC<{ stil: Stil; gec: number; x: number; y: number; etiket?: string; children: React.ReactNode }> = ({ stil, gec, x, y, etiket, children }) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const t = (f - gec) / fps;
+  const yuk = 0.45, ini = 2.0, D = 0.2 * fps;
+  const tumsek = t <= 0 ? 0 : t < yuk ? 0.5 - 0.5 * Math.cos((Math.PI * t) / yuk) : t < yuk + ini ? 0.5 + 0.5 * Math.cos((Math.PI * (t - yuk)) / ini) : 0;
+  const zaman = f - D * tumsek;
+  const flas = f === Math.round(gec);
+  const cx = x * W, cy = y * H;
+  const hk = sinirla((f - gec) / 3);
+  const hs = sinirla((f - gec - 3) / 8);
+  const kont = yay(sinirla((f - gec) / (fps * 0.2)));
+  const dol = yay(sinirla((f - gec - fps * 0.3) / (fps * 0.5)));
+  const ic = <AbsoluteFill style={flas ? { filter: 'grayscale(0.75) brightness(1.25)' } : undefined}>{children}</AbsoluteFill>;
+  return (
+    <AbsoluteFill style={{ overflow: 'hidden' }}>
+      {tumsek > 0 ? <Freeze frame={zaman}>{ic}</Freeze> : ic}
+      {f >= gec && hs < 1 ? (
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+          <circle cx={cx} cy={cy} r={W * (0.04 + 0.16 * (1 - Math.pow(1 - hk, 2)))} fill="none" stroke="#ffffff" strokeWidth={4 - 2.5 * hk} opacity={1 - hs} />
+        </svg>
+      ) : null}
+      {etiket && f >= gec ? (
+        <div style={{ position: 'absolute', left: 0, right: 0, top: Math.min(H - 180, cy + W * 0.06), textAlign: 'center', opacity: kont, transform: `scale(${(1.04 - 0.04 * kont).toFixed(4)})` }}>
+          <span style={{ fontFamily: stil.font.baslik, fontWeight: stil.font.baslikAgirlik, fontSize: OKUNUR.ana + 24, letterSpacing: stil.font.aralik, textTransform: stil.font.buyukHarf ? 'uppercase' : 'none',
+            color: rgba('#ffffff', dol), WebkitTextStroke: `3px #ffffff`, textShadow: dol > 0.5 ? `0 3px 14px ${rgba('#000', 0.55)}` : 'none' }}>{etiket}</span>
+        </div>
+      ) : null}
     </AbsoluteFill>
   );
 };

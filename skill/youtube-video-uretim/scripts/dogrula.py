@@ -22,7 +22,7 @@ CHROME = r'C:\otomasyon\ranks\motion\node_modules\.remotion\chrome-headless-shel
 # *_TIPLERI -> etiketler.json ekseni
 EKSEN = {'ARKAPLAN': 'arkaplan', 'GECIS': 'gecis', 'BASLIK': 'baslik', 'ALTYAZI': 'altyazi', 'ALTBANT': 'altbant', 'SAYI': 'sayi', 'ALINTI': 'alinti',
          'LISTE': 'liste', 'ZAMAN': 'zaman', 'KAMERA': 'kamera', 'CERCEVE': 'cerceve', 'DOKU': 'doku', 'BITIS': 'bitis', 'HARITA': 'harita',
-         'GRAFIK': 'grafik', 'HUD': 'hud'}
+         'GRAFIK': 'grafik', 'HUD': 'hud', 'SAHNE': 'sahne', 'VURUS': 'vurus'}
 ETIKETSIZ_SERBEST = {('gecis', 'sert'), ('kamera', 'sabit'), ('cerceve', 'tam')}          # notr ogeler
 SAHTE_ETIKET = {('gecis', 'filmburn'), ('altyazi', 'yok')}                                 # tipte olmayan ama secilebilen
 TONLAR = {'ciddi', 'gizem', 'enerjik', 'sakin'}
@@ -104,10 +104,52 @@ def k_etiketler():
 
 # ------------------------------------------------------------------ 2. SFX + font tablolari
 def k_sfx():
+    """iki bicimi tanir: yeni repertuar/sfx-kutuphane.json (sesler + olcu; Adobe sfx/ + CC0 sfx-cc0/) ya da eski Sfx.tsx SFX_PALET/SFX_OLCU"""
+    kj = os.path.join(REP, 'sfx-kutuphane.json')
+    varlik = os.path.join(KOK, 'varlik')
+    if os.path.isfile(kj):
+        try:
+            j = json.load(open(kj, encoding='utf-8'))
+        except ValueError as e:
+            ekle('FAIL', 'sfx', f'sfx-kutuphane.json bozuk: {e}')
+            return
+        sesler = set()
+        for d, k in (j.get('sesler') or {}).items():
+            sesler.add(d)
+            sesler.update(k.get('seri') or [])
+        olcu = set(j.get('olcu') or {})
+        if not os.path.isdir(os.path.join(varlik, 'sfx')):
+            ekle('UYARI', 'sfx', 'varlik/sfx yok (bu makinede SFX paketi kurulmamis: varlik_kur.py) — render sessiz kalir')
+            return
+        yok = sorted(d for d in sesler if not os.path.exists(os.path.join(varlik, d)))
+        olcusuz = sorted(sesler - olcu)[:8]
+        if yok:
+            ekle('FAIL', 'sfx', f'kutuphanede olup diskte olmayan ses: {yok[:8]}' + (' (turev: sfx_olc.py --turev)' if any('/turev/' in d for d in yok) else ''))
+        ekle('FAIL' if olcusuz else 'OK', 'sfx', f'olcusu olmayan ses (sfx_olc.py calistir): {olcusuz}' if olcusuz else f'{len(sesler)} kutuphane sesi olculu')
+        # ton kurali: ciddi/gizem paletine pop ya da mizah giremez (Sfx.tsx sfxAdaylari da eler; etiket hatasini burada yakala)
+        kotu = sorted(d for d, k in j['sesler'].items() if (k.get('mizah') or 'pop' in k.get('kar', [])) and {'ciddi', 'gizem'} & set(k.get('ton', [])))
+        if kotu:
+            ekle('UYARI', 'sfx', f'ciddi/gizem etiketli pop/mizah ses (secilmez, etiketi duzelt): {kotu[:6]}')
+        # her havuz x ton: en az 3 aday (glitch yalniz enerjik)
+        ayar = j.get('ayar') or {}
+        az = []
+        for h in (ayar.get('seviye') or {}):
+            for t in ('ciddi', 'gizem', 'enerjik', 'sakin'):
+                if h == 'glitch' and t != 'enerjik':
+                    continue
+                n = sum(1 for k in j['sesler'].values() if h in k['rol'] and t in k['ton'] and not k.get('mizah')
+                        and not (t in ('ciddi', 'gizem') and 'pop' in k.get('kar', [])))
+                if n < 3:
+                    az.append(f'{h}/{t}:{n}')
+        ekle('UYARI' if az else 'OK', 'sfx', f'3 adaydan az havuz: {az}' if az else 'her havuz x ton >= 3 aday')
+        return
     s = oku(os.path.join(REP, 'Sfx.tsx'))
+    if 'SFX_PALET' not in s:
+        ekle('FAIL', 'sfx', 'ne sfx-kutuphane.json ne Sfx.tsx SFX_PALET var')
+        return
     palet = set(re.findall(r"\['([^']+\.(?:wav|mp3))'", s[s.index('SFX_PALET'):]))
-    olcu = set(re.findall(r"'([^']+\.(?:wav|mp3))': \[", s[s.index('SFX_OLCU'):s.index('SFX_PALET')]))
-    kok = os.path.join(KOK, 'varlik', 'sfx')
+    olcu = set(re.findall(r"'([^']+\.(?:wav|mp3))': \[", s[s.index('SFX_OLCU'):s.index('SFX_PALET')])) if 'SFX_OLCU' in s else set()
+    kok = os.path.join(varlik, 'sfx')
     yok = sorted(f for f in palet if not os.path.exists(os.path.join(kok, f)))
     olcusuz = sorted(palet - olcu)
     if not os.path.isdir(kok):
@@ -278,6 +320,8 @@ def k_kanallar(projeler):
         sfx = os.path.join(m, 'public', 'varlik', 'sfx')
         if not os.path.isdir(sfx):
             sorun.append('public/varlik/sfx yok')
+        if os.path.isdir(os.path.join(KOK, 'varlik', 'sfx-cc0', 'turev')) and not os.path.isdir(os.path.join(m, 'public', 'varlik', 'sfx-cc0', 'turev')):
+            sorun.append('public/varlik/sfx-cc0 eksik (py varlik_kur.py kanal <motion>)')
         if not os.path.isdir(os.path.join(m, 'public', 'fontlar')):
             sorun.append('public/fontlar yok')
         kanal = os.path.dirname(m)

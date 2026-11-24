@@ -2,7 +2,9 @@ import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { Medya, MedyaKaynak } from './Medya';
-import { FONTLAR, Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
+import { FONTLAR, Stil, egri, ilerle, karistir, okunurVurgu, rastgele, rgba, sinirla, yay } from './temel';
+import ULKELER_HAM from './veri/dunya-ulkeler.json';
+import KARA_HAM from './veri/dunya-kara-noktalari.json';
 
 // HARITA — belgesel harita grafikleri. Zemin: gercek harita gorseli (CC kaynak, uydu/eski harita) ya da repertuar arka plani.
 // Koordinatlar ekranin orani (0..1). Ogrenildigi kanallar: @WhereTheyStood (isikli rota), @Ground-Engineering (kilavuz etiketli
@@ -11,9 +13,13 @@ import { FONTLAR, Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 // Ek tipler (rota cizmez, ayni noktalar/etiket arayuzunu kullanir): kavisli-etiket (@OkeanosHistory: noktalar egriyi verir,
 // etiket egriye oturan aralikli serif bolge adi) ve bolgeli-uydu (@ReichonRecord: koyu uydu haritasi, 'ad'li nokta nabiz isareti,
 // adsiz noktalar dolan bolge cokgeni, etiket bolgenin adi).
-export const HARITA_TIPLERI = ['isik-rota', 'kesik-rota', 'ok-yay', 'kavisli-etiket', 'bolgeli-uydu'] as const;
+// Opus galerisi veri haritalari (zemin gorseli gerekmez; repertuar/veri/ Natural Earth): dunya-haritasi-yakinlasma (DunyaHaritasi:
+// dunya -> ulke log olcek yakinlasma + rulo sayi + sehirler) ve nokta-kure (NoktaKure: nokta matrisli donen kure + rota yaylari).
+// HaritaRota uzerinden cagrilirsa: etiket = ulke adi (yakinlasma) / sayac etiketi (kure); lon/lat'li noktalar sehir ya da rota olur.
+export const HARITA_TIPLERI = ['isik-rota', 'kesik-rota', 'ok-yay', 'kavisli-etiket', 'bolgeli-uydu', 'dunya-haritasi-yakinlasma', 'nokta-kure'] as const;
 export type HaritaTip = typeof HARITA_TIPLERI[number];
-export type HaritaNokta = { x: number; y: number; ad?: string };
+/** x/y: ekran orani (0..1). lon/lat: yalniz veri haritalari (dunya-haritasi-yakinlasma, nokta-kure) icin cografi konum */
+export type HaritaNokta = { x: number; y: number; ad?: string; lon?: number; lat?: number };
 
 /** iki nokta arasinda hafif kavisli (quadratic) yol; egim: kavis miktari (dik yonde, mesafenin orani) */
 const yolNoktalari = (a: { x: number; y: number }, b: { x: number; y: number }, egim: number, n = 48) => {
@@ -77,8 +83,12 @@ const Isaret: React.FC<{ x: number; y: number; ad?: string; renk: string; stil: 
 type RotaProps = { tip: HaritaTip; stil: Stil; noktalar: HaritaNokta[]; zemin?: MedyaKaynak; arkaplan?: ArkaplanTip; etiket?: string; sure?: number; gec?: number };
 /** ROTA: noktalar arasi cizilerek uzayan yol; bitince mesafe etiketi. sure: cizim suresi (sn).
  *  tip kavisli-etiket / bolgeli-uydu ise ayni girdilerle o bilesene yonlenir (DnaHarita tek arayuz kullanir). */
-export const HaritaRota: React.FC<RotaProps> = (pr) =>
-  pr.tip === 'kavisli-etiket' ? <KavisliEtiket {...pr} /> : pr.tip === 'bolgeli-uydu' ? <BolgeliUydu {...pr} /> : <RotaCiz {...pr} />;
+export const HaritaRota: React.FC<RotaProps> = (pr) => {
+  const cog = pr.noktalar.filter((n) => n.lon !== undefined && n.lat !== undefined) as (HaritaNokta & { lon: number; lat: number })[];
+  if (pr.tip === 'dunya-haritasi-yakinlasma') return <DunyaHaritasi stil={pr.stil} ulke={pr.etiket} gec={pr.gec} sehirler={cog.map((n) => ({ ad: n.ad || '', lon: n.lon, lat: n.lat }))} />;
+  if (pr.tip === 'nokta-kure') return <NoktaKure stil={pr.stil} etiket={pr.etiket} gec={pr.gec} rotalar={cog.slice(1).map((n, i) => [[cog[i].lon, cog[i].lat], [n.lon, n.lat]] as [[number, number], [number, number]])} />;
+  return pr.tip === 'kavisli-etiket' ? <KavisliEtiket {...pr} /> : pr.tip === 'bolgeli-uydu' ? <BolgeliUydu {...pr} /> : <RotaCiz {...pr} />;
+};
 
 const RotaCiz: React.FC<RotaProps> = ({
   tip, stil, noktalar, zemin, arkaplan, etiket, sure = 2.4, gec = 10,
@@ -320,6 +330,216 @@ const BolgeliUydu: React.FC<RotaProps> = ({ stil, noktalar, zemin, etiket, sure 
       {cok && etiket ? (
         <div style={{ position: 'absolute', left: cx - 450, width: 900, top: cy - 26, textAlign: 'center', opacity: yazi, transform: `translateY(${(1 - yazi) * 10}px)`,
           fontFamily: font.govde, fontWeight: 800, fontSize: 40, letterSpacing: 8, color: karistir('#ffffff', bolgeR, 0.15), textTransform: 'uppercase', textShadow: `0 2px 12px ${rgba('#000', 0.85)}` }}>{etiket}</div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+// ---------------- Opus galerisi: veri haritalari (repertuar/veri, Natural Earth 1:50m, kamu mali) ----------------
+type Ulke = { ad: string; tr?: string; k: number[][][][]; m: [number, number]; b: [number, number, number, number] };
+const ULKELER = ULKELER_HAM as unknown as Ulke[];
+const KARA = KARA_HAM as unknown as [number, number][];
+/** ulke kayitlarinin tum parcalarini kapsayan kutu (gorunum kirpmasi icin), bir kez hesaplanir */
+const ULKE_KUTU = ULKELER.map((u) => {
+  let a = 180, b = 90, c = -180, d = -90;
+  u.k.forEach((p) => p[0].forEach(([x, y]) => { a = Math.min(a, x); b = Math.min(b, y); c = Math.max(c, x); d = Math.max(d, y); }));
+  return [a, b, c, d];
+});
+/** ulke ara: Natural Earth Almanca adi ('Türkei') ya da Turkce adi ('Türkiye'), buyuk/kucuk harf duyarsiz */
+export const ulkeBul = (ad?: string) => {
+  if (!ad) return -1;
+  const k = ad.toLocaleLowerCase('tr');
+  return ULKELER.findIndex((u) => u.ad.toLocaleLowerCase('tr') === k || (u.tr || '').toLocaleLowerCase('tr') === k);
+};
+/** Miller silindirik projeksiyonu, enlem -> derece benzeri birim (boylamla ayni olcek) */
+const miller = (lat: number) => (1.25 * Math.log(Math.tan(Math.PI / 4 + (0.4 * sinirla(lat, -85, 85) * Math.PI) / 180)) * 180) / Math.PI;
+
+/** rulo sayac (kilometre sayaci): her basamak kendi seridinde doner; alt basamak dolarken ust basamak son %15'te kayar */
+const RuloSayi: React.FC<{ v: number; boy: number; renk: string; fontAd: string; agirlik: number; ek?: string }> = ({ v, boy, renk, fontAd, agirlik, ek }) => {
+  const hane = Math.max(1, String(Math.floor(Math.max(0, v))).length);
+  const h = boy * 1.05;
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', fontFamily: fontAd, fontWeight: agirlik, fontSize: boy, lineHeight: `${h}px`, color: renk, fontVariantNumeric: 'tabular-nums' }}>
+      {Array.from({ length: hane }, (_, i) => {
+        const p = hane - 1 - i, b10 = Math.pow(10, p);
+        const poz = p === 0 ? Math.max(0, v) : Math.floor(Math.max(0, v) / b10) + sinirla((((Math.max(0, v) % b10) / b10) - 0.85) / 0.15);
+        return (
+          <div key={i} style={{ height: h, overflow: 'hidden' }}>
+            <div style={{ transform: `translateY(${(-(poz % 10) * h).toFixed(2)}px)` }}>
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((d, k) => <div key={k} style={{ height: h }}>{d}</div>)}
+            </div>
+          </div>
+        );
+      })}
+      {ek ? <div style={{ height: h }}>{ek}</div> : null}
+    </div>
+  );
+};
+
+/** DUNYA HARITASI YAKINLASMA (galeri: 2 video): ince acik cizgili dunya haritasi (Miller, 15 derecelik enlem/boylam agi) gelir,
+ *  ustte rulo sayi (sayi [a, b], ornek [930, 500]) doner; kamera ulke'ye log olcek hizinda yaklasir (kamera yayi, asimsiz, kesimde
+ *  ilgilenilen nokta ekranda tutarli kayar), ulke dolgusu (vurgu) ve sehir etiketleri (>= 36) belirir; ulke adi (>= 64) ve
+ *  etiket ust bilgi olarak kalir. ulke: Turkce ya da Natural Earth adi (veri/README.md). Yakinlasma bitince kamera nefes alir. */
+export type DunyaSehir = { ad: string; lon: number; lat: number };
+export const DunyaHaritasi: React.FC<{ stil: Stil; ulke?: string; sehirler?: DunyaSehir[]; sayi?: [number, number]; birim?: string; etiket?: string; gec?: number; sure?: number }> = ({
+  stil, ulke, sehirler = [], sayi, birim = '', etiket, gec = 6, sure = 2.2,
+}) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const ui = ulkeBul(ulke);
+  const hedef = ui >= 0 ? ULKELER[ui] : null;
+  const c0: [number, number] = [12, miller(18)], k0 = W / 360;
+  let cT = c0, kT = k0;
+  if (hedef) {
+    const [a, b, c, d] = hedef.b;
+    cT = [(a + c) / 2, (miller(b) + miller(d)) / 2];
+    kT = Math.min(60, Math.max(k0 * 1.3, Math.min((W * 0.4) / Math.max(1, c - a), (H * 0.48) / Math.max(1, miller(d) - miller(b)))));
+  }
+  const zb = gec + fps * 0.6;
+  const p = yay(sinirla((f - zb) / (fps * sure)));
+  const k = k0 * Math.pow(kT / k0, p) * kameraNefesDeger(Math.max(0, f - zb - fps * sure) / fps);
+  const q = kT === k0 ? p : (1 - k0 / (k0 * Math.pow(kT / k0, p))) / (1 - k0 / kT);
+  const cx = c0[0] + (cT[0] - c0[0]) * q, cy = c0[1] + (cT[1] - c0[1]) * q;
+  const X = (lon: number) => W / 2 + (lon - cx) * k;
+  const Y = (lat: number) => H / 2 - (miller(lat) - cy) * k;
+  const giris = yay(sinirla((f - gec + 4) / (fps * 0.5)));
+  const dolgu = yay(sinirla((f - zb - fps * sure * 0.7) / (fps * 0.5)));
+  const kara = palet.acik ? karistir(palet.zemin, palet.murekkep, 0.07) : karistir(palet.zemin, palet.murekkep, 0.07);
+  const cizgi = rgba(palet.murekkep, palet.acik ? 0.45 : 0.4);
+  const yolU = (u: Ulke, i: number) => {
+    const [a, b, c, d] = ULKE_KUTU[i];
+    if (X(c) < -50 || X(a) > W + 50 || Y(b) < -50 || Y(d) > H + 50) return '';
+    let s = '';
+    for (const poly of u.k) {
+      const r = poly[0];
+      s += r.map(([x, y], j) => `${j ? 'L' : 'M'}${X(x).toFixed(1)},${Y(y).toFixed(1)}`).join('') + 'Z';
+    }
+    return s;
+  };
+  const ag: string[] = [];
+  for (let lon = -180; lon <= 180; lon += 15) ag.push(`M${X(lon).toFixed(1)},${Y(80).toFixed(1)}V${Y(-60).toFixed(1)}`);
+  for (let lat = -60; lat <= 75; lat += 15) ag.push(`M${X(-180).toFixed(1)},${Y(lat).toFixed(1)}H${X(180).toFixed(1)}`);
+  const v = sayi ? sayi[0] + (sayi[1] - sayi[0]) * egri('kubik-hizli', sinirla((f - zb) / (fps * sure * 1.1))) : 0;
+  const adGir = yay(sinirla((f - zb - fps * sure * 0.8) / (fps * 0.45)));
+  const adMetin = hedef ? (hedef.tr || hedef.ad) : '';
+  return (
+    <AbsoluteFill style={{ background: palet.zemin }}>
+      <svg width={W} height={H} style={{ position: 'absolute', inset: 0, opacity: giris }}>
+        <path d={ag.join('')} stroke={rgba(palet.murekkep, 0.07)} strokeWidth={1} fill="none" />
+        {ULKELER.map((u, i) => {
+          const d = yolU(u, i);
+          if (!d) return null;
+          const h = i === ui;
+          return <path key={i} d={d} fill={h ? karistir(kara, palet.vurgu, dolgu) : kara} stroke={h ? karistir(palet.murekkep, palet.vurgu, dolgu) : cizgi} strokeWidth={h ? 1.5 + 1.5 * dolgu : 1.1} strokeLinejoin="round" />;
+        })}
+      </svg>
+      {sehirler.map((s, i) => {
+        const g = yay(sinirla((f - zb - fps * sure * 0.85 - i * 4) / (fps * 0.35)));
+        if (g <= 0) return null;
+        const x = X(s.lon), y = Y(s.lat);
+        return (
+          <React.Fragment key={i}>
+            <div style={{ position: 'absolute', left: x - 9, top: y - 9, width: 18, height: 18, borderRadius: 9, background: palet.murekkep, border: `3px solid ${palet.zemin}`, transform: `scale(${g})` }} />
+            <div style={{ position: 'absolute', left: x + 18, top: y - 26, fontFamily: font.govde, fontWeight: 800, fontSize: 38, color: palet.murekkep, whiteSpace: 'nowrap', opacity: g,
+              textShadow: `0 0 6px ${palet.zemin}, 0 0 12px ${palet.zemin}` }}>{s.ad}</div>
+          </React.Fragment>
+        );
+      })}
+      {sayi ? (
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 70, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: giris }}>
+          <RuloSayi v={v} boy={120} renk={okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep)} fontAd={font.baslik} agirlik={font.baslikAgirlik} ek={birim} />
+          {etiket ? <div style={{ fontFamily: font.govde, fontWeight: 800, fontSize: 42, letterSpacing: 4, color: palet.murekkep, textTransform: 'uppercase', marginTop: 6 }}>{etiket}</div> : null}
+        </div>
+      ) : etiket ? (
+        <div style={{ position: 'absolute', left: 110, top: 80, fontFamily: font.govde, fontWeight: 800, fontSize: 44, letterSpacing: 4, color: palet.murekkep, textTransform: 'uppercase', opacity: giris }}>{etiket}</div>
+      ) : null}
+      {adMetin ? (
+        <div style={{ position: 'absolute', left: 110, bottom: 90, overflow: 'hidden' }}>
+          <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 96, lineHeight: 1.05, letterSpacing: font.aralik, color: palet.murekkep, textTransform: font.buyukHarf ? 'uppercase' : 'none',
+            transform: `translateY(${((1 - adGir) * 105).toFixed(2)}%)`, textShadow: `0 0 10px ${palet.zemin}` }}>{adMetin}</div>
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+/** kamera nefesi olcek carpani (yakinlasma bittikten sonra harita durmaz) */
+const kameraNefesDeger = (t: number) => 1 + 0.03 * (1 - Math.cos((Math.PI * (t + 1.5)) / 7)) / 2 - 0.03 * (1 - Math.cos((Math.PI * 1.5) / 7)) / 2;
+
+/** NOKTA KURE (galeri: 5 video): nokta matrisli (2 derecelik kara noktalari) donen dunya kuresi, ortografik. Nokta kumeleri
+ *  boylam seritleri halinde ~0,6 sn'de kureye toplanir (yerinde birlesme; patlama degil), ustunde buyuk daire rota yaylari
+ *  (rotalar: [[lon, lat], [lon, lat]]) yukselerek cizilir, sagda sayac eszamanli sayar (sayi, etiket >= 40). maske verilirse
+ *  sonda kure buyuyup maske olarak yeni sahneyi (medya) acar. merkez: [lon, enlem egimi], donus: derece/sn. */
+export const NoktaKure: React.FC<{ stil: Stil; rotalar?: [[number, number], [number, number]][]; sayi?: [number, number]; birim?: string; etiket?: string; merkez?: [number, number];
+  donus?: number; maske?: MedyaKaynak; gec?: number; sure?: number }> = ({ stil, rotalar = [], sayi, birim = '', etiket, merkez = [20, 22], donus = 8, maske, gec = 6, sure = 3 }) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const t = (f - gec) / fps;
+  const l0 = ((merkez[0] - donus * Math.max(-1, t)) * Math.PI) / 180, p0 = (merkez[1] * Math.PI) / 180;
+  const R = H * 0.38, cx = W * 0.37, cy = H * 0.53;
+  const proj = (lon: number, lat: number, yuk = 0) => {
+    const l = (lon * Math.PI) / 180 - l0, p = (lat * Math.PI) / 180;
+    const cc = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * Math.cos(p) * Math.cos(l);
+    const rr = R * (1 + yuk);
+    return { x: cx + rr * Math.cos(p) * Math.sin(l), y: cy - rr * (Math.cos(p0) * Math.sin(p) - Math.sin(p0) * Math.cos(p) * Math.cos(l)), z: cc };
+  };
+  const toplan = (lon: number) => yay(sinirla((f - gec - ((lon + 180) / 360) * fps * 0.35) / (fps * 0.6)));
+  const r = rastgele(stil.tohum + 'nk');
+  const sacil = KARA.map(() => [r() * 2 - 1, r() * 2 - 1]);
+  const acik = maske ? yay(sinirla((f - gec - fps * (sure + 0.5)) / (fps * 0.7))) : 0;
+  const maskeR = R + (Math.hypot(W, H) - R) * acik;
+  const v = sayi ? sayi[0] + (sayi[1] - sayi[0]) * egri('kubik-hizli', sinirla((f - gec - fps * 0.4) / (fps * sure))) : 0;
+  const g = yay(sinirla((f - gec + 4) / (fps * 0.5)));
+  const nokta = palet.murekkep;
+  const yayNok = (A: [number, number], B: [number, number], s: number) => {
+    const v3 = (lon: number, lat: number) => { const l = (lon * Math.PI) / 180, p = (lat * Math.PI) / 180; return [Math.cos(p) * Math.cos(l), Math.cos(p) * Math.sin(l), Math.sin(p)]; };
+    const a = v3(A[0], A[1]), b = v3(B[0], B[1]);
+    const om = Math.acos(sinirla(a[0] * b[0] + a[1] * b[1] + a[2] * b[2], -1, 1)) || 1e-6;
+    const k1 = Math.sin((1 - s) * om) / Math.sin(om), k2 = Math.sin(s * om) / Math.sin(om);
+    const x = a[0] * k1 + b[0] * k2, y = a[1] * k1 + b[1] * k2, z = a[2] * k1 + b[2] * k2;
+    return proj((Math.atan2(y, x) * 180) / Math.PI, (Math.asin(sinirla(z, -1, 1)) * 180) / Math.PI, 0.16 * Math.sin(Math.PI * s) * Math.min(1, om));
+  };
+  return (
+    <AbsoluteFill style={{ background: palet.zemin }}>
+      <AbsoluteFill style={{ opacity: g }}>
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+          <circle cx={cx} cy={cy} r={R} fill={karistir(palet.zemin, palet.murekkep, 0.04)} stroke={rgba(palet.murekkep, 0.25)} strokeWidth={2} />
+          {KARA.map(([lon, lat], i) => {
+            const q = proj(lon, lat);
+            if (q.z <= 0.02) return null;
+            const tp = toplan(lon);
+            if (tp <= 0) return null;
+            const x = q.x + sacil[i][0] * 260 * (1 - tp), y = q.y + sacil[i][1] * 260 * (1 - tp);
+            return <circle key={i} cx={x} cy={y} r={(1.4 + 2.2 * q.z) * (0.4 + 0.6 * tp)} fill={nokta} opacity={(0.25 + 0.7 * q.z) * tp} />;
+          })}
+          {rotalar.map(([A, B], i) => {
+            const bas = gec + fps * (0.9 + i * 0.35);
+            const s = yay(sinirla((f - bas) / (fps * 0.8)));
+            if (s <= 0) return null;
+            const N = 40;
+            const pts = Array.from({ length: N + 1 }, (_, k) => yayNok(A, B, (k / N) * s));
+            // yalniz on yuz: ufkun arkasina gecen parca cizilmez (yukseltilmis yay diskten disari tasmaz)
+            const d = pts.map((q, k) => (q.z > 0.02 ? `${k && pts[k - 1].z > 0.02 ? 'L' : 'M'}${q.x.toFixed(1)},${q.y.toFixed(1)}` : '')).join('');
+            const u = pts[0], son = pts[N];
+            return (
+              <g key={i}>
+                <path d={d} fill="none" stroke={palet.vurgu} strokeWidth={4} strokeLinecap="round" />
+                {u.z > 0 ? <circle cx={u.x} cy={u.y} r={8} fill={palet.vurgu} /> : null}
+                {son.z > 0.02 ? <circle cx={son.x} cy={son.y} r={s < 1 ? 6 : 9} fill={s < 1 ? palet.murekkep : palet.vurgu} stroke={palet.zemin} strokeWidth={2} /> : null}
+              </g>
+            );
+          })}
+        </svg>
+      </AbsoluteFill>
+      {maske && acik > 0 ? (
+        <AbsoluteFill style={{ clipPath: `circle(${maskeR.toFixed(1)}px at ${cx}px ${cy}px)` }}><Medya m={maske} /></AbsoluteFill>
+      ) : null}
+      {sayi || etiket ? (
+        <div style={{ position: 'absolute', left: W * 0.66, top: 0, bottom: 0, width: W * 0.3, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: g * (1 - acik) }}>
+          {sayi ? <RuloSayi v={v} boy={130} renk={okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep)} fontAd={font.baslik} agirlik={font.baslikAgirlik} ek={birim} /> : null}
+          {etiket ? <div style={{ marginTop: 12, fontFamily: font.govde, fontWeight: 800, fontSize: 44, lineHeight: 1.15, letterSpacing: 3, color: palet.murekkep, textTransform: 'uppercase' }}>{etiket}</div> : null}
+        </div>
       ) : null}
     </AbsoluteFill>
   );

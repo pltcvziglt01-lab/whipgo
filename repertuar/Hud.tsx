@@ -7,7 +7,7 @@ import { OKUNUR, Stil, egri, ilerle, karistir, rgba, siganBoyut, sinirla, yay } 
 // Deger animasyonu: baslangic -> deger, 'sure' saniyede (kamera hareketiyle es zamanli kullanilir).
 // Opus galerisi (envanter/opus-galeri/teknikler.json): bolum-cetveli (17 video), hayalet-yil (9), belge-tarama-isigi (5)
 export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi', 'haber-bandi', 'belge-sekmesi',
-  'bolum-cetveli', 'hayalet-yil', 'belge-tarama-isigi'] as const;
+  'bolum-cetveli', 'hayalet-yil', 'belge-tarama-isigi', 'dergi-cercevesi'] as const;
 export type HudTip = typeof HUD_TIPLERI[number];
 
 const kose = (renk: string, k = 22, c = 3): React.CSSProperties[] => [
@@ -267,6 +267,34 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
                 <span>{etiket}</span>{ust ? <><span style={{ opacity: 0.6 }}>·</span><span style={{ fontWeight: 700 }}>{ust}</span></> : null}
               </div>
             </div>
+          ) : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'dergi-cercevesi': {
+      // galeri (14 video): sabit editoryal cerceve. Kenar bantlari palet zemininde (yan bosluk %6), icerik cercevenin icinde
+      // 'sayfa' gibi degisir. Ust cizgi + solda yayin adi (ust), ortada bolum etiketi (etiket), sagda sayfa no (baslangic ->
+      // deger rulo); alt cizgi + kunye satiri (birim). Cizgiler merkezden disa acilir; yazilar >= 36 px, zeminde 4,5:1.
+      const yan = Math.round(W * 0.06), ustB = 118, altB = 104;
+      const ac = yay(sinirla((f - gec) / (fps * 0.55)));
+      const yz = yay(sinirla((f - gec - fps * 0.25) / (fps * 0.45)));
+      const sayfa = Math.round(baslangic + (deger - baslangic) * yay(sinirla((f - gec - fps * 0.3) / (fps * 0.6))));
+      const ink = palet.murekkep;
+      const bilgi: React.CSSProperties = { fontFamily: font.govde, fontWeight: 800, fontSize: OKUNUR.enaz + 2, letterSpacing: 4, color: ink, textTransform: 'uppercase', whiteSpace: 'nowrap',
+        opacity: yz, transform: `translateY(${((1 - yz) * 10).toFixed(1)}px)` };
+      const kesik = `polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 ${ustB}px, ${yan}px ${ustB}px, ${yan}px ${H - altB}px, ${W - yan}px ${H - altB}px, ${W - yan}px ${ustB}px, 0 ${ustB}px)`;
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <AbsoluteFill style={{ background: palet.zemin, clipPath: kesik }} />
+          <div style={{ position: 'absolute', left: yan, right: yan, top: ustB - 14, height: 3, background: ink, transform: `scaleX(${ac})` }} />
+          <div style={{ position: 'absolute', left: yan, right: yan, top: H - altB + 12, height: 2, background: rgba(ink, 0.7), transform: `scaleX(${ac})` }} />
+          <div style={{ position: 'absolute', left: yan, right: yan, top: 34, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={bilgi}>{ust}</div>
+            <div style={{ ...bilgi, display: 'flex', alignItems: 'center', gap: 14 }}>{etiket ? <div style={{ width: 16, height: 16, background: renk }} /> : null}{etiket}</div>
+            <div style={{ ...bilgi, fontFamily: font.mono, fontWeight: 700, fontSize: OKUNUR.ikincil, letterSpacing: 2, fontVariantNumeric: 'tabular-nums' }}>{deger ? String(sayfa).padStart(2, '0') : ''}</div>
+          </div>
+          {birim ? (
+            <div style={{ position: 'absolute', left: yan, right: yan, top: H - altB + 26, height: 56, display: 'flex', alignItems: 'center', ...bilgi, fontWeight: 700, letterSpacing: 2, textTransform: 'none', color: rgba(ink, 0.8) }}>{birim}</div>
           ) : null}
         </AbsoluteFill>
       );

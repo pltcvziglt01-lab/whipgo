@@ -13,6 +13,8 @@ Sıra: **rakip kaynak türü** (`rakip-kaynak-analizi.md`) → **kaynak strateji
   - kurallar: AI etiketi, sentetik içerik beyanı, lisans, yüz/yazı/logo.
 - Oranın kuralı: rakibin karışımı korunur. Gerçek olay anlatan kanalda AI payı rakibinkini geçmez. Rakipte video yoksa en az %5 hareketli kaynak konur (durgunluğu kırmak için).
 
+**Oran zorunlu (kullanıcı kuralı, 2026-11-25):** rakip ne kadar video, ne kadar görsel, ne kadar kart kullanıyorsa kurgu ona göre kurulur. `kurgu_denetim.py` her planda `kaynak.hedef`'i okur, video / görsel / kart süre payını ölçer; sapma FAIL'dir, render yapılmaz. Kartın altına konan video sayılmaz (kart zemini bulanıklaşır). Video, medyası görünen bir çekim olarak girmelidir.
+
 ## 2. Kaynak türüne göre araç
 | Sahne | Kaynak | Araç |
 |---|---|---|

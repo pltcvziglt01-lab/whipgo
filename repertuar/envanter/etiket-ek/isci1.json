@@ -1,0 +1,33 @@
+{
+  "_aciklama": "Isci 1 etiket onerisi: Opus galerisi 2. tur gecisleri (repertuar/Gecis.tsx). etiketler.json'a ve stil_dna.py GECIS_AILE'ye ana oturum birlestirir. Parcacik ve glitch ailesi (parcacik-toplanma, piksel-merdiven-silme) galeri yasagi geregi yalniz enerjik ton.",
+  "gecis": {
+    "parcacik-toplanma": { "ton": ["enerjik"], "konu": ["teknoloji", "bilim", "oyun", "gizem"], "enerji": 4, "his": ["modern", "dinamik", "neon"], "kaynak": ["opus-galeri"] },
+    "renk-zemin-kelime-darbesi": { "ton": ["enerjik"], "konu": ["teknoloji", "finans", "haber", "liste"], "enerji": 4, "his": ["dinamik", "modern"], "kaynak": ["opus-galeri"] },
+    "sayfa-cevirme-golge": { "ton": ["sakin", "ciddi"], "konu": ["egitim", "finans", "haber", "biyografi", "tarih"], "enerji": 2, "his": ["temiz", "resmi", "belgesel"], "kaynak": ["opus-galeri"] },
+    "kolaj-geri-cekilme": { "ton": ["enerjik", "ciddi"], "konu": ["tarih", "egitim", "biyografi", "liste"], "enerji": 3, "his": ["modern", "dinamik", "belgesel"], "kaynak": ["opus-galeri"] },
+    "yirtik-kagit": { "ton": ["sakin", "ciddi"], "konu": ["tarih", "biyografi", "egitim", "seyahat"], "enerji": 2, "his": ["sicak", "arsiv", "belgesel"], "kaynak": ["opus-galeri"] },
+    "murekkep-duman-ortusu": { "ton": ["ciddi", "gizem", "sakin"], "konu": ["tarih", "biyografi", "felsefe", "gizem"], "enerji": 2, "his": ["sinematik", "arsiv", "karanlik"], "kaynak": ["opus-galeri"] },
+    "ekran-icinde-ekran": { "ton": ["enerjik", "gizem"], "konu": ["egitim", "teknoloji", "eglence", "gizem"], "enerji": 3, "his": ["modern", "oyunbaz", "dinamik"], "kaynak": ["opus-galeri"] },
+    "harfe-dalis": { "ton": ["enerjik", "ciddi"], "konu": ["felsefe", "egitim", "haber", "teknoloji"], "enerji": 4, "his": ["modern", "dinamik"], "kaynak": ["opus-galeri"] },
+    "egik-cift-serit": { "ton": ["enerjik"], "konu": ["teknoloji", "finans", "spor", "otomotiv"], "enerji": 4, "his": ["modern", "dinamik"], "kaynak": ["opus-galeri"] },
+    "nesneden-daire-tasmasi": { "ton": ["enerjik", "ciddi"], "konu": ["teknoloji", "finans", "egitim"], "enerji": 3, "his": ["modern", "temiz"], "kaynak": ["opus-galeri"] },
+    "tunel": { "ton": ["enerjik", "gizem"], "konu": ["teknoloji", "bilim", "gizem", "oyun"], "enerji": 4, "his": ["neon", "dinamik"], "kaynak": ["opus-galeri"] },
+    "isik-seridi-supurme": { "ton": ["enerjik", "gizem"], "konu": ["teknoloji", "bilim"], "enerji": 3, "his": ["sinematik", "neon"], "kaynak": ["opus-galeri"] },
+    "piksel-merdiven-silme": { "ton": ["enerjik"], "konu": ["teknoloji", "oyun", "haber"], "enerji": 3, "his": ["retro", "modern"], "kaynak": ["opus-galeri"] }
+  },
+  "_aile": {
+    "parcacik-toplanma": "maske",
+    "renk-zemin-kelime-darbesi": "flas",
+    "sayfa-cevirme-golge": "hareket",
+    "kolaj-geri-cekilme": "zoom",
+    "yirtik-kagit": "maske",
+    "murekkep-duman-ortusu": "maske",
+    "ekran-icinde-ekran": "zoom",
+    "harfe-dalis": "zoom",
+    "egik-cift-serit": "maske",
+    "nesneden-daire-tasmasi": "maske",
+    "tunel": "zoom",
+    "isik-seridi-supurme": "tv",
+    "piksel-merdiven-silme": "glitch"
+  }
+}

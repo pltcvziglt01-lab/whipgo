@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { DiziSahne, GecisTip, GecisliDizi } from './Gecis';
-import { Alinti, AlintiTip, AltBant, AltBantKonum, AltBantTip, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
+import { Alinti, AlintiTip, AltBant, AltBantKonum, AltBantTip, Karsilastirma, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
 import { Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
 import { HareketAd, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
@@ -31,6 +31,16 @@ export type Dna = {
   ton?: string;
   /** ikinci baslik girisi: ardisik kartlar donusumlu (yoksa hep baslik) */
   baslik2?: BaslikTip;
+  /** tur ici ikinci varyantlar (stil_dna.py): ayni turden ardisik kartlar donusumlu kullanir (dnaVaryant). Yoksa hep ilk varyant. */
+  sayi2?: SayiTip; alinti2?: AlintiTip; liste2?: ListeTip; zaman2?: ZamanTip; grafik2?: GrafikTip;
+};
+/** tur ici varyant ekseni -> ikinci varyant alani. VideoDna her turun kacinci kart oldugunu (sira) sayar; tek siradaki kart
+ *  ikinci varyanti alir (baslik/baslik2 gibi). kurgu_denetim.py ayni kurali taklit eder (VARYANT_EKSEN). */
+export const VARYANT_EKSEN = ['sayi', 'alinti', 'liste', 'zaman', 'grafik'] as const;
+export type VaryantEksen = typeof VARYANT_EKSEN[number];
+export const dnaVaryant = (d: Dna, eksen: VaryantEksen, sira: number): Dna => {
+  const v2 = (d as any)[eksen + '2'];
+  return sira % 2 && v2 && v2 !== (d as any)[eksen] ? ({ ...d, [eksen]: v2 } as Dna) : d;
 };
 // ton Stil'e gecer: ciddi/gizem tonda dogal yay asimsiz (temel.ts ASIMSIZ_TON)
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum, d.ton);
@@ -117,11 +127,34 @@ export const cerceveSec = (dna: Dna, sira: number): CerceveTip => {
 
 /** medya sahnesi: sira numarasina gore tam ekran / cerceveli karar verir (cerceveSec), kamerayi dongusuz secer.
  *  odak: odak-karartma penceresi [x, y, gen, yuk] (0..1; verilmezse ortadaki dikey pencere) */
-export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; sira: number; etiket?: string; zorla?: CerceveTip; odak?: [number, number, number, number] }> = ({ dna, m, m2, m3, sira, etiket, zorla, odak }) => {
-  const { tip: kamera, hiz } = kameraSec(dna, sira);
+/** bolum muamelesi (VideoDna): ofset = ayni cerceve blogunun basindan beri gecen kare (giris tekrar oynamaz), tempo = kamera hiz
+ *  carpani, arkaplanRol = cerceveli medyanin arkasindaki DNA zemini, imza = bu cekimde imza efekt (zoom-darbe kamera) serbest.
+ *  zoom-darbe (imza) imza noktasi disinda ken-burns-ice'e duser (efekt butcesi). */
+export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; sira: number; etiket?: string; zorla?: CerceveTip; odak?: [number, number, number, number];
+  ofset?: number; tempo?: number; arkaplanRol?: number; imza?: boolean }> = ({ dna, m, m2, m3, sira, etiket, zorla, odak, ofset, tempo = 1, arkaplanRol = 1, imza = true }) => {
+  const s = kameraSec(dna, sira);
+  const kamera: KameraTip = s.tip === 'zoom-darbe' && !imza ? 'ken-burns-ice' : s.tip;
   const tip: CerceveTip = zorla || cerceveSec(dna, sira);
-  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} odak={odak} />;
+  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={s.hiz * tempo} stil={dnaStil(dna)} arkaplan={dna.arkaplan[arkaplanRol % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} odak={odak} ofset={ofset} />;
 };
+
+/** EFEKT BUTCESI (video basina): imza efektler anlama baglanir (bolum acilisi, doruk, sayi aciklamasi), duzgun aralikli rastgele
+ *  dagilmaz. enCok: video basina en cok giris; dakikada: dakika basina tavan (yukari yuvarlanir); araSn: iki kullanim arasi en az.
+ *  Uygulayan: sahne_zengin.py (plan: vurus, cerceve bloklari, letterbox bolumu) + VideoDna gecisPlaniVideo (imza gecisler).
+ *  Denetleyen: kurgu_denetim.py 'efekt butcesi' (asim = FAIL). */
+export const EFEKT_BUTCE = {
+  letterbox: { enCok: 2, araSn: 120 },
+  cerceveGiris: { dakikada: 1.5, araSn: 12 },
+  vurus: { dakikada: 1.5, araSn: 12 },
+  imzaGecis: { dakikada: 1, araSn: 25 },
+  zoomDarbe: { dakikada: 1, araSn: 25 },
+};
+/** imza gecisler (gorunur 'efekt'; butceye tabi). filmburn:* (gercek film yanigi) de imzadir. */
+export const IMZA_GECIS = ['isik-patlamasi', 'film-yanigi', 'glitch-rgb', 'zoom-darbe', 'nesne-dalisi', 'tv-kapanma', 'tunel', 'harfe-dalis',
+  'renk-zemin-kelime-darbesi', 'piksel-merdiven-silme', 'parcacik-toplanma', 'isik-seridi-supurme'];
+export const imzaGecisMi = (t: string) => t.startsWith('filmburn') || IMZA_GECIS.includes(t);
+/** iki yumusak gecis arasi en az (sn): kisa cekim dizisinde araya sert kesim girer (v4: 124 gecisin 23'u < 1,5 sn arayla) */
+export const YUMUSAK_ARA_SN = 2;
 
 /** arkaplanli=false (medya ustu): baslik koyu konturlu + golgeli cizilir ve guvenli alanin tamamini (1720 px) kullanabilir */
 export const DnaBaslik: React.FC<{ dna: Dna; metin: string; ust?: string; konum?: Konum; boyut?: number; arkaplanli?: boolean; sira?: number }> = ({ dna, metin, ust, konum, boyut, arkaplanli = true, sira = 0 }) => (
@@ -141,9 +174,11 @@ export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUs
 /** sayi karti. kaynak verilirse zemin O CEKIMIN goruntusudur (bulanik + koyulastirilmis/palet tonuna yikanmis, karta ters yonde
  *  yavas kayar -> parallax): her sayi karti kendi sahnesinin rengini tasir, ayni sablon tekrar etmez. kaynak yoksa DNA arka plani. */
 export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (
-  <AbsoluteFill>{kaynak ? <SayiZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={0} />}<SayiKarti tip={dna.sayi} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
+  <AbsoluteFill>{kaynak ? <DnaKaynakZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={0} />}<SayiKarti tip={dna.sayi} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );
-const SayiZemin: React.FC<{ dna: Dna; m: MedyaKaynak }> = ({ dna, m }) => {
+/** kaynak zemini: cekimin kendi goruntusu bulanik + palet tonuna yikanmis, yavas parallax. Bilgi kartlari (sayi, liste, zaman,
+ *  karsilastirma, kelime 'zemin' yerlesimi) bunu kullanir: kart sahnenin rengini tasir, soyut "sablon" zemini gibi durmaz. */
+export const DnaKaynakZemin: React.FC<{ dna: Dna; m: MedyaKaynak }> = ({ dna, m }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet } = dnaStil(dna);
@@ -163,11 +198,12 @@ const SayiZemin: React.FC<{ dna: Dna; m: MedyaKaynak }> = ({ dna, m }) => {
 export const DnaAlinti: React.FC<{ dna: Dna; metin: string; kim?: string }> = ({ dna, ...p }) => (
   <AbsoluteFill><DnaArkaplan dna={dna} rol={1} /><Alinti tip={dna.alinti} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );
-export const DnaListe: React.FC<{ dna: Dna; baslik?: string; maddeler: string[] }> = ({ dna, ...p }) => (
-  <AbsoluteFill><DnaArkaplan dna={dna} rol={0} /><Liste tip={dna.liste} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
+/** kaynak verilirse zemin o cekimin goruntusu (DnaKaynakZemin); yoksa DNA arka plani */
+export const DnaListe: React.FC<{ dna: Dna; baslik?: string; maddeler: string[]; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (
+  <AbsoluteFill>{kaynak ? <DnaKaynakZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={0} />}<Liste tip={dna.liste} stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );
-export const DnaZaman: React.FC<{ dna: Dna; adimlar: { yil: string; yazi: string }[] }> = ({ dna, adimlar }) => (
-  <AbsoluteFill><DnaArkaplan dna={dna} rol={2} /><ZamanCizelgesi tip={dna.zaman} adimlar={adimlar} stil={dnaStil(dna)} /></AbsoluteFill>
+export const DnaZaman: React.FC<{ dna: Dna; adimlar: { yil: string; yazi: string }[]; kaynak?: MedyaKaynak }> = ({ dna, adimlar, kaynak }) => (
+  <AbsoluteFill>{kaynak ? <DnaKaynakZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={2} />}<ZamanCizelgesi tip={dna.zaman} adimlar={adimlar} stil={dnaStil(dna)} /></AbsoluteFill>
 );
 /** tum videonun ustune: DNA'nin dokulari (0-2 adet) */
 /** vurgu: presetler = varlik/preset-dili-remotion.json (video kodunda import edilir). sira ile DNA'nin vurgu listesi doner */
@@ -182,8 +218,8 @@ export const DnaGiris: React.FC<{ dna: Dna; presetler?: PresetVeri[]; gec?: numb
 };
 export const DnaDoku: React.FC<{ dna: Dna }> = ({ dna }) => <>{dna.doku.map((d) => <Doku key={d} tip={d} stil={dnaStil(dna)} />)}</>;
 /** sahne dizisi: gecis tipleri DNA'dan, sure ve siklik iskeletten (rakibin olculmus degerleri) */
-export const DnaDizi: React.FC<{ dna: Dna; sahneler: DiziSahne[]; yumusakOran?: number }> = ({ dna, sahneler, yumusakOran }) => (
-  <GecisliDizi sahneler={sahneler} gecis={dna.gecis} kare={dna.iskelet.gecis_kare} yumusakOran={yumusakOran ?? dna.iskelet.yumusak_oran} stil={dnaStil(dna)} tohum={dna.tohum} zemin={<DnaArkaplan dna={dna} rol={1} />} />
+export const DnaDizi: React.FC<{ dna: Dna; sahneler: DiziSahne[]; yumusakOran?: number; plan?: GecisTip[] }> = ({ dna, sahneler, yumusakOran, plan }) => (
+  <GecisliDizi sahneler={sahneler} gecis={dna.gecis} kare={dna.iskelet.gecis_kare} yumusakOran={yumusakOran ?? dna.iskelet.yumusak_oran} stil={dnaStil(dna)} tohum={dna.tohum} zemin={<DnaArkaplan dna={dna} rol={1} />} plan={plan} />
 );
 
 /** tum videoyu sarar: <DnaBitis dna={dna} anlar={[bolum basi kareleri]}> ...DnaDizi, DnaDoku, DnaAltyazi... </DnaBitis> */
@@ -215,4 +251,8 @@ export const DnaHud: React.FC<{ dna: Dna; tip?: HudTip; deger?: number; baslangi
  *  Tek donemlik veri icin DnaGrafik (dna.grafik = 'cubuk-yarisi') yeter. */
 export const DnaYaris: React.FC<{ dna: Dna; seriler: YarisSeri[]; donemler?: string[]; baslik?: string; birim?: string; vurgu?: string; adimSn?: number }> = ({ dna, ...p }) => (
   <CubukYarisi stil={dnaStil(dna)} {...p} />
+);
+/** iki deger karsilastirmasi (ayni birim): kaynak zemini ya da DNA arka plani ustunde iki sutun */
+export const DnaKarsilastirma: React.FC<{ dna: Dna; sol: { ad: string; deger: number }; sag: { ad: string; deger: number }; birim?: string; onEk?: string; baslik?: string; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (
+  <AbsoluteFill>{kaynak ? <DnaKaynakZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={0} />}<Karsilastirma stil={dnaStil(dna)} {...p} /></AbsoluteFill>
 );

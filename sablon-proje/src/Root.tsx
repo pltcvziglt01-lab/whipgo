@@ -2,6 +2,7 @@ import { KatIsci1 } from './kat/KatIsci1';
 import { KatIsci2 } from './kat/KatIsci2';
 import { KatIsci3 } from './kat/KatIsci3';
 import { KatIsci4 } from './kat/KatIsci4';
+import { KATSES_SURE, KatSes } from './kat/KatSes';
 import { VideoDna } from './VideoDna';
 import React from 'react';
 import { AbsoluteFill, Composition } from 'remotion';
@@ -189,5 +190,6 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="KatIsci2" component={KatIsci2} durationInFrames={150} fps={30} width={1920} height={1080} />
       <Composition id="KatIsci3" component={KatIsci3} durationInFrames={150} fps={30} width={1920} height={1080} />
       <Composition id="KatIsci4" component={KatIsci4} durationInFrames={150} fps={30} width={1920} height={1080} />
+      <Composition id="KatSes" component={KatSes as any} durationInFrames={KATSES_SURE} fps={30} width={1920} height={1080} defaultProps={{ ton: 'ciddi', tohum: 'katses' }} />
   </>
 );

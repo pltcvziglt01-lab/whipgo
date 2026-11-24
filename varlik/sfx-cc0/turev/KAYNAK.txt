@@ -1,0 +1,4 @@
+Bu klasordeki dosyalar CC0-1.0 seslerden turetildi (perde kaydirma, +0/+2/+4/+5/+7/+9 yari ton): kaynaklar
+sfx-cc0/sfx-kit (github.com/wyzowl/sfx-kit, CC0) ve sfx-cc0/uisfx (github.com/romainsimon/uisfx, sesler CC0).
+Uretim: py skill/youtube-video-uretim/scripts/sfx_olc.py --turev  (tanimlar: repertuar/sfx-kutuphane.json "turev").
+Lisans: CC0-1.0 (atif gerekmez).

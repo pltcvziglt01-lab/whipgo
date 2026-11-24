@@ -1,0 +1,40 @@
+{
+  "_aciklama": "Isci 4 etiket onerisi (Opus 5.5 galerisi, repertuar/envanter/opus-galeri/teknikler.json). Ana oturum etiketler.json'a birlestirir. 'klasik' his'i kullanilmadi (stil_dna onu secmez); tarifteki klasik -> temiz/arsiv/resmi. Yeni eksenler: sahne (Sahne.tsx SAHNE_TIPLERI), vurus (Vurus.tsx VURUS_TIPLERI).",
+  "sahne": {
+    "cizim-dolgu": {"ton": ["sakin", "ciddi", "enerjik"], "konu": ["muhendislik", "tarih", "egitim", "bilim", "saglik"], "enerji": 2, "his": ["temiz", "sicak", "belgesel"], "kaynak": ["opus-galeri"]},
+    "birikimli-sahne": {"ton": ["sakin", "enerjik", "ciddi"], "konu": ["muhendislik", "tarih", "egitim", "bilim", "biyografi"], "enerji": 2, "his": ["sicak", "oyunbaz", "temiz"], "kaynak": ["opus-galeri"]},
+    "patlatilmis-gorunum": {"ton": ["ciddi", "sakin"], "konu": ["muhendislik", "askeri", "otomotiv", "bilim"], "enerji": 2, "his": ["teknik", "temiz"], "kaynak": ["opus-galeri"]},
+    "siluet-katman": {"ton": ["ciddi", "sakin"], "konu": ["tarih", "biyografi", "askeri", "deniz"], "enerji": 1, "his": ["arsiv", "sinematik", "retro"], "kaynak": ["opus-galeri"]},
+    "stil-dongusu": {"ton": ["enerjik"], "konu": ["eglence", "egitim"], "enerji": 4, "his": ["oyunbaz", "dinamik"], "kaynak": ["opus-galeri"]},
+    "kart-yelpaze-dagilma": {"ton": ["sakin", "enerjik"], "konu": ["biyografi", "tarih", "liste"], "enerji": 2, "his": ["arsiv", "modern"], "kaynak": ["opus-galeri"]},
+    "egik-kart-akisi": {"ton": ["ciddi", "enerjik"], "konu": ["haber", "tarih", "suc", "finans"], "enerji": 3, "his": ["modern", "arsiv", "dinamik"], "kaynak": ["opus-galeri"]},
+    "karsitlik-paneli": {"ton": ["ciddi", "enerjik"], "konu": ["tarih", "haber", "askeri", "spor", "biyografi"], "enerji": 3, "his": ["resmi", "belgesel", "modern"], "kaynak": ["opus-galeri"]},
+    "kalici-bag-nesnesi": {"ton": ["ciddi", "enerjik", "gizem"], "konu": ["teknoloji", "bilim", "finans", "tarih"], "enerji": 3, "his": ["modern", "sinematik", "teknik"], "kaynak": ["opus-galeri"]},
+    "spot-konisi": {"ton": ["gizem", "ciddi"], "konu": ["gizem", "suc", "korku", "tarih"], "enerji": 1, "his": ["karanlik", "sinematik"], "kaynak": ["opus-galeri"]}
+  },
+  "grafik": {
+    "meclis-yarim-daire": {"ton": ["ciddi", "sakin"], "konu": ["haber", "tarih", "biyografi", "finans"], "enerji": 2, "his": ["resmi", "temiz", "belgesel"], "kaynak": ["opus-galeri"]},
+    "ag-buyume": {"ton": ["ciddi", "gizem", "sakin"], "konu": ["teknoloji", "suc", "finans", "haber", "bilim"], "enerji": 2, "his": ["teknik", "modern", "karanlik"], "kaynak": ["opus-galeri"]},
+    "dongu-semasi": {"ton": ["ciddi", "enerjik"], "konu": ["teknoloji", "finans", "bilim", "egitim"], "enerji": 3, "his": ["teknik", "modern"], "kaynak": ["opus-galeri"]},
+    "iliski-cipleri": {"ton": ["ciddi", "sakin"], "konu": ["tarih", "haber", "biyografi", "suc"], "enerji": 2, "his": ["resmi", "temiz", "belgesel"], "kaynak": ["opus-galeri"]}
+  },
+  "harita": {
+    "dunya-haritasi-yakinlasma": {"ton": ["ciddi", "sakin", "enerjik"], "konu": ["haber", "tarih", "seyahat", "finans", "askeri"], "enerji": 2, "his": ["temiz", "modern", "belgesel"], "kaynak": ["opus-galeri"]},
+    "nokta-kure": {"ton": ["ciddi", "enerjik"], "konu": ["haber", "teknoloji", "finans", "seyahat"], "enerji": 3, "his": ["modern", "teknik"], "kaynak": ["opus-galeri"]}
+  },
+  "hud": {
+    "dergi-cercevesi": {"ton": ["sakin", "ciddi"], "konu": ["egitim", "finans", "haber", "biyografi"], "enerji": 1, "his": ["resmi", "temiz", "arsiv"], "kaynak": ["opus-galeri"]}
+  },
+  "doku": {
+    "gun-gece-renk": {"ton": ["sakin", "ciddi", "gizem"], "konu": ["tarih", "seyahat", "biyografi", "muhendislik"], "enerji": 2, "his": ["sinematik", "sicak", "belgesel"], "kaynak": ["opus-galeri"]},
+    "gri-ton-damga": {"ton": ["ciddi", "enerjik"], "konu": ["tarih", "haber", "saglik", "askeri", "muhendislik"], "enerji": 3, "his": ["belgesel", "dinamik"], "kaynak": ["opus-galeri"]}
+  },
+  "kamera": {
+    "olcek-yolculugu": {"ton": ["sakin", "gizem", "ciddi"], "konu": ["bilim", "egitim", "seyahat", "muhendislik"], "enerji": 2, "his": ["sinematik", "karanlik", "belgesel"], "kaynak": ["opus-galeri"]}
+  },
+  "vurus": {
+    "_not": "darbe = mevcut Vurus paketi (seviyesi tondan, vurusSeviye); sakin tonda seviye 0 oldugu icin ton listesinde yok.",
+    "darbe": {"ton": ["ciddi", "gizem", "enerjik"], "konu": ["askeri", "spor", "oyun", "teknoloji", "haber", "suc"], "enerji": 4, "his": ["dinamik", "sinematik"], "kaynak": ["givemotion"]},
+    "kilometre-tasi-halka": {"ton": ["enerjik", "ciddi"], "konu": ["teknoloji", "tarih", "spor"], "enerji": 4, "his": ["dinamik", "teknik"], "kaynak": ["opus-galeri"]}
+  }
+}

@@ -1,12 +1,16 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, okunurVurgu, rgba, siganBoyut, sinirla, yay } from './temel';
+import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, kayma, kontrast, okunurVurgu, rastgele, rgba, siganBoyut, sinirla, yay } from './temel';
+import { YonBulanik } from './Hareket';
 
 // GRAFIK — veri animasyonlari. Ogrenildigi kanallar: @TheUnreturned-b2k (koyu panelde cizilen cizgi grafik),
 // @ImmersivePast (eleme izgarasi: 1.171 -> 36 -> 2 kucuk siluet). Hepsi palete bagli; panel zemini paletin koyu tonundan.
 // Opus galerisi (repertuar/envanter/opus-galeri/teknikler.json, oncelik 3): cubuk-trend (24 video), nokta-oran-izgarasi (9),
 // cubuk-yarisi (7). Uc tip de DnaGrafik (veriler + etiketler) ile cizilebilir; cok donemli yaris icin DnaYaris (Dna.tsx).
-export const GRAFIK_TIPLERI = ['cizgi-isik', 'alan-dolgu', 'basamak', 'eleme-izgara', 'cubuk-trend', 'nokta-oran-izgarasi', 'cubuk-yarisi'] as const;
+// Ikinci galeri dalgasi: meclis-yarim-daire (2), ag-buyume (19), dongu-semasi (2), iliski-cipleri (1). DnaGrafik'in tek seri
+// girdisinden de cizilir (CizgiGrafik yonlendirmesi); tam denetim icin ayri bilesenler: MeclisYarimDaire, AgBuyume, DonguSemasi, IliskiCipleri.
+export const GRAFIK_TIPLERI = ['cizgi-isik', 'alan-dolgu', 'basamak', 'eleme-izgara', 'cubuk-trend', 'nokta-oran-izgarasi', 'cubuk-yarisi',
+  'meclis-yarim-daire', 'ag-buyume', 'dongu-semasi', 'iliski-cipleri'] as const;
 export type GrafikTip = typeof GRAFIK_TIPLERI[number];
 
 const kisa = (v: number) => (Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Math.abs(v) >= 1e4 ? Math.round(v / 1e3) + 'K' : Math.round(v).toLocaleString('en-US'));
@@ -17,6 +21,10 @@ type TekSeriProps = { stil: Stil; veriler: number[]; etiketler?: string[]; basli
 export const CizgiGrafik: React.FC<TekSeriProps & { tip: Exclude<GrafikTip, 'eleme-izgara'> }> = ({ tip, ...p }) => {
   if (tip === 'cubuk-trend') return <CubukTrend {...p} />;
   if (tip === 'nokta-oran-izgarasi') return <NoktaOran {...p} />;
+  if (tip === 'meclis-yarim-daire') return <MeclisYarimDaire stil={p.stil} baslik={p.baslik} gec={p.gec} gruplar={p.veriler.map((v, i) => ({ ad: p.etiketler?.[i] ?? `#${i + 1}`, sayi: v }))} />;
+  if (tip === 'ag-buyume') return <AgBuyume stil={p.stil} baslik={p.baslik} gec={p.gec} sure={p.sure} dugumler={p.veriler.length >= 3 ? p.veriler.map((v, i) => ({ ad: p.etiketler?.[i], skor: v })) : undefined} />;
+  if (tip === 'dongu-semasi') return <DonguSemasi stil={p.stil} baslik={p.baslik} gec={p.gec} dugumler={p.etiketler?.length ? p.etiketler.slice(0, 3) : ['A', 'B', 'C']} turlar={p.veriler[0] ? Math.round(p.veriler[0]) : 3} />;
+  if (tip === 'iliski-cipleri') return <IliskiCipleri stil={p.stil} gec={p.gec} cipler={p.etiketler?.length ? p.etiketler.slice(0, 3) : ['A', 'B']} aciklama={p.baslik ? [p.baslik] : []} />;
   if (tip === 'cubuk-yarisi') {
     const seriler = p.veriler.map((v, i) => ({ ad: p.etiketler?.[i] ?? `#${i + 1}`, degerler: [v] }));
     return <CubukYarisi stil={p.stil} seriler={seriler} baslik={p.baslik} birim={p.birim} gec={p.gec} />;
@@ -382,6 +390,313 @@ export const CubukYarisi: React.FC<{ stil: Stil; seriler: YarisSeri[]; donemler?
             </div>
           );
         })}
+      </Nefes>
+    </AbsoluteFill>
+  );
+};
+
+// ---------------- Opus galerisi, ikinci dalga ----------------
+const ilr = (f: number, bas: number, sure: number) => sinirla((f - bas) / Math.max(1, sure));
+/** dolgu uzerinde okunur yazi rengi: beyaz ya da koyu (hangisi daha zitsa) */
+const dolguYazi = (dolgu: string) => (kontrast('#ffffff', dolgu) >= kontrast('#141414', dolgu) ? '#ffffff' : '#141414');
+
+/** MECLIS YARIM DAIRE (galeri: 2 video): N koltuk es merkezli yarim daire siralarinda nokta (cercevenin ~%45'i), ortada buyuk
+ *  toplam. Once tum noktalar gri hayalet (0,5 sn), sonra her grup acisal sirayla nokta nokta boyanir (kucuk grup 6 kare,
+ *  buyuk 10 kare), en son lejant (renk karesi + ad + sayi) solar. Renk: vurgu grubu (varsayilan en buyuk) palet.vurgu, digerleri
+ *  notr murekkep rampasi (tek doygun vurgu); grup.renk elle verilebilir. Secim, oylama, bolunme, meclis anlatimi. */
+export type MeclisGrup = { ad: string; sayi: number; renk?: string };
+export const MeclisYarimDaire: React.FC<{ stil: Stil; gruplar: MeclisGrup[]; baslik?: string; vurgu?: number; gec?: number; birim?: string }> = ({ stil, gruplar, baslik, vurgu, gec = 6, birim = '' }) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const P = panelRenk(stil);
+  const gs = gruplar.filter((g) => g.sayi > 0).map((g) => ({ ...g, sayi: Math.round(g.sayi) }));
+  const N = Math.max(1, Math.min(800, gs.reduce((a, g) => a + g.sayi, 0)));
+  const vi = vurgu ?? gs.reduce((b, g, i) => (g.sayi > gs[b].sayi ? i : b), 0);
+  const notr = gs.map((_, i) => i).filter((i) => i !== vi);
+  const renk = (i: number) => gs[i].renk || (i === vi ? palet.vurgu : karistir(palet.murekkep, P.zemin, 0.12 + 0.55 * (notr.indexOf(i) / Math.max(1, notr.length))));
+  // koltuk yerlesimi: satir sayisi ~ sqrt(0,273 N); satir basina koltuk yaricapla orantili
+  const S = Math.max(2, Math.round(Math.sqrt(0.273 * N)));
+  const r0 = 0.45, R = W * 0.235, cx = W / 2, cy = H * 0.7;
+  const yr = Array.from({ length: S }, (_, k) => r0 + ((1 - r0) * k) / (S - 1));
+  const top = yr.reduce((a, b) => a + b, 0);
+  const adet = yr.map((r) => Math.max(1, Math.round((N * r) / top)));
+  adet[S - 1] += N - adet.reduce((a, b) => a + b, 0);
+  const koltuk: { x: number; y: number; a: number }[] = [];
+  yr.forEach((r, k) => { for (let j = 0; j < adet[k]; j++) { const a = Math.PI * (1 - (adet[k] > 1 ? j / (adet[k] - 1) : 0.5)); koltuk.push({ x: cx + R * r * Math.cos(a), y: cy - R * r * Math.sin(a), a }); } });
+  koltuk.sort((p, q) => q.a - p.a);
+  const nr = (0.42 * (1 - r0) * R) / Math.max(1, S - 1);
+  // grup zamanlari: hayalet 0,5 sn, sonra sirayla
+  const hay = gec + fps * 0.5;
+  const sureG = gs.map((g) => Math.round(6 + 4 * sinirla((g.sayi / N - 0.05) / 0.4)));
+  const basG: number[] = [];
+  let tt = hay;
+  sureG.forEach((d, i) => { basG[i] = tt; tt += d + 2; });
+  const sahip: number[] = [];
+  let sira = 0;
+  gs.forEach((g, i) => { for (let k = 0; k < g.sayi; k++) sahip[sira++] = i; });
+  const ici: number[] = [];
+  const say: number[] = gs.map(() => 0);
+  sahip.forEach((g, k) => { ici[k] = say[g]++; });
+  const g0 = yay(ilr(f, gec - 6, fps * 0.4));
+  const leg = yay(ilr(f, tt + 4, fps * 0.45));
+  return (
+    <AbsoluteFill style={{ background: P.zemin }}>
+      <Nefes>
+        <GrafikBaslik stil={stil} metin={baslik} x={110} y={90} op={g0} renk={P.yazi} />
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+          {koltuk.map((q, k) => {
+            const g = sahip[k] ?? 0;
+            const hy = yay(ilr(f, gec + (1 - q.a / Math.PI) * fps * 0.25, fps * 0.3));
+            const b = sinirla((f - basG[g] - (ici[k] / Math.max(1, gs[g].sayi)) * sureG[g]) / 3);
+            return <circle key={k} cx={q.x} cy={q.y} r={nr} fill={b > 0 ? karistir(P.gri, renk(g), b) : P.gri} opacity={hy} />;
+          })}
+        </svg>
+        <div style={{ position: 'absolute', left: cx - 300, width: 600, top: cy - 116, textAlign: 'center', opacity: g0 }}>
+          <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: siganBoyut([String(N) + birim], 120, font.baslik, R * r0 * 1.7), lineHeight: 1, color: P.yazi, fontVariantNumeric: 'tabular-nums' }}>
+            {Math.round(N * egri('kubik-hizli', ilr(f, gec, fps * 0.5))).toLocaleString('en-US')}{birim}</div>
+        </div>
+        <div style={{ position: 'absolute', left: 0, right: 0, top: cy + 46, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '14px 46px', padding: '0 120px', opacity: leg, transform: `translateY(${(1 - leg) * 14}px)` }}>
+          {gs.map((g, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, fontFamily: font.govde, fontWeight: 800, fontSize: 40, color: P.yazi, whiteSpace: 'nowrap' }}>
+              <div style={{ width: 30, height: 30, background: renk(i), borderRadius: 4 }} />{g.ad}<span style={{ fontWeight: 700, color: i === vi ? P.vurguYazi : rgba(palet.murekkep, 0.7), fontVariantNumeric: 'tabular-nums' }}>{g.sayi}</span>
+            </div>
+          ))}
+        </div>
+      </Nefes>
+    </AbsoluteFill>
+  );
+};
+
+/** AG BUYUME (galeri: 19 video): dugumler tek tek belirir (once seyrek, sonra yogun; zaman ~ (i/n)^0,55), kenarlar ince cizgi
+ *  olarak cizilir, kenar boyunca kucuk halka darbeleri akar; dugum yaricapi skorla 1x -> 2,2x buyur. Sonda odak: yalniz iki
+ *  dugum (odak; varsayilan en yuksek iki skor) ve aralarindaki yol vurgu renginde, digerleri %40'a iner; adlari + skorlari
+ *  >= 40 px. dugumler: { ad, skor } (verilmezse n tohumlu dugum). Baglanti, etki agi, orgut semasi, ticaret agi. */
+export const AgBuyume: React.FC<{ stil: Stil; dugumler?: { ad?: string; skor?: number }[]; n?: number; odak?: [number, number]; baslik?: string; gec?: number; sure?: number }> = ({
+  stil, dugumler, n: nVer = 25, odak, baslik, gec = 6, sure = 3.2,
+}) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const P = panelRenk(stil);
+  const n = Math.max(3, Math.min(60, dugumler?.length || nVer));
+  const r = rastgele(stil.tohum + 'ag');
+  const ALTIN = Math.PI * (3 - Math.sqrt(5));
+  const cx = W * 0.5, cy = H * 0.56, RX = W * 0.36, RY = H * 0.33;
+  const dug = Array.from({ length: n }, (_, i) => {
+    const rr = Math.sqrt((i + 0.6) / n), a = i * ALTIN + r() * 0.5;
+    const skor = dugumler?.[i]?.skor ?? Math.round(5 + Math.pow(r(), 2.2) * 95);
+    return { x: cx + Math.cos(a) * rr * RX + (r() - 0.5) * 30, y: cy + Math.sin(a) * rr * RY + (r() - 0.5) * 24, skor, ad: dugumler?.[i]?.ad };
+  });
+  const mx = Math.max(1, ...dug.map((d) => d.skor));
+  const kenar: [number, number][] = [];
+  for (let i = 1; i < n; i++) {
+    const yak = Array.from({ length: i }, (_, j) => j).sort((a, b) => Math.hypot(dug[a].x - dug[i].x, dug[a].y - dug[i].y) - Math.hypot(dug[b].x - dug[i].x, dug[b].y - dug[i].y));
+    kenar.push([yak[0], i]);
+    if (yak[1] !== undefined && r() < 0.55) kenar.push([yak[1], i]);
+  }
+  const sirali = dug.map((_, i) => i).sort((a, b) => dug[b].skor - dug[a].skor);
+  const [o1, o2] = odak || [sirali[0], sirali[1]];
+  const gel = (i: number) => gec + fps * sure * Math.pow(i / n, 0.55);
+  const odakP = yay(ilr(f, gec + fps * sure + fps * 0.25, fps * 0.5));
+  const g0 = yay(ilr(f, gec - 6, fps * 0.4));
+  const sonuk = (i: number) => (i === o1 || i === o2 ? 1 : 1 - 0.6 * odakP);
+  // odak yolu: iki dugum arasi kenar varsa o, yoksa dogrudan ince vurgu cizgisi
+  const odakKenar = kenar.findIndex(([a, b]) => (a === o1 && b === o2) || (a === o2 && b === o1));
+  return (
+    <AbsoluteFill style={{ background: P.zemin }}>
+      <Nefes>
+        <GrafikBaslik stil={stil} metin={baslik} x={110} y={80} op={g0} renk={P.yazi} />
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+          {kenar.map(([a, b], k) => {
+            const p = yay(ilr(f, gel(b), fps * 0.3));
+            if (p <= 0) return null;
+            const A = dug[a], B = dug[b];
+            const op = 1 - 0.6 * odakP;
+            const L = Math.hypot(B.x - A.x, B.y - A.y);
+            const faz = ((f - gel(b)) / (fps * 1.6) + (k % 5) / 5) % 1;
+            const px = A.x + (B.x - A.x) * faz, py = A.y + (B.y - A.y) * faz;
+            return (
+              <g key={k} opacity={k === odakKenar ? 1 : op}>
+                <line x1={A.x} y1={A.y} x2={A.x + (B.x - A.x) * p} y2={A.y + (B.y - A.y) * p} stroke={rgba(palet.murekkep, 0.32)} strokeWidth={2} />
+                {p >= 1 && L > 60 ? <circle cx={px} cy={py} r={5 + 4 * Math.sin(Math.PI * faz)} fill="none" stroke={rgba(palet.murekkep, 0.55 * Math.sin(Math.PI * faz))} strokeWidth={2} /> : null}
+              </g>
+            );
+          })}
+          {odakP > 0 ? (() => {
+            const A = dug[o1], B = dug[o2];
+            const L = Math.hypot(B.x - A.x, B.y - A.y);
+            return <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={palet.vurgu} strokeWidth={5} strokeDasharray={`${L} ${L}`} strokeDashoffset={L * (1 - odakP)} />;
+          })() : null}
+          {dug.map((d, i) => {
+            const p = yay(ilr(f, gel(i), fps * 0.3));
+            if (p <= 0) return null;
+            const b = yay(ilr(f, gel(i) + fps * 0.2, fps * 1.2));
+            const rr = (12 + 1.2 * 12 * (d.skor / mx) * b) * p;
+            const vurgulu = (i === o1 || i === o2) && odakP > 0;
+            return <circle key={i} cx={d.x} cy={d.y} r={rr * (vurgulu ? 1 + 0.3 * odakP : 1)} fill={vurgulu ? karistir(P.gri, palet.vurgu, odakP) : P.gri}
+              stroke={P.zemin} strokeWidth={3} opacity={sonuk(i)} />;
+          })}
+        </svg>
+        {[o1, o2].map((i, k) => {
+          const d = dug[i];
+          const ad = d.ad || `#${i + 1}`;
+          const sag = d.x < W * 0.62;
+          return (
+            <div key={k} style={{ position: 'absolute', top: d.y + (k === 0 ? -96 : 34), left: sag ? d.x + 30 : undefined, right: sag ? undefined : W - d.x + 30, opacity: odakP, transform: `translateY(${(1 - odakP) * 12}px)`,
+              fontFamily: font.govde, fontWeight: 800, fontSize: 44, color: P.yazi, whiteSpace: 'nowrap', background: rgba(P.zemin, 0.85), padding: '2px 12px' }}>
+              {ad}<span style={{ marginLeft: 14, color: P.vurguYazi, fontVariantNumeric: 'tabular-nums' }}>{Math.round(d.skor)}</span>
+            </div>
+          );
+        })}
+      </Nefes>
+    </AbsoluteFill>
+  );
+};
+
+/** DONGU SEMASI (galeri: 2 video): ucgen dizilmis 3 yuvarlak dugum; kuyruklu sinyal noktasi her 'turSn' sn'de ucgeni bir tur
+ *  doner, gectigi dugumun kenari vurgu rengi atar, ortadaki buyuk tur sayaci her turda bir artar, sagda log satiri eklenir.
+ *  turlar bitince nokta durur ve ilk dugum vurguyla dolar (glow yok: tek halka darbesi). Surec / kisir dongu / ekonomik
+ *  cevrim anlatimi. dugumler: 3 ad (>= 40 px). */
+export const DonguSemasi: React.FC<{ stil: Stil; dugumler: string[]; turlar?: number; turSn?: number; baslik?: string; gec?: number }> = ({ stil, dugumler, turlar = 3, turSn = 0.9, baslik, gec = 6 }) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const P = panelRenk(stil);
+  const ad = [0, 1, 2].map((i) => dugumler[i] ?? String.fromCharCode(65 + i));
+  const cx = W * 0.36, cy = H * 0.57, RR = 290, NR = 118;
+  const nok = [0, 1, 2].map((i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 3; return { x: cx + Math.cos(a) * RR, y: cy + Math.sin(a) * RR }; });
+  const bas = gec + fps * 0.5;
+  const T = fps * turSn;
+  const u = sinirla((f - bas) / T, 0, turlar);
+  const bitti = f - bas >= T * turlar;
+  const konum = (uu: number) => {
+    const fr = (uu % 1) * 3, k = Math.floor(fr), q = fr - k;
+    const A = nok[k % 3], B = nok[(k + 1) % 3];
+    return { x: A.x + (B.x - A.x) * q, y: A.y + (B.y - A.y) * q };
+  };
+  // dugum i'ye son varistan beri gecen sure -> kenar rengi 0,35 sn'de soner
+  const isik = (i: number) => {
+    let son = -1;
+    for (let k = 0; k <= Math.floor(u * 3 + 1e-6); k++) if (k % 3 === i) son = k / 3;
+    return son < 0 || f < bas ? 0 : 1 - sinirla(((u - son) * T) / (fps * 0.35));
+  };
+  const tur = Math.min(turlar, Math.floor(u + 1e-6));
+  const sonP = yay(ilr(f, bas + T * turlar, fps * 0.35));
+  const g0 = yay(ilr(f, gec - 6, fps * 0.4));
+  const log = Array.from({ length: tur }, (_, k) => k + 1).slice(-5);
+  const logSatir = (k: number) => `${String(k).padStart(2, '0')} · ${ad[0]} → ${ad[1]} → ${ad[2]}`;
+  const logB = Math.max(OKUNUR.enaz, siganBoyut([logSatir(99)], 40, font.mono, W * 0.32));
+  const ok = (A: { x: number; y: number }, B: { x: number; y: number }) => {
+    const L = Math.hypot(B.x - A.x, B.y - A.y), ux = (B.x - A.x) / L, uy = (B.y - A.y) / L;
+    return { x1: A.x + ux * (NR + 12), y1: A.y + uy * (NR + 12), x2: B.x - ux * (NR + 22), y2: B.y - uy * (NR + 22), a: (Math.atan2(uy, ux) * 180) / Math.PI };
+  };
+  const kuyruk = Array.from({ length: 8 }, (_, k) => konum(Math.max(0, u - k * 0.018)));
+  return (
+    <AbsoluteFill style={{ background: P.zemin }}>
+      <Nefes>
+        <GrafikBaslik stil={stil} metin={baslik} x={110} y={80} op={g0} renk={P.yazi} />
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+          {nok.map((A, i) => {
+            const o = ok(A, nok[(i + 1) % 3]);
+            return (
+              <g key={i} opacity={g0}>
+                <line x1={o.x1} y1={o.y1} x2={o.x2} y2={o.y2} stroke={rgba(palet.murekkep, 0.35)} strokeWidth={4} />
+                <polygon points="0,-11 20,0 0,11" fill={rgba(palet.murekkep, 0.5)} transform={`translate(${o.x2},${o.y2}) rotate(${o.a})`} />
+              </g>
+            );
+          })}
+          {!bitti && f >= bas ? kuyruk.map((q, k) => <circle key={k} cx={q.x} cy={q.y} r={14 - k * 1.4} fill={palet.vurgu} opacity={(1 - k / 8) * (k ? 0.5 : 1)} />) : null}
+          {nok.map((q, i) => {
+            const is = isik(i);
+            const dolu = bitti && i === 0 ? sonP : 0;
+            const gir = yay(ilr(f, gec + i * 3, fps * 0.4));
+            return (
+              <g key={'d' + i} opacity={gir}>
+                <circle cx={q.x} cy={q.y} r={NR} fill={karistir(P.zemin, palet.vurgu, dolu)} stroke={karistir(palet.soluk, palet.vurgu, Math.max(is, dolu))} strokeWidth={6 + 4 * is} />
+                {dolu > 0 && dolu < 1 ? <circle cx={q.x} cy={q.y} r={NR + 40 * dolu} fill="none" stroke={palet.vurgu} strokeWidth={4} opacity={1 - dolu} /> : null}
+              </g>
+            );
+          })}
+        </svg>
+        {nok.map((q, i) => {
+          const dolu = bitti && i === 0 ? sonP : 0;
+          const b = siganBoyut([ad[i]], 46, font.govde, NR * 1.7);
+          return <div key={i} style={{ position: 'absolute', left: q.x - NR, top: q.y - NR, width: NR * 2, height: NR * 2, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center',
+            fontFamily: font.govde, fontWeight: 800, fontSize: Math.max(OKUNUR.enaz + 4, b), lineHeight: 1.05, color: dolu > 0.5 ? dolguYazi(palet.vurgu) : P.yazi, opacity: g0 }}>{ad[i]}</div>;
+        })}
+        <div style={{ position: 'absolute', left: cx - 160, width: 320, top: cy - 40, textAlign: 'center', fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 112, lineHeight: 1, color: P.vurguYazi, fontVariantNumeric: 'tabular-nums', opacity: g0 }}>
+          ×{tur}
+        </div>
+        <div style={{ position: 'absolute', left: W * 0.64, top: H * 0.3, width: W * 0.32 }}>
+          {log.map((k) => {
+            const p = yay(ilr(f, bas + k * T, fps * 0.25));
+            return <div key={k} style={{ fontFamily: font.mono, fontWeight: 700, fontSize: logB, lineHeight: 1.5, color: k === tur ? P.yazi : rgba(palet.murekkep, 0.55), whiteSpace: 'nowrap', opacity: p, transform: `translateY(${(1 - p) * 20}px)` }}>
+              {logSatir(k)}
+            </div>;
+          })}
+        </div>
+      </Nefes>
+    </AbsoluteFill>
+  );
+};
+
+/** ILISKI CIPLERI (galeri: 1 video): iki-uc renkli yuvarlak koseli cip (kurum / parti / kisi adi) dirsekli ince baglayiciyla
+ *  birlesir: ilk cip yerinde acilir, ikinci cip kenardan 0,5 sn'de kayar (yon bulanikligi) ve cizgi onun arkasindan cizilir,
+ *  ucuncusu 0,25 sn sonra; altta 1-2 satir aciklama (>= 40). bicim 'bolunme': A solda, B/C sagda (A ikiye ayrilir);
+ *  'birlesme': B/C solda, A sagda. Renkler: A vurgu, B vurgu2 soluk (karsitlik), C kontur. Bolunme/birlesme/soy agaci. */
+export const IliskiCipleri: React.FC<{ stil: Stil; cipler: string[]; aciklama?: string[]; baslik?: string; bicim?: 'bolunme' | 'birlesme'; gec?: number }> = ({ stil, cipler, aciklama = [], baslik, bicim = 'bolunme', gec = 6 }) => {
+  const f = useCurrentFrame();
+  const { fps, width: W, height: H } = useVideoConfig();
+  const { palet, font } = stil;
+  const P = panelRenk(stil);
+  const c = cipler.slice(0, 3);
+  const m = c.length;
+  const birles = bicim === 'birlesme';
+  const CH = 116, FS = 56;
+  const gen = (s: string) => Math.min(680, s.length * FS * 0.62 + 110);
+  const ay = H * 0.46;
+  const yX = (i: number) => (i === 0 ? (birles ? W * 0.62 : W * 0.08) : (birles ? W * 0.08 : W * 0.58));
+  const yY = (i: number) => (i === 0 || m === 2 ? ay : i === 1 ? ay - 150 : ay + 150);
+  const varis = (i: number) => gec + fps * 0.45 + (i - 1) * fps * 0.25;
+  const kay = (i: number, kare: number) => (i === 0 ? 0 : (1 - yay(ilr(kare, varis(i), fps * 0.5))) * (birles ? -1 : 1) * (W - yX(i) + 100));
+  const renk = (i: number) => (i === 0 ? palet.vurgu : i === 1 ? karistir(palet.vurgu2, P.zemin, 0.35) : 'transparent');
+  const A0 = yay(ilr(f, gec, fps * 0.4));
+  const ac = yay(ilr(f, varis(m - 1) + fps * 0.4, fps * 0.5));
+  return (
+    <AbsoluteFill style={{ background: P.zemin }}>
+      <Nefes>
+        <GrafikBaslik stil={stil} metin={baslik} x={110} y={80} op={A0} renk={P.yazi} />
+        <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+          {c.slice(1).map((_, k) => {
+            const i = k + 1;
+            if (f < varis(i)) return null;
+            const ax = birles ? yX(0) : yX(0) + gen(c[0]), ayy = yY(0);
+            const hedef = birles ? yX(i) + gen(c[i]) : yX(i);
+            const bx = hedef + kay(i, f), by = yY(i);
+            const mx = (ax + hedef) / 2;
+            // cizgi cipin arkasindan gelir: dirsek yerinde, son yatay parca kayan cipin kenarina kadar uzanir
+            const d = `M${ax},${ayy} H${mx} V${by} H${bx}`;
+            return <path key={i} d={d} fill="none" stroke={rgba(palet.murekkep, 0.75)} strokeWidth={4} strokeLinejoin="round" />;
+          })}
+        </svg>
+        {c.map((s, i) => {
+          const x = yX(i) + kay(i, f);
+          const gor = i === 0 ? A0 : f >= varis(i) ? 1 : 0;
+          if (!gor) return null;
+          const dolgu = renk(i);
+          return (
+            <YonBulanik key={i} dx={kayma((k) => kay(i, k), f)} style={{ position: 'absolute', left: x, top: yY(i) - CH / 2, height: CH, width: gen(s), opacity: gor,
+              transform: i === 0 ? `scale(${(0.9 + 0.1 * A0).toFixed(4)})` : undefined }}>
+              <div style={{ width: '100%', height: '100%', borderRadius: CH / 2, background: dolgu, border: i === 2 ? `5px solid ${palet.murekkep}` : 'none', boxSizing: 'border-box',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.govde, fontWeight: 800, fontSize: Math.max(OKUNUR.ikincil, siganBoyut([s], FS, font.govde, gen(s) - 70)),
+                color: i === 2 ? P.yazi : dolguYazi(dolgu), whiteSpace: 'nowrap', boxShadow: i === 2 ? 'none' : `0 10px 26px ${rgba('#000', 0.22)}` }}>{s}</div>
+            </YonBulanik>
+          );
+        })}
+        <div style={{ position: 'absolute', left: W * 0.08, right: W * 0.08, top: H * 0.74, opacity: ac, transform: `translateY(${(1 - ac) * 14}px)` }}>
+          {aciklama.slice(0, 2).map((a, i) => <div key={i} style={{ fontFamily: font.govde, fontWeight: i ? 600 : 700, fontSize: i ? 40 : 46, lineHeight: 1.3, color: i ? rgba(palet.murekkep, 0.75) : P.yazi }}>{a}</div>)}
+        </div>
       </Nefes>
     </AbsoluteFill>
   );

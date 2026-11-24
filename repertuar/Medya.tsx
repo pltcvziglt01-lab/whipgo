@@ -9,7 +9,10 @@ import { ZamanBulanik } from './Hareket';
 // KAMERA HIC DURMAZ (Opus galerisi A-3): 'sabit' bile 1,00 -> 1,02 nefes alir (temel.ts kameraNefes); Medya'ya kamera
 // verilmezse tutusta yavas itme (foto 1,00 -> 1,05, hareketli video 1,00 -> 1,03). Gercekten durgun medya yalniz nefes={0}
 // ile (medyayi kendisi hareket ettiren kapsayici icin: sayi karti zemini).
-export const KAMERA_TIPLERI = ['sabit', 'ken-burns-ice', 'ken-burns-disa', 'pan-sol', 'pan-sag', 'pan-yukari', 'el-kamerasi', 'zoom-darbe', 'dolly-egik', 'paralaks-cift'] as const;
+// olcek-yolculugu (Opus galerisi, 12 video): tek kesintisiz LOG OLCEK uzaklasma. Hiz log uzayda sabit (nesne her esit surede
+// ayni oranda kuculur): foto 1,6 -> 1,0, video VIDEO_KB_ENCOK -> 1,0; sahne suresinin (Sequence) sonunda tam 1'e varir.
+// Cok bolgeli 'powers of ten' yolculugu (bolge adi + olcek okumasi) icin OlcekYolculugu bileseni.
+export const KAMERA_TIPLERI = ['sabit', 'ken-burns-ice', 'ken-burns-disa', 'pan-sol', 'pan-sag', 'pan-yukari', 'el-kamerasi', 'zoom-darbe', 'dolly-egik', 'paralaks-cift', 'olcek-yolculugu'] as const;
 export type KameraTip = typeof KAMERA_TIPLERI[number];
 /** nefes/itme genligi: 'sabit' kilit kare, kamera verilmemis foto / video (video itmesi abartilmaz, ust sinir VIDEO_ENCOK) */
 export const NEFES = { sabit: 0.02, foto: 0.05, video: 0.03 } as const;
@@ -22,9 +25,10 @@ export const VIDEO_KB_ENCOK = 1.08;
 const yaklas = (T: number, tau: number) => 1 - Math.exp(-Math.max(0, T) / tau);
 /** video Ken Burns: olcek <= VIDEO_KB_ENCOK; pan genligi kenar acilmayacak kadar (|x| <= 50 (s-1)/s %), dolly egimi +-1,2 derece
  *  (1,2 derece donmeyi ortmek icin 1,037 olcek yeter; 1,06'dan baslar) */
-const videoKB = (tip: KameraTip, T: number) => {
+const videoKB = (tip: KameraTip, T: number, D = 6) => {
   const E = VIDEO_KB_ENCOK, A = 50 * (E - 1) / E - 0.3;   // ~3,4 %
   switch (tip) {
+    case 'olcek-yolculugu': return { s: Math.pow(E, 1 - sinirla(T / Math.max(0.5, D))), x: 0, y: 0, r: 0 };
     case 'ken-burns-ice': return { s: 1.01 + (E - 1.01) * yaklas(T, 4.5), x: 0, y: 0, r: 0 };
     case 'ken-burns-disa': return { s: E - (E - 1.02) * yaklas(T, 4.5), x: 0, y: 0, r: 0 };
     case 'pan-sol': return { s: E, x: A * (1 - 2 * yaklas(T, 3.5)), y: 0, r: 0 };
@@ -37,11 +41,13 @@ const videoKB = (tip: KameraTip, T: number) => {
 
 // kamera durumu sayisal: CSS sirasi scale(s) translate(x y) rotate(r); x/y birimi '%' (ogenin boyu) ya da 'px'.
 type KameraDurum = { s: number; x: number; y: number; birim: '%' | 'px'; r: number };
-const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1, nefes: number = NEFES.sabit, video = false): KameraDurum => {
+const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1, nefes: number = NEFES.sabit, video = false, D = 6): KameraDurum => {
   const T = t * hiz;
   const d = (s: number, x = 0, y = 0, birim: '%' | 'px' = '%', r = 0): KameraDurum => ({ s, x, y, birim, r });
-  if (video) { const v = videoKB(tip, T); if (v) return d(v.s, v.x, v.y, '%', v.r); }
+  if (video) { const v = videoKB(tip, T, D); if (v) return d(v.s, v.x, v.y, '%', v.r); }
   switch (tip) {
+    // log olcek: s = S0^(1 - T/D) -> esit surede esit oranda kuculme, D (sahne suresi) sonunda 1
+    case 'olcek-yolculugu': return d(Math.pow(1.6, 1 - sinirla(T / Math.max(0.5, D))));
     case 'sabit': return d(kameraNefes(T, nefes));
     case 'ken-burns-ice': return d(1.04 + 0.035 * T);
     case 'ken-burns-disa': return d(Math.max(1.02, 1.22 - 0.035 * T));
@@ -84,7 +90,7 @@ const Ham: React.FC<{ m: MedyaKaynak; style?: React.CSSProperties }> = ({ m, sty
  *  nefes: sabit/varsayilan genligi elle (0 = tamamen durgun; yalniz medyayi kendisi hareket ettiren kapsayicida). */
 export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number; tohum?: string; nefes?: number }> = ({ m, kamera: kameraVerilen, hiz = 1, tohum = 'k', nefes }) => {
   const f = useCurrentFrame();
-  const { fps, width: W, height: H } = useVideoConfig();
+  const { fps, width: W, height: H, durationInFrames } = useVideoConfig();
   const t = f / fps;
   const kamera: KameraTip = kameraVerilen ?? 'sabit';
   const g0 = nefes ?? (kameraVerilen === undefined ? (m.video ? NEFES.video : NEFES.foto) : NEFES.sabit);
@@ -99,7 +105,7 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
     );
   }
   // hareket bulanikligi: kamera durumu deklansor araliginda (180 derece) orneklenir; yavas kamerada (kayma < 2 px) tek katman
-  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz, genlik, !!m.video);
+  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz, genlik, !!m.video, durationInFrames / fps);
   if (kamera === 'sabit' && genlik <= 0) return <AbsoluteFill style={{ overflow: 'hidden' }}><Ham m={m} /></AbsoluteFill>;
   const boy = kameraKayma(durum(-DEKLANSOR / 2), durum(DEKLANSOR / 2), W, H);
   return (
@@ -145,8 +151,10 @@ export const cerceveOdak = (tip: CerceveTip, odak?: [number, number, number, num
 };
 
 /** odak: odak-karartma'nin tek medyada parlak kalan alani [x, y, gen, yuk] (0..1); verilmezse ODAK_PENCERE */
-export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string; odak?: [number, number, number, number] }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c', odak }) => {
-  const f = useCurrentFrame();
+/** ofset: ayni cerceve art arda gelen cekimlerde blok basindan beri gecen kare (VideoDna). Giris animasyonu yalniz blogun ilk
+ *  cekiminde oynar, film seridi / isik gibi periyodik hareketler cekim sinirinda sicramaz. */
+export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string; odak?: [number, number, number, number]; ofset?: number }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c', odak, ofset = 0 }) => {
+  const f = useCurrentFrame() + ofset;
   const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
   const { palet, font } = stil;
@@ -304,12 +312,15 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
 
 // ---------------- DOKU / UST KATMAN ----------------
 // klasik Claude = her sahnede gren 0.045 + vinyet 0.5. Repertuar 0-2 doku secer ve sahne tipine gore acar/kapatir.
-export const DOKU_TIPLERI = ['gren', 'vinyet', 'tarama', 'film-cizik', 'kromatik', 'titreme', 'isik-sizintisi', 'kagit-ust', 'toz'] as const;
+// Opus galerisi: gun-gece-renk (11 video) ve gri-ton-damga (2 video) alttaki sahnenin RENGINI degistirir (backdrop-filter):
+// Doku'yu sahnenin ustune, Sequence icine koy; zamanlama Sequence suresine ve 'gec'e gore.
+export const DOKU_TIPLERI = ['gren', 'vinyet', 'tarama', 'film-cizik', 'kromatik', 'titreme', 'isik-sizintisi', 'kagit-ust', 'toz', 'gun-gece-renk', 'gri-ton-damga'] as const;
 export type DokuTip = typeof DOKU_TIPLERI[number];
 
-export const Doku: React.FC<{ tip: DokuTip; stil: Stil; guc?: number }> = ({ tip, stil, guc = 1 }) => {
+/** metin: gri-ton-damga damga yazisi (varsayilan 'DURDU'); gec: gri-ton-damga ani (kare, Sequence basindan) */
+export const Doku: React.FC<{ tip: DokuTip; stil: Stil; guc?: number; metin?: string; gec?: number }> = ({ tip, stil, guc = 1, metin, gec = 0 }) => {
   const f = useCurrentFrame();
-  const { width: W, height: H } = useVideoConfig();
+  const { width: W, height: H, fps, durationInFrames } = useVideoConfig();
   const r = rastgele(Math.floor(f / 2) + 91);
   switch (tip) {
     case 'gren':
@@ -344,6 +355,103 @@ export const Doku: React.FC<{ tip: DokuTip; stil: Stil; guc?: number }> = ({ tip
       const t = f / 30;
       return <AbsoluteFill style={{ opacity: guc }}><svg width={W} height={H}>{Array.from({ length: 60 }, (_, i) => { const x = rr(), y = rr(), s = 1 + rr() * 2.5; return <circle key={i} cx={((x + t * 0.01 * (1 + s)) % 1) * W} cy={((y + fbm(i, t * 0.1, 1) * 0.05) % 1 + 1) % 1 * H} r={s} fill={rgba('#fff', 0.35)} />; })}</svg></AbsoluteFill>;
     }
+    case 'gun-gece-renk': {
+      // ayni sahne sabit kalirken isik/palet kayar: gunduz -> gun batimi -> gece (Sequence suresince; ilk %20 gunduz, son %25
+      // gece). Lambalar gece esiginde TEK KAREDE yanar (alttan sicak isik katmani). guc: gece koyulugu carpani.
+      const u = sinirla(f / Math.max(1, durationInFrames - 1));
+      const k = (a: number, b: number) => 0.5 - 0.5 * Math.cos(Math.PI * sinirla((u - a) / (b - a)));
+      const bat = k(0.2, 0.45) * (1 - k(0.5, 0.75)), gece = k(0.45, 0.75) * guc;
+      const parlak = 1 - 0.05 * bat - 0.42 * gece, doy = 1 + 0.18 * bat - 0.45 * gece;
+      const lamba = u >= 0.62;
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <AbsoluteFill style={{ backdropFilter: `brightness(${parlak.toFixed(3)}) saturate(${doy.toFixed(3)}) sepia(${(0.3 * bat).toFixed(3)}) hue-rotate(${(-12 * gece).toFixed(1)}deg)` }} />
+          <AbsoluteFill style={{ background: `linear-gradient(180deg, ${rgba('#ff7a2e', 0.4 * bat)} 0%, ${rgba('#ffb36b', 0.18 * bat)} 55%, transparent 100%)`, mixBlendMode: 'soft-light' }} />
+          <AbsoluteFill style={{ background: rgba('#1a2766', 0.5 * gece), mixBlendMode: 'multiply' }} />
+          {lamba ? <AbsoluteFill style={{ background: `linear-gradient(0deg, ${rgba('#ffb35c', 0.16 * guc)} 0%, transparent 45%)`, mixBlendMode: 'screen' }} /> : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'gri-ton-damga': {
+      // durus / kayip ani: 'gec' karesinde tum sahne TEK KAREDE griye doner (doygunluk 0), dev egik lastik damga 1,6 -> 1,0
+      // olcekle iner (0,22 sn, asimsiz), murekkep koyu gri; 0,5 sn sonra kirmiziya doner (tek doygun renk, anlamsal).
+      // Sonraki bolum yeni Sequence oldugu icin renk geri gelir.
+      if (f < gec) return null;
+      const t = (f - gec) / fps;
+      const in2 = yay(sinirla(t / 0.22));
+      const s = 1.6 - 0.6 * in2;
+      const kirmizi = yay(sinirla((t - 0.5) / 0.25));
+      const renk = `rgb(${Math.round(43 + (200 - 43) * kirmizi)},${Math.round(43 + (38 - 43) * kirmizi)},${Math.round(43 + (30 - 43) * kirmizi)})`;
+      const yazi = (metin || 'DURDU').toUpperCase();
+      const id = 'gtd' + gec;
+      const genis = Math.min(W * 0.62, yazi.length * 190 + 160);
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <AbsoluteFill style={{ backdropFilter: 'grayscale(1) contrast(1.06)' }} />
+          <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width={genis + 80} height={360} style={{ transform: `rotate(-11deg) scale(${s.toFixed(4)})`, opacity: sinirla(in2 * 3), overflow: 'visible' }}>
+              <defs>
+                <filter id={id} x="-5%" y="-5%" width="110%" height="110%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={4} result="n" />
+                  <feComponentTransfer in="n" result="m"><feFuncA type="discrete" tableValues="1 1 1 1 1 1 0 1 1 0" /></feComponentTransfer>
+                  <feComposite in="SourceGraphic" in2="m" operator="in" />
+                </filter>
+              </defs>
+              <g filter={`url(#${id})`}>
+                <rect x={40} y={40} width={genis} height={280} rx={18} fill="none" stroke={renk} strokeWidth={16} />
+                <rect x={64} y={64} width={genis - 48} height={232} rx={10} fill="none" stroke={renk} strokeWidth={5} />
+                <text x={40 + genis / 2} y={180} dominantBaseline="central" textAnchor="middle" fontFamily="Staatliches" fontSize={200} letterSpacing={10} fill={renk}
+                  textLength={yazi.length > 4 ? genis - 140 : undefined} lengthAdjust="spacingAndGlyphs">{yazi}</text>
+              </g>
+            </svg>
+          </AbsoluteFill>
+        </AbsoluteFill>
+      );
+    }
     default: return null;
   }
 };
+
+/** OLCEK YOLCULUGU (Opus galerisi, 12 video): 'powers of ten'. bolgeler kucukten buyuge (tekne -> okyanus -> kita ...). Tek
+ *  kesintisiz kamera log olcek hizinda uzaklasir: bolge i'nin olcegi oran^(i - u), u sabit hizla artar (bolgeSn'de bir bolge).
+ *  Onceki bolge yenisinin ortasinda yumusak kenarli olarak kuculur, noktaya inip kararir; sonraki yapi o noktadan buyur.
+ *  Sol altta bolge adi (>= 64) + olcek okumasi (olcek, ornek '10^4 m', >= 40) bolge degisince kayarak yenilenir (tarifteki eksik:
+ *  5+ sn okunur bir sey kalmamasi). Bolge gorselleri ayni merkeze bakmali (ilgi noktasi ortada). */
+export type OlcekBolge = { m: MedyaKaynak; ad: string; olcek?: string };
+export const OlcekYolculugu: React.FC<{ stil: Stil; bolgeler: OlcekBolge[]; bolgeSn?: number; oran?: number; gec?: number }> = ({ stil, bolgeler, bolgeSn = 2.6, oran = 6, gec = 0 }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const { palet, font } = stil;
+  const n = bolgeler.length;
+  const u = sinirla((f - gec) / (fps * bolgeSn), 0, Math.max(0, n - 1));
+  const aktif = Math.min(n - 1, Math.round(u));
+  const gecis = sinirla((u - (aktif - 0.5)) / 0.18);
+  return (
+    <AbsoluteFill style={{ background: '#000', overflow: 'hidden' }}>
+      {bolgeler.map((b, i) => ({ b, i })).reverse().map(({ b, i }) => {
+        const s = Math.pow(oran, i - u);
+        if (s > oran * 1.05 || s < 0.004) return null;
+        const op = sinirla((s - 0.004) / 0.03);
+        // tam kadrajdayken maske yok; kuculur kuculmez kenarlari (closest-side elips) yumusar ve bir sonraki bolgenin icine erir.
+        // Arkadaki buyutulmus bolge (s > 1) koselerde karanlik kalir (vinyet gibi okunur).
+        const k = sinirla((1 - s) / 0.3), ic = 99 - 34 * k;
+        const maske = s < 1 ? `radial-gradient(ellipse closest-side at 50% 50%, #000 ${ic.toFixed(1)}%, transparent 100%)` : undefined;
+        return (
+          <AbsoluteFill key={i} style={{ transform: `scale(${s.toFixed(5)})`, opacity: op, WebkitMaskImage: maske, maskImage: maske }}>
+            <Medya m={b.m} nefes={0} />
+            <AbsoluteFill style={{ background: '#000', opacity: Math.max(0.55 * (1 - sinirla(s / 0.25)), 0.6 * sinirla((s - 1) / 2)) }} />
+          </AbsoluteFill>
+        );
+      })}
+      <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 50%, transparent 55%, ${rgba('#000', 0.45)} 100%)` }} />
+      <div style={{ position: 'absolute', left: 100, bottom: 80, overflow: 'hidden', paddingRight: 30 }}>
+        <div style={{ transform: `translateY(${((1 - yay(aktif === 0 ? 1 : gecis)) * 105).toFixed(2)}%)` }}>
+          {bolgeler[aktif]?.olcek ? <div style={{ fontFamily: font.mono, fontWeight: 700, fontSize: 44, letterSpacing: 3, color: palet.vurgu, textShadow: `0 2px 10px ${rgba('#000', 0.8)}` }}>{bolgeler[aktif].olcek}</div> : null}
+          <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 84, lineHeight: 1.05, letterSpacing: font.aralik, color: '#ffffff', textTransform: font.buyukHarf ? 'uppercase' : 'none',
+            textShadow: `0 3px 16px ${rgba('#000', 0.75)}` }}>{bolgeler[aktif]?.ad}</div>
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
