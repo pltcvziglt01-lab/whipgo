@@ -43,8 +43,12 @@ const KatKart: React.FC = () => (
     ...SAYI_TIPLERI.map((s, i) => ({ ad: 'sayi: ' + s, el: <AbsoluteFill><Arkaplan tip={editPaket[(i + 2) % editPaket.length]} stil={st(i + 1)} /><SayiKarti tip={s} deger={1928} onEk="$" ust="Army price" alt="for the same round" yuzde={0.72} stil={st(i + 1)} /></AbsoluteFill> })),
     ...ALINTI_TIPLERI.map((a, i) => ({ ad: 'alinti: ' + a, el: <AbsoluteFill><Arkaplan tip={genel[(i * 3) % 16]} stil={st(i + 6)} /><Alinti tip={a} metin="We had no idea what was coming." kim="Pvt. J. Miller, 1944" stil={st(i + 6)} /></AbsoluteFill> })),
     ...LISTE_TIPLERI.map((l, i) => ({ ad: 'liste: ' + l, el: <AbsoluteFill><Arkaplan tip="kareli-defter" stil={st(i + 2)} /><Liste tip={l} baslik="What you get" maddeler={['Same caliber', 'Half the weight', 'No waiting list']} stil={st(i + 2)} /></AbsoluteFill> })),
+  ]} />
+);
+const KatKart2: React.FC = () => (
+  <Izgara sutun={3} hucreler={[
     { ad: 'karsilastirma', el: <AbsoluteFill><Arkaplan tip="kayan-izgara" stil={st(9)} /><Karsilastirma sol={{ ad: 'Budget', deger: 380 }} sag={{ ad: 'Army', deger: 1928 }} birim="$" stil={st(9)} /></AbsoluteFill> },
-    ...ZAMAN_TIPLERI.map((z, i) => ({ ad: 'zaman: ' + z, el: <AbsoluteFill><Arkaplan tip={i ? 'topografik' : 'dalgali-izgara'} stil={st(i + 10)} /><ZamanCizelgesi tip={z} adimlar={[{ yil: '1939', yazi: 'Prototype' }, { yil: '1942', yazi: 'Mass production' }, { yil: '1945', yazi: 'Retired' }]} stil={st(i + 10)} /></AbsoluteFill> })),
+    ...ZAMAN_TIPLERI.map((z, i) => ({ ad: 'zaman: ' + z, el: <AbsoluteFill><Arkaplan tip={['dalgali-izgara', 'topografik', 'grenli-gradyan', 'radar-halka'][i % 4]} stil={st(i + 7)} /><ZamanCizelgesi tip={z} adimlar={[{ yil: '1939', yazi: 'Prototype' }, { yil: '1942', yazi: 'Mass production' }, { yil: '1945', yazi: 'Retired' }]} stil={st(i + 7)} /></AbsoluteFill> })),
   ]} />
 );
 const KatCerceve: React.FC = () => (
@@ -62,7 +66,7 @@ const K = (id: string, c: React.FC, d = 300) => <Composition id={id} component={
 export const RemotionRoot: React.FC = () => (
   <>
     {K('KatArkaplan', KatArkaplan)}{K('KatEdit', KatEdit)}{K('KatGecis', KatGecis, 60)}{K('KatBaslik', KatBaslik)}
-    {K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}
+    {K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />

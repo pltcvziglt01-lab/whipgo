@@ -17,7 +17,7 @@ eksik teknik repertuara eklenir (bkz. §5).
 | Geçiş | `Gecis.tsx` | 16 (çözünme, bulanıklık, ışık patlaması, glitch, whip ×2, itme, maske daire/çapraz/şerit, zoom darbe, film yanığı, kart çevirme, TV kapanma, perde) + `filmburn:fb-NN:tepe` |
 | Başlık | `Yazi.tsx` | 13 giriş (maske-yukarı, harf dalgası, bulanıklık, scramble, daktilo, kutu açılış, dikey yığın, harf aralığı, kontur dolma, ölçek darbe, uzun gölge, alt çizgi; `asagidan-yay` = klasik, seçilmez) |
 | Altyazı | `Yazi.tsx` | 7 (kelime-pop, vurgu-kalem, kutulu, karaoke, tek-kelime, renkli-aktif, sinema) + yok |
-| Kartlar | `Kart.tsx` | alt bant 5, sayı 4 (sayaç/rulo/halka/çubuk), alıntı 3, liste 2, karşılaştırma, zaman çizelgesi 2 |
+| Kartlar | `Kart.tsx` | alt bant 5, sayı 6 (sayaç/rulo/halka/çubuk/dev-kontur/tabela), alıntı 5 (büyük tırnak/kâğıt not/daktilo belge/yan çizgi/fosfor satır), liste 4 (işaretli/numaralı yığın/panel yığını/cetvel), karşılaştırma, zaman çizelgesi 4 (yatay düğüm/dikey şerit/büyük yıl/merdiven). Kâğıt kartların tonu palete bağlı |
 | Medya | `Medya.tsx` | kamera 10 (KB iç/dış, pan ×3, el kamerası, zoom darbe, dolly eğik, paralaks), çerçeve 11 (tam, inset gölge, bulanık kopya, polaroid, TV-CRT, letterbox, pencere, film şeridi, bölünmüş, kolaj, yuvarlak), doku 9 |
 | Stil | `temel.ts` | 16 palet (`gece-kirmizi` klasik, seçilmez), 12 font çifti, 7 hareket eğrisi |
 | Öğrenilmiş | `Preset.tsx` | Premiere presetlerinden zoom / shake / slide / whip / blur-in (338) — `varlik-paketleri.md` |
@@ -30,15 +30,17 @@ eksik teknik repertuara eklenir (bkz. §5).
    ```
    - `--konu`: ton buradan otomatik (savaş/tarih/ekonomi = ciddi, suç/gizem/korku = gizem, teknoloji/spor/liste = enerjik, sağlık/yaşam/seyahat = sakin); kütüphanede aynı tondaki kanallar seçimi ağırlıklandırır. Gerekirse `--ton` ile elle.
    - `--kilit palet,font`: kanal kimliği (2. videodan itibaren). İlk videoda kilit yok.
-   - Çıktı: `stil-dna-A.json`, `stil-dna-B.json`, `STIL-DNA.md` (rakip vs A/B tablosu, kanıt kanalları, kontrol satırı).
-3. Kontrol satırı `TAMAM`: rakipten ve son 3 videonun her birinden en az %20 farklı, klasik skor 0. §Konu ve ton bölümünü oku: ton konuyla çelişiyorsa `--ton` ile düzelt. Tutmuyorsa `--tohum` değiştir.
+   - `--cikti` kanal klasörünün içinde olmalı (`C:\otomasyon\<kanal>\...`): kanal adı buradan çıkar. `--gecmis` verilmezse kanalın önceki `stil-dna.json`'ları otomatik okunur.
+   - **Kanallar arası:** diğer tüm kanalların son seçilmiş DNA'sı okunur; ondaki öğeler ilk kademede seçilmez. Kontrol: her kanalla en fazla 2 görünür eksen aynı, en fazla 1 kâğıt öğesi (kâğıt zemin / kareli defter / kâğıt doku / kâğıt-daktilo alıntı).
+   - Çıktı: `stil-dna-A.json`, `stil-dna-B.json`, `stil-dna.json` (= A, yoksa yazılır), `STIL-DNA.md` (rakip vs A/B tablosu, kanıt kanalları, kontrol satırları).
+3. İki kontrol satırı da `TAMAM`: (a) rakipten ve son 3 videonun her birinden en az %20 farklı, klasik skor 0; (b) §Diğer kanallarla: her kanalla ≤2 görünür eksen aynı, ≤1 kâğıt öğesi. §Konu ve ton bölümünü oku: ton konuyla çelişiyorsa `--ton` ile düzelt. Tutmuyorsa `--tohum` değiştir.
 4. **Önizleme** (`sablon-proje` Root'unda `Onizleme`):
    ```
    npx remotion render src/index.ts Onizleme onizleme-A.mp4 --props=props-A.json
    ```
    props: `{ "dna": <stil-dna-A.json>, "foto": ["vNN/foto/1.jpg", ...], "baslik": "...", "bolum": "...", "presetler": <varlik/preset-dili-remotion.json> }`.
    Kanalın **ilk videosunda** A ve B'yi kullanıcıya gönder, seçtir (en fazla 2 seçenek, önerilen ilk). Sonraki videolarda A otomatik seçilir; yalnız kontrol satırı DEVAM.md'ye yazılır.
-5. Seçilen DNA `videoNN/stil-dna.json` olarak kalır (yeniden render aynı görünür) ve sonraki DNA'ların `--gecmis` girdisi olur.
+5. Seçilen DNA `videoNN/stil-dna.json` olarak kalır (yeniden render aynı görünür); kullanıcı B'yi seçerse `stil-dna-B.json` → `stil-dna.json` kopyalanır. Bu dosya hem kanalın sonraki videolarının hem **diğer kanalların** girdisidir: silinmez, elle değiştirilirse STIL-DNA.md §Diğer kanallarla satırı yeniden kontrol edilir (başka kanalda kullanılan öğe seçilmez).
 
 ## 4. VideoNN.tsx iskeleti
 ```tsx

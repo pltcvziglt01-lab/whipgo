@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Stil, egri, ilerle, rgba, sinirla } from './temel';
+import { Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 
 // KARTLAR — saydam katmanlardir; arkalarina Arkaplan ya da Medya konur. Her kartin birden cok tasarim varyanti var;
 // stil_dna kanal basina her kart turu icin BIR varyant kilitler (kanal imzasi), rakibinkinden farkli olani.
@@ -66,7 +66,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
 };
 
 // ---------- SAYI KARTI ----------
-export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk'] as const;
+export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk', 'dev-kontur', 'tabela'] as const;
 export type SayiTip = typeof SAYI_TIPLERI[number];
 export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; stil: Stil }> = ({ tip, deger, onEk = '', sonEk = '', ust, alt, yuzde, stil }) => {
   const f = useCurrentFrame();
@@ -113,6 +113,48 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
       );
       break;
     }
+    case 'dev-kontur': {
+      // ekrani dolduran kontur rakam; ic dolgu asagidan yukari dolar, etiket sol altta
+      const s = yaz(deger);
+      const dolu = egri('kubik-hizli', sinirla((f - fps * 0.2) / (fps * 1.2)));
+      const fs = Math.min(560, 1700 / Math.max(2, s.length * 0.62));
+      const st: React.CSSProperties = { fontFamily: font.baslik, fontWeight: 900, fontSize: fs, lineHeight: 1, letterSpacing: -fs * 0.02, whiteSpace: 'nowrap' };
+      return (
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ position: 'relative', transform: `scale(${1.08 - 0.08 * g})` }}>
+            <div style={{ ...st, color: 'transparent', WebkitTextStroke: `4px ${rgba(palet.murekkep, 0.55)}` }}>{s}</div>
+            <div style={{ ...st, position: 'absolute', inset: 0, color: palet.vurgu, clipPath: `inset(${(1 - dolu) * 100}% 0 0 0)` }}>{s}</div>
+          </div>
+          {ust || alt ? (
+            <div style={{ position: 'absolute', left: 140, bottom: 120, borderLeft: `6px solid ${palet.vurgu}`, paddingLeft: 26, opacity: g, transform: `translateX(${(1 - g) * -40}px)` }}>
+              {ust ? <div style={{ fontFamily: font.mono, fontSize: 30, color: palet.soluk, letterSpacing: 3 }}>{ust.toUpperCase()}</div> : null}
+              {alt ? <div style={{ fontFamily: font.govde, fontSize: 44, color: palet.murekkep, marginTop: 6, maxWidth: 1000 }}>{alt}</div> : null}
+            </div>
+          ) : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'tabela': {
+      // havalimani tabelasi: her hane ayri karo, sirayla cevrilerek yerine oturur
+      const s = yaz(deger);
+      const karo = Math.min(200, 1500 / Math.max(3, s.length));
+      govde = (
+        <div style={{ display: 'flex', gap: karo * 0.08 }}>
+          {s.split('').map((c, i) => {
+            const q = ilerle(f, 4 + i * 4, fps * 0.45, 'ustel-sert');
+            const doner = q < 1 && /[0-9]/.test(c) ? String(Math.floor(f / 2 + i * 3) % 10) : c;
+            return (
+              <div key={i} style={{ width: karo, height: karo * 1.35, background: karistir(palet.zemin, palet.murekkep, 0.1), borderRadius: karo * 0.08, position: 'relative', overflow: 'hidden',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `inset 0 -${karo * 0.04}px 0 ${rgba('#000', 0.35)}`, transform: `rotateX(${(1 - q) * 70}deg)` }}>
+                <div style={{ fontFamily: font.mono, fontWeight: 700, fontSize: karo * 0.95, color: palet.vurgu, lineHeight: 1 }}>{doner}</div>
+                <div style={{ position: 'absolute', left: 0, right: 0, top: '50%', height: 3, background: rgba('#000', 0.45) }} />
+              </div>
+            );
+          })}
+        </div>
+      );
+      break;
+    }
     default:
       govde = <div style={buyuk}>{yaz(deger * p)}</div>;
   }
@@ -120,19 +162,57 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
 };
 
 // ---------- ALINTI ----------
-export const ALINTI_TIPLERI = ['buyuk-tirnak', 'kagit-not', 'daktilo-belge'] as const;
+export const ALINTI_TIPLERI = ['buyuk-tirnak', 'kagit-not', 'daktilo-belge', 'yan-cizgi', 'fosfor-satir'] as const;
 export type AlintiTip = typeof ALINTI_TIPLERI[number];
 export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; stil: Stil }> = ({ tip, metin, kim, stil }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet, font, hareket } = stil;
   const p = ilerle(f, 0, fps * 0.7, hareket);
+  // kagit tonu palete bagli (her kanalda ayni krem kagit gorunmesin)
+  const kagit = palet.acik ? karistir(palet.zemin, '#ffffff', 0.35) : karistir('#efe9dc', palet.murekkep, 0.35);
+  const murek = palet.acik ? palet.murekkep : karistir('#1a1a1a', palet.zemin, 0.4);
+  if (tip === 'yan-cizgi') {
+    // sola dayali, solda vurgu cizgisi; kelimeler tek tek belirir
+    const k = metin.split(' ');
+    const hiz = Math.max(1.2, Math.min(3, (fps * 1.6) / k.length));
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', paddingLeft: 220, paddingRight: 260 }}>
+        <div style={{ position: 'absolute', left: 170, top: '50%', width: 10, height: 420 * p, transform: 'translateY(-50%)', background: palet.vurgu }} />
+        <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 70, lineHeight: 1.18, color: palet.murekkep, maxWidth: 1350 }}>
+          {k.map((w, i) => { const q = sinirla((f - 6 - i * hiz) / 6); return <span key={i} style={{ opacity: 0.12 + 0.88 * q }}>{w} </span>; })}
+        </div>
+        {kim ? <div style={{ fontFamily: font.mono, fontSize: 30, color: palet.soluk, marginTop: 36, letterSpacing: 2, opacity: ilerle(f, fps * 0.8, fps * 0.4, hareket) }}>{kim.toUpperCase()}</div> : null}
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'fosfor-satir') {
+    // satirlarin arkasindan vurgu kalemi gecer; yazi zemin renginde kalir
+    const sat: string[] = [];
+    metin.split(' ').forEach((w) => { const s = sat[sat.length - 1]; if (s && (s + ' ' + w).length <= 30) sat[sat.length - 1] = s + ' ' + w; else sat.push(w); });
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 14 }}>
+          {sat.map((s, i) => {
+            const q = ilerle(f, 4 + i * fps * 0.32, fps * 0.35, 'kubik-hizli');
+            return (
+              <div key={i} style={{ position: 'relative', padding: '4px 18px' }}>
+                <div style={{ position: 'absolute', inset: 0, background: palet.vurgu, transformOrigin: 'left', transform: `scaleX(${q})` }} />
+                <div style={{ position: 'relative', fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 68, color: q > 0.5 ? palet.zemin : palet.murekkep, opacity: 0.25 + 0.75 * q }}>{font.buyukHarf ? s.toUpperCase() : s}</div>
+              </div>
+            );
+          })}
+          {kim ? <div style={{ fontFamily: font.govde, fontSize: 32, color: palet.soluk, marginTop: 22, marginLeft: 18 }}>— {kim}</div> : null}
+        </div>
+      </AbsoluteFill>
+    );
+  }
   if (tip === 'kagit-not') {
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: 1100, background: '#fdf6d8', padding: '70px 80px', transform: `rotate(${-2 + p * 1}deg) translateY(${(1 - p) * 60}px)`, opacity: sinirla(p * 2), boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, backgroundImage: 'repeating-linear-gradient(180deg, transparent 0 58px, rgba(70,110,180,.25) 58px 60px)' }}>
-          <div style={{ fontFamily: font.govde, fontSize: 50, color: '#2a2a2a', lineHeight: 1.2 }}>{metin}</div>
-          {kim ? <div style={{ fontFamily: font.mono, fontSize: 30, color: '#6a6a6a', marginTop: 30 }}>— {kim}</div> : null}
+        <div style={{ width: 1100, background: kagit, padding: '70px 80px', transform: `rotate(${-2 + p * 1}deg) translateY(${(1 - p) * 60}px)`, opacity: sinirla(p * 2), boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, backgroundImage: `repeating-linear-gradient(180deg, transparent 0 58px, ${rgba(palet.vurgu2, 0.28)} 58px 60px)` }}>
+          <div style={{ fontFamily: font.govde, fontSize: 50, color: murek, lineHeight: 1.2 }}>{metin}</div>
+          {kim ? <div style={{ fontFamily: font.mono, fontSize: 30, color: rgba(murek, 0.6), marginTop: 30 }}>— {kim}</div> : null}
         </div>
       </AbsoluteFill>
     );
@@ -141,9 +221,9 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
     const n = Math.floor(Math.max(0, f - 8) / 1.3);
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: 1200, background: '#f3efe6', padding: '60px 80px', boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, opacity: p }}>
-          <div style={{ fontFamily: font.mono, fontSize: 24, color: '#8a2b1d', letterSpacing: 4, marginBottom: 26 }}>{kim ? kim.toUpperCase() : 'KAYIT'}</div>
-          <div style={{ fontFamily: font.mono, fontSize: 42, color: '#1d1d1d', lineHeight: 1.45 }}>{metin.slice(0, n)}<span style={{ opacity: Math.floor(f / 12) % 2 }}>▌</span></div>
+        <div style={{ width: 1200, background: kagit, padding: '60px 80px', boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, opacity: p, borderTop: `10px solid ${palet.vurgu}` }}>
+          <div style={{ fontFamily: font.mono, fontSize: 24, color: palet.acik ? palet.vurgu : karistir(palet.vurgu, '#000000', 0.35), letterSpacing: 4, marginBottom: 26 }}>{kim ? kim.toUpperCase() : 'KAYIT'}</div>
+          <div style={{ fontFamily: font.mono, fontSize: 42, color: murek, lineHeight: 1.45 }}>{metin.slice(0, n)}<span style={{ opacity: Math.floor(f / 12) % 2 }}>▌</span></div>
         </div>
       </AbsoluteFill>
     );
@@ -160,12 +240,51 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
 };
 
 // ---------- LISTE ----------
-export const LISTE_TIPLERI = ['isaretli', 'numarali-yigin'] as const;
+export const LISTE_TIPLERI = ['isaretli', 'numarali-yigin', 'panel-yigini', 'cetvel'] as const;
 export type ListeTip = typeof LISTE_TIPLERI[number];
 export const Liste: React.FC<{ tip: ListeTip; baslik?: string; maddeler: string[]; stil: Stil }> = ({ tip, baslik, maddeler, stil }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet, font, hareket } = stil;
+  const B = baslik && font.buyukHarf ? baslik.toUpperCase() : baslik;
+  if (tip === 'panel-yigini') {
+    // her madde sagdan kayan yari saydam panel; solda numara cipi
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'flex-end', paddingRight: 160 }}>
+        {B ? <div style={{ fontFamily: font.mono, fontSize: 34, letterSpacing: 4, color: palet.vurgu, marginBottom: 30, width: 1100, opacity: ilerle(f, 0, 12, hareket) }}>{B}</div> : null}
+        {maddeler.map((m, i) => {
+          const p = ilerle(f, 6 + i * fps * 0.3, fps * 0.4, hareket);
+          return (
+            <div key={i} style={{ width: 1100, display: 'flex', alignItems: 'center', gap: 28, marginBottom: 18, padding: '22px 30px', background: rgba(palet.zemin2, 0.78), borderRadius: 14,
+              border: `1px solid ${rgba(palet.murekkep, 0.14)}`, opacity: sinirla(p * 1.5), transform: `translateX(${(1 - p) * 260}px)` }}>
+              <div style={{ minWidth: 64, height: 64, borderRadius: 32, background: palet.vurgu, color: palet.zemin, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.baslik, fontWeight: 800, fontSize: 34 }}>{i + 1}</div>
+              <div style={{ fontFamily: font.govde, fontSize: 46, color: palet.murekkep }}>{m}</div>
+            </div>
+          );
+        })}
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'cetvel') {
+    // gazete/editoryal: maddeler arasi ince cizgiler, numara sagda mono
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ width: 1300 }}>
+          {B ? <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 64, color: palet.murekkep, paddingBottom: 18, borderBottom: `6px solid ${palet.murekkep}`, opacity: ilerle(f, 0, 12, hareket) }}>{B}</div> : null}
+          {maddeler.map((m, i) => {
+            const p = ilerle(f, 8 + i * fps * 0.35, fps * 0.4, hareket);
+            return (
+              <div key={i} style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '26px 0' }}>
+                <div style={{ position: 'absolute', left: 0, bottom: 0, height: 2, width: `${p * 100}%`, background: rgba(palet.murekkep, 0.35) }} />
+                <div style={{ fontFamily: font.govde, fontSize: 50, color: palet.murekkep, opacity: p, transform: `translateY(${(1 - p) * 16}px)` }}>{m}</div>
+                <div style={{ fontFamily: font.mono, fontSize: 34, color: palet.acik ? palet.soluk : palet.vurgu, opacity: p }}>{String(i + 1).padStart(2, '0')}</div>
+              </div>
+            );
+          })}
+        </div>
+      </AbsoluteFill>
+    );
+  }
   return (
     <AbsoluteFill style={{ justifyContent: 'center', paddingLeft: 200 }}>
       {baslik ? <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 70, color: palet.murekkep, marginBottom: 40, opacity: ilerle(f, 0, 12, hareket) }}>{font.buyukHarf ? baslik.toUpperCase() : baslik}</div> : null}
@@ -205,13 +324,50 @@ export const Karsilastirma: React.FC<{ sol: { ad: string; deger: number }; sag: 
 };
 
 // ---------- ZAMAN CIZELGESI ----------
-export const ZAMAN_TIPLERI = ['yatay-dugum', 'dikey-serit'] as const;
+export const ZAMAN_TIPLERI = ['yatay-dugum', 'dikey-serit', 'buyuk-yil', 'merdiven'] as const;
 export type ZamanTip = typeof ZAMAN_TIPLERI[number];
 export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; yazi: string }[]; stil: Stil }> = ({ tip, adimlar, stil }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const { palet, font, hareket } = stil;
   const n = adimlar.length;
+  if (tip === 'buyuk-yil') {
+    // her adim tek basina: dev tarih ekrani doldurur, alta aciklama; altta ilerleme cubugu
+    const adim = fps * 1.6;
+    const i = Math.min(n - 1, Math.floor(f / adim));
+    const yf = f - i * adim;
+    const q = ilerle(yf, 0, fps * 0.35, hareket);
+    const a = adimlar[i];
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ fontFamily: font.baslik, fontWeight: 900, fontSize: 300, color: palet.vurgu, lineHeight: 1, letterSpacing: font.aralik, opacity: q, transform: `translateY(${(1 - q) * 70}px)` }}>{a.yil}</div>
+        <div style={{ fontFamily: font.govde, fontSize: 48, color: palet.murekkep, marginTop: 24, opacity: ilerle(yf, 6, fps * 0.3, hareket) }}>{a.yazi}</div>
+        <div style={{ position: 'absolute', bottom: 130, left: 300, right: 300, display: 'flex', gap: 14 }}>
+          {adimlar.map((_, k) => <div key={k} style={{ flex: 1, height: 8, borderRadius: 4, background: k < i ? palet.vurgu : rgba(palet.murekkep, 0.18), overflow: 'hidden' }}>
+            {k === i ? <div style={{ height: '100%', width: `${sinirla(yf / adim) * 100}%`, background: palet.vurgu }} /> : null}</div>)}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'merdiven') {
+    // capraz basamaklar: soldan alta, saga uste cikan bloklar
+    const bw = Math.min(420, (W - 360) / n);
+    return (
+      <AbsoluteFill>
+        {adimlar.map((a, i) => {
+          const p = ilerle(f, 6 + i * fps * 0.35, fps * 0.4, hareket);
+          const x = 180 + i * bw, y = H * 0.72 - i * Math.min(150, (H * 0.5) / n);
+          return (
+            <div key={i} style={{ position: 'absolute', left: x, top: y, width: bw - 20, opacity: p, transform: `translateY(${(1 - p) * 60}px)` }}>
+              <div style={{ height: 10, background: palet.vurgu, width: `${p * 100}%` }} />
+              <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 58, color: palet.murekkep, marginTop: 14 }}>{a.yil}</div>
+              <div style={{ fontFamily: font.govde, fontSize: 28, color: palet.soluk, marginTop: 4 }}>{a.yazi}</div>
+            </div>
+          );
+        })}
+      </AbsoluteFill>
+    );
+  }
   if (tip === 'dikey-serit') {
     const aktif = Math.min(n - 1, Math.floor(f / (fps * 0.8)));
     return (

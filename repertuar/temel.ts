@@ -76,6 +76,13 @@ export const rgba = (hex: string, a: number) => {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 };
 
+/** iki hex rengi karistir (t=0 -> a, t=1 -> b); kagit/kart tonlarini palete baglamak icin */
+export const karistir = (a: string, b: string, t: number) => {
+  const c = (h: string) => { const x = h.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const A = c(a), B = c(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
+};
+
 // ---------- FONT CIFTLERI (dosyalar: public/fontlar/<Ad>.ttf — kutuphanenin fontlar/ klasorunden kopyalanir) ----------
 export type FontCifti = { ad: string; baslik: string; govde: string; mono: string; baslikAgirlik: number; buyukHarf: boolean; aralik: number };
 export const FONTLAR: Record<string, FontCifti> = {

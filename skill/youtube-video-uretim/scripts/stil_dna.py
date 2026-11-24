@@ -69,6 +69,77 @@ def tsx_sozluk_anahtar(rep, dosya, ad):
     m = re.search(r'export const %s[^=]*= \{(.*?)\n\};' % ad, s, re.S)
     return re.findall(r"^\s*'([^']+)':", m.group(1), re.M)
 
+# ---------------- kanallar arasi hafiza ----------------
+ATLA_KLASOR = {'node_modules', '.git', 'arsiv', 'public', 'out', 'kaynak', 'dvids', 'foto', 'yt-uretim', 'dist', '__pycache__', 'kontakt'}
+
+def kanallar_koku(arg=None):
+    """kanal klasorlerinin koku (C:/otomasyon). Repo kokunun bir ustu."""
+    for a in [arg, os.environ.get('YT_KANALLAR'), os.path.join(BURASI, '..', '..', '..', '..'), r'C:\otomasyon']:
+        if a and os.path.isdir(a):
+            return os.path.abspath(a)
+    return None
+
+def kanal_adi(kok, yol):
+    try:
+        rel = os.path.relpath(os.path.abspath(yol), kok)
+    except ValueError:
+        return None
+    if rel.startswith('..'):
+        return None
+    return rel.split(os.sep)[0]
+
+def secilmis_dnalar(kok):
+    """kanal -> [(mtime, yol, dna)] eskiden yeniye. Yalniz secilmis DNA'lar (stil-dna.json / vNN-stil-dna.json), -A/-B secenekleri haric."""
+    out = {}
+    if not kok:
+        return out
+    for kanal in sorted(os.listdir(kok)):
+        kk = os.path.join(kok, kanal)
+        if kanal in ATLA_KLASOR or kanal.startswith(('.', '_')) or not os.path.isdir(kk):
+            continue
+        gorulen = set()
+        for yol, dirs, files in os.walk(kk):
+            if yol[len(kk):].count(os.sep) >= 5:
+                dirs[:] = []
+            dirs[:] = [d for d in dirs if d not in ATLA_KLASOR and not d.startswith('.')]
+            for fn in files:
+                if not fn.endswith('stil-dna.json') or re.search(r'stil-dna-[A-Z]\.json$', fn):
+                    continue
+                fp = os.path.join(yol, fn)
+                try:
+                    d = json.load(open(fp, encoding='utf-8'))
+                except Exception:
+                    continue
+                if not isinstance(d, dict) or 'palet' not in d:
+                    continue
+                anahtar = json.dumps({k: d.get(k) for k in ('palet', 'arkaplan', 'gecis', 'tohum')}, sort_keys=True)
+                if anahtar in gorulen:  # ayni DNA'nin kopyasi (ornek: motion/src/v09-stil-dna.json)
+                    continue
+                gorulen.add(anahtar)
+                out.setdefault(kanal, []).append((os.path.getmtime(fp), fp, d))
+        if kanal in out:
+            out[kanal].sort(key=lambda x: x[0])
+    return out
+
+# gorunur eksenler: izleyicinin ilk bakista tanidigi yuzey (kartlar, zemin, cerceve, yazi). Kanallar arasi karsilastirma bunlarla.
+GORUNUR = ['palet', 'arkaplan', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman']
+ESIK_KANAL_AYNI = 2  # baska bir kanalin son DNA'siyla en fazla 2 gorunur eksen ayni olabilir
+# kagit gorunumu: bir DNA'da en fazla bir kagit ogesi (yoksa her video "kagit" kokar)
+KAGIT = {'arkaplan': {'kagit', 'kareli-defter'}, 'doku': {'kagit-ust'}, 'alinti': {'kagit-not', 'daktilo-belge'}}
+
+def _set(v):
+    return {(':'.join(x.split(':')[:2]) if ':' in x else x) for x in (v if isinstance(v, list) else [v]) if isinstance(x, str)}
+
+def ayni_gorunur(a, b):
+    """iki DNA'da ayni olan gorunur eksenler (liste eksenlerinde ortak oge varsa ayni sayilir)."""
+    return [e for e in GORUNUR if a.get(e) is not None and _set(a.get(e)) & _set(b.get(e))]
+
+def kagit_sayisi(d):
+    n = 0
+    for e, xs in KAGIT.items():
+        n += len(_set(d.get(e)) & xs)
+    return n
+
 # ---------------- aileler ve kutuphane teknik eslemesi ----------------
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
@@ -334,16 +405,19 @@ def med(xs):
     return round(xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2, 3)
 
 # ---------------- secim ----------------
-def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile=(), agirlik=None):
-    """havuzdan n oge: yasak/rakip ailesi disi; gecmiste (son 3) olmayanlar oncelikli; az kullanilan agirlikli."""
-    def uygun(x, sert):
+def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile=(), agirlik=None, kacin=()):
+    """havuzdan n oge: yasak/rakip ailesi disi; once kanalin son 3 videosunda VE diger kanallarin son DNA'sinda olmayanlar,
+    sonra yalniz kanal gecmisinde olmayanlar, en son hepsi; az kullanilan agirlikli."""
+    def uygun(x, kademe):
         if x in yasak:
             return False
         if aile and aile.get(x) in yasak_aile:
             return False
-        return not (sert and x in gecmis)
-    for sert in (True, False):
-        aday = [x for x in havuz if uygun(x, sert)]
+        if kademe <= 1 and x in gecmis:
+            return False
+        return not (kademe == 0 and x in kacin)
+    for kademe in (0, 1, 2):
+        aday = [x for x in havuz if uygun(x, kademe)]
         if len(aday) >= n:
             break
     if not aday:
@@ -356,7 +430,7 @@ def sec(r, havuz, yasak=(), gecmis=(), kullanim=None, n=1, aile=None, yasak_aile
         aday = [y for y in aday if y != x and (not aile or aile.get(y) != aile.get(x) or len(aday) <= n)]
     return out
 
-def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk=None, nis=None):
+def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk=None, nis=None, diger=()):
     vk = vk or {'katalog': {'arkaplan': {}, 'filmburn': {}}, 'presetler': []}
     T = TON.get(ton or '', {})
     NP, NG, NC = nis_agirlik(nis or [])
@@ -365,8 +439,10 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     L = lambda d, a: tsx_liste(rep, d, a)
     son = gecmis[-3:]
     g = lambda eksen: {x for d in son for x in (d.get(eksen) if isinstance(d.get(eksen), list) else [d.get(eksen)]) if x}
+    # diger kanallarin son DNA'lari: ayni gorunumu baska kanalda tekrar etme
+    k2 = lambda eksen: {x for d in diger for x in (d.get(eksen) if isinstance(d.get(eksen), list) else [d.get(eksen)]) if isinstance(x, str)}
     kul = {}
-    for d in gecmis + onceki_secenekler:
+    for d in list(gecmis) + list(onceki_secenekler) + list(diger):
         for e, v in d.items():
             for x in (v if isinstance(v, list) else [v]):
                 if isinstance(x, str):
@@ -378,21 +454,21 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
         dna['palet'] = gecmis[-1]['palet']
     else:
         # renk konuya/nise uyar: nisteki siniflar one cikar; rakibin sinifi yasak degil ama geri planda (x0.35)
-        dna['palet'] = sec(r, paletler, gecmis=g('palet'), kullanim=kul,
+        dna['palet'] = sec(r, paletler, gecmis=g('palet'), kullanim=kul, kacin=k2('palet'),
                            agirlik={p: (1 + 2 * NP.get(PALET_SINIF.get(p), 0)) * (0.35 if PALET_SINIF.get(p) == Y['palet_sinif'] else 1) for p in paletler})[0]
     fontlar = [f for f in tsx_sozluk_anahtar(rep, 'temel.ts', 'FONTLAR') if not T.get('font') or f in T['font']]
-    dna['font'] = gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, gecmis=g('font'), kullanim=kul)[0]
+    dna['font'] = gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, gecmis=g('font'), kullanim=kul, kacin=k2('font'))[0]
     hareketler = [h for h in ['yay-esnek', 'kubik-hizli', 'ustel-sert', 'adim-stop', 'geri-sekme', 'dogrusal-mekanik'] if h not in T.get('hareket_disi', [])]
-    dna['hareket'] = sec(r, hareketler, gecmis=g('hareket'), kullanim=kul)[0]
+    dna['hareket'] = sec(r, hareketler, gecmis=g('hareket'), kullanim=kul, kacin=k2('hareket'))[0]
     ark = [x for x in L('Arkaplan.tsx', 'ARKAPLAN_TIPLERI') if x not in T.get('arkaplan_disi', [])]
-    dna['arkaplan'] = sec(r, ark, gecmis=g('arkaplan'), kullanim=kul, n=3)          # [kart, cerceve, bolum]
+    dna['arkaplan'] = sec(r, ark, gecmis=g('arkaplan'), kullanim=kul, n=3, kacin=k2('arkaplan'))          # [kart, cerceve, bolum]
     # paket videosu: palete uyan parlaklikta, az kullanilmis, iyi donen bir video bir rolu alir
     va = vk['katalog'].get('arkaplan') or {}
     if va and r.random() < 0.65:
         acik = PALET_SINIF.get(dna['palet']) == 'acik'
         uy = [k for k, v in va.items() if v.get('sinif') in (('acik', 'orta') if acik else ('koyu', 'orta'))
               and (not ton or ton in (v.get('ton') or [ton]))]
-        once = {x.split(':')[1] for x in g('arkaplan') if x.startswith('video:')}
+        once = {x.split(':')[1] for x in g('arkaplan') | k2('arkaplan') if x.startswith('video:')}
         once_aile = {va.get(x, {}).get('aile') for x in once}
         uy = [k for k in uy if k not in once and va[k].get('aile') not in once_aile] or [k for k in uy if k not in once] or uy
         if uy:
@@ -401,7 +477,7 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
             dna['arkaplan'][r.choice([1, 2])] = 'video:%s:%s' % (k, va[k]['sure'])
     gec = [x for x in L('Gecis.tsx', 'GECIS_TIPLERI') if x != 'sert']
     dna['gecis'] = sec(r, gec, gecmis=g('gecis'), kullanim=kul, n=3, aile=GECIS_AILE, yasak_aile=tuple(Y['gecis_aileleri']),
-                       agirlik={x: 1 + 2 * NG.get(GECIS_AILE.get(x), 0) for x in gec})
+                       agirlik={x: 1 + 2 * NG.get(GECIS_AILE.get(x), 0) for x in gec}, kacin=k2('gecis'))
     fb = vk['katalog'].get('filmburn') or {}
     if fb and 'flas' not in Y['gecis_aileleri'] and r.random() < 0.5:
         k = r.choice([x for x in fb if fb[x].get('siyah_orani', 0) > 0.2] or list(fb))
@@ -417,27 +493,27 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
             zoom = [z for z in zoom if 'smooth' in z] or zoom
         sars = [p['id'] for p in pre if p['sinif'] == 'sarsinti' and 'impact' in p['id']]
         kay = [p['id'] for p in pre if p['sinif'] == 'kayma' and 'slide-in' in p['id']]
-        v = sec(r, zoom, gecmis=g('vurgu'), kullanim=kul) if zoom else []
+        v = sec(r, zoom, gecmis=g('vurgu'), kullanim=kul, kacin=k2('vurgu')) if zoom else []
         if sars and ton != 'sakin':
             v += sec(r, sars, gecmis=g('vurgu'), kullanim=kul)
         dna['vurgu'] = v
-        dna['kayma'] = sec(r, kay, gecmis=g('kayma'), kullanim=kul)[0] if kay else None
+        dna['kayma'] = sec(r, kay, gecmis=g('kayma'), kullanim=kul, kacin=k2('kayma'))[0] if kay else None
     kam = L('Medya.tsx', 'KAMERA_TIPLERI')
-    dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], yasak=tuple(Y['kamera']), gecmis=g('kamera'), kullanim=kul, n=3)
+    dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], yasak=tuple(Y['kamera']), gecmis=g('kamera'), kullanim=kul, n=3, kacin=k2('kamera'))
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
-    dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']), gecmis=g('cerceve'), kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer})
+    dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']), gecmis=g('cerceve'), kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
     bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik']]
-    dna['baslik'] = sec(r, bas, gecmis=g('baslik'), kullanim=kul)[0]
+    dna['baslik'] = sec(r, bas, gecmis=g('baslik'), kullanim=kul, kacin=k2('baslik'))[0]
     alt = list(L('Yazi.tsx', 'ALTYAZI_TIPLERI')) + ['yok']
     if Y['altyazi_aile'] == 'yok':
         alt += ['yok', 'yok']  # rakip altyazisizsa 'yok' da gecerli bir secenek
-    dna['altyazi'] = sec(r, alt, gecmis=g('altyazi'), kullanim=kul, aile=ALTYAZI_AILE, yasak_aile=(Y['altyazi_aile'],) if Y['altyazi_aile'] != 'yok' else ())[0]
+    dna['altyazi'] = sec(r, alt, gecmis=g('altyazi'), kullanim=kul, kacin=k2('altyazi'), aile=ALTYAZI_AILE, yasak_aile=(Y['altyazi_aile'],) if Y['altyazi_aile'] != 'yok' else ())[0]
     for eksen, dosya, ad in [('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
                              ('liste', 'Kart.tsx', 'LISTE_TIPLERI'), ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI')]:
-        dna[eksen] = sec(r, L(dosya, ad), gecmis=g(eksen), kullanim=kul)[0]
+        dna[eksen] = sec(r, L(dosya, ad), gecmis=g(eksen), kullanim=kul, kacin=k2(eksen))[0]
     dok = L('Medya.tsx', 'DOKU_TIPLERI')
     nd = r.choice([0, 1, 1, 2])
-    d = sec(r, dok, yasak=tuple(Y['doku']), gecmis=g('doku'), kullanim=kul, n=nd) if nd else []
+    d = sec(r, dok, yasak=tuple(Y['doku']), gecmis=g('doku'), kullanim=kul, n=nd, kacin=k2('doku')) if nd else []
     if set(d) == {'gren', 'vinyet'}:
         d = d[:1]
     dna['doku'] = d
@@ -492,7 +568,7 @@ def klasik_skor(d):
     s += d['kamera'] == ['ken-burns-ice']
     return s
 
-def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None):
+def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None, diger=None):
     Y, I = rk['yuzey'], rk['iskelet']
     s = ['# STIL DNA — rakip vs secenekler', '',
          f"Rakip: {rk['kaynak']} ({rk['video_sayisi']} video). Iskelet rakipten alinir, yuzey degistirilir. Gecmis: {len(gecmis)} DNA (son 3'u tekrar edilmez).", '',
@@ -529,6 +605,17 @@ def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None):
         s.append(f"- **{chr(65 + i)}**: rakipten farkli eksen {sum(1 for _, b in rf if b)}/{len(rf)} = %{round(rp * 100)} ({', '.join(a for a, b in rf if b)}) · "
                  f"son 3 videoya gore degisim: {['%' + str(x) for x in op] or 'gecmis yok'} · esik: her biri en az %{round(ESIK_DEGISIM * 100)} "
                  f"({'TAMAM' if rp >= ESIK_DEGISIM and all(x >= ESIK_DEGISIM * 100 for x in op) else 'TUTMADI -> --tohum degistir'}) · klasik Claude skoru {klasik_skor(d)}/5 (0 olmali)")
+    s += ['', '## Diger kanallarla (ayni gorunum baska kanalda olmasin)', '']
+    if not diger:
+        s.append('- baska kanalin secilmis DNA\'si yok')
+    for i, d in enumerate(secenekler):
+        sat = []
+        for kanal, x in (diger or {}).items():
+            ay = ayni_gorunur(d, x)
+            sat.append(f"{kanal}: {len(ay)} ayni ({', '.join(ay) or '-'})" + (' **FAZLA**' if len(ay) > ESIK_KANAL_AYNI else ''))
+        tamam = all(len(ayni_gorunur(d, x)) <= ESIK_KANAL_AYNI for x in (diger or {}).values()) and kagit_sayisi(d) <= 1
+        if diger:
+            s.append(f"- **{chr(65 + i)}**: " + ' · '.join(sat) + f" · kagit ogesi {kagit_sayisi(d)} (en fazla 1) · esik: her kanalla en fazla {ESIK_KANAL_AYNI} gorunur eksen ayni ({'TAMAM' if tamam else 'TUTMADI -> --tohum degistir'})")
     if len(secenekler) > 1:
         s.append(f"- A ile B arasi farkli eksen: {fark(secenekler[0], secenekler[1])}")
     s += ['', 'Onizleme: repertuar `Onizleme` kompozisyonu `--props` ile (bkz. repertuar/README.md).']
@@ -549,6 +636,8 @@ def main():
     ap.add_argument('--kok')
     ap.add_argument('--repertuar')
     ap.add_argument('--varlik', help='repo varlik/ klasoru (varsayilan: repo kokunden bulunur)')
+    ap.add_argument('--kanallar', help='kanal klasorlerinin koku (varsayilan C:\\otomasyon); diger kanallarin DNA\'lari buradan okunur')
+    ap.add_argument('--kanal', help='bu videonun kanali (varsayilan: --cikti yolundan, ornek C:\\otomasyon\\ranks\\video10 -> ranks)')
     a = ap.parse_args()
     kut = kutuphane_bul(a.kok)
     rep = repertuar_bul(a.repertuar, kut)
@@ -569,6 +658,16 @@ def main():
     a.ton = tb['ton']
     nis = nis_kanallari(kut, rh, a.ton, konu + ' ' + rmetin)
     gecmis = [json.load(open(x, encoding='utf-8')) for x in a.gecmis if os.path.isfile(x)]
+    kk = kanallar_koku(a.kanallar)
+    kanal = a.kanal or kanal_adi(kk, a.cikti) if kk else a.kanal
+    tum = secilmis_dnalar(kk)
+    cikti_abs = os.path.abspath(a.cikti)
+    kendi = [d for _, fp, d in tum.get(kanal, []) if os.path.dirname(os.path.abspath(fp)) != cikti_abs and not os.path.abspath(fp).startswith(cikti_abs + os.sep)]
+    if not gecmis and kendi:
+        gecmis = kendi[-3:]  # --gecmis verilmediyse kanalin onceki secilmis DNA'lari otomatik
+        print(f"gecmis otomatik: {kanal} kanalinin son {len(gecmis)} DNA'si")
+    diger = {k: v[-1][2] for k, v in tum.items() if k != kanal and v}
+    print(f"kanal: {kanal or '?'} | diger kanallar ({len(diger)}): {', '.join(diger) or '-'}")
     kilit = {k.strip() for k in a.kilit.split(',') if k.strip()}
     os.makedirs(a.cikti, exist_ok=True)
     tohum = a.tohum or (a.rakip or 'x') + str(len(gecmis))
@@ -576,21 +675,31 @@ def main():
     for i in range(a.secenek):
         en_iyi = None
         for deneme in range(40):
-            d = dna_uret(rk, rep, kut, gecmis, kilit, f'{tohum}-{i}-{deneme}', secenekler, a.ton, vk, nis)
+            d = dna_uret(rk, rep, kut, gecmis, kilit, f'{tohum}-{i}-{deneme}', secenekler, a.ton, vk, nis, list(diger.values()))
             rf = sum(1 for _, b in rakip_fark(d, rk) if b)
             gf = min([fark(d, x) for x in gecmis[-3:]] or [99])
             if gecmis and gf / len(EKSENLER) < ESIK_DEGISIM:
                 gf = -10  # %20 alti: kabul edilmez
             sf = min([fark(d, x) for x in secenekler] or [99])
-            puan = rf * 3 + min(gf, 12) + min(sf, 10) - klasik_skor(d) * 20
+            ka = max([len(ayni_gorunur(d, x)) for x in diger.values()] or [0])
+            kg = kagit_sayisi(d)
+            puan = rf * 3 + min(gf, 12) + min(sf, 10) - klasik_skor(d) * 20 - max(0, ka - ESIK_KANAL_AYNI) * 6 - ka - max(0, kg - 1) * 8
             if en_iyi is None or puan > en_iyi[0]:
                 en_iyi = (puan, d)
-            if rf >= 6 and gf >= 6 and sf >= 6 and klasik_skor(d) == 0:
+            if rf >= 6 and gf >= 6 and sf >= 6 and klasik_skor(d) == 0 and ka <= ESIK_KANAL_AYNI and kg <= 1:
                 break
         secenekler.append(en_iyi[1])
     for i, d in enumerate(secenekler):
         json.dump(d, open(os.path.join(a.cikti, f'stil-dna-{chr(65 + i)}.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    md_yaz(os.path.join(a.cikti, 'STIL-DNA.md'), rk, secenekler, kut, gecmis, tb, nis)
+    # secilmis DNA: varsayilan A. Kullanici B secerse stil-dna-B.json -> stil-dna.json kopyalanir.
+    # Bu dosya kanallar arasi hafizadir: diger kanallarin sonraki DNA'lari bunu gorur ve tekrar etmez.
+    sec_yol = os.path.join(a.cikti, 'stil-dna.json')
+    if not os.path.isfile(sec_yol):
+        json.dump(secenekler[0], open(sec_yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        print('secilmis DNA (varsayilan A) ->', sec_yol)
+    else:
+        print('stil-dna.json zaten var, dokunulmadi (yeni secim icin silip tekrar calistir ya da A/B kopyala):', sec_yol)
+    md_yaz(os.path.join(a.cikti, 'STIL-DNA.md'), rk, secenekler, kut, gecmis, tb, nis, diger)
     json.dump(rk, open(os.path.join(a.cikti, 'rakip-imza.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f"kutuphane: {kut}\nrepertuar: {rep}")
     print(f"ton: {tb['ton']} ({tb['kaynak']}) puan={tb['puan']} | nis kanali: {len(nis)} ({', '.join(x['kanal'] for x in nis[:5])})")
@@ -598,7 +707,8 @@ def main():
     for i, d in enumerate(secenekler):
         rf = rakip_fark(d, rk)
         print(f"{chr(65 + i)}: palet={d['palet']} font={d['font']} hareket={d['hareket']} arkaplan={d['arkaplan']} gecis={d['gecis']} "
-              f"altyazi={d['altyazi']} cerceve={d['cerceve']} vurgu={d.get('vurgu')} | rakipten farkli {sum(1 for _, b in rf if b)}/{len(rf)} | klasik {klasik_skor(d)}")
+              f"altyazi={d['altyazi']} cerceve={d['cerceve']} sayi={d['sayi']} alinti={d['alinti']} liste={d['liste']} zaman={d['zaman']} | rakipten farkli {sum(1 for _, b in rf if b)}/{len(rf)} | klasik {klasik_skor(d)} | "
+              f"diger kanallarla ayni gorunur: {dict((k, len(ayni_gorunur(d, x))) for k, x in diger.items())} | kagit {kagit_sayisi(d)}")
     print('->', os.path.join(a.cikti, 'STIL-DNA.md'))
 
 if __name__ == '__main__':
