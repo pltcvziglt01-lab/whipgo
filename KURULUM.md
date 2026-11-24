@@ -1,5 +1,13 @@
 # Kurulum ve günlük kullanım
 
+## Arkadaşa vermeden önce (lisans)
+Repoda Adobe Basics preset/SFX paketleri var (`varlik/`, Release `varlik-v1`); lisans başkasına dağıtımı yasaklar. Karar (2026-11-25):
+**arkadaş Adobe Basics paketlerini kendi adına lisanslar**, ancak ondan sonra repoya erişim verilir. Sıra:
+1. Arkadaş lisansı alır (Adobe Basics: FREE Preset Pack, Ultimate 500+ Preset Pack, bonus presets) ve sana teyit eder.
+2. Repo sahibi GitHub'da davet eder (repo ÖZEL kalır): `gh api -X PUT repos/<kullanici>/whipgo/collaborators/<arkadas> -f permission=pull`
+   ya da GitHub → whipgo → Settings → Collaborators. Yazma izni gerekmiyorsa `pull` (salt okuma) yeter.
+3. Arkadaş daveti kabul eder, aşağıdaki tek komutla kurar. Drive kütüphanesi ayrıca paylaşılır (`ARKADAS-ICIN-PROMPT.md`); lisanslı paket Drive'a konmaz.
+
 ## Yeni makine (bir kez) — TEK KOMUT
 ```powershell
 winget install --id Git.Git -e; winget install --id GitHub.cli -e
