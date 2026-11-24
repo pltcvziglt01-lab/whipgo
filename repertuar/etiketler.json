@@ -923,6 +923,29 @@
     "sinematik",
     "sicak"
    ]
+  },
+  "parsomen": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "felsefe",
+    "gizem"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "sicak",
+    "belgesel"
+   ],
+   "kaynak": [
+    "@BoneWitness-r6y"
+   ]
   }
  },
  "baslik": {
@@ -1150,6 +1173,53 @@
    "enerji": 2,
    "his": [
     "klasik"
+   ]
+  },
+  "kutu-vurgu": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "gizem",
+    "suc",
+    "haber",
+    "askeri",
+    "tarih",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "resmi",
+    "dinamik"
+   ],
+   "kaynak": [
+    "@TheUnreturned-b2k"
+   ]
+  },
+  "zemin-perspektif": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "muhendislik",
+    "tarih",
+    "askeri",
+    "bilim",
+    "gizem",
+    "biyografi"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "teknik"
+   ],
+   "kaynak": [
+    "@Ground-Engineering"
    ]
   }
  },
@@ -1501,6 +1571,52 @@
    "his": [
     "retro",
     "teknik"
+   ]
+  },
+  "serif-zarif": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "seyahat",
+    "biyografi",
+    "felsefe",
+    "finans"
+   ],
+   "enerji": 1,
+   "his": [
+    "resmi",
+    "belgesel",
+    "sinematik"
+   ],
+   "kaynak": [
+    "@WhereTheyStood"
+   ]
+  },
+  "el-alti-cizgi": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "suc",
+    "biyografi",
+    "gizem"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "sicak"
+   ],
+   "kaynak": [
+    "@BoneWitness-r6y"
    ]
   }
  },
@@ -2098,6 +2214,29 @@
    "his": [
     "modern",
     "temiz"
+   ]
+  },
+  "altin-cerceve": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "seyahat",
+    "felsefe"
+   ],
+   "enerji": 1,
+   "his": [
+    "resmi",
+    "arsiv",
+    "sinematik"
+   ],
+   "kaynak": [
+    "@WhereTheyStood"
    ]
   }
  },
@@ -2979,6 +3118,249 @@
     "teknik",
     "resmi",
     "karanlik"
+   ]
+  }
+ },
+ "harita": {
+  "isik-rota": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "seyahat",
+    "gizem",
+    "biyografi",
+    "haber",
+    "muhendislik"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "belgesel",
+    "karanlik"
+   ],
+   "kaynak": [
+    "@WhereTheyStood"
+   ]
+  },
+  "kesik-rota": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "seyahat",
+    "tarih",
+    "biyografi",
+    "egitim",
+    "haber"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "temiz",
+    "sicak"
+   ],
+   "kaynak": []
+  },
+  "ok-yay": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "spor",
+    "haber",
+    "tarih"
+   ],
+   "enerji": 4,
+   "his": [
+    "dinamik",
+    "resmi"
+   ],
+   "kaynak": []
+  }
+ },
+ "grafik": {
+  "cizgi-isik": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "askeri",
+    "gizem",
+    "teknoloji",
+    "bilim"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "karanlik",
+    "teknik"
+   ],
+   "kaynak": [
+    "@TheUnreturned-b2k"
+   ]
+  },
+  "alan-dolgu": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "finans",
+    "saglik",
+    "teknoloji",
+    "bilim",
+    "egitim"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz"
+   ],
+   "kaynak": []
+  },
+  "basamak": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "muhendislik",
+    "askeri",
+    "spor"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "resmi"
+   ],
+   "kaynak": []
+  },
+  "eleme-izgara": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "gizem",
+    "askeri",
+    "suc",
+    "tarih",
+    "bilim",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "modern"
+   ],
+   "kaynak": [
+    "@ImmersivePast"
+   ]
+  }
+ },
+ "hud": {
+  "derinlik-cetvel": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "muhendislik",
+    "bilim",
+    "gizem",
+    "askeri",
+    "korku"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "karanlik"
+   ],
+   "kaynak": [
+    "@Ground-Engineering",
+    "@ImmersivePast"
+   ]
+  },
+  "koordinat": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "gizem",
+    "haber",
+    "teknoloji"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "karanlik"
+   ],
+   "kaynak": []
+  },
+  "zaman-kodu": {
+   "ton": [
+    "gizem",
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "suc",
+    "askeri",
+    "haber",
+    "gizem",
+    "korku"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "sinematik"
+   ],
+   "kaynak": []
+  },
+  "tarih-rozeti": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "gizem",
+    "biyografi",
+    "seyahat",
+    "suc"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "resmi"
+   ],
+   "kaynak": [
+    "@ImmersivePast"
    ]
   }
  }

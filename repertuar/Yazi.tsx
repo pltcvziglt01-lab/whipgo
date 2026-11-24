@@ -6,7 +6,7 @@ import { Stil, egri, ilerle, rastgele, rgba, sinirla } from './temel';
 // ayni seyi yapmiyorsa ve en fazla 1 eksen olarak kullanir.
 export const BASLIK_TIPLERI = [
   'maske-yukari', 'harf-dalga', 'bulaniklik', 'scramble', 'daktilo', 'kutu-acilis', 'dikey-yigin',
-  'harf-aralik', 'kontur-dolma', 'olcek-darbe', 'uzun-golge', 'alt-cizgi', 'asagidan-yay',
+  'harf-aralik', 'kontur-dolma', 'olcek-darbe', 'uzun-golge', 'alt-cizgi', 'kutu-vurgu', 'zemin-perspektif', 'asagidan-yay',
 ] as const;
 export type BaslikTip = typeof BASLIK_TIPLERI[number];
 export type Konum = 'orta' | 'sol-alt' | 'sol-ust' | 'sol-orta' | 'sag-alt' | 'ust-orta';
@@ -125,12 +125,54 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
       );
       break;
     }
+    case 'kutu-vurgu': {
+      // agir sans; *isaretli* kelimeler (yoksa son kelime) dolu vurgu kutusunda. Kelimeler sirayla yukari kayar, kutu soldan acilir.
+      const ham = metin.split(' ');
+      const isaret = ham.some((w) => /^\*.*\*$/.test(w));
+      const kel = ham.map((w, i) => ({ w: (font.buyukHarf ? w.toUpperCase() : w).replace(/\*/g, ''), v: isaret ? /^\*.*\*$/.test(w) : i === ham.length - 1 }));
+      govde = (
+        <div style={{ ...temel, display: 'flex', flexWrap: 'wrap', justifyContent: konum === 'orta' || konum === 'ust-orta' ? 'center' : 'flex-start', columnGap: boyut * 0.24, rowGap: boyut * 0.1 }}>
+          {kel.map((k, i) => {
+            const p = ilerle(f, i * 3, sure * 0.6, hareket);
+            const q = ilerle(f, i * 3 + sure * 0.35, sure * 0.5, 'ustel-sert');
+            return (
+              <div key={i} style={{ overflow: 'hidden', position: 'relative', padding: k.v ? `0 ${boyut * 0.12}px` : 0 }}>
+                {k.v ? <div style={{ position: 'absolute', inset: `${boyut * 0.04}px 0`, background: palet.vurgu, transform: `scaleX(${q})`, transformOrigin: 'left' }} /> : null}
+                <div style={{ position: 'relative', transform: `translateY(${(1 - p) * 105}%)`, color: k.v && q > 0.5 ? (palet.acik ? palet.zemin : '#ffffff') : R }}>{k.w}</div>
+              </div>
+            );
+          })}
+        </div>
+      );
+      break;
+    }
+    case 'zemin-perspektif': {
+      // sahnenin zeminine yazilmis 3D metin: perspektifte yatar, kamera yukselir (rotateX 72 -> 52), ustunden isik suzulur
+      const p = ilerle(f, 0, sure * 2.2, 'kubik-hizli');
+      const isik = sinirla((f - sure * 0.4) / (sure * 1.8));
+      const parlak = karistirHex(R, '#ffffff', 0.55);
+      govde = (
+        <div style={{ perspective: boyut * 9, perspectiveOrigin: '50% 0%' }}>
+          <div style={{ ...temel, fontSize: boyut * 1.15, whiteSpace: 'nowrap', transform: `rotateX(${72 - 20 * p}deg) translateY(${(1 - p) * boyut * 0.8}px) scale(${0.92 + 0.08 * p})`, transformOrigin: '50% 100%',
+            opacity: sinirla(p * 2.5), color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text',
+            backgroundImage: `linear-gradient(100deg, ${R} ${isik * 120 - 30}%, ${parlak} ${isik * 120 - 10}%, ${R} ${isik * 120 + 10}%)`,
+            filter: `drop-shadow(0 ${boyut * 0.06}px ${boyut * 0.12}px ${rgba('#000', 0.6)}) drop-shadow(0 0 ${boyut * 0.18}px ${rgba(palet.vurgu, 0.35 * isik)})` }}>{m}</div>
+        </div>
+      );
+      break;
+    }
     default: { // asagidan-yay (klasik)
       const p = ilerle(f, 0, sure, 'yay-yumusak');
       govde = <div style={{ ...temel, opacity: p, transform: `translateY(${(1 - p) * 30}px)` }}>{m}</div>;
     }
   }
   return <div style={konumStil(konum)}>{ustSatir}{govde}</div>;
+};
+
+const karistirHex = (a: string, b: string, t: number) => {
+  const c = (h: string) => { const x = h.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const A = c(a), B = c(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
 };
 
 const bolSatir = (s: string, n: number) => {

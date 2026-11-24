@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
+import { FONTLAR, Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 
 // KARTLAR — saydam katmanlardir; arkalarina Arkaplan ya da Medya konur. Her kartin birden cok tasarim varyanti var;
 // stil_dna kanal basina her kart turu icin BIR varyant kilitler (kanal imzasi), rakibinkinden farkli olani.
@@ -66,7 +66,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
 };
 
 // ---------- SAYI KARTI ----------
-export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk', 'dev-kontur', 'tabela'] as const;
+export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk', 'dev-kontur', 'tabela', 'serif-zarif', 'el-alti-cizgi'] as const;
 export type SayiTip = typeof SAYI_TIPLERI[number];
 export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; stil: Stil }> = ({ tip, deger, onEk = '', sonEk = '', ust, alt, yuzde, stil }) => {
   const f = useCurrentFrame();
@@ -131,6 +131,37 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
               {alt ? <div style={{ fontFamily: font.govde, fontSize: 44, color: palet.murekkep, marginTop: 6, maxWidth: 1000 }}>{alt}</div> : null}
             </div>
           ) : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'el-alti-cizgi': {
+      // dar kalin rakam (vurgu renginde) + altina elle cizilmis kirmizi cizgi (@BoneWitness-r6y)
+      const cz = ilerle(f, fps * 0.45, fps * 0.45, 'kubik-hizli');
+      const s = yaz(deger * p);
+      const gen = Math.min(1500, s.length * 118);
+      const yol = `M 6 22 C ${gen * 0.25} ${10} ${gen * 0.5} ${30} ${gen * 0.75} ${16} S ${gen - 20} ${24} ${gen - 4} ${12}`;
+      return (
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          {ustEl}
+          <div style={{ fontFamily: font.baslik, fontWeight: 800, fontSize: 220, lineHeight: 1, color: palet.vurgu, letterSpacing: -2, fontVariantNumeric: 'tabular-nums', transform: `scaleY(1.08)` }}>{s}</div>
+          <svg width={gen} height={40} style={{ marginTop: 4 }}>
+            <path d={yol} fill="none" stroke={palet.vurgu} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - cz} />
+          </svg>
+          {altEl}
+        </AbsoluteFill>
+      );
+    }
+    case 'serif-zarif': {
+      // prestijli belgesel: eski stil (oldstyle) serif rakam, altinda ince vurgu cizgisi ve genis aralikli buyuk harf alt yazi
+      const serif = FONTLAR['editoryal-serif'];
+      const cizgi = ilerle(f, fps * 0.35, fps * 0.6, 'kubik-hizli');
+      return (
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          {ust ? <div style={{ fontFamily: serif.govde, fontStyle: 'italic', fontSize: 40, color: palet.soluk, marginBottom: 6, opacity: g }}>{ust}</div> : null}
+          <div style={{ fontFamily: serif.baslik, fontWeight: 500, fontSize: 250, lineHeight: 1, color: palet.murekkep, fontVariantNumeric: 'oldstyle-nums proportional-nums', fontFeatureSettings: '"onum" 1',
+            opacity: g, transform: `translateY(${(1 - g) * 24}px)`, textShadow: `0 10px 40px ${rgba('#000', 0.35)}` }}>{yaz(deger * p)}</div>
+          <div style={{ width: 360 * cizgi, height: 2, background: palet.vurgu, margin: '22px 0 20px' }} />
+          {alt ? <div style={{ fontFamily: font.govde, fontSize: 30, letterSpacing: 9, color: palet.vurgu, textTransform: 'uppercase', opacity: cizgi, maxWidth: 1300, textAlign: 'center' }}>{alt}</div> : null}
         </AbsoluteFill>
       );
     }

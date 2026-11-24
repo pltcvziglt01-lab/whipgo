@@ -7,6 +7,9 @@ import { Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } fro
 import { HareketAd, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
 import { Bitis, BitisTip } from './Bitis';
+import { BolgeVurgu, EtiketliHarita, HaritaNokta, HaritaRota, HaritaTip } from './Harita';
+import { CizgiGrafik, ElemeIzgara, GrafikTip } from './Grafik';
+import { Hud, HudTip } from './Hud';
 import { Altyazi, AltyaziTip, BaslikTip, Baslik, Kelime, Konum } from './Yazi';
 
 // stil-dna.json (stil_dna.py ciktisi) -> bilesenler. Video kodu yalniz bunlari kullanir; boylece her video/kanal
@@ -20,6 +23,8 @@ export type Dna = {
   vurgu?: string[]; kayma?: string;
   /** post-produksiyon katmani (Bitis.tsx): grade + kamera nefesi + isik; yoksa ham */
   bitis?: BitisTip;
+  /** veri/harita/HUD dili (Harita.tsx, Grafik.tsx, Hud.tsx) */
+  harita?: HaritaTip; grafik?: GrafikTip; hud?: HudTip;
 };
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum);
 
@@ -72,4 +77,23 @@ export const DnaDizi: React.FC<{ dna: Dna; sahneler: DiziSahne[]; yumusakOran?: 
 /** tum videoyu sarar: <DnaBitis dna={dna} anlar={[bolum basi kareleri]}> ...DnaDizi, DnaDoku, DnaAltyazi... </DnaBitis> */
 export const DnaBitis: React.FC<{ dna: Dna; anlar?: number[]; children: React.ReactNode }> = ({ dna, anlar, children }) => (
   <Bitis tip={dna.bitis} stil={dnaStil(dna)} anlar={anlar}>{children}</Bitis>
+);
+
+// ---- harita / grafik / HUD (zemin: CC harita gorseli; yoksa DNA'nin 3. arka plani) ----
+export const DnaHarita: React.FC<{ dna: Dna; noktalar: HaritaNokta[]; zemin?: MedyaKaynak; etiket?: string; sure?: number }> = ({ dna, ...p }) => (
+  <HaritaRota tip={dna.harita || 'isik-rota'} stil={dnaStil(dna)} arkaplan={dna.arkaplan[2 % dna.arkaplan.length]} {...p} />
+);
+export const DnaEtiketliHarita: React.FC<{ dna: Dna; etiketler: HaritaNokta[]; zemin?: MedyaKaynak; kaynak?: string }> = ({ dna, ...p }) => (
+  <EtiketliHarita stil={dnaStil(dna)} arkaplan={dna.arkaplan[2 % dna.arkaplan.length]} {...p} />
+);
+export const DnaBolge: React.FC<{ dna: Dna; kenar: [number, number][]; ad?: string; zemin?: MedyaKaynak }> = ({ dna, ...p }) => (
+  <BolgeVurgu stil={dnaStil(dna)} arkaplan={dna.arkaplan[2 % dna.arkaplan.length]} {...p} />
+);
+export const DnaGrafik: React.FC<{ dna: Dna; veriler: number[]; etiketler?: string[]; baslik?: string; birim?: string }> = ({ dna, ...p }) => (
+  <CizgiGrafik tip={dna.grafik && dna.grafik !== 'eleme-izgara' ? dna.grafik : 'cizgi-isik'} stil={dnaStil(dna)} {...p} />
+);
+export const DnaEleme: React.FC<{ dna: Dna; asamalar: number[]; etiketler?: string[]; ikon?: 'denizalti' | 'kisi' | 'nokta' }> = ({ dna, ...p }) => <ElemeIzgara stil={dnaStil(dna)} {...p} />;
+/** medya ustune binen HUD; tip verilmezse DNA'nin hud ekseni */
+export const DnaHud: React.FC<{ dna: Dna; tip?: HudTip; deger?: number; baslangic?: number; birim?: string; etiket?: string; ust?: string; sure?: number }> = ({ dna, tip, ...p }) => (
+  <Hud tip={tip || dna.hud || 'tarih-rozeti'} stil={dnaStil(dna)} {...p} />
 );

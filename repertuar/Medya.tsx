@@ -49,7 +49,7 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
 
 // ---------------- CERCEVE / DUZEN ----------------
 // 'tam' disindaki her duzen arkada ANIMASYONLU arka plan kullanir (duz renk degil).
-export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan'] as const;
+export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan', 'altin-cerceve'] as const;
 export type CerceveTip = typeof CERCEVE_TIPLERI[number];
 
 export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera = 'sabit', stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
@@ -132,6 +132,27 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
     }
     case 'yuvarlak-yan':
       return <AbsoluteFill>{ap}{kutu(W * 0.5, H * 0.12, H * 0.76, H * 0.76, md(m), { borderRadius: '50%', border: `10px solid ${palet.vurgu}`, transform: `scale(${0.8 + 0.2 * giris})` })}</AbsoluteFill>;
+    case 'altin-cerceve': {
+      // arsiv fotografi neredeyse siyah zeminde, egimli (bevel) altin cercevede; cerceve uzerinden yavas isik gecer
+      const altin = ['#6e5122', '#d9b46a', '#f6e2a8', '#b48a3e', '#6e5122'];
+      const isik = ((t * 0.18) % 1.6) - 0.3;
+      const bw = W * 0.6, bh = H * 0.74, x0 = (W - bw) / 2, y0 = (H - bh) / 2;
+      return (
+        <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 45%, ${rgba(palet.zemin2, 0.55)} 0%, #050505 75%)` }}>
+          <div style={{ position: 'absolute', left: x0 - 18, top: y0 - 18, width: bw + 36, height: bh + 36, padding: 18, boxSizing: 'border-box', opacity: giris, transform: `scale(${0.97 + 0.03 * giris})`,
+            background: `linear-gradient(135deg, ${altin.join(', ')})`, boxShadow: `0 40px 110px ${rgba('#000', 0.75)}, inset 0 0 0 2px ${rgba('#fff3c4', 0.35)}` }}>
+            {/* cerceve uzerinden gecen isik: fotografin ALTINDA (yalniz altin kenarda gorunur) */}
+            <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+              background: `linear-gradient(115deg, transparent ${isik * 100 - 8}%, ${rgba('#fff6d8', 0.6)} ${isik * 100}%, transparent ${isik * 100 + 8}%)` }} />
+            <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', boxShadow: `inset 0 0 0 3px ${rgba('#000', 0.6)}` }}>
+              {md(m)}
+              <div style={{ position: 'absolute', inset: 0, boxShadow: `inset 0 0 60px ${rgba('#000', 0.55)}` }} />
+            </div>
+          </div>
+          {etiket ? <div style={{ position: 'absolute', left: x0, top: y0 + bh + 40, fontFamily: font.govde, fontStyle: 'italic', fontSize: 26, color: '#d9b46a', opacity: giris }}>{etiket}</div> : null}
+        </AbsoluteFill>
+      );
+    }
     default: return md(m);
   }
 };

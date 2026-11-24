@@ -122,7 +122,7 @@ def secilmis_dnalar(kok):
     return out
 
 # gorunur eksenler: izleyicinin ilk bakista tanidigi yuzey (kartlar, zemin, cerceve, yazi). Kanallar arasi karsilastirma bunlarla.
-GORUNUR = ['palet', 'arkaplan', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman']
+GORUNUR = ['palet', 'arkaplan', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'harita', 'grafik']
 ESIK_KANAL_AYNI = 2  # baska bir kanalin son DNA'siyla en fazla 2 gorunur eksen ayni olabilir
 # kagit gorunumu: bir DNA'da en fazla bir kagit ogesi (yoksa her video "kagit" kokar)
 KAGIT = {'arkaplan': {'kagit', 'kareli-defter'}, 'doku': {'kagit-ust'}, 'alinti': {'kagit-not', 'daktilo-belge'}}
@@ -143,7 +143,7 @@ def kagit_sayisi(d):
 # ---------------- aileler ve kutuphane teknik eslemesi ----------------
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
-              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv'}
+              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma'}
 RAKIP_GECIS_AILE = [('siyaha', 'karartma'), ('cozunme', 'karartma'), ('beyaza', 'flas'), ('isik', 'flas'), ('flas', 'flas'), ('glitch', 'glitch'),
                     ('kaydirma', 'hareket'), ('whip', 'hareket'), ('itme', 'hareket'), ('zoom_gecis', 'zoom'), ('wipe', 'maske'), ('maske', 'maske')]
 CERCEVE_RAKIP = {'cerceveli_bulanik': 'bulanik-kopya', 'cerceveli_duz_renk': 'inset-golge', 'letterbox': 'letterbox', 'bolunmus': 'bolunmus',
@@ -636,6 +636,10 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     for eksen, dosya, ad in [('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
                              ('liste', 'Kart.tsx', 'LISTE_TIPLERI'), ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI')]:
         dna[eksen] = sec(r, L(dosya, ad), gecmis=g(eksen), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0]
+    # harita / grafik / HUD dili (dosya varsa)
+    for eksen, dosya, ad in [('harita', 'Harita.tsx', 'HARITA_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI'), ('hud', 'Hud.tsx', 'HUD_TIPLERI')]:
+        if os.path.isfile(os.path.join(rep, dosya)):
+            dna[eksen] = sec(r, [x for x in L(dosya, ad) if not (eksen == 'grafik' and x == 'eleme-izgara')], gecmis=g(eksen), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0]
     dok = L('Medya.tsx', 'DOKU_TIPLERI')
     nd = r.choice([0, 1, 1, 2])
     d = sec(r, dok, yasak=tuple(Y['doku']), gecmis=g('doku'), eksen='doku', kullanim=kul, n=nd, kacin=k2('doku')) if nd else []
@@ -663,7 +667,7 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     return dna
 
 ESIK_DEGISIM = 0.20  # her video rakipten VE kanalin son 3 videosundan en az %20 farkli yuzey (demonetizasyon / AI slop)
-EKSENLER = ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'doku', 'vurgu', 'kayma', 'bitis']
+EKSENLER = ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'doku', 'vurgu', 'kayma', 'bitis', 'harita', 'grafik', 'hud']
 
 def fark(a, b):
     n = 0
@@ -732,7 +736,7 @@ def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None, diger=None):
     s += ['', '## Secim nedenleri (etiketler)', '']
     for i, d in enumerate(secenekler):
         sat = []
-        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'alinti', 'liste', 'zaman', 'altbant', 'doku', 'bitis']:
+        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'alinti', 'liste', 'zaman', 'altbant', 'doku', 'bitis', 'harita', 'grafik', 'hud']:
             for x in (d.get(e) if isinstance(d.get(e), list) else [d.get(e)]):
                 if isinstance(x, str) and not x.startswith('video:'):
                     sat.append(f"{e}/{x}: {ETK.neden(e, x)}")
@@ -825,7 +829,7 @@ def main():
     eksik = [f"{e}:{x}" for e, d, ad in [('arkaplan', 'Arkaplan.tsx', 'ARKAPLAN_TIPLERI'), ('gecis', 'Gecis.tsx', 'GECIS_TIPLERI'), ('baslik', 'Yazi.tsx', 'BASLIK_TIPLERI'),
              ('altyazi', 'Yazi.tsx', 'ALTYAZI_TIPLERI'), ('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
              ('liste', 'Kart.tsx', 'LISTE_TIPLERI'), ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI'), ('kamera', 'Medya.tsx', 'KAMERA_TIPLERI'), ('cerceve', 'Medya.tsx', 'CERCEVE_TIPLERI'),
-             ('doku', 'Medya.tsx', 'DOKU_TIPLERI')] for x in tsx_liste(rep, d, ad) if x not in ('sert', 'sabit', 'tam') and x not in (et.get(e) or {})]
+             ('doku', 'Medya.tsx', 'DOKU_TIPLERI')] + [(e2, d2, a2) for e2, d2, a2 in [('bitis', 'Bitis.tsx', 'BITIS_TIPLERI'), ('harita', 'Harita.tsx', 'HARITA_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI'), ('hud', 'Hud.tsx', 'HUD_TIPLERI')] if os.path.isfile(os.path.join(rep, d2))] for x in tsx_liste(rep, d, ad) if x not in ('sert', 'sabit', 'tam') and x not in (et.get(e) or {})]
     if et and eksik:
         print('UYARI: etiketsiz repertuar ogeleri (etiketler.json\'a ekle):', ', '.join(eksik))
     gecmis = [json.load(open(x, encoding='utf-8')) for x in a.gecmis if os.path.isfile(x)]

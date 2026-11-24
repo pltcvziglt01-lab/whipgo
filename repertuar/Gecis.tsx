@@ -6,7 +6,7 @@ import { HareketAd, Stil, egri, rastgele, rgba, sinirla } from './temel';
 // Iskelet kurali: gecis SURESI rakibin yumusak gecis medyanindan, SIKLIGI rakibin yumusak gecis oranindan gelir (stil_dna.py).
 export const GECIS_TIPLERI = [
   'sert', 'cozunme', 'bulaniklik', 'isik-patlamasi', 'glitch-rgb', 'whip-sol', 'whip-yukari', 'kaydirma-itme',
-  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde',
+  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen',
 ] as const;
 /** 'filmburn:fb-03:1.4' = varlik/filmburn/fb-03.mp4, en parlak an 1.4 sn: kesim tam o ana denk gelir */
 export type GecisTip = typeof GECIS_TIPLERI[number] | `filmburn:${string}`;
@@ -63,6 +63,18 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ ti
       <AbsoluteFill style={{ mixBlendMode: 'screen' }}>
         <div style={{ position: 'absolute', left: -600 + p * (W + 600), top: -200, width: 1100, height: H + 400, borderRadius: '50%', background: `radial-gradient(ellipse, ${rgba('#ffd08a', a)} 0%, ${rgba(stil.palet.vurgu, a * 0.8)} 40%, transparent 70%)`, filter: 'blur(60px)' }} />
         <AbsoluteFill style={{ background: rgba('#ff9a3c', a * 0.25) }} />
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'parsomen') {
+    // bos sepya parsomen uzerinden cozunme (@BoneWitness-r6y): sahne kagida doner, kagittan yenisi cikar
+    const a = Math.sin(p * Math.PI);
+    return (
+      <AbsoluteFill style={{ opacity: Math.min(1, a * 1.25) }}>
+        <AbsoluteFill style={{ background: 'radial-gradient(ellipse at 50% 45%, #e9d8b0 0%, #cdb27c 70%, #9c7c48 100%)' }} />
+        <AbsoluteFill style={{ mixBlendMode: 'multiply', opacity: 0.55 }}>
+          <svg width={W} height={H}><filter id="gc-pars"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves={4} seed={11} /><feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.42  0 0 0 0 0.25  0 0 0 0.9 0" /></filter><rect width={W} height={H} filter="url(#gc-pars)" /></svg>
+        </AbsoluteFill>
       </AbsoluteFill>
     );
   }
