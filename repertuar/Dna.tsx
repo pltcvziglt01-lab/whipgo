@@ -28,6 +28,8 @@ export type Dna = {
   harita?: HaritaTip; grafik?: GrafikTip; hud?: HudTip;
   /** konudan gelen ton (stil_dna.py) — SFX paletini ve yogunlugunu belirler */
   ton?: string;
+  /** ikinci baslik girisi: ardisik kartlar donusumlu (yoksa hep baslik) */
+  baslik2?: BaslikTip;
 };
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum);
 
@@ -61,8 +63,8 @@ export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3
   return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} />;
 };
 
-export const DnaBaslik: React.FC<{ dna: Dna; metin: string; ust?: string; konum?: Konum; boyut?: number; arkaplanli?: boolean }> = ({ dna, metin, ust, konum, boyut, arkaplanli = true }) => (
-  <AbsoluteFill>{arkaplanli ? <DnaArkaplan dna={dna} rol={2} /> : null}<Baslik tip={dna.baslik} metin={metin} ust={ust} stil={dnaStil(dna)} konum={konum} boyut={boyut} /></AbsoluteFill>
+export const DnaBaslik: React.FC<{ dna: Dna; metin: string; ust?: string; konum?: Konum; boyut?: number; arkaplanli?: boolean; sira?: number }> = ({ dna, metin, ust, konum, boyut, arkaplanli = true, sira = 0 }) => (
+  <AbsoluteFill>{arkaplanli ? <DnaArkaplan dna={dna} rol={2} /> : null}<Baslik tip={sira % 2 && dna.baslik2 ? dna.baslik2 : dna.baslik} metin={metin} ust={ust} stil={dnaStil(dna)} konum={konum} boyut={boyut} /></AbsoluteFill>
 );
 /** SFX katmani: kurgu olaylarindan (gecis/kart/sayi/alinti/vurgu/altbant) otomatik ses efekti. Tum Dna videolarinda ZORUNLU. */
 export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; genelSes?: number }> = ({ dna, olaylar, klasor, genelSes }) => {

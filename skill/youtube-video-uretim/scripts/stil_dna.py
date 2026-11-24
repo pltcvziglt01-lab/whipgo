@@ -628,7 +628,10 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
     dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
     bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik']]
-    dna['baslik'] = sec(r, bas, gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'))[0]
+    # iki baslik girisi: kelime kartlari arasinda donusumlu (art arda ayni giris animasyonu yok — givemotion kurali)
+    b2 = sec(r, bas, gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'), n=2)
+    dna['baslik'] = b2[0]
+    dna['baslik2'] = b2[1] if len(b2) > 1 else b2[0]
     alt = list(L('Yazi.tsx', 'ALTYAZI_TIPLERI')) + ['yok']
     if Y['altyazi_aile'] == 'yok':
         alt += ['yok', 'yok']  # rakip altyazisizsa 'yok' da gecerli bir secenek

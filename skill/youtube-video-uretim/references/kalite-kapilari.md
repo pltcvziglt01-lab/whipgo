@@ -12,6 +12,8 @@ Kurgu verisi (`props.json`: çekimler + kelime zamanları) kesin olduğu için i
 - **Tekrar:** aynı kaynak parçası iki kez, aynı kart türü 3 kez art arda, vurgular düzenli aralıkla, hareket/geçiş dizisinde A-B-C-A-B-C döngüsü (lag-2/3 eşleşme tesadüfi beklentiden > 0,25 fazla = FAIL; render sonrası `--analiz`).
 - `--duzelt`: yazılı çekimi sonraki (gerekirse önceki, en çok 1,5 sn) yazısız çekimlerden kare alarak uzatır, geç gelen yazıyı öne çeker; toplam kare değişmez, sonuç yeniden denetlenir. Futbol v04'te 44 FAIL → 11 (kalanlar art arda yazılı kartlar: metni kısalt / kartı ayır).
 
+Başlık girişi: DNA iki başlık animasyonu taşır (`baslik`, `baslik2`); ardışık kelime kartları dönüşümlü kullanır (art arda aynı giriş yok).
+
 ## 1. Sıra (her videoda)
 
 | Ne zaman | Komut | Ne yakalar |

@@ -150,6 +150,7 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `metin_kontrol.py --metin metin.txt --dil de` / `--istemler istemler.json` | TTS ve görsel üretiminden önce: TTS'i bozan işaretler, uzun cümle, klişe/makine izi; istemde yazı çıkaracak kelime + "no text" koruması, yasaklı ad |
 | `senkron_kontrol.py vo.mp3 cumleler.json [--video final.mp4]` | zamanlar ileri mi, ilk cümle konuşmayla mı başlıyor, son cümle sesten taşıyor mu, video/ses süresi |
 | `kurgu_denetim.py --plan props.json --rakip <rakip video klasörleri> [--duzelt yeni.json]` | **render öncesi kurgu denetimi** (FAIL = render yok): yazı okunmadan kayboluyor, yazı sesle geç/erken, seslendirmeci bitirmeden kayboluyor, klip süresi rakipten sapmış, aynı görüntü tekrar, kart/hareket döngüsü; `--duzelt` komşu çekimlerden kare ödünç alarak düzeltir (toplam süre sabit). Render sonrası: `--analiz analiz.json --rakip …` (hareket döngüsü) |
+| `kusur_kontrol.py final.mp4` | **render sonrası kusur kapısı** (FAIL = teslim yok): saniyede > 3 flaş (WCAG 2.3.1, nöbet riski; glitch/flaş geçişleri art arda), ses kırpılması, ani ses düşmesi |
 | `kalite_kapisi.py final.mp4 --metin metin.txt --dil de [--brief brief.json]` | **render sonrası kapı** (FAIL = teslim yok): ölü kanca, siyah/donmuş, tek karelik sıçrama, sessizlik, LUFS/tepe, okunmayan cümle, durağan pay, tekrar eden görsel |
 | `yazi_kontrol.py final.mp4` | ekran yazısı: kesik/kenarda, güvenli alan (Shorts telefon arayüzü), üst üste, kontrast < 3:1, bozuk okuma |
 | `karsilastir.py --biz analiz.json --ref r1 r2 r3 [--biz-video --ref-video]` | bizim final vs rakip: iskelet tablosu (±%20), tutmayan satıra eylem, yan yana sayfa |
@@ -181,6 +182,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] Kendi finalimiz `kare_analiz.py` ile ölçüldü; ilk 30 sn / ilk %30 RAKIP-OLCUM hedeflerinden ±%20 içinde (değilse nedeni DEVAM'da)
 - [ ] 6 kapak üretildi, yazıları birebir kontrol edildi, 6'sı Drive'daki `kapaklar\` klasöründe ve kullanıcıya gönderildi
 - [ ] `kurgu_denetim.py --plan` PASS (render öncesi); SFX katmanı var (`DnaSfx`)
+- [ ] `kusur_kontrol.py` PASS
 - [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7
 - [ ] Ses orijinal hızında (hız parametresi/atempo yok)
 - [ ] Gerçek görüntü varsa hepsi CC BY ya da izinli, atıflar açıklamada

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
-import { Dna, DnaAlinti, DnaAltBant, DnaAltyazi, DnaBaslik, DnaBitis, DnaDizi, DnaDoku, DnaMedya, DnaSayi, DnaSfx, DnaVurgu } from './Dna';
+import { Vurus, vurusSeviye } from './Vurus';
+import { Dna, dnaStil, DnaAlinti, DnaAltBant, DnaAltyazi, DnaBaslik, DnaBitis, DnaDizi, DnaDoku, DnaMedya, DnaSayi, DnaSfx, DnaVurgu } from './Dna';
 import { gecisPlani } from './Gecis';
 import { FontYukle } from './FontYukle';
 import { SfxOlay } from './Sfx';
@@ -51,20 +52,24 @@ export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; 
   const n = veri.cekimler.length;
   const plan = gecisPlani(n - 1, dna.gecis, dna.tohum, dna.iskelet.yumusak_oran);
   const d = (i: number) => (i >= 0 && i < plan.length && plan[i] !== 'sert' ? dna.iskelet.gecis_kare : 0);
+  let kartNo = 0; // kelime kartlari arasinda baslik girisi donusumlu
   const sahneler = veri.cekimler.map((c, i) => {
     const medya = <DnaMedya dna={dna} sira={i} m={{ src: `${veri.klasor}/kaynak/${c.tag}.mp4`, video: true, bas: c.kb }} />;
     let el: React.ReactNode;
-    if (c.kart && (c.kart.tur === 'alinti' || c.kart.tur === 'sayi')) el = <KartEl dna={dna} k={c.kart} />;
+    if (c.kart && c.kart.tur === 'sayi') el = <Vurus stil={dnaStil(dna)} seviye={vurusSeviye(dna.ton)} tohum={dna.tohum + i}><KartEl dna={dna} k={c.kart} /></Vurus>;
+    else if (c.kart && c.kart.tur === 'alinti') el = <KartEl dna={dna} k={c.kart} />;
     else if (c.kart && c.kart.tur === 'kelime')
       el = (
         <AbsoluteFill>
           {medya}
           <AbsoluteFill style={{ background: 'rgba(0,0,0,0.55)' }} />
-          <DnaBaslik dna={dna} metin={c.kart.b ? `${c.kart.a} ${c.kart.b}` : c.kart.a} arkaplanli={false} boyut={c.kart.b ? 120 : 150} />
+          <DnaBaslik dna={dna} metin={c.kart.b ? `${c.kart.a} ${c.kart.b}` : c.kart.a} arkaplanli={false} boyut={c.kart.b ? 120 : 150} sira={kartNo++} />
         </AbsoluteFill>
       );
     else el = <AbsoluteFill>{medya}{c.etiket ? <DnaAltBant dna={dna} ust={c.etiket} /> : null}</AbsoluteFill>;
     if (c.flas && presetler.length) el = <DnaVurgu dna={dna} presetler={presetler} sira={i}>{el}</DnaVurgu>;
+    // vurgu karesi: vurus paketi (SFX 'vurgu' tepesi ayni kareye oturur); sayi kartinda zaten var
+    if (c.flas && !(c.kart && c.kart.tur === 'sayi')) el = <Vurus stil={dnaStil(dna)} seviye={Math.min(2, vurusSeviye(dna.ton)) as any} tohum={dna.tohum + 'f' + i}>{el}</Vurus>;
     return { sure: c.kare + d(i), el };
   });
   // altyazi kart / alt bant olan cekimlerde gizlenir (iki yazi ust uste binmesin)

@@ -25,6 +25,7 @@ eksik teknik repertuara eklenir (bkz. §5).
 | Grafik | `Grafik.tsx` | çizgi grafik 3 (cizgi-isik, alan-dolgu, basamak) — `DnaGrafik`; eleme ızgarası (1.171 → 36 → 2) `DnaEleme` |
 | HUD | `Hud.tsx` | medya üstü kalıcı katman 4 (derinlik-cetvel, koordinat, zaman-kodu, tarih-rozeti) — `DnaHud`; değer kamera hareketiyle eş zamanlı akar |
 | Kurgu şablonu | `VideoDna.tsx` | **tüm kanalların ortak montajı**: props.json (çekimler + kelimeler) → Dna* sahneleri + altyazı + doku + bitiş + SFX. Kanal projesi yalnız sarar (`export` + presetler) |
+| Vuruş | `Vurus.tsx` | tek karede senkron darbe: ezilme + sönümlü sarsıntı + tek flaş + halka + kıvılcım; seviye tondan (sakin 0, ciddi/gizem 1, enerjik 3). VideoDna sayı kartında ve vurgu karesinde otomatik |
 | SFX | `Sfx.tsx` | olaydan otomatik ses efekti, ton paleti, tepe senkronu, seviye normalizasyonu — `DnaSfx` |
 | Öğrenilmiş | `Preset.tsx` | Premiere presetlerinden zoom / shake / slide / whip / blur-in (338) — `varlik-paketleri.md` |
 
