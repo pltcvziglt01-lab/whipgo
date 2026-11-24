@@ -8,6 +8,8 @@ import { YonBulanik } from './Hareket';
 export const BASLIK_TIPLERI = [
   'maske-yukari', 'harf-dalga', 'bulaniklik', 'scramble', 'daktilo', 'kutu-acilis', 'dikey-yigin',
   'harf-aralik', 'kontur-dolma', 'olcek-darbe', 'uzun-golge', 'alt-cizgi', 'kutu-vurgu', 'zemin-perspektif', 'asagidan-yay', 'el-elips', 'arama-cubugu',
+  // Opus galerisi (envanter/opus-galeri/teknikler.json): italik-vurgu (22 video), ustu-cizili-degisim (10), bolum-numarasi (7)
+  'italik-vurgu', 'ustu-cizili-degisim', 'bolum-numarasi',
 ] as const;
 export type BaslikTip = typeof BASLIK_TIPLERI[number];
 /** alt-ucte-bir: blok yatay ortada, dikey merkezi kadrajin ~%66'sinda (konusanin yuzu ustte acik kalir); blok uzunsa yukari kayar */
@@ -30,6 +32,40 @@ const konumStil = (k: Konum, blokYuk = 0, H = 1080): React.CSSProperties => {
 };
 
 const KARAKTER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&$';
+
+/** WCAG kontrasti (okunurluk kapisi 4,5:1): vurgu rengi yazi olarak zeminde esigi gecmiyorsa (ornek beton-sari: sari yazi acik
+ *  gri zeminde 1,6:1) murekkebe dogru adim adim kaydirilir; ton kimligi olabildigince korunur. */
+const lum = (hex: string) => {
+  const x = hex.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x.slice(0, 6), 16);
+  const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); });
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const kontrast = (a: string, b: string) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+const okunurVurgu = (vurgu: string, zemin: string, murekkep: string, esik = 4.5) => {
+  for (let t = 0; t <= 1.001; t += 0.1) { const c = karistirHex(vurgu, murekkep, t); if (kontrast(c, zemin) >= esik) return c; }
+  return murekkep;
+};
+
+/** editoryal serif (italik vurgu, bolum numarasi): ciftin basligi serifse o, degilse govdesi serifse o, yoksa PlayfairDisplay.
+ *  Cinzel (yalniz buyuk harf) ve AbrilFatface (asiri kontrast) italikte bozuk durur; atlanir. Italik dosyasi yok: tarayici
+ *  egik kesimi sentezler (font-style: italic). */
+const SERIF = ['DMSerifDisplay', 'PlayfairDisplay', 'EBGaramond', 'Lora', 'SourceSerif4', 'CormorantGaramond', 'Merriweather'];
+const serifSec = (f: { baslik: string; govde: string }) => (SERIF.includes(f.baslik) ? f.baslik : SERIF.includes(f.govde) ? f.govde : 'PlayfairDisplay');
+/** ustu-cizili-degisim: yalniz 'eski | yeni' bicimi cizilir. '|' yoksa (DNA ana basligi olarak secildiginde, kelime karti
+ *  'a\nb') metin cizilmeden, murekkep renginde maskeden yukselir; '\n' her zaman satir sonudur. */
+const degisimAyir = (s: string) => {
+  const i = s.indexOf('|');
+  return i < 0 ? { eski: '', yeni: s.trim() } : { eski: s.slice(0, i).trim(), yeni: s.slice(i + 1).trim() };
+};
+/** bolum-numarasi: numara ust'teki rakamdan ('Chapter 2' -> 02) ya da metnin basindan ('3. Baslik'); 'baslik | alt satir' */
+const bolumAyir = (s: string, ust?: string) => {
+  const [b0, ...alt] = s.split('|');
+  let baslik = b0.trim(), no = '';
+  const u = (ust || '').match(/\d+/);
+  if (u) no = u[0];
+  else { const m = baslik.match(/^\s*(\d{1,3})[.):\-\s]+(.+)$/s); if (m) { no = m[1]; baslik = m[2].trim(); } }
+  return { no: no ? no.padStart(2, '0') : '', etiket: (ust || '').replace(/\d+/g, '').replace(/[#№:.\-]+\s*$/, '').trim(), baslik, alt: alt.join('|').trim() };
+};
 
 /** BASLIK. metin icindeki '\n' acik satir sonudur (ornek: kelime karti a + '\n' + b). Yerlesim (yazYerlesim): satirlar
  *  guvenli alana (<= GUVENLI.genislik, maxGenislik) sigacak kadar kuculur, en az 'enaz' (90) px; daha da sigmazsa kelime
@@ -56,12 +92,23 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
   const kenarli = konum !== 'orta' && konum !== 'ust-orta' && konum !== 'alt-ucte-bir';
   const maxW = Math.min(maxGenislik, GUVENLI.genislik - (kenarli ? 20 : 0));
   // tipin metin disi genislik payi: carpan (perspektif 1.15x) + boyuta bagli dolgu (kutu, elips)
-  const carpan = tip === 'zemin-perspektif' ? 1.15 : 1;
+  // italik-vurgu: serif italik vurgu kelimesi sans govdeden ~%6 genis (egik kesim + 1.08 olcek) -> pay
+  const carpan = tip === 'zemin-perspektif' ? 1.15 : tip === 'italik-vurgu' ? 1.06 : 1;
   const dolgu = tip === 'kutu-acilis' ? 0.6 : tip === 'el-elips' ? 0.95 : tip === 'kutu-vurgu' ? 0.3 : 0;
   const etkinW = Math.max(300, maxW / carpan - dolgu * boyut);
-  const temiz = tip === 'kutu-vurgu' ? ham.replace(/\*/g, '') : ham;
+  const bolum = tip === 'bolum-numarasi' ? bolumAyir(ham, ust) : null;
+  const temiz = tip === 'kutu-vurgu' || tip === 'italik-vurgu' ? ham.replace(/\*/g, '') : bolum ? bolum.baslik : ham;
   let satirlar: string[], B: number;
-  if (tip === 'dikey-yigin') {
+  // ustu-cizili-degisim: eski ve yeni ifade ayri bloklar; ikisi de ayni boyutta (kucuk olana inilir) guvenli alana sigar
+  let eskiS: string[] = [], yeniS: string[] = [];
+  if (tip === 'ustu-cizili-degisim') {
+    const { eski, yeni } = degisimAyir(temiz);
+    const parca = [eski, yeni].filter(Boolean);
+    B = Math.min(...parca.map((x) => yazYerlesim(x, boyut, fAd, etkinW, enaz, aralik).boyut));
+    const yer = (x: string) => (x ? yazYerlesim(x, B, fAd, etkinW, enaz, aralik).satirlar : []);
+    eskiS = yer(eski); yeniS = yer(yeni);
+    satirlar = [...eskiS, ...yeniS];
+  } else if (tip === 'dikey-yigin') {
     // her kelime (metinde '\n' varsa her satir) kendi satirinda, son oge 1.25x: en genis oge sigar, toplam yukseklik kadrajin
     // %70'ini asmaz
     const kel = temiz.includes('\n') ? temiz.split('\n').map((s) => s.trim()).filter(Boolean) : temiz.split(/\s+/).filter(Boolean);
@@ -90,14 +137,22 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
     satirlar = s2; B = Math.min(b, siganBoyut(s2, b, fAd, etkinW, aralik));
   }
   // blok yuksekligi (alt-ucte-bir konumu blogu kadrajda tutar): satirlar + ust satir
-  const blokYuk = (tip === 'dikey-yigin' ? (satirlar.length + 0.25) * B * 0.95 : satirlar.length * B * 1.1) + (ust ? B * 0.5 : 0) + (tip === 'el-elips' ? B * 0.7 : 0);
+  // bolum-numarasi: dev kontur numara (NB) + italik alt satir (AB); ust satir numaranin yaninda kucuk etiket olur
+  const NB = Math.min(B * 1.7, 260), AB = Math.max(OKUNUR.ikincil, B * 0.4);
+  const serifAd = serifSec(font);
+  const altS = bolum && bolum.alt ? satirBol(bolum.alt, AB, serifAd, etkinW) : [];
+  const blokYuk = (tip === 'dikey-yigin' ? (satirlar.length + 0.25) * B * 0.95 : satirlar.length * B * 1.1) + (ust && tip !== 'bolum-numarasi' ? B * 0.5 : 0) + (tip === 'el-elips' ? B * 0.7 : 0)
+    + (bolum ? NB * 1.02 + altS.length * AB * 1.3 + (altS.length ? B * 0.2 : 0) : 0);
   const m = satirlar.join('\n');
   const enGen = Math.max(...satirlar.map((s) => metinGenislik(s, B, fAd, aralik)));
 
   const glg = golge ? konturGolge(Math.max(2.5, Math.min(4, B / 34))) : undefined;
+  // yazi olarak vurgu (italik-vurgu, ustu-cizili-degisim): palet zemininde, medya ustunde (golge) koyu kontura karsi 4,5:1
+  // (ornek gazete-sepya koyu kirmizisi videoda koyu zeminde kaybolur -> acik yaziya dogru acilir)
+  const vurguYazi = !/^#/.test(R) ? palet.vurgu : okunurVurgu(palet.vurgu, golge ? '#141414' : palet.zemin, R);
   const temel: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: B, lineHeight: 1.04, letterSpacing: font.aralik, color: R, maxWidth: maxW, margin: 0, whiteSpace: 'pre-line', textShadow: glg };
   const ustBoyut = Math.max(OKUNUR.enaz, B * 0.24);
-  const ustSatir = ust ? (
+  const ustSatir = ust && tip !== 'bolum-numarasi' ? (
     <div style={{ fontFamily: font.govde, fontWeight: Math.max(700, font.govdeAgirlik), fontSize: ustBoyut, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: B * 0.22, opacity: yay(f / 12), textShadow: glg }}>{ust}</div>
   ) : null;
   const sure = Math.round(fps * 0.7);
@@ -301,6 +356,108 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
             opacity: sinirla(p * 2.5), color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text',
             backgroundImage: `linear-gradient(100deg, ${R} ${isik * 120 - 30}%, ${parlak} ${isik * 120 - 10}%, ${R} ${isik * 120 + 10}%)`,
             filter: `drop-shadow(0 ${B * 0.06}px ${B * 0.12}px ${rgba('#000', 0.6)}) drop-shadow(0 0 ${B * 0.18}px ${rgba(palet.vurgu, 0.35 * isik)})${golge ? ` drop-shadow(0 0 3px ${rgba('#000', 0.9)})` : ''}` }}>{m}</div>
+        </div>
+      );
+      break;
+    }
+    case 'italik-vurgu': {
+      // galeri (henkvaness, stewchan2, gdgtify): cumle kelime kelime kurulur (1-2 karede bir; %60 opak + 8 px asagidan),
+      // *isaretli* kelimeler (yoksa son kelime) editoryal serif ITALIK'te; cumle kurulunca vurgu rengine doner ve hafifce oturur.
+      // Kutu / alt cizgi yok (dergi hissi). Yerlesim ustteki ortak guvenli alan sigdirmasindan (satirlar, B).
+      const kaba = (font.buyukHarf ? metin.toUpperCase() : metin).split(/\s+/).filter(Boolean);
+      let ic = false;
+      const vurgu = kaba.map((w) => { const b = w.startsWith('*'), s = /\*[.,!?;:"')]*$/.test(w); const v = ic || b; if (b) ic = true; if (s) ic = false; return v; });
+      if (!vurgu.some(Boolean)) vurgu[vurgu.length - 1] = true;
+      const n = vurgu.length;
+      const kurulus = kademe(n - 1, n, tY) * 1.6;
+      let wi = 0;
+      govde = (
+        <div style={{ ...temel, whiteSpace: 'normal' }}>
+          {satirlar.map((s, si) => (
+            <div key={si} style={{ whiteSpace: 'nowrap' }}>
+              {s.split(' ').filter(Boolean).map((w, j) => {
+                const i = wi++;
+                const g0 = kademe(i, n, tY) * 1.6;
+                const p = dogalIlerle(f, g0, sure * 0.5 * sapma(i, tY), hareket, { ton });
+                const q = ilerle(f, g0 + 3, sure * 0.45, 'kubik-hizli');
+                const v = vurgu[i];
+                // vurgu kelimesi: son kelime de tam renge ulasinca (kurulus + ~0,5 sn) 6 karede vurgu rengine doner, 1.03 -> 1 oturur
+                const d = v ? dogalIlerle(f, kurulus + sure * 0.75 + i * 0.5, 6, hareket, { ton }) : 0;
+                const st: React.CSSProperties = v
+                  ? { fontFamily: serifAd, fontStyle: 'italic', fontWeight: 700, fontSize: B * 1.08, letterSpacing: 0, color: d > 0 ? karistirHex(R, vurguYazi, d) : rgba(R, 0.6 + 0.4 * q), opacity: sinirla(p * 2.5) }
+                  : { color: rgba(R, 0.6 + 0.4 * q), opacity: sinirla(p * 2.5) };
+                return (
+                  <React.Fragment key={j}>
+                    {j ? ' ' : null}
+                    <span style={{ display: 'inline-block', ...st, transform: `translateY(${(1 - p) * 8}px) scale(${v && d > 0 ? 1.03 - 0.03 * d : 1})`, transformOrigin: '50% 80%', paddingRight: v ? B * 0.06 : 0 }}>{w}</span>
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    }
+    case 'ustu-cizili-degisim': {
+      // galeri (chrisjdimarco "THE INVISIBLE HAND." -> "FEW READ HIS WARNING.", fire-ozgur): 'eski | yeni'. Eski ifade maskeden
+      // yukselir; ~1 sn sonra %55 opakliga iner ve vurgu cizgisi 3 karede ustunden gecer; yeni ifade altindan vurgu renginde
+      // maskeden yukselir. "Herkes X sanir -> aslinda Y" (efsane / gercek) kalibi.
+      const t1 = eskiS.length ? Math.round(sure * 1.4) : 0, t2 = eskiS.length ? t1 + 7 : 0;
+      const su = mesafeSure(sure, B * 1.15);
+      const kalin = Math.max(5, B * 0.075);
+      const satir = (s: string, i: number, n: number, gec: number, renk: string, cizik: number) => {
+        const pf = (k: number) => dogalIlerle(k, gec + kademe(i, n, tY + gec) * 5, su * sapma(i, tY), hareket, { ton });
+        const p = pf(f);
+        return (
+          <div key={gec + '-' + i} style={{ overflow: 'hidden', paddingBottom: B * 0.06, paddingLeft: golge ? 8 : 0, paddingRight: golge ? 8 : 0 }}>
+            <YonBulanik dy={kayma(pf, f) * B * 1.15} style={{ ...temel, color: renk, display: 'inline-block', position: 'relative', transform: `translateY(${(1 - p) * 110}%)` }}>
+              {s}
+              {cizik > 0 ? <div style={{ position: 'absolute', left: -B * 0.04, right: -B * 0.04, top: '54%', height: kalin, marginTop: -kalin / 2, background: vurguYazi, transform: `scaleX(${cizik})`, transformOrigin: 'left', boxShadow: golge ? `0 2px 8px ${rgba('#000', 0.5)}` : undefined }} /> : null}
+            </YonBulanik>
+          </div>
+        );
+      };
+      const gri = ilerle(f, t1, 4, 'kubik-hizli');
+      govde = (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'inherit' }}>
+          {eskiS.map((s, i) => satir(s, i, eskiS.length, 0, rgba(R, 1 - 0.45 * gri), ilerle(f, t1 + i * 2, 3, 'ustel-sert')))}
+          <div style={{ height: eskiS.length ? B * 0.1 : 0 }} />
+          {yeniS.map((s, i) => satir(s, i, yeniS.length, t2, eskiS.length ? vurguYazi : R, 0))}
+        </div>
+      );
+      break;
+    }
+    case 'bolum-numarasi': {
+      // galeri (henkvaness s009/s012/s026): bolum kapagi. Ici bos (yalniz kontur) dev serif numara 0,3 sn'de solar; yaninda kisa
+      // vurgu cizgisi + kucuk etiket ('CHAPTER'); ardindan dolu baslik maskeden ve altinda italik soluk alt satir kademeli gelir.
+      // metin: 'Baslik | alt satir'; numara ust'teki rakamdan ('Chapter 2') ya da metnin basindan ('3. Baslik').
+      const b = bolum!;
+      const p0 = dogalIlerle(f, 0, Math.round(fps * 0.3), hareket, { ton });
+      const ce = ilerle(f, 4, Math.round(fps * 0.35), 'kubik-hizli');
+      const tg = Math.round(fps * 0.3), ag = tg + Math.round(fps * 0.4);
+      const su = mesafeSure(sure, B * 1.15);
+      const kontur = Math.max(1.5, NB / 95);
+      const etBoy = Math.max(OKUNUR.enaz + 4, B * 0.3);
+      govde = (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'inherit' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: NB * 0.16, marginBottom: B * 0.08 }}>
+            {b.no ? <div style={{ fontFamily: serifAd, fontWeight: 700, fontSize: NB, lineHeight: 1, color: 'transparent', WebkitTextStroke: `${kontur}px ${R}`, opacity: p0, transform: `translateY(${(1 - p0) * 14}px)`,
+              filter: golge ? `drop-shadow(0 3px 10px ${rgba('#000', 0.75)})` : undefined }}>{b.no}</div> : null}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: etBoy * 0.3 }}>
+              <div style={{ width: 90, height: Math.max(6, B * 0.06), background: palet.vurgu, transform: `scaleX(${ce})`, transformOrigin: 'left' }} />
+              {b.etiket ? <div style={{ fontFamily: font.govde, fontWeight: 800, fontSize: etBoy, letterSpacing: 4, textTransform: 'uppercase', color: R, opacity: ce, textShadow: glg, whiteSpace: 'nowrap' }}>{b.etiket}</div> : null}
+            </div>
+          </div>
+          {satirlar.map((s, i) => {
+            const pf = (k: number) => dogalIlerle(k, tg + kademe(i, satirlar.length, tY) * 5, su * sapma(i, tY), hareket, { ton });
+            const p = pf(f);
+            return <div key={i} style={{ overflow: 'hidden', paddingBottom: B * 0.06, paddingLeft: golge ? 8 : 0, paddingRight: golge ? 8 : 0 }}><YonBulanik dy={kayma(pf, f) * B * 1.15} style={{ ...temel, transform: `translateY(${(1 - p) * 110}%)` }}>{s}</YonBulanik></div>;
+          })}
+          {altS.map((s, i) => {
+            const p = dogalIlerle(f, ag + i * 3, Math.round(sure * 0.6), hareket, { ton });
+            return <div key={'a' + i} style={{ fontFamily: serifAd, fontStyle: 'italic', fontWeight: 600, fontSize: AB, lineHeight: 1.3, color: rgba(R, 0.78), opacity: sinirla(p * 1.5), transform: `translateY(${(1 - p) * 8}px)`, textShadow: glg, marginTop: i ? 0 : B * 0.12, whiteSpace: 'nowrap' }}>{s}</div>;
+          })}
         </div>
       );
       break;

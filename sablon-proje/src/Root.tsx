@@ -12,7 +12,7 @@ import { Onizleme, onizlemeSuresi } from './repertuar/Onizleme';
 import { PresetHareket } from './repertuar/Preset';
 import { BITIS_TIPLERI, Bitis } from './repertuar/Bitis';
 import { BolgeVurgu, EtiketliHarita, HARITA_TIPLERI, HaritaRota } from './repertuar/Harita';
-import { CizgiGrafik, ElemeIzgara } from './repertuar/Grafik';
+import { CizgiGrafik, CubukYarisi, ElemeIzgara } from './repertuar/Grafik';
 import { HUD_TIPLERI, Hud } from './repertuar/Hud';
 import ornekDna from './ornek-dna.json';
 // public/varlik = repo varlik/ klasoru (varlik_kur.py kanal ile baglanir)
@@ -21,7 +21,7 @@ import presetler from '../public/varlik/preset-dili-remotion.json';
 // KANAL PROJESI SABLONU: VideoNN kompozisyonlarini buraya ekle (repertuar.md §4). Asagidakiler katalog ve onizleme.
 const paletAdlari = Object.keys(PALETLER).filter((p) => p !== 'gece-kirmizi');
 const fontAdlari = Object.keys(FONTLAR);
-const A = { src: 'ornek/a.jpg' }, B = { src: 'ornek/b.jpg' };
+const A = { src: 'ornek/a.jpg' }, B = { src: 'ornek/b.jpg' }, C = { src: 'ornek/c.jpg' };
 const st = (i: number) => stilYap(paletAdlari[i % paletAdlari.length], fontAdlari[i % fontAdlari.length], undefined, 't' + i);
 const kodlu = ARKAPLAN_TIPLERI.filter((t) => !t.startsWith('video:'));
 const genel = kodlu.slice(0, 16);
@@ -82,8 +82,32 @@ const KatBitis: React.FC = () => (
   ]} />
 );
 const rota = [{ x: 0.62, y: 0.22, ad: 'Tokyo' }, { x: 0.48, y: 0.55 }, { x: 0.4, y: 0.8, ad: 'Iwo Jima' }];
+// Opus galerisi teknikleri (GOREVLER #4; repertuar/envanter/opus-galeri/teknikler.json). KatYeni'de de var; KatOpus ayni hucreleri
+// 4 sutunda buyuk gosterir (gozle kontrol: hucre 480x270, --scale=4 ile tam boy).
+const yaris = [
+  { ad: 'United Kingdom', degerler: [1.9, 2.7, 2.2, 1.3, 1.4] }, { ad: 'Germany', degerler: [0.6, 1.3, 0.2, 0.3, 0.6] },
+  { ad: 'United States', degerler: [0.4, 0.8, 1.3, 1.3, 2.9] }, { ad: 'Japan', degerler: [0.3, 0.5, 0.8, 1.1, 1.3] },
+  { ad: 'France', degerler: [0.7, 0.9, 0.7, 0.6, 0.5] }, { ad: 'Italy', degerler: [0.3, 0.4, 0.4, 0.5, 0.6] },
+];
+const opusHucre: { ad: string; el: React.ReactNode }[] = [
+  { ad: 'grafik: cubuk-trend', el: <CizgiGrafik tip="cubuk-trend" stil={st(14)} veriler={[29, 14, 32, 48, 39, 51, 76, 84]} etiketler={['2018', '19', '20', '21', '22', '23', '24', '25']} baslik="Revenue, billion $" /> },
+  { ad: 'grafik: nokta-oran 19/20', el: <CizgiGrafik tip="nokta-oran-izgarasi" stil={st(0)} veriler={[19, 20]} baslik="Ships never found" /> },
+  { ad: 'grafik: nokta-oran 74%', el: <CizgiGrafik tip="nokta-oran-izgarasi" stil={st(13)} veriler={[74, 100]} baslik="of rounds hit nothing" /> },
+  { ad: 'grafik: cubuk-yarisi (donemli)', el: <CubukYarisi stil={st(9)} seriler={yaris} donemler={['1900', '1910', '1920', '1930', '1940']} baslik="Navy tonnage, million t" adimSn={0.7} /> },
+  { ad: 'grafik: cubuk-yarisi (DnaGrafik)', el: <CizgiGrafik tip="cubuk-yarisi" stil={st(3)} veriler={[38, 61, 45, 72, 20]} etiketler={['Ford', 'Toyota', 'GM', 'Volkswagen', 'Tesla']} baslik="Cars sold, millions" /> },
+  { ad: 'baslik: italik-vurgu', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={st(1)} /><Baslik tip="italik-vurgu" metin="Nobody read the *second* page" stil={st(1)} boyut={120} /></AbsoluteFill> },
+  { ad: 'baslik: ustu-cizili-degisim', el: <AbsoluteFill><Arkaplan tip="kagit" stil={st(5)} /><Baslik tip="ustu-cizili-degisim" metin="The Invisible Hand | Few read his warning" ust="Everyone quotes" stil={st(5)} boyut={110} /></AbsoluteFill> },
+  { ad: 'baslik: bolum-numarasi', el: <AbsoluteFill><Arkaplan tip="toz-zerre" stil={st(2)} /><Baslik tip="bolum-numarasi" metin="The Price of Silence | How one memo changed the war" ust="Chapter 3" stil={st(2)} boyut={110} konum="sol-orta" /></AbsoluteFill> },
+  { ad: 'gecis: nesne-dalisi', el: <GecisliDizi stil={st(14)} gecis="nesne-dalisi" kare={26} sahneler={[{ el: <Medya m={A} />, sure: 40, odak: [0.56, 0.42] }, { el: <AbsoluteFill><Medya m={B} /><Baslik tip="maske-yukari" metin="83 Years." stil={st(14)} boyut={130} golge /></AbsoluteFill>, sure: 110 }]} /> },
+  { ad: 'hud: bolum-cetveli (bolum)', el: <AbsoluteFill><Medya m={B} /><Hud tip="bolum-cetveli" stil={st(12)} deger={3} baslangic={6} etiket="The Blockade" /></AbsoluteFill> },
+  { ad: 'hud: bolum-cetveli (yil)', el: <AbsoluteFill><Medya m={A} /><Hud tip="bolum-cetveli" stil={st(7)} ust="2018|2026" deger={2021} baslangic={2019} etiket="Topped off" /></AbsoluteFill> },
+  { ad: 'hud: hayalet-yil', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={st(11)} /><Hud tip="hayalet-yil" stil={st(11)} ust="March 1943" /><Baslik tip="maske-yukari" metin="Operation Mincemeat" ust="Gibraltar" stil={st(11)} boyut={120} /></AbsoluteFill> },
+  { ad: 'hud: belge-tarama-isigi', el: <AbsoluteFill><Medya m={A} /><Hud tip="belge-tarama-isigi" stil={st(15)} etiket="Exhibit 12" ust="Page 4" /></AbsoluteFill> },
+  { ad: 'cerceve: odak-karartma (3 panel)', el: <Cerceve tip="odak-karartma" m={A} m2={B} m3={C} stil={st(13)} arkaplan="topografik" /> },
+  { ad: 'cerceve: odak-karartma (tek)', el: <Cerceve tip="odak-karartma" m={B} stil={st(8)} etiket="The second rifleman" /> },
+];
 const KatYeni: React.FC = () => (
-  <Izgara sutun={7} hucreler={[
+  <Izgara sutun={8} hucreler={[
     { ad: 'baslik: kutu-vurgu', el: <AbsoluteFill><Medya m={A} kamera="ken-burns-ice" /><AbsoluteFill style={{ background: 'rgba(0,0,0,.45)' }} /><Baslik tip="kutu-vurgu" metin="The ship that *never* came back" stil={st(12)} boyut={96} /></AbsoluteFill> },
     { ad: 'baslik: zemin-perspektif', el: <AbsoluteFill><Arkaplan tip="toz-zerre" stil={st(13)} /><Baslik tip="zemin-perspektif" metin="1 DEC 1963" stil={st(13)} boyut={150} /></AbsoluteFill> },
     { ad: 'sayi: serif-zarif', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={st(11)} /><SayiKarti tip="serif-zarif" deger={6821} ust="Americans killed" alt="in thirty-six days" stil={st(11)} /></AbsoluteFill> },
@@ -96,7 +120,7 @@ const KatYeni: React.FC = () => (
     { ad: 'grafik: alan-dolgu', el: <CizgiGrafik tip="alan-dolgu" stil={st(9)} veriler={[3, 5, 4, 8, 12, 18]} baslik="Cost per round" birim="$" /> },
     { ad: 'grafik: basamak', el: <CizgiGrafik tip="basamak" stil={st(10)} veriler={[100, 100, 240, 240, 410, 600]} baslik="Depth reached" birim="m" /> },
     { ad: 'grafik: eleme-izgara', el: <ElemeIzgara stil={st(12)} asamalar={[1171, 36, 2]} etiketler={['U-boats lost', 'near New Jersey', 'candidates']} ikon="denizalti" asamaSn={1.2} /> },
-    ...HUD_TIPLERI.filter((h) => h !== 'belge-sekmesi').map((h, i) => ({ ad: 'hud: ' + h, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><Hud tip={h} stil={st(12 + i)} deger={h === 'koordinat' ? 24.7841 : h === 'zaman-kodu' ? 1 : 2430} baslangic={h === 'koordinat' ? 141.3168 : h === 'zaman-kodu' ? 3 * 3600 : 0} birim="m" etiket={h === 'tarih-rozeti' ? 'North Atlantic' : ''} ust={h === 'tarih-rozeti' ? 'Feb 11, 1945' : ''} sure={2} /></AbsoluteFill> })),
+    ...HUD_TIPLERI.filter((h) => !['belge-sekmesi', 'bolum-cetveli', 'hayalet-yil', 'belge-tarama-isigi'].includes(h)).map((h, i) => ({ ad: 'hud: ' + h, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><Hud tip={h} stil={st(12 + i)} deger={h === 'koordinat' ? 24.7841 : h === 'zaman-kodu' ? 1 : 2430} baslangic={h === 'koordinat' ? 141.3168 : h === 'zaman-kodu' ? 3 * 3600 : 0} birim="m" etiket={h === 'tarih-rozeti' ? 'North Atlantic' : ''} ust={h === 'tarih-rozeti' ? 'Feb 11, 1945' : ''} sure={2} /></AbsoluteFill> })),
     { ad: 'gecis: parsomen', el: <GecisliDizi stil={st(1)} gecis="parsomen" kare={24} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
     { ad: 'baslik: el-elips', el: <AbsoluteFill><Arkaplan tip="kareli-defter" stil={st(1)} /><Baslik tip="el-elips" metin="KINZEL" ust="Operational file" stil={st(1)} boyut={130} /></AbsoluteFill> },
     { ad: 'baslik: arama-cubugu', el: <AbsoluteFill><Arkaplan tip="gradyan-akis" stil={st(9)} /><Baslik tip="arama-cubugu" metin="Copper: King of Electricity" stil={st(9)} boyut={110} /></AbsoluteFill> },
@@ -114,8 +138,10 @@ const KatYeni: React.FC = () => (
     { ad: 'harita: kavisli-etiket', el: <HaritaRota tip="kavisli-etiket" stil={st(1)} arkaplan="kagit" noktalar={[{ x: 0.18, y: 0.6 }, { x: 0.82, y: 0.52 }]} etiket="Thirteen Colonies" /> },
     { ad: 'harita: bolgeli-uydu', el: <HaritaRota tip="bolgeli-uydu" stil={st(12)} noktalar={[{ x: 0.3, y: 0.46, ad: 'Germany' }, { x: 0.5, y: 0.22 }, { x: 0.84, y: 0.16 }, { x: 0.92, y: 0.5 }, { x: 0.8, y: 0.8 }, { x: 0.56, y: 0.72 }, { x: 0.47, y: 0.45 }]} etiket="Soviet Union" /> },
     { ad: 'hud: belge-sekmesi', el: <AbsoluteFill><Medya m={A} kamera="ken-burns-ice" /><Hud tip="belge-sekmesi" stil={st(10)} etiket="Alaska Treaty" ust="Washington, 30 March 1867" /></AbsoluteFill> },
+    ...opusHucre,
   ]} />
 );
+const KatOpus: React.FC = () => <Izgara sutun={4} hucreler={opusHucre} />;
 const KatPreset: React.FC = () => {
   const sec = ['zoom', 'sarsinti', 'kayma', 'gecis', 'yazi', 'zoom', 'sarsinti', 'kayma', 'gecis'].map((s, i) => (presetler as any[]).filter((p) => p.sinif === s)[i]).filter(Boolean);
   return <Izgara sutun={3} hucreler={sec.map((p: any, i) => ({ ad: p.id, el: <AbsoluteFill style={{ background: '#111' }}><PresetHareket preset={p} dongu gec={6}><Medya m={i % 2 ? B : A} /></PresetHareket></AbsoluteFill> }))} />;
@@ -125,7 +151,7 @@ const K = (id: string, c: React.FC, d = 300) => <Composition id={id} component={
 export const RemotionRoot: React.FC = () => (
   <>
     {K('KatArkaplan', KatArkaplan)}{K('KatEdit', KatEdit)}{K('KatGecis', KatGecis, 60)}{K('KatBaslik', KatBaslik)}
-    {K('KatYazi', KatYazi)}{K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}
+    {K('KatYazi', KatYazi)}{K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}{K('KatOpus', KatOpus, 120)}
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { AbsoluteFill, Img, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
-import { DEKLANSOR, Stil, YAY_SURE, fbm, kameraNefes, rastgele, rgba, sinirla, yay } from './temel';
+import { DEKLANSOR, Stil, YAY_SURE, egri, fbm, kameraNefes, rastgele, rgba, sinirla, yay } from './temel';
 import { ZamanBulanik } from './Hareket';
 
 // ---------------- KAMERA (gorsel/klip icindeki hareket) ----------------
@@ -90,10 +90,13 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
 
 // ---------------- CERCEVE / DUZEN ----------------
 // 'tam' disindaki her duzen arkada ANIMASYONLU arka plan kullanir (duz renk degil).
-export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan', 'altin-cerceve'] as const;
+// odak-karartma: Opus galerisi (envanter/opus-galeri/teknikler.json, 8 video) — odak tasinirken eski ogeler silinmez, %40'a kararir
+export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan', 'altin-cerceve',
+  'odak-karartma'] as const;
 export type CerceveTip = typeof CERCEVE_TIPLERI[number];
 
-export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
+/** odak: odak-karartma'nin tek medyada parlak kalan alani [x, y, gen, yuk] (0..1); verilmezse ortadaki dikey pencere */
+export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string; odak?: [number, number, number, number] }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c', odak }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
@@ -192,6 +195,57 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
             </div>
           </div>
           {etiket ? <div style={{ position: 'absolute', left: x0, top: y0 + bh + 40, fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontStyle: 'italic', fontSize: 34, color: '#d9b46a', opacity: giris }}>{etiket}</div> : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'odak-karartma': {
+      // galeri (arthurkatcher s002, stewchan2 s005, amberpromptai): odak yeni ogeye gecince eskiler silinmez, 0,35 sn'de %40
+      // parlakliga iner (hafif doygunluk kaybi + geri cekilme); anahtar anda yalniz kahraman ve bir karsiti parlak kalir.
+      // m2 verilirse uc panel (buyuk sol + sag ust/alt): once hepsi, sonra odak 1 -> 2 -> 3, sonda kahraman (1) + karsit (3).
+      // Yalniz m: tam ekran medya, odak alani disi %40'a kararir (pencere kadraj kenarindan alana daralir), alan ince vurgu
+      // cizgisiyle cevrilir, etiket alanin altinda. Panel/kart yiginlarinda genel kural olarak da kullanilir.
+      const gecis = 0.35;
+      const plan: [number, number[]][] = [[0, [1, 1, 1]], [0.9, [1, 0, 0]], [2.1, [0, 1, 0]], [3.3, [1, 0, 1]]];
+      const agirlik = (i: number) => {
+        let a = plan[0][1][i];
+        for (let k = 1; k < plan.length; k++) a += (plan[k][1][i] - a) * egri('kubik-hizli', sinirla((t - plan[k][0]) / gecis));
+        return a;
+      };
+      if (m2) {
+        const panel = [
+          { x: W * 0.06, y: H * 0.1, w: W * 0.5, h: H * 0.8, mm: m, k: kamera },
+          { x: W * 0.59, y: H * 0.1, w: W * 0.35, h: H * 0.385, mm: m2, k: 'pan-sag' as KameraTip },
+          { x: W * 0.59, y: H * 0.515, w: W * 0.35, h: H * 0.385, mm: m3 || m2, k: 'ken-burns-disa' as KameraTip },
+        ];
+        return (
+          <AbsoluteFill>{ap}
+            {panel.map((q, i) => {
+              const g = yay(sinirla((f - i * 4) / 14));
+              const a = agirlik(i);
+              return kutu(q.x, q.y, q.w, q.h, md(q.mm, q.k), {
+                borderRadius: 10, opacity: g, transform: `scale(${((0.96 + 0.04 * g) * (0.985 + 0.015 * a)).toFixed(4)})`,
+                filter: `brightness(${(0.4 + 0.6 * a).toFixed(3)}) saturate(${(0.7 + 0.3 * a).toFixed(3)})`,
+                boxShadow: `0 30px 70px ${rgba('#000', 0.4)}`,
+              });
+            })}
+            {panel.map((q, i) => {
+              // odak cercevesi: panelin ustunde ince vurgu cizgisi (kahraman/karsit aninda ikisinde de)
+              const a = agirlik(i) * sinirla((t - plan[1][0]) / gecis);
+              return <div key={'c' + i} style={{ position: 'absolute', left: q.x, top: q.y, width: q.w, height: q.h, borderRadius: 10, boxShadow: `inset 0 0 0 4px ${palet.vurgu}`, opacity: a * 0.9, pointerEvents: 'none' }} />;
+            })}
+          </AbsoluteFill>
+        );
+      }
+      const [ox, oy, ow, oh] = odak || [0.32, 0.12, 0.36, 0.76];
+      const a = yay(sinirla((t - 0.5) / 0.45));
+      const L = { x: ox * W * a, y: oy * H * a, w: W + (ow * W - W) * a, h: H + (oh * H - H) * a };
+      return (
+        <AbsoluteFill style={{ background: '#000' }}>
+          {md(m)}
+          <AbsoluteFill style={{ background: rgba('#000', 0.6 * a), clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 ${L.y}px, ${L.x}px ${L.y}px, ${L.x}px ${L.y + L.h}px, ${L.x + L.w}px ${L.y + L.h}px, ${L.x + L.w}px ${L.y}px, 0 ${L.y}px)` }} />
+          <div style={{ position: 'absolute', left: L.x, top: L.y, width: L.w, height: L.h, boxShadow: `inset 0 0 0 3px ${palet.vurgu}`, opacity: a }} />
+          {etiket ? <div style={{ position: 'absolute', left: L.x, top: L.y + L.h + 18, width: Math.max(L.w, 600), fontFamily: font.govde, fontWeight: 800, fontSize: 36, letterSpacing: 3, color: '#ffffff', textTransform: 'uppercase',
+            textShadow: `0 2px 8px ${rgba('#000', 0.9)}`, opacity: yay(sinirla((t - 0.8) / 0.35)), whiteSpace: 'nowrap' }}>{etiket}</div> : null}
         </AbsoluteFill>
       );
     }

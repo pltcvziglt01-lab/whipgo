@@ -9,6 +9,7 @@ import { PresetHareket, PresetVeri } from './Preset';
 import { Bitis, BitisTip } from './Bitis';
 import { BolgeVurgu, EtiketliHarita, HaritaNokta, HaritaRota, HaritaTip } from './Harita';
 import { CizgiGrafik, ElemeIzgara, GrafikTip } from './Grafik';
+import { CubukYarisi, YarisSeri } from './Grafik';
 import { Hud, HudTip } from './Hud';
 import { Altyazi, AltyaziTip, BaslikTip, Baslik, Kelime, Konum } from './Yazi';
 import { SfxKatmani, SfxOlay, SfxTon, sfxPlani } from './Sfx';
@@ -166,4 +167,9 @@ export const DnaEleme: React.FC<{ dna: Dna; asamalar: number[]; etiketler?: stri
 /** medya ustune binen HUD; tip verilmezse DNA'nin hud ekseni */
 export const DnaHud: React.FC<{ dna: Dna; tip?: HudTip; deger?: number; baslangic?: number; birim?: string; etiket?: string; ust?: string; sure?: number }> = ({ dna, tip, ...p }) => (
   <Hud tip={tip || dna.hud || 'tarih-rozeti'} stil={dnaStil(dna)} {...p} />
+);
+/** cubuk yarisi (siralama tablosu, cok donemli): seriler = satirlar (donem basina degerler), donemler = yil etiketleri.
+ *  Tek donemlik veri icin DnaGrafik (dna.grafik = 'cubuk-yarisi') yeter. */
+export const DnaYaris: React.FC<{ dna: Dna; seriler: YarisSeri[]; donemler?: string[]; baslik?: string; birim?: string; vurgu?: string; adimSn?: number }> = ({ dna, ...p }) => (
+  <CubukYarisi stil={dnaStil(dna)} {...p} />
 );

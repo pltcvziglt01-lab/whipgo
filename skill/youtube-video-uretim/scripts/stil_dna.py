@@ -153,7 +153,7 @@ def kagit_sayisi(d):
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
               'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma', 'renk-bandi': 'maske', 'zoom-icinden': 'zoom',
-              'kareli-kagit': 'maske', 'supurme-inset': 'hareket', 'bulanik-hayalet': 'karartma', 'tint-sizinti': 'flas'}
+              'kareli-kagit': 'maske', 'supurme-inset': 'hareket', 'bulanik-hayalet': 'karartma', 'tint-sizinti': 'flas', 'nesne-dalisi': 'zoom'}
 RAKIP_GECIS_AILE = [('siyaha', 'karartma'), ('cozunme', 'karartma'), ('beyaza', 'flas'), ('isik', 'flas'), ('flas', 'flas'), ('glitch', 'glitch'),
                     ('kaydirma', 'hareket'), ('whip', 'hareket'), ('itme', 'hareket'), ('zoom_gecis', 'zoom'), ('wipe', 'maske'), ('maske', 'maske')]
 CERCEVE_RAKIP = {'cerceveli_bulanik': 'bulanik-kopya', 'cerceveli_duz_renk': 'inset-golge', 'letterbox': 'letterbox', 'bolunmus': 'bolunmus',
@@ -795,7 +795,9 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], gecmis=g('kamera'), eksen='kamera', kullanim=kul, n=3, kacin=k2('kamera'))
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
     dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']) + KK('cerceve'), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
-    bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik']]
+    # ozel kullanim basliklari (eski|yeni degisimi, bolum numarasi) kelime karti girisi olarak secilmez; sahne kurucu acikca kullanir
+    OZEL_BASLIK = {'ustu-cizili-degisim', 'bolum-numarasi'}
+    bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik'] and b not in OZEL_BASLIK]
     # iki baslik girisi: kelime kartlari arasinda donusumlu (art arda ayni giris animasyonu yok — givemotion kurali)
     b2 = sec(r, bas, yasak=KK('baslik'), gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'), n=2)
     dna['baslik'] = b2[0]

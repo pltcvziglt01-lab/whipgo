@@ -15,7 +15,6 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | # | İş | Kabul ölçütü | Kim / durum |
 |---|---|---|---|
 | 2 | v04'ü tüm yeniliklerle baştan render + kapılar + izleyici incelemesi | standart 4; eski/yeni yan yana | #1'den sonra |
-| 4 | Galeri teknikleri (öncelik 3): cubuk-trend, italik-vurgu, nesne-dalisi, bolum-cetveli, yil-tarama, ustu-cizili-degisim, nokta-oran-izgarasi, hayalet-yil, odak-karartma, bolum-numarasi, cubuk-yarisi, belge-tarama-isigi | her biri TİP + etiket + katalog karesi gözle; dogrula PASS | #1'den sonra |
 | 10 | Önizleme medyası konuya göre (hep aynı asker fotoğrafları), dil kitleye göre (Almanca kitle → Almanca metin) | deniz/şehir/futbol önizlemesi kendi görselleriyle | açık |
 | 12 | Beat ızgarası (müzikli/enerjik kanallar): kesim ve büyük hareket vuruşa ±0,15 sn | müzikli deneme videosunda kesimlerin %80'i vuruşta | açık |
 | 13 | Paylaşılan eleman (morph) geçişi: giden sahnenin nesnesi gelen sahnenin parçası | katalogda 2 sn mp4 gözle | açık |
@@ -26,12 +25,16 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 20 | Film seridi cercevesi cok baskin (cercevelilerin %65'i): cerceve secimi icinde cesitlilik | v04 telefon sayfasinda film seridi tekrari yok | acik |
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
-| 22 | `OKUNUR.enaz` 32 -> 36 px (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
+| 22 | `OKUNUR.enaz` 32 -> 36 px; ortak baslik `ust` satiri 32 px ve vurgu renginde (beton-sari'de okunmuyor) (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
 | 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
 | 26 | Tek doygun vurgu: kalan `tint-sizinti` (Gecis.tsx; GrenliGradyan, IsikKacagi, Karsilastirma, kirmizi-zemin duzeltildi) | katalogda vurgu2 ikincil | acik |
+| 27 | Gercek italik font dosyalari (PlayfairDisplay/DMSerifDisplay/EBGaramond/SourceSerif4 italic): italik-vurgu sentetik egik cizliyor | italik-vurgu gercek italikle | acik (indirme: OFL Google Fonts — kullanici onayi) |
+| 28 | VideoDna odak bilgisi: nesne-dalisi `DiziSahne.odak`, belge-tarama-isigi `bolge` (DnaHud), odak-karartma coklu medya | v04 benzeri kurguda dalis odagi konuya gore | acik |
+| 29 | Onizleme: nokta-oran-izgarasi icin [pay, payda] verisi; yil-tarama tipi (Kart.tsx ZAMAN, tarif opus raporunda) | onizleme karesi anlamli | acik |
 | 18 | (izin gerekir) CC0 SFX paketleri ve lisanslı stok medya avı (Wikimedia/Openverse) + kredi satırları | kullanıcı indirme onayı | bekliyor |
 
 ## Kapanan (2026-11-24)
+- #4 galeri teknikleri: 12 tip (cubuk-trend, nokta-oran-izgarasi, cubuk-yarisi, italik-vurgu, ustu-cizili-degisim, bolum-numarasi, nesne-dalisi, bolum-cetveli, hayalet-yil, belge-tarama-isigi, odak-karartma) — telefon 360 px karesi yonetici tarafindan onaylandi
 - #23 stil_dna en az 4 gecis tipi (D-Day: 4 tip)
 - #24 duragan pay ve 8 sn hareketsiz cekim uyarisi pencereli olcum (nefes duragan sayilmaz)
 - #3 galeri kurallari varsayilan: kamera hic durmaz (nefes), sekmesiz ton, yasak efektler yalniz enerjik, gecis plani (art arda <=2), durgunluk kapisi 1,5 sn (pencereli), kontrast 4,5:1 + boy kapisi — gecis sinirlari yonetici tarafindan gozle onaylandi

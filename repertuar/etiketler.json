@@ -1076,6 +1076,28 @@
    "kaynak": [
     "@OkeanosHistory"
    ]
+  },
+  "nesne-dalisi": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "tarih",
+    "teknoloji",
+    "bilim",
+    "egitim",
+    "finans"
+   ],
+   "enerji": 3,
+   "his": [
+    "sinematik",
+    "modern",
+    "dinamik"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
   }
  },
  "baslik": {
@@ -1397,6 +1419,76 @@
    ],
    "kaynak": [
     "@InnovatingCore"
+   ]
+  },
+  "italik-vurgu": {
+   "ton": [
+    "sakin",
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "egitim",
+    "felsefe",
+    "biyografi",
+    "haber",
+    "bilim"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "temiz",
+    "belgesel"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "ustu-cizili-degisim": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "tarih",
+    "egitim",
+    "finans",
+    "haber",
+    "felsefe"
+   ],
+   "enerji": 3,
+   "his": [
+    "belgesel",
+    "modern",
+    "arsiv"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "bolum-numarasi": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "egitim",
+    "biyografi",
+    "suc",
+    "liste",
+    "felsefe"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "temiz",
+    "sinematik"
+   ],
+   "kaynak": [
+    "opus-galeri"
    ]
   }
  },
@@ -2479,6 +2571,31 @@
    ],
    "kaynak": [
     "@WhereTheyStood"
+   ]
+  },
+  "odak-karartma": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "egitim",
+    "teknoloji",
+    "finans",
+    "bilim",
+    "haber",
+    "tarih"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "modern",
+    "sinematik"
+   ],
+   "kaynak": [
+    "opus-galeri"
    ]
   }
  },
@@ -3575,6 +3692,74 @@
    "kaynak": [
     "@ImmersivePast"
    ]
+  },
+  "cubuk-trend": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "sakin"
+   ],
+   "konu": [
+    "finans",
+    "haber",
+    "teknoloji",
+    "spor",
+    "saglik",
+    "bilim"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz",
+    "teknik"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "nokta-oran-izgarasi": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "saglik",
+    "finans",
+    "haber",
+    "bilim",
+    "egitim"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "modern",
+    "resmi"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "cubuk-yarisi": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "finans",
+    "spor",
+    "tarih",
+    "askeri",
+    "teknoloji"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "dinamik"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
   }
  },
  "hud": {
@@ -3730,6 +3915,75 @@
    ],
    "kaynak": [
     "@OkeanosHistory"
+   ]
+  },
+  "bolum-cetveli": {
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "tarih",
+    "egitim",
+    "biyografi",
+    "muhendislik",
+    "liste",
+    "teknoloji"
+   ],
+   "enerji": 2,
+   "his": [
+    "temiz",
+    "modern",
+    "belgesel"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "hayalet-yil": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "gizem",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "teknoloji",
+    "finans",
+    "haber",
+    "askeri",
+    "spor"
+   ],
+   "enerji": 2,
+   "his": [
+    "modern",
+    "sinematik",
+    "resmi"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
+  },
+  "belge-tarama-isigi": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "suc",
+    "haber",
+    "tarih",
+    "askeri"
+   ],
+   "enerji": 2,
+   "his": [
+    "teknik",
+    "arsiv"
+   ],
+   "kaynak": [
+    "opus-galeri"
    ]
   }
  }
