@@ -4,6 +4,7 @@
 Kullanim:
   py kalite_kapisi.py final.mp4 [--metin metin.txt --dil de] [--brief brief.json] [--cikti KAPI.md]
                       [--hedef-lufs -14] [--durgun-sn 1.5]
+                      [--sfx-plan props.json [--sfx-json sfx.json] [--yatak vo_muzik.wav]]   (SFX kapisi: sfx_kontrol.py)
 
 Kontroller (videonun kendi fps'inde, kucuk gri karelerle):
   FAIL  goruntu sesten kisa/uzun (>0,5 sn) · ilk 2 sn'de hareket/kesim yok (kanca olu)
@@ -236,6 +237,9 @@ def main():
     ap.add_argument('--durgun-sn', type=float, default=None,
                     help=f'tam durgunluk FAIL esigi (sn). Verilmezse uzun form {DURGUN_UZUN}, Shorts (dikey ve <=3 dk) {DURGUN_KISA}')
     ap.add_argument('--cikti')
+    ap.add_argument('--sfx-plan', help='VideoDna props.json: SFX kapisi (sfx_kontrol.py) da calisir — yerlesim + seviye FAIL teslimi durdurur')
+    ap.add_argument('--sfx-json', help='ffmpeg hattinin sfx.json\'u (sfx_plan.py); yoksa plan TS\'ten')
+    ap.add_argument('--yatak', help='SFX icermeyen seslendirme+muzik (temiz seviye olcumu)')
     a = ap.parse_args()
     F, U, bilgi = [], [], []
     A = akislar(a.video)
@@ -332,6 +336,14 @@ def main():
                 F.append(f'metindeki cumlelerin %{oran * 100:.0f}\'i konusmada yok/bozuk: ' + ' | '.join(e[:60] for e in eksik[:5]))
             elif eksik:
                 U.append('konusmada zayif eslesen cumle: ' + ' | '.join(e[:60] for e in eksik[:3]))
+    # SFX kapisi (sfx_kontrol.py): yerlesim +-1 kare + seviye seslendirmeye gore
+    if a.sfx_plan:
+        k = [sys.executable, '-I', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sfx_kontrol.py'), '--plan', a.sfx_plan, '--video', a.video]
+        k += (['--sfx', a.sfx_json] if a.sfx_json else []) + (['--yatak', a.yatak] if a.yatak else [])
+        k += ['--cikti', os.path.splitext(a.cikti or a.video)[0] + '-SFX.md']
+        r = calis(k)
+        satir = (r.stdout.strip().splitlines() or [r.stderr.strip()[-200:]])[-1]
+        (F if r.returncode else bilgi).append(satir)
     # brief
     if a.brief:
         b = json.load(open(a.brief, encoding='utf-8-sig'))

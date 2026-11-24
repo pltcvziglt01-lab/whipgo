@@ -4,6 +4,14 @@ Kayıt yeri DEVAM §1/§2'de yazılı değilse kullanıcıya sor (masaüstü kla
 
 **Teslimden önce `py scripts/adim_kontrol.py <video klasörü>` PASS zorunlu** — üretim defteri tam, her faz kanıtlı, hiçbir faz atlanmamış (`references/uretim-defteri.md`); FAIL varken teslim yok.
 
+## Son ses: SFX doğru yerde, doğru seviyede (`references/sfx.md` §Teslim hattı)
+Video `<VideoDna sfx={false} />` ile render edilir; SFX'i ffmpeg hattı koyar. `--vo` (tek sabit kaydırma) teslimde KULLANILMAZ: her ses kendi anındaki seslendirme + müzik yüksekliğine göre kurulur.
+1. `py scripts/ses_miks.py --vo vo.mp3 [--muzik m.mp3] --yatak-cikti yatak.wav --cikti gecici.wav` — SFX'siz, loudnorm öncesi yatak.
+2. `py scripts/sfx_plan.py --plan props.json --yatak yatak.wav --cikti sfx.json --stem-cikti sfx.wav` — plan gerçek TS'ten (node gerekli).
+3. `py scripts/ses_miks.py --vo vo.mp3 [--muzik m.mp3] --sfx sfx.wav --video ham.mp4 --cikti final.mp4` — −14 LUFS.
+4. **SFX kapısı PASS zorunlu:** `py scripts/kalite_kapisi.py final.mp4 --sfx-plan props.json --sfx-json sfx.json --yatak gecici.wav [--metin …]` (içinde `sfx_kontrol.py`): her ses görsel olayına ±1 kare, anlamca doğru rolde; seviye yatağa göre darbe 6–10 / geçiş 12–16 / tık 16–22 dB altı, konuşmayı bastırmıyor. FAIL varken teslim yok; rapor `final-SFX.md`.
+Remotion'un kendi SFX'li render'ı yalnız önizlemedir (sabit referans; MP4/AAC sesi ~45 ms geç yazar).
+
 ## baslik-aciklama.txt
 1. **BAŞLIK** (seçilen)
 2. **AÇIKLAMA** — ilk 2 cümle her videoda yeniden yazılır (şablon kopyalanmaz); 2 paragraf; bölüm zamanları `scripts/bolum_zamanlari.py cumleler.json metin.txt` (her bölümün ilk cümlesinin `t` değeri, ilki 0:00); yorum sorusu; 3 hashtag.

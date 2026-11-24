@@ -5,12 +5,14 @@ Sfx.tsx bu tabloyu SFX_OLCU olarak disa verir; dogrula.py olcusuz sesi FAIL saya
 degisince calistir.
 Kullanim:
   py sfx_olc.py [--varlik C:/otomasyon/yt-uretim/varlik] [--turev] [--deneme]
+  Render'da olay basina yerlesim/seviye denetimi: sfx_kontrol.py.
   --turev : `turev` tanimlarindan (CC0 kaynak + yari ton listesi) perde kaydirmali dosyalari uretir (sfx-cc0/turev/<ad>-pN.wav).
             Eksik turev dosyasi varsa bayraksiz da uretilir.
-Olculenler (sesin kullanilan bolumu: dosya basindan min(sn, 20 sn); kanal ORTALAMASI, 16 kHz):
-  bas   = zarf (10 ms) tepenin %10'unu ilk astigi an  -> Sfx.tsx bastaki sessizligi kirpar
+Olculenler (sesin kullanilan bolumu: dosya basindan min(sn, 20 sn); 48 kHz, kanallar):
+  zarf  = BS.1770 K-agirlikli guc (kanallar toplami), 10 ms ortalama — algisal zarf; sfx_kontrol.py ayni tanimi kullanir
+  bas   = zarfin tepenin %1'ini (genlik %10) ilk astigi an -> Sfx.tsx bastaki sessizligi kirpar
   tepe  = zarfin en yuksek ani                        -> bu an olay karesine oturur (whoosh tepesi kesimde)
-  db    = ORNEK tepesi dBFS                           -> kazanc tavani: tepe kirpilmaz (ayar.tepe_tavan_db)
+  db    = ORNEK tepesi dBFS (kanal basina)            -> kazanc tavani: tepe kirpilmaz (ayar.tepe_tavan_db)
   yuks  = en gur 100 ms pencerenin BS.1770 K-agirlikli yuksekligi (LUFS olcegi, kanallar TOPLANIR; 100 ms'den kisa seste
           enerji/100 ms) -> SEVIYE bununla: ses, konusma (ya da yatak) yuksekliginin havuz kadar altina oturur. Kanal toplami
           sayesinde mono dosya ile onun stereoya -3 dB acilmis hali ayni olculur (Remotion/ffmpeg upmix).
@@ -86,18 +88,24 @@ def yukseklik(g, w=0.1, adim=0.01, sr=KSR):
     return -0.691 + 10 * np.log10((c[i + n] - c[i]) / n + 1e-12)
 
 
+def zarf(g, sr=KSR):
+    """K-agirlikli guc zarfi (10 ms): tepe/bas olcusu — sfx_kontrol.py ayni zarfi kullanir (tepe tanimi tek)"""
+    n = int(sr * 0.01)
+    return np.convolve(g, np.ones(n) / n, mode='same')
+
+
 def olc(yol, sn=None):
     kanal, _, sure = bilgi(yol)
     pencere = min(sn or 20.0, sure or 20.0)
-    x = kanal_ortalama(yol, kanal, 0, pencere)
-    if not len(x):
+    x2 = kanallar(yol, 0, pencere, kanal)
+    if not len(x2):
         return None
-    ax = np.abs(x)
-    z = np.convolve(ax, np.ones(160) / 160, mode='same')
+    g = k_guc(x2)
+    z = zarf(g)
     tepe = int(np.argmax(z))
-    bas = int(np.argmax(z > z[tepe] * 0.1))
-    yuks = float(yukseklik(k_guc(kanallar(yol, 0, pencere, kanal))).max())
-    return [round(bas / SR, 3), round(tepe / SR, 3), round(20 * np.log10(float(ax.max()) + 1e-9), 1), round(yuks, 1), round(sure, 3), kanal]
+    bas = int(np.argmax(z > z[tepe] * 0.01))   # guc %1 = genlik %10
+    yuks = float(yukseklik(g).max())
+    return [round(bas / KSR, 3), round(tepe / KSR, 3), round(20 * np.log10(float(np.abs(x2).max()) + 1e-9), 1), round(yuks, 1), round(sure, 3), kanal]
 
 
 def turev_uret(j, varlik, zorla):
@@ -134,65 +142,13 @@ def kaydet(j, yol):
     open(yol, 'w', encoding='utf-8', newline='\n').write('\n'.join(s) + '\n')
 
 
-def olay_seviyeleri(mp4, plan, fps, j, ton='ciddi'):
-    """render'daki (yalniz SFX stemi) her yerlesimin seviyesi: tepe anindaki pencerede ornek tepesi + 100 ms RMS tepesi.
-    plan: Sfx.tsx sfxPlani / sfx_plan.py ciktisi (kare, kirp, dosya, havuz, rol). Donus: satirlar (hedef = vo_ref + seviye + ton ofseti)."""
-    A = j['ayar']
-    kanal, _, _ = bilgi(mp4)
-    x = kanal_ortalama(mp4, kanal)
-    tepeler = []
-    for p in plan:
-        o = j['olcu'].get(p['dosya'], [0, 0.05, 0, 0, 0, 1])
-        tepeler.append((p['kare'] + max(0, round(o[1] * fps) - p['kirp'])) / fps)
-    sira = sorted(range(len(plan)), key=lambda i: tepeler[i])
-    satir = []
-    for n, i in enumerate(sira):
-        tp = tepeler[i]
-        son = tp + 0.3
-        if n + 1 < len(sira):
-            son = min(son, max(tp + 0.04, tepeler[sira[n + 1]] - 0.02))
-        a, b = max(0, int((tp - 0.05) * SR)), min(len(x), int(son * SR))
-        w = x[a:b]
-        if not len(w):
-            continue
-        p = plan[i]
-        hedef = A['vo_ref_db'] + A['seviye'][p['havuz']] + A['ton_ofset'].get(ton, 0)
-        satir.append({'t': round(tp, 3), 'rol': p['rol'], 'havuz': p['havuz'], 'dosya': p['dosya'], 'hedef': round(hedef, 1),
-                      'rms': round(float(rms_pencere(w).max()), 1), 'tepe': round(20 * np.log10(float(np.abs(w).max()) + 1e-9), 1)})
-    return satir
-
-
-def rapor_yaz(satir, j, baslik=''):
-    vo = j['ayar']['vo_ref_db']
-    s = [f'### {baslik}', '', f'Konusma referansi (vo_ref_db) {vo} dBFS (kanal basina 100 ms RMS). "VO alti" = olculen 100 ms RMS - referans.', '',
-         '| t (sn) | rol | havuz | ses | hedef VO alti | olculen VO alti | fark | ornek tepesi dBFS |', '|---|---|---|---|---|---|---|---|']
-    for r in satir:
-        s.append(f"| {r['t']:.2f} | {r['rol']} | {r['havuz']} | {r['dosya'].split('/')[-1]} | {r['hedef'] - vo:+.1f} | {r['rms'] - vo:+.1f} | "
-                 f"{r['rms'] - r['hedef']:+.1f} | {r['tepe']:.1f} |")
-    return '\n'.join(s)
-
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--varlik', default=os.path.join(KOK, 'varlik'))
     ap.add_argument('--turev', action='store_true')
     ap.add_argument('--deneme', action='store_true')
-    ap.add_argument('--rapor', help='render (yalniz SFX) mp4: olay basina seviye tablosu (--plan ile)')
-    ap.add_argument('--plan', help='--rapor icin yerlesim plani json (Sfx.tsx sfxPlani ciktisi: kare/kirp/dosya/havuz/rol)')
-    ap.add_argument('--ton', default='ciddi')
-    ap.add_argument('--fps', type=int, default=30)
-    ap.add_argument('--cikti', help='--rapor markdown cikti')
     a = ap.parse_args()
     j = json.load(open(KUTUPHANE, encoding='utf-8'))
-    if a.rapor:
-        satir = olay_seviyeleri(a.rapor, json.load(open(a.plan, encoding='utf-8')), a.fps, j, a.ton)
-        md = rapor_yaz(satir, j, os.path.basename(a.rapor))
-        fark = [r['rms'] - r['hedef'] for r in satir]
-        ozet = f'{len(satir)} olay; hedef farki ortalama {np.mean(fark):+.1f} dB, mutlak medyan {np.median(np.abs(fark)):.1f} dB; en gur tepe {max(r["tepe"] for r in satir):.1f} dBFS'
-        if a.cikti:
-            open(a.cikti, 'w', encoding='utf-8').write(md + '\n\n' + ozet + '\n')
-        print(md if not a.cikti else '', ozet, sep='\n')
-        return
     if not a.deneme:
         turev_uret(j, a.varlik, a.turev)
     yollar = {}

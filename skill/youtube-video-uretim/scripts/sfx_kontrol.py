@@ -6,9 +6,11 @@ Kullanim:
   --plan   : VideoDna props'u (dna + veri: cekimler, kelimeler). Plan GERCEK TS'ten hesaplanir (sfx_plan.py, node).
   --sfx    : ffmpeg hattinda kullanilan sfx.json (sfx_plan.py ciktisi; ya da eski bicim) — verilirse plan yerine o denetlenir.
   --video  : denetlenen dosya (teslim: seslendirme + muzik + SFX).
-  --yatak  : ayni videonun SFX'SIZ sesi (seslendirme + muzik). Verilirse SFX katmani = video - yatak (hizalama + kazanc otomatik)
-             ve yatak yuksekligi temiz olculur. Verilmezse SFX sablon izdusumuyle ayrilir (konusma altinda daha gurultulu).
+  --yatak  : ayni videonun SFX'SIZ sesi (seslendirme + muzik; ses_miks.py --yatak-cikti). SFX katmani = video - yatak (hizalama +
+             kazanc otomatik), yatak yuksekligi temiz olculur. ZORUNLU (ya da --stem / --yalniz-sfx): yataksiz olcumde konusma
+             altindaki SFX ayrilamiyor (v04 testi: 15 sesten 12'si belirsiz).
   --yalniz-sfx : videonun sesi yalniz SFX (Remotion render'i, KatSes). Seviye o zaman sabit konusma referansina (vo_ref_db) gore.
+             Remotion MP4'u (AAC) sesi ~45 ms GEC yazar: SFX katmanini --separate-audio-to=sfx.wav ile al ya da ffmpeg ile muxla.
   --stem   : yalniz SFX katmani dosyasi (ayni zaman cizgisi).
   --aralik A B : yalniz [A, B] sn (zaman cizgisi); --video-bas S: video dosyasi zaman cizgisinin S. saniyesinden basliyorsa (kismi render).
 
@@ -26,7 +28,7 @@ import numpy as np
 BURASI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BURASI)
 import sfx_plan as P   # noqa: E402
-from sfx_olc import bilgi, kanallar, k_guc   # noqa: E402
+from sfx_olc import bilgi, kanallar, k_guc, zarf   # noqa: E402
 
 SR = 48000
 REPO = P.REPO
@@ -40,11 +42,12 @@ GORSEL = {   # olay rolu -> o karedeki cekimde beklenen gorsel (None: denetlenme
 }
 
 
-def zarf_tepe(m, hiza):
-    z = np.convolve(np.abs(m), np.ones(480) / 480, mode='same')
+def zarf_tepe(p, hiza):
+    """sablonun (stereo) K-agirlikli guc zarfi tepesi (ornek) — sfx_olc.py olc() ile ayni tanim; hiza 'bas': %1 esigi"""
+    z = zarf(k_guc(p))
     i = int(np.argmax(z))
     if hiza == 'bas':
-        return int(np.argmax(z > z[i] * 0.1))
+        return int(np.argmax(z > z[i] * 0.01))
     return i
 
 
@@ -146,10 +149,14 @@ def main():
     ap.add_argument('--yalniz-sfx', action='store_true')
     ap.add_argument('--aralik', nargs=2, type=float)
     ap.add_argument('--video-bas', type=float, default=0.0, help='video dosyasinin zaman cizgisindeki baslangici (sn)')
+    ap.add_argument('--yatak-bas', type=float, default=0.0, help='yatak dosyasinin zaman cizgisindeki baslangici (sn)')
     ap.add_argument('--repertuar', default=os.path.join(REPO, 'repertuar'))
     ap.add_argument('--cikti')
     ap.add_argument('--baslik', default='')
     a = ap.parse_args()
+    if not (a.yatak or a.stem or a.yalniz_sfx):
+        sys.exit('HATA --yatak (SFX icermeyen seslendirme+muzik; ses_miks.py --yatak-cikti) ya da --stem / --yalniz-sfx gerekli: '
+                 'yataksiz olcumde konusma altindaki SFX ayrilamaz (v04 testi: 15 sesten 12 belirsiz)')
     props = json.load(open(a.plan, encoding='utf-8-sig'))
     dna = json.load(open(a.dna, encoding='utf-8-sig')) if a.dna else props.get('dna')
     T, _ = P.repertuar_oku(a.repertuar)
@@ -165,6 +172,9 @@ def main():
     oku_bas = max(a.video_bas, A0 - 2)
     V = kanallar(a.video, oku_bas - a.video_bas, (B0 + 2) - oku_bas, vk)
     t0 = oku_bas                     # V[0] zaman cizgisinde t0
+    if not len(V):
+        print('SFX KAPISI FAIL — videoda ses akisi yok (Remotion --separate-audio-to ile render edildiyse sesi muxla)')
+        sys.exit(1)
     Y = S = None
     gy = 1.0
     if a.stem:
@@ -172,8 +182,9 @@ def main():
     elif a.yalniz_sfx:
         S = V
     if a.yatak and not a.yalniz_sfx:
-        Yh = kanallar(a.yatak, max(0, oku_bas - 1), (B0 + 3) - max(0, oku_bas - 1))
-        ofs = int(round((oku_bas - max(0, oku_bas - 1)) * SR))
+        yb = max(a.yatak_bas, oku_bas - 1)          # yatagi zaman cizgisinde yb'den oku
+        Yh = kanallar(a.yatak, yb - a.yatak_bas, (B0 + 3) - yb)
+        ofs = int(round((oku_bas - yb) * SR))
         bas, gy = hizala(V, Yh, ofs)
         Y = np.zeros_like(V)
         k = min(len(V), len(Yh) - bas) if bas >= 0 else 0
@@ -194,12 +205,29 @@ def main():
 
     secili = [e for e in girdi if A0 + 0.3 <= e['an'] <= B0 - 0.3]
     anlar = sorted(e['an'] for e in secili)
+    # plandaki TUM seslerin sablonlari planli yerlerinde: her ses aranirken digerleri katmandan cikarilir (ayni anda tepe yapan
+    # suzulme + varis vurusu, sik tik dizileri birbirini sasirtmasin)
+    Pm = np.zeros(len(X))
+    sabm = {}
+    for k, e in enumerate(girdi):
+        if A0 - 3 <= e['t'] <= B0 + 1:
+            mm_ = sab(e).mean(axis=1) if len(sab(e)) else np.zeros(0)
+            j0 = int(round((e['t'] - t0) * SR))
+            a_, b_ = max(0, j0), min(len(X), j0 + len(mm_))
+            if b_ > a_:
+                Pm[a_:b_] += mm_[a_ - j0:b_ - j0]
+            sabm[id(e)] = (j0, mm_)
     yer, sev = [], []
     for e in sorted(secili, key=lambda e: e['an']):
         p = sab(e)
         if not len(p):
             continue
         m = p.mean(axis=1)
+        j0, _ = sabm.get(id(e), (int(round((e['t'] - t0) * SR)), m))
+        Xi = X - Pm                      # artik: digerleri cikmis, bu sesin planli kopyasi geri eklenir
+        a_, b_ = max(0, j0), min(len(X), j0 + len(m))
+        if b_ > a_:
+            Xi[a_:b_] += m[a_ - j0:b_ - j0]
         komsu = [abs(x - e['an']) for x in anlar if x != e['an']]
         W = int(SR * max(0.04, min(0.15, 0.45 * min(komsu) if komsu else 0.15)))
         i0 = int(round((e['t'] - t0) * SR))
@@ -207,7 +235,7 @@ def main():
         ok_ara = a0 >= 0 and b0 <= len(X)
         lag, guven = 0, 0.0
         if ok_ara and float(np.dot(m, m)) > 1e-12:
-            seg = X[a0:b0]
+            seg = Xi[a0:b0]
             c = correlate(seg, m, mode='valid', method='fft')
             e2 = np.concatenate([[0.0], np.cumsum(seg.astype(np.float64) ** 2)])
             mm2 = float(np.dot(m, m))
@@ -216,7 +244,7 @@ def main():
             ncc = c / en
             j = int(np.argmax(ncc))
             lag, guven = j - W, float(ncc[j])
-        tp = zarf_tepe(m, e.get('hiza', 'tepe')) / SR
+        tp = zarf_tepe(p, e.get('hiza', 'tepe')) / SR
         olc = e['t'] + lag / SR + tp
         sapma = olc - e['an']
         # anlam
@@ -248,7 +276,7 @@ def main():
         # SFX'in KENDI seviyesi: sablonun bulundugu yerde SFX katmanina (yoksa videoya) izdusumu = gercek kazanc; sik dizilerde
         # (66-100 ms arayla tik) komsu sesler pencereye girse de ilisiksiz oldugu icin olcumu sisirmez
         ia = i0 + lag                    # xcorr'un sectigi TAM ornek (yeniden yuvarlama gurultulu seste kazanci dusurur)
-        seg = X[max(0, ia):max(0, ia) + len(m)]
+        seg = Xi[max(0, ia):max(0, ia) + len(m)]
         mm = m[max(0, -ia):max(0, -ia) + len(seg)]
         kk = float(np.dot(seg, mm) / (np.dot(mm, mm) + 1e-12)) if len(seg) else 0.0
         Ls = tepe_lufs(k_guc(p), 0, len(p)) + 20 * math.log10(max(kk, 1e-6))

@@ -9,7 +9,8 @@ Kullanim:
   py ses_miks.py --vo vo.mp3 --sfx sfx.json --video ham.mp4 --cikti final.mp4
 --plan  : VideoDna props'u ({dna, veri:{fps, cekimler[...]}}); dna props'ta yoksa --dna stil-dna.json.
 --klasor: varlik koku (varsayilan: props'un ustundeki public/varlik); dosya yollari sfx/... (Adobe) ve sfx-cc0/... (CC0).
---vo    : seslendirme olculur (100 ms RMS medyani); SFX dB'leri ayar.vo_ref_db farkina gore kaydirilir (VO kisik/gur ise SFX de).
+--vo    : seslendirme olculur (600 ms K-yukseklik medyani); SFX dB'leri ayar.vo_ref_db farkina gore TEK SABITLE kaydirilir — yalniz
+          onizleme. TESLIMDE --yatak (her ses yerel seslendirme+muzik yuksekligine gore) + sfx_kontrol.py (references/teslim.md).
 Cikti: [{"dosya", "t": sn, "db", "kirp": sn, "sure": sn, "giris": sn, "rol", "havuz"}]  (ses_miks: atrim + giris / 0,25 sn cikis
   yumusamasi). t = dosyanin (kirpilmis) caldigi an; tepe olay karesine oturur.
 
@@ -583,12 +584,11 @@ def plan_farki(py, js):
 
 
 def vo_olc(yol):
-    """VO'nun kanal basina 100 ms RMS medyani (aktif > -40 dBFS) — sfx_olc.py olcegiyle"""
+    """VO'nun 600 ms K-yukseklik medyani (LUFS; konusma pencereleri: en gur pencerenin 20 dB altindan gurler) — ayar.vo_ref_db ile ayni olcek"""
     import numpy as np
-    from sfx_olc import bilgi, kanal_ortalama, rms_pencere
-    k, _, _ = bilgi(yol)
-    r = rms_pencere(kanal_ortalama(yol, k))
-    a = r[r > -40]
+    from sfx_olc import kanallar, k_guc, yukseklik
+    L = yukseklik(k_guc(kanallar(yol)), 0.6, 0.1)
+    a = L[L > max(-50, float(L.max()) - 20)] if len(L) else L
     return float(np.median(a)) if len(a) else None
 
 
@@ -634,7 +634,7 @@ def main():
         m = vo_olc(a.vo)
         if m is not None:
             kaydir = m - T['ayar']['vo_ref_db']
-            print(f'VO {m:.1f} dBFS (100 ms RMS medyani), referans {T["ayar"]["vo_ref_db"]} -> SFX {kaydir:+.1f} dB')
+            print(f'VO {m:.1f} LUFS (600 ms K-yukseklik medyani), referans {T["ayar"]["vo_ref_db"]} -> SFX {kaydir:+.1f} dB')
     yatak = Yatak(a.yatak, 0.0, a.yatak_gecikme) if a.yatak else None
     out = miks_json(plan, fps, klasor, T, zarf_esik(a.repertuar), kaydir, yatak)
     eksik = sorted({e['dosya'] for e in out if not os.path.exists(e['dosya'])})

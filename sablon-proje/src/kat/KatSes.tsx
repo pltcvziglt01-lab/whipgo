@@ -6,8 +6,9 @@ import veri from './katses-olaylar.json';
 
 // SES KATALOGU (KatSes): her SFX rolu kendi diliminde, gorsel + ses. Kulakla ve olcumle kontrol icin (references/sfx.md).
 // Her dilim ayri sfxPlani cagrisi (dakika tavani dilimleri birbirinden silmesin); doruk dilimi sessizligi gosterir.
-// Props: {"ton": "ciddi"|"gizem"|"enerjik"|"sakin", "tohum": "..."}. Olcum: plan (katSesPlani ile ayni: sfx_plan.py sfx_plani her dilime)
-// -> py scripts/sfx_olc.py --rapor out/katses-<ton>.mp4 --plan plan.json --ton <ton>  (olay basina hedef / olculen seviye)
+// Props: {"ton": "ciddi"|"gizem"|"enerjik"|"sakin", "tohum": "..."}. Render: --separate-audio-to=sfx.wav (Remotion MP4/AAC sesi ~45 ms
+// gec yazar). Denetim: plan (katSesPlani = sfx_plan.py sfx_plani her dilime) -> sfx_plan.miks_json -> py scripts/sfx_kontrol.py --plan
+// <props> --video sfx.wav --sfx plan.json --yalniz-sfx (yerlesim +-1 kare, seviye sabit konusma referansina gore).
 type Dilim = { rol: string; uzunluk: number; olaylar: SfxOlay[]; not: string };
 const DILIMLER = (veri as unknown as { dilimler: Dilim[] }).dilimler;
 export const KATSES_SURE = DILIMLER.reduce((a, d) => a + d.uzunluk, 0);

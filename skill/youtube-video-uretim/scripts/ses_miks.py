@@ -6,6 +6,10 @@ Kullanim:
   py ses_miks.py --vo vo.mp3 [--muzik muzik.mp3 --muzik-db -20] [--sfx sfx.json] [--video ham.mp4]
                  [--hedef -14] --cikti final.mp4|mix.wav
   py ses_miks.py --vurus muzik.mp3 [--cikti vurus.json]     (librosa ile vurus/tempo haritasi)
+--sfx sfx.wav|.flac: hazir SFX katmani (sfx_plan.py --yatak yatak.wav --stem-cikti sfx.wav) tek girdi, 0 dB — ONERILEN (seviye yatak
+  yuksekligine gore kurulu; yuzlerce SFX girdisi Windows komut satiri sinirini asmaz). Yatak = bu betigin --muzik/--vo isledigi ses:
+  1) py ses_miks.py --vo .. [--muzik ..] --yatak-cikti yatak.wav --cikti gecici.wav  2) py sfx_plan.py --plan props.json --yatak yatak.wav
+  --stem-cikti sfx.wav  3) py ses_miks.py --vo .. [--muzik ..] --sfx sfx.wav --video ham.mp4 --cikti final.mp4  4) sfx_kontrol.py.
 sfx.json: [{"dosya": "C:/.../whoosh.wav", "t": 12.34, "db": -6}, ...]  (t = saniye; kesim anlari icin)
   istege bagli "kirp" (dosya basindan atlanan sn) + "sure" (calma suresi sn) + "giris" (giris yumusamasi sn, vars. 0,066) + "cikis" (vars. 0,25): atrim + giris / 0,25 sn cikis yumusamasi.
   VideoDna kurgusunun SFX'i icin json'u elle yazma: py sfx_plan.py --plan props.json (Remotion sfxPlani ile birebir).
@@ -46,6 +50,7 @@ def main():
     ap.add_argument('--hedef', type=float, default=-14)
     ap.add_argument('--vurus')
     ap.add_argument('--cikti')
+    ap.add_argument('--yatak-cikti', help='loudnorm ONCESI SFX icermeyen miks (vo+muzik) -> sfx_plan.py --yatak; --sfx ile birlikte verilmez')
     a = ap.parse_args()
     if a.vurus:
         return vurus(a.vurus, a.cikti or 'vurus.json')
@@ -64,7 +69,14 @@ def main():
         filtre.append('[m0][vok]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[m]')
         karisim.append('[m]')
         n += 1
-    if a.sfx:
+    if a.sfx and os.path.splitext(a.sfx)[1].lower() in ('.wav', '.flac'):
+        # hazir SFX katmani (sfx_plan.py --yatak <vo+muzik> --stem-cikti sfx.wav): tek girdi, 0 dB, sidechain YOK
+        # (seviyeler zaten yerel yatak yuksekligine gore kurulu). Yuzlerce ayri girdi Windows komut satiri sinirini asar.
+        girdiler += ['-i', a.sfx]
+        filtre.append(f'[{n}:a]aformat=sample_rates=48000:channel_layouts=stereo[s0]')
+        karisim.append('[s0]')
+        n += 1
+    elif a.sfx:
         for i, e in enumerate(json.load(open(a.sfx, encoding='utf-8-sig'))):
             girdiler += ['-i', e['dosya']]
             ms = int(round(float(e['t']) * 1000))
@@ -84,6 +96,12 @@ def main():
     fc = ';'.join(filtre)
     gecici = os.path.splitext(a.cikti)[0] + '-mixham.wav'
     calis(['ffmpeg', '-y', '-v', 'error', *girdiler, '-filter_complex', fc, '-map', '[mx]', '-ar', '48000', gecici])
+    if a.yatak_cikti:   # SFX seviyeleri bu (loudnorm oncesi) yataga gore kurulur: ikinci geciste ayni yatak + SFX ayni loudnorm'u alir
+        if a.sfx:
+            sys.exit('--yatak-cikti SFX icermeyen miks icindir: --sfx verme')
+        import shutil
+        shutil.copy(gecici, a.yatak_cikti)
+        print('yatak (loudnorm oncesi, SFX yok) ->', a.yatak_cikti)
     # iki gecisli loudnorm
     r = calis(['ffmpeg', '-hide_banner', '-nostats', '-i', gecici, '-af',
                f'loudnorm=I={a.hedef}:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'])
