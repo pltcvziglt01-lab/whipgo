@@ -84,20 +84,32 @@ export const karistir = (a: string, b: string, t: number) => {
 };
 
 // ---------- FONT CIFTLERI (dosyalar: public/fontlar/<Ad>.ttf — kutuphanenin fontlar/ klasorunden kopyalanir) ----------
-export type FontCifti = { ad: string; baslik: string; govde: string; mono: string; baslikAgirlik: number; buyukHarf: boolean; aralik: number };
+export type FontCifti = { ad: string; baslik: string; govde: string; mono: string; baslikAgirlik: number; buyukHarf: boolean; aralik: number;
+  /** video ustunde okunurluk: govde/mono yazilarin EN AZ kalinligi (bilesen fontWeight vermediyse bu kullanilir) */
+  govdeAgirlik: number; monoAgirlik: number };
 export const FONTLAR: Record<string, FontCifti> = {
-  'grotesk-modern':  { ad: 'grotesk-modern',  baslik: 'SpaceGrotesk', govde: 'DMSans', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: false, aralik: -1 },
-  'editoryal-serif': { ad: 'editoryal-serif', baslik: 'DMSerifDisplay', govde: 'WorkSans', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: -0.5 },
-  'klasik-serif':    { ad: 'klasik-serif',    baslik: 'PlayfairDisplay', govde: 'Lora', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: false, aralik: 0 },
-  'antik-baslik':    { ad: 'antik-baslik',    baslik: 'Cinzel', govde: 'EBGaramond', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: true, aralik: 4 },
-  'poster-dar':      { ad: 'poster-dar',      baslik: 'Anton', govde: 'Rubik', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: true, aralik: 1 },
-  'teknik-dar':      { ad: 'teknik-dar',      baslik: 'BarlowCondensed', govde: 'RobotoCondensed', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: true, aralik: 2 },
-  'geometrik-kalin': { ad: 'geometrik-kalin', baslik: 'LeagueSpartan', govde: 'Poppins', mono: 'CourierPrime', baslikAgirlik: 800, buyukHarf: false, aralik: -1.5 },
-  'retro-slab':      { ad: 'retro-slab',      baslik: 'AlfaSlabOne', govde: 'Nunito', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: 0 },
-  'sport-teko':      { ad: 'sport-teko',      baslik: 'Teko', govde: 'Kanit', mono: 'CourierPrime', baslikAgirlik: 600, buyukHarf: true, aralik: 2 },
-  'damga-stencil':   { ad: 'damga-stencil',   baslik: 'Staatliches', govde: 'WorkSans', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: true, aralik: 3 },
-  'gazete':          { ad: 'gazete',          baslik: 'AbrilFatface', govde: 'SourceSerif4', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: 0 },
-  'yumusak-sans':    { ad: 'yumusak-sans',    baslik: 'Nunito', govde: 'Nunito', mono: 'CourierPrime', baslikAgirlik: 800, buyukHarf: false, aralik: -0.5 },
+  'grotesk-modern':  { ad: 'grotesk-modern',  baslik: 'SpaceGrotesk', govde: 'DMSans', mono: 'RobotoCondensed', baslikAgirlik: 700, buyukHarf: false, aralik: -1, govdeAgirlik: 600, monoAgirlik: 600 },
+  'editoryal-serif': { ad: 'editoryal-serif', baslik: 'DMSerifDisplay', govde: 'WorkSans', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: -0.5, govdeAgirlik: 600, monoAgirlik: 600 },
+  'klasik-serif':    { ad: 'klasik-serif',    baslik: 'PlayfairDisplay', govde: 'Lora', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: false, aralik: 0, govdeAgirlik: 600, monoAgirlik: 600 },
+  'antik-baslik':    { ad: 'antik-baslik',    baslik: 'Cinzel', govde: 'EBGaramond', mono: 'CourierPrime', baslikAgirlik: 700, buyukHarf: true, aralik: 4, govdeAgirlik: 600, monoAgirlik: 600 },
+  'poster-dar':      { ad: 'poster-dar',      baslik: 'Anton', govde: 'Rubik', mono: 'RobotoCondensed', baslikAgirlik: 400, buyukHarf: true, aralik: 1, govdeAgirlik: 600, monoAgirlik: 600 },
+  'teknik-dar':      { ad: 'teknik-dar',      baslik: 'BarlowCondensed', govde: 'RobotoCondensed', mono: 'RobotoCondensed', baslikAgirlik: 700, buyukHarf: true, aralik: 2, govdeAgirlik: 600, monoAgirlik: 600 },
+  'geometrik-kalin': { ad: 'geometrik-kalin', baslik: 'LeagueSpartan', govde: 'Poppins', mono: 'RobotoCondensed', baslikAgirlik: 800, buyukHarf: false, aralik: -1.5, govdeAgirlik: 600, monoAgirlik: 600 },
+  'retro-slab':      { ad: 'retro-slab',      baslik: 'AlfaSlabOne', govde: 'Nunito', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: 0, govdeAgirlik: 600, monoAgirlik: 600 },
+  'sport-teko':      { ad: 'sport-teko',      baslik: 'Teko', govde: 'Kanit', mono: 'RobotoCondensed', baslikAgirlik: 600, buyukHarf: true, aralik: 2, govdeAgirlik: 600, monoAgirlik: 600 },
+  'damga-stencil':   { ad: 'damga-stencil',   baslik: 'Staatliches', govde: 'WorkSans', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: true, aralik: 3, govdeAgirlik: 600, monoAgirlik: 600 },
+  'gazete':          { ad: 'gazete',          baslik: 'AbrilFatface', govde: 'SourceSerif4', mono: 'CourierPrime', baslikAgirlik: 400, buyukHarf: false, aralik: 0, govdeAgirlik: 600, monoAgirlik: 600 },
+  'yumusak-sans':    { ad: 'yumusak-sans',    baslik: 'Nunito', govde: 'Nunito', mono: 'RobotoCondensed', baslikAgirlik: 800, buyukHarf: false, aralik: -0.5, govdeAgirlik: 700, monoAgirlik: 600 },
+};
+/** font dosyalarinin kalinlik araligi (fvar wght min-max) ya da sabit dosyanin kalinligi (OS/2 usWeightClass).
+ *  FontYukle bunu FontFace 'weight' tanimina yazar: yazilmazsa degisken font hep VARSAYILAN kesimle cizilir
+ *  (LeagueSpartan/Montserrat/Raleway 100, Rubik/SpaceGrotesk/Teko 300) ve fontWeight: 800 bile ince gorunur. Yeni font eklenince guncelle. */
+export const FONT_AGIRLIK: Record<string, string> = {
+  AbrilFatface: '400', AlfaSlabOne: '400', Anton: '400', ArchivoBlack: '400', Bangers: '400', BarlowCondensed: '600', BebasNeue: '400', BlackOpsOne: '400',
+  Cinzel: '400 900', CormorantGaramond: '300 700', CourierPrime: '400', DMSans: '100 1000', DMSerifDisplay: '400', EBGaramond: '400 800', FjallaOne: '400',
+  Inter: '100 900', Kanit: '700', Lato: '700', LeagueSpartan: '100 900', Lora: '400 700', Merriweather: '300 900', Montserrat: '100 900', NotoSansJP: '100 900',
+  NotoSerifJP: '200 900', Nunito: '200 1000', OpenSans: '300 800', Oswald: '200 700', PlayfairDisplay: '400 900', Poppins: '700', Raleway: '100 900',
+  Roboto: '100 900', RobotoCondensed: '100 900', Rubik: '300 900', SourceSerif4: '200 900', SpaceGrotesk: '300 700', Staatliches: '400', Teko: '300 700', WorkSans: '100 900',
 };
 export const fontCifti = (ad?: string): FontCifti => FONTLAR[ad || ''] || FONTLAR['grotesk-modern'];
 

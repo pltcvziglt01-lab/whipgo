@@ -143,7 +143,7 @@ def kagit_sayisi(d):
 # ---------------- aileler ve kutuphane teknik eslemesi ----------------
 GECIS_AILE = {'sert': 'sert', 'cozunme': 'karartma', 'bulaniklik': 'karartma', 'isik-patlamasi': 'flas', 'film-yanigi': 'flas',
               'glitch-rgb': 'glitch', 'whip-sol': 'hareket', 'whip-yukari': 'hareket', 'kaydirma-itme': 'hareket', 'zoom-darbe': 'zoom',
-              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma'}
+              'maske-daire': 'maske', 'maske-capraz': 'maske', 'maske-seritler': 'maske', 'perde': 'maske', 'kart-cevirme': '3b', 'tv-kapanma': 'tv', 'parsomen': 'karartma', 'renk-bandi': 'maske', 'zoom-icinden': 'zoom'}
 RAKIP_GECIS_AILE = [('siyaha', 'karartma'), ('cozunme', 'karartma'), ('beyaza', 'flas'), ('isik', 'flas'), ('flas', 'flas'), ('glitch', 'glitch'),
                     ('kaydirma', 'hareket'), ('whip', 'hareket'), ('itme', 'hareket'), ('zoom_gecis', 'zoom'), ('wipe', 'maske'), ('maske', 'maske')]
 CERCEVE_RAKIP = {'cerceveli_bulanik': 'bulanik-kopya', 'cerceveli_duz_renk': 'inset-golge', 'letterbox': 'letterbox', 'bolunmus': 'bolunmus',

@@ -80,7 +80,7 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
         <AbsoluteFill>{ap}
           <div style={{ position: 'absolute', left: W * 0.27, top: H * 0.08, width: W * 0.46, height: H * 0.84, background: '#fbfaf6', padding: '26px 26px 120px', boxSizing: 'border-box', boxShadow: `0 40px 90px ${rgba('#000', 0.45)}`, transform: `rotate(${rot}deg) translateY(${(1 - giris) * 80}px)` }}>
             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>{md(m)}</div>
-            {etiket ? <div style={{ position: 'absolute', bottom: 34, left: 0, right: 0, textAlign: 'center', fontFamily: font.mono, fontSize: 38, color: '#333' }}>{etiket}</div> : null}
+            {etiket ? <div style={{ position: 'absolute', bottom: 34, left: 0, right: 0, textAlign: 'center', fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 38, color: '#333' }}>{etiket}</div> : null}
           </div>
         </AbsoluteFill>
       );
@@ -107,7 +107,7 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
           <div style={{ position: 'absolute', left: W * 0.14, top: H * 0.1, width: W * 0.72, height: H * 0.8, borderRadius: 18, overflow: 'hidden', boxShadow: `0 40px 100px ${rgba('#000', 0.45)}`, background: palet.acik ? '#fff' : '#1b1d22', transform: `translateY(${(1 - giris) * 60}px)` }}>
             <div style={{ height: 54, display: 'flex', alignItems: 'center', gap: 12, padding: '0 22px', background: palet.acik ? '#ece9e2' : '#26292f' }}>
               {['#ff5f57', '#febc2e', '#28c840'].map((c) => <div key={c} style={{ width: 16, height: 16, borderRadius: 8, background: c }} />)}
-              <div style={{ marginLeft: 20, fontFamily: font.mono, fontSize: 22, color: palet.soluk }}>{etiket || ''}</div>
+              <div style={{ marginLeft: 20, fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 22, color: palet.soluk }}>{etiket || ''}</div>
             </div>
             <div style={{ position: 'absolute', top: 54, left: 0, right: 0, bottom: 0 }}>{md(m)}</div>
           </div>
@@ -149,7 +149,7 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
               <div style={{ position: 'absolute', inset: 0, boxShadow: `inset 0 0 60px ${rgba('#000', 0.55)}` }} />
             </div>
           </div>
-          {etiket ? <div style={{ position: 'absolute', left: x0, top: y0 + bh + 40, fontFamily: font.govde, fontStyle: 'italic', fontSize: 26, color: '#d9b46a', opacity: giris }}>{etiket}</div> : null}
+          {etiket ? <div style={{ position: 'absolute', left: x0, top: y0 + bh + 40, fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontStyle: 'italic', fontSize: 26, color: '#d9b46a', opacity: giris }}>{etiket}</div> : null}
         </AbsoluteFill>
       );
     }

@@ -6,7 +6,7 @@ import { HareketAd, Stil, egri, rastgele, rgba, sinirla } from './temel';
 // Iskelet kurali: gecis SURESI rakibin yumusak gecis medyanindan, SIKLIGI rakibin yumusak gecis oranindan gelir (stil_dna.py).
 export const GECIS_TIPLERI = [
   'sert', 'cozunme', 'bulaniklik', 'isik-patlamasi', 'glitch-rgb', 'whip-sol', 'whip-yukari', 'kaydirma-itme',
-  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen', 'tint-sizinti',
+  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen', 'tint-sizinti', 'renk-bandi', 'zoom-icinden',
 ] as const;
 /** 'filmburn:fb-03:1.4' = varlik/filmburn/fb-03.mp4, en parlak an 1.4 sn: kesim tam o ana denk gelir */
 export type GecisTip = typeof GECIS_TIPLERI[number] | `filmburn:${string}`;
@@ -22,6 +22,10 @@ const cikisStil = (tip: GecisTip, p: number, W: number): React.CSSProperties => 
     case 'kart-cevirme': return { transform: `perspective(2200px) rotateY(${Math.min(90, p * 180)}deg)`, opacity: p < 0.5 ? 1 : 0 };
     case 'tv-kapanma': { const q = sinirla(p * 2); return { transform: `scaleY(${Math.max(0.004, 1 - q)}) scaleX(${q > 0.95 ? 1 - (q - 0.95) * 18 : 1})`, filter: `brightness(${1 + q * 2})`, opacity: p < 0.5 ? 1 : 0 }; }
     case 'glitch-rgb': return { transform: `translateX(${Math.sin(p * 90) * 30 * p}px)`, filter: `hue-rotate(${p * 90}deg) saturate(${1 + p * 2})` };
+    // renk bandi: eski sahne bandin onunde 180 px geri kayip hafif kararir (givemotion scene-transitions)
+    case 'renk-bandi': return { transform: `translateX(${-egri('kubik-hizli', p) * 180}px)`, filter: `brightness(${1 - 0.35 * p})` };
+    // kameradan gecis: eski sahne buyuyerek bulanir ve solar (derine dalma)
+    case 'zoom-icinden': { const q = egri('kubik-hizli', p); return { transform: `scale(${1 + q * 0.9})`, filter: `blur(${q * 16}px)`, opacity: 1 - sinirla((p - 0.35) / 0.5) }; }
     default: return {};
   }
 };
@@ -45,9 +49,15 @@ const girisStil = (tip: GecisTip, p: number, W: number): React.CSSProperties => 
     case 'kart-cevirme': return { transform: `perspective(2200px) rotateY(${Math.min(0, -90 + (p - 0.5) * 180)}deg)`, opacity: p >= 0.5 ? 1 : 0 };
     case 'tv-kapanma': { const q = sinirla(p * 2 - 1); return { transform: `scaleY(${Math.max(0.004, q)})`, filter: `brightness(${3 - q * 2})`, opacity: p >= 0.5 ? 1 : 0 }; }
     case 'perde': { const q = egri('kubik-hizli', p) * 50; return { clipPath: `inset(0 ${50 - q}% 0 ${50 - q}%)` }; }
+    case 'renk-bandi': { const x = bandKenar(p) - BANT; return { clipPath: `polygon(0 0, ${x + EGIM}% 0, ${x}% 100%, 0 100%)` }; }
+    case 'zoom-icinden': { const q = egri('kubik-hizli', p); return { transform: `scale(${1.35 - 0.35 * q})`, filter: `blur(${(1 - q) * 12}px)`, opacity: sinirla(p * 1.8 - 0.2) }; }
     default: return { opacity: p };
   }
 };
+
+// renk bandi geometrisi (% ekran): on kenar soldan saga kayar; bant genisligi %22, kenar egimi %10 (≈ -10,5°), onde ince serit
+const BANT = 22, EGIM = 10;
+const bandKenar = (p: number) => -EGIM + egri('kubik-hizli', p) * (100 + BANT + 2 * EGIM);
 
 // gecis aninda en ustte cizilen katman (flas, isik sizintisi, glitch seritleri)
 const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ tip, p, stil }) => {
@@ -99,6 +109,20 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ ti
         ))}
       </AbsoluteFill>
     );
+  }
+  if (tip === 'renk-bandi') {
+    const x = bandKenar(p), poli = (a: number, b: number) => `polygon(${a + EGIM}% 0, ${b + EGIM}% 0, ${b}% 100%, ${a}% 100%)`;
+    return (
+      <AbsoluteFill style={{ pointerEvents: 'none' }}>
+        <AbsoluteFill style={{ background: stil.palet.vurgu, clipPath: poli(x - BANT, x) }} />
+        <AbsoluteFill style={{ background: stil.palet.vurgu2, clipPath: poli(x + 2, x + 3.5) }} />
+        <AbsoluteFill style={{ background: rgba('#000000', 0.25), clipPath: poli(x - BANT, x - BANT + 1.2) }} />
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'zoom-icinden') {
+    const a = Math.sin(p * Math.PI);
+    return <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 50%, transparent 30%, ${rgba('#000000', 0.5 * a)} 100%)`, pointerEvents: 'none' }} />;
   }
   if (tip === 'tv-kapanma') {
     const a = Math.max(0, 1 - Math.abs(p - 0.5) * 6);

@@ -122,7 +122,7 @@ export const HaritaRota: React.FC<{ tip: HaritaTip; stil: Stil; noktalar: Harita
       ))}
       {etiket ? (
         <div style={{ position: 'absolute', left: orta.x + 24, top: orta.y + 18, opacity: tamam, transform: `translateY(${(1 - tamam) * 12}px)`,
-          background: rgba(palet.zemin, 0.85), border: `1px solid ${rgba(palet.vurgu, 0.7)}`, padding: '8px 18px', fontFamily: font.mono, fontSize: 28, color: palet.murekkep, letterSpacing: 2 }}>{etiket}</div>
+          background: rgba(palet.zemin, 0.85), border: `1px solid ${rgba(palet.vurgu, 0.7)}`, padding: '8px 18px', fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 28, color: palet.murekkep, letterSpacing: 2 }}>{etiket}</div>
       ) : null}
     </AbsoluteFill>
   );
@@ -152,7 +152,7 @@ export const EtiketliHarita: React.FC<{ stil: Stil; zemin?: MedyaKaynak; arkapla
           </React.Fragment>
         );
       })}
-      {kaynak ? <div style={{ position: 'absolute', right: 36, bottom: 26, fontFamily: font.govde, fontSize: 18, color: rgba('#ffffff', 0.7), textShadow: `0 1px 4px ${rgba('#000', 0.9)}` }}>{kaynak}</div> : null}
+      {kaynak ? <div style={{ position: 'absolute', right: 36, bottom: 26, fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 18, color: rgba('#ffffff', 0.7), textShadow: `0 1px 4px ${rgba('#000', 0.9)}` }}>{kaynak}</div> : null}
     </AbsoluteFill>
   );
 };

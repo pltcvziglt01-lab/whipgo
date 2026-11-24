@@ -183,6 +183,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] 6 kapak üretildi, yazıları birebir kontrol edildi, 6'sı Drive'daki `kapaklar\` klasöründe ve kullanıcıya gönderildi
 - [ ] `kurgu_denetim.py --plan` PASS (render öncesi); SFX katmanı var (`DnaSfx`)
 - [ ] `kusur_kontrol.py` PASS
+- [ ] **İzleyici gibi izle:** finalden her bölümden kareler (qc ızgarası) ve telefon boyutunda (~360 px) bak: yazı ince/küçük mü, arka planla karışıyor mu, okunmadan mı gidiyor, aynı animasyon tekrar mı ediyor. Sayılar temiz çıksa da bu bakış atlanmaz
 - [ ] `kalite_kapisi.py` PASS, `yazi_kontrol.py` PASS (yazı varsa), `senkron_kontrol.py` PASS; `karsilastir.py` farkları düzeltildi ya da nedeni DEVAM'da; jüri puanı ≥ 7
 - [ ] Ses orijinal hızında (hız parametresi/atempo yok)
 - [ ] Gerçek görüntü varsa hepsi CC BY ya da izinli, atıflar açıklamada

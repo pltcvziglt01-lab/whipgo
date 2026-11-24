@@ -58,7 +58,7 @@ export const CizgiGrafik: React.FC<{ tip: Exclude<GrafikTip, 'eleme-izgara'>; st
           return <circle key={i} cx={q.x} cy={q.y} r={8 * s} fill="#ffffff" stroke={palet.vurgu} strokeWidth={3} />;
         })}
       </svg>
-      {etiketler.map((e, i) => { const q = pt(i, 0); return <div key={i} style={{ position: 'absolute', left: q.x - 80, width: 160, top: Y1 + 18, textAlign: 'center', fontFamily: font.mono, fontSize: 22, color: rgba('#ffffff', 0.55), opacity: i <= ilerleme + 0.5 ? 1 : 0.15 }}>{e}</div>; })}
+      {etiketler.map((e, i) => { const q = pt(i, 0); return <div key={i} style={{ position: 'absolute', left: q.x - 80, width: 160, top: Y1 + 18, textAlign: 'center', fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 22, color: rgba('#ffffff', 0.55), opacity: i <= ilerleme + 0.5 ? 1 : 0.15 }}>{e}</div>; })}
       {p > 0 ? (
         <div style={{ position: 'absolute', left: son.x + 22, top: son.y - 56, fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 64, color: '#ffffff', textShadow: `0 0 24px ${rgba(palet.vurgu, 0.6)}` }}>
           {kisa(sonDeger)}<span style={{ fontSize: 30, marginLeft: 6, color: cizgi }}>{birim}</span>
@@ -104,7 +104,7 @@ export const ElemeIzgara: React.FC<{ stil: Stil; asamalar: number[]; etiketler?:
       </svg>
       <div style={{ position: 'absolute', left: W * 0.1, top: H * 0.09, display: 'flex', alignItems: 'baseline', gap: 26 }}>
         <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 96, color: palet.vurgu, fontVariantNumeric: 'tabular-nums' }}>{sayi.toLocaleString('en-US')}</div>
-        {etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a] ? <div style={{ fontFamily: font.govde, fontSize: 34, color: palet.murekkep, letterSpacing: 2, textTransform: 'uppercase' }}>{etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a]}</div> : null}
+        {etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a] ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 34, color: palet.murekkep, letterSpacing: 2, textTransform: 'uppercase' }}>{etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a]}</div> : null}
       </div>
     </AbsoluteFill>
   );

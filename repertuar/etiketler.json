@@ -976,6 +976,55 @@
    "kaynak": [
     "@diearbeiterjahreyt"
    ]
+  },
+  "renk-bandi": {
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "spor",
+    "haber",
+    "teknoloji",
+    "otomotiv",
+    "liste",
+    "egitim",
+    "finans"
+   ],
+   "enerji": 4,
+   "his": [
+    "modern",
+    "dinamik",
+    "temiz"
+   ],
+   "kaynak": [
+    "givemotion"
+   ]
+  },
+  "zoom-icinden": {
+   "ton": [
+    "enerjik",
+    "gizem",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "spor",
+    "oyun",
+    "gizem",
+    "otomotiv",
+    "muhendislik"
+   ],
+   "enerji": 4,
+   "his": [
+    "sinematik",
+    "dinamik",
+    "modern"
+   ],
+   "kaynak": [
+    "givemotion"
+   ]
   }
  },
  "baslik": {

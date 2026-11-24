@@ -24,7 +24,7 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
   const g = ilerle(f, gec, fps * 0.35, 'kubik-hizli');
   const p = egri('kubik-hizli', sinirla((f - gec) / (fps * sure)));
   const v = baslangic + (deger - baslangic) * p;
-  const yazi: React.CSSProperties = { fontFamily: font.mono, color: '#ffffff', textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, fontVariantNumeric: 'tabular-nums' };
+  const yazi: React.CSSProperties = { fontFamily: font.mono, fontWeight: font.monoAgirlik, color: '#ffffff', textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, fontVariantNumeric: 'tabular-nums' };
   const renk = palet.vurgu;
   switch (tip) {
     case 'derinlik-cetvel': {
@@ -116,7 +116,7 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
             <div style={{ width: 5, background: renk, transform: `scaleY(${g})`, transformOrigin: 'top' }} />
             <div style={{ overflow: 'hidden' }}>
               <div style={{ fontFamily: font.govde, fontWeight: 700, fontSize: 24, letterSpacing: 5, color: '#ffffff', textTransform: 'uppercase', textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 100}%)` }}>{etiket}</div>
-              <div style={{ fontFamily: font.mono, fontSize: 22, color: rgba('#ffffff', 0.8), textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 140}%)` }}>{ust}</div>
+              <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 22, color: rgba('#ffffff', 0.8), textShadow: `0 1px 6px ${rgba('#000', 0.85)}`, transform: `translateY(${(1 - k) * 140}%)` }}>{ust}</div>
             </div>
           </div>
         </AbsoluteFill>

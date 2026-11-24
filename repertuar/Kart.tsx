@@ -19,7 +19,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
   const yaziR = medyaUstu ? (palet.acik ? palet.zemin : palet.murekkep) : palet.murekkep;
   const glg = medyaUstu ? `0 2px 0 ${rgba('#000', 0.4)}, 0 0 18px ${rgba('#000', 0.65)}` : 'none';
   const ustSt: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 52, color: yaziR, letterSpacing: font.aralik, textShadow: glg };
-  const altSt: React.CSSProperties = { fontFamily: font.govde, fontSize: 30, color: medyaUstu ? rgba(yaziR, 0.85) : palet.soluk, marginTop: 6, textShadow: glg };
+  const altSt: React.CSSProperties = { fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 30, color: medyaUstu ? rgba(yaziR, 0.85) : palet.soluk, marginTop: 6, textShadow: glg };
   switch (tip) {
     case 'cizgi-acilis':
       return (
@@ -40,7 +40,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
       return (
         <div style={{ ...yer, display: 'flex', alignItems: 'center', gap: 14, opacity: p, transform: `scale(${0.9 + 0.1 * p})`, transformOrigin: sag ? 'right' : 'left' }}>
           <div style={{ background: palet.murekkep, color: palet.zemin, borderRadius: 999, padding: '10px 26px', fontFamily: font.govde, fontWeight: 700, fontSize: 32 }}>{U}</div>
-          {alt ? <div style={{ background: rgba(palet.zemin, 0.85), color: palet.murekkep, borderRadius: 999, padding: '10px 22px', fontFamily: font.govde, fontSize: 26, opacity: q }}>{alt}</div> : null}
+          {alt ? <div style={{ background: rgba(palet.zemin, 0.85), color: palet.murekkep, borderRadius: 999, padding: '10px 22px', fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 26, opacity: q }}>{alt}</div> : null}
         </div>
       );
     case 'koseli-parantez': {
@@ -49,8 +49,8 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
         <div style={{ ...yer, padding: '18px 30px' }}>
           <div style={{ position: 'absolute', left: 0, top: 0, width: k, height: k, borderLeft: c, borderTop: c, transform: `translate(${(1 - p) * 40}px, ${(1 - p) * 20}px)` }} />
           <div style={{ position: 'absolute', right: 0, bottom: 0, width: k, height: k, borderRight: c, borderBottom: c, transform: `translate(${(1 - p) * -40}px, ${(1 - p) * -20}px)` }} />
-          <div style={{ ...ustSt, fontFamily: font.mono, fontSize: 44, opacity: q }}>{U}</div>
-          {alt ? <div style={{ ...altSt, fontFamily: font.mono, opacity: q }}>{alt}</div> : null}
+          <div style={{ ...ustSt, fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 44, opacity: q }}>{U}</div>
+          {alt ? <div style={{ ...altSt, fontFamily: font.mono, fontWeight: font.monoAgirlik, opacity: q }}>{alt}</div> : null}
         </div>
       );
     }
@@ -63,7 +63,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
           <div style={{ border: `5px solid ${kirmizi}`, borderRadius: 6, padding: '8px 22px', boxShadow: `inset 0 0 0 2px ${rgba(kirmizi, 0.35)}`, background: rgba(kirmizi, 0.06),
             WebkitMaskImage: 'radial-gradient(circle at 30% 40%, #000 60%, rgba(0,0,0,.75) 75%, #000 90%)' }}>
             <div style={{ fontFamily: font.mono, fontWeight: 700, fontSize: 44, letterSpacing: 4, color: kirmizi, textTransform: 'uppercase' }}>{U}</div>
-            {alt ? <div style={{ fontFamily: font.mono, fontSize: 24, letterSpacing: 3, color: kirmizi, opacity: 0.85, textTransform: 'uppercase' }}>{alt}</div> : null}
+            {alt ? <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 24, letterSpacing: 3, color: kirmizi, opacity: 0.85, textTransform: 'uppercase' }}>{alt}</div> : null}
           </div>
         </div>
       );
@@ -88,8 +88,8 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
   const { palet, font, hareket } = stil;
   const p = egri('kubik-hizli', sinirla(f / (fps * 1.1)));
   const g = ilerle(f, 0, fps * 0.5, hareket);
-  const ustEl = ust ? <div style={{ fontFamily: font.govde, fontSize: 40, color: palet.soluk, marginBottom: 10, opacity: g }}>{ust}</div> : null;
-  const altEl = alt ? <div style={{ fontFamily: font.govde, fontSize: 38, color: palet.murekkep, marginTop: 18, maxWidth: 1100, textAlign: 'center', opacity: g }}>{alt}</div> : null;
+  const ustEl = ust ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 40, color: palet.soluk, marginBottom: 10, opacity: g }}>{ust}</div> : null;
+  const altEl = alt ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 38, color: palet.murekkep, marginTop: 18, maxWidth: 1100, textAlign: 'center', opacity: g }}>{alt}</div> : null;
   const yaz = (v: number) => onEk + Math.round(v).toLocaleString('en-US') + sonEk;
   const buyuk: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 230, color: palet.vurgu, lineHeight: 1, letterSpacing: font.aralik, fontVariantNumeric: 'tabular-nums' };
   let govde: React.ReactNode;
@@ -141,8 +141,8 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
           </div>
           {ust || alt ? (
             <div style={{ position: 'absolute', left: 140, bottom: 120, borderLeft: `6px solid ${palet.vurgu}`, paddingLeft: 26, opacity: g, transform: `translateX(${(1 - g) * -40}px)` }}>
-              {ust ? <div style={{ fontFamily: font.mono, fontSize: 30, color: palet.soluk, letterSpacing: 3 }}>{ust.toUpperCase()}</div> : null}
-              {alt ? <div style={{ fontFamily: font.govde, fontSize: 44, color: palet.murekkep, marginTop: 6, maxWidth: 1000 }}>{alt}</div> : null}
+              {ust ? <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 30, color: palet.soluk, letterSpacing: 3 }}>{ust.toUpperCase()}</div> : null}
+              {alt ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 44, color: palet.murekkep, marginTop: 6, maxWidth: 1000 }}>{alt}</div> : null}
             </div>
           ) : null}
         </AbsoluteFill>
@@ -171,11 +171,11 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
       const cizgi = ilerle(f, fps * 0.35, fps * 0.6, 'kubik-hizli');
       return (
         <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          {ust ? <div style={{ fontFamily: serif.govde, fontStyle: 'italic', fontSize: 40, color: palet.soluk, marginBottom: 6, opacity: g }}>{ust}</div> : null}
+          {ust ? <div style={{ fontFamily: serif.govde, fontWeight: serif.govdeAgirlik, fontStyle: 'italic', fontSize: 40, color: palet.soluk, marginBottom: 6, opacity: g }}>{ust}</div> : null}
           <div style={{ fontFamily: serif.baslik, fontWeight: 500, fontSize: 250, lineHeight: 1, color: palet.murekkep, fontVariantNumeric: 'oldstyle-nums proportional-nums', fontFeatureSettings: '"onum" 1',
             opacity: g, transform: `translateY(${(1 - g) * 24}px)`, textShadow: `0 10px 40px ${rgba('#000', 0.35)}` }}>{yaz(deger * p)}</div>
           <div style={{ width: 360 * cizgi, height: 2, background: palet.vurgu, margin: '22px 0 20px' }} />
-          {alt ? <div style={{ fontFamily: font.govde, fontSize: 30, letterSpacing: 9, color: palet.vurgu, textTransform: 'uppercase', opacity: cizgi, maxWidth: 1300, textAlign: 'center' }}>{alt}</div> : null}
+          {alt ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 30, letterSpacing: 9, color: palet.vurgu, textTransform: 'uppercase', opacity: cizgi, maxWidth: 1300, textAlign: 'center' }}>{alt}</div> : null}
         </AbsoluteFill>
       );
     }
@@ -227,7 +227,7 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
         <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 70, lineHeight: 1.18, color: palet.murekkep, maxWidth: 1350 }}>
           {k.map((w, i) => { const q = sinirla((f - 6 - i * hiz) / 6); return <span key={i} style={{ opacity: 0.12 + 0.88 * q }}>{w} </span>; })}
         </div>
-        {kim ? <div style={{ fontFamily: font.mono, fontSize: 30, color: palet.soluk, marginTop: 36, letterSpacing: 2, opacity: ilerle(f, fps * 0.8, fps * 0.4, hareket) }}>{kim.toUpperCase()}</div> : null}
+        {kim ? <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 30, color: palet.soluk, marginTop: 36, letterSpacing: 2, opacity: ilerle(f, fps * 0.8, fps * 0.4, hareket) }}>{kim.toUpperCase()}</div> : null}
       </AbsoluteFill>
     );
   }
@@ -247,7 +247,7 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
               </div>
             );
           })}
-          {kim ? <div style={{ fontFamily: font.govde, fontSize: 32, color: palet.soluk, marginTop: 22, marginLeft: 18 }}>— {kim}</div> : null}
+          {kim ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 32, color: palet.soluk, marginTop: 22, marginLeft: 18 }}>— {kim}</div> : null}
         </div>
       </AbsoluteFill>
     );
@@ -256,8 +256,8 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: 1100, background: kagit, padding: '70px 80px', transform: `rotate(${-2 + p * 1}deg) translateY(${(1 - p) * 60}px)`, opacity: sinirla(p * 2), boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, backgroundImage: `repeating-linear-gradient(180deg, transparent 0 58px, ${rgba(palet.vurgu2, 0.28)} 58px 60px)` }}>
-          <div style={{ fontFamily: font.govde, fontSize: 50, color: murek, lineHeight: 1.2 }}>{metin}</div>
-          {kim ? <div style={{ fontFamily: font.mono, fontSize: 30, color: rgba(murek, 0.6), marginTop: 30 }}>— {kim}</div> : null}
+          <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 50, color: murek, lineHeight: 1.2 }}>{metin}</div>
+          {kim ? <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 30, color: rgba(murek, 0.6), marginTop: 30 }}>— {kim}</div> : null}
         </div>
       </AbsoluteFill>
     );
@@ -267,8 +267,8 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: 1200, background: kagit, padding: '60px 80px', boxShadow: `0 30px 80px ${rgba('#000', 0.35)}`, opacity: p, borderTop: `10px solid ${palet.vurgu}` }}>
-          <div style={{ fontFamily: font.mono, fontSize: 24, color: palet.acik ? palet.vurgu : karistir(palet.vurgu, '#000000', 0.35), letterSpacing: 4, marginBottom: 26 }}>{kim ? kim.toUpperCase() : 'KAYIT'}</div>
-          <div style={{ fontFamily: font.mono, fontSize: 42, color: murek, lineHeight: 1.45 }}>{metin.slice(0, n)}<span style={{ opacity: Math.floor(f / 12) % 2 }}>▌</span></div>
+          <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 24, color: palet.acik ? palet.vurgu : karistir(palet.vurgu, '#000000', 0.35), letterSpacing: 4, marginBottom: 26 }}>{kim ? kim.toUpperCase() : 'KAYIT'}</div>
+          <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 42, color: murek, lineHeight: 1.45 }}>{metin.slice(0, n)}<span style={{ opacity: Math.floor(f / 12) % 2 }}>▌</span></div>
         </div>
       </AbsoluteFill>
     );
@@ -278,7 +278,7 @@ export const Alinti: React.FC<{ tip: AlintiTip; metin: string; kim?: string; sti
       <div style={{ maxWidth: 1400, position: 'relative' }}>
         <div style={{ position: 'absolute', left: -60, top: -170, fontFamily: font.baslik, fontSize: 380, color: palet.vurgu, opacity: 0.85 * p, lineHeight: 1, transform: `scale(${0.6 + 0.4 * p})` }}>“</div>
         <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 76, color: palet.murekkep, lineHeight: 1.15, opacity: p, clipPath: `inset(0 0 ${(1 - p) * 100}% 0)` }}>{metin}</div>
-        {kim ? <div style={{ fontFamily: font.govde, fontSize: 34, color: palet.soluk, marginTop: 34, opacity: ilerle(f, fps * 0.4, fps * 0.5, hareket) }}>{kim}</div> : null}
+        {kim ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 34, color: palet.soluk, marginTop: 34, opacity: ilerle(f, fps * 0.4, fps * 0.5, hareket) }}>{kim}</div> : null}
       </div>
     </AbsoluteFill>
   );
@@ -296,14 +296,14 @@ export const Liste: React.FC<{ tip: ListeTip; baslik?: string; maddeler: string[
     // her madde sagdan kayan yari saydam panel; solda numara cipi
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'flex-end', paddingRight: 160 }}>
-        {B ? <div style={{ fontFamily: font.mono, fontSize: 34, letterSpacing: 4, color: palet.vurgu, marginBottom: 30, width: 1100, opacity: ilerle(f, 0, 12, hareket) }}>{B}</div> : null}
+        {B ? <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 34, letterSpacing: 4, color: palet.vurgu, marginBottom: 30, width: 1100, opacity: ilerle(f, 0, 12, hareket) }}>{B}</div> : null}
         {maddeler.map((m, i) => {
           const p = ilerle(f, 6 + i * fps * 0.3, fps * 0.4, hareket);
           return (
             <div key={i} style={{ width: 1100, display: 'flex', alignItems: 'center', gap: 28, marginBottom: 18, padding: '22px 30px', background: rgba(palet.zemin2, 0.78), borderRadius: 14,
               border: `1px solid ${rgba(palet.murekkep, 0.14)}`, opacity: sinirla(p * 1.5), transform: `translateX(${(1 - p) * 260}px)` }}>
               <div style={{ minWidth: 64, height: 64, borderRadius: 32, background: palet.vurgu, color: palet.zemin, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.baslik, fontWeight: 800, fontSize: 34 }}>{i + 1}</div>
-              <div style={{ fontFamily: font.govde, fontSize: 46, color: palet.murekkep }}>{m}</div>
+              <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 46, color: palet.murekkep }}>{m}</div>
             </div>
           );
         })}
@@ -321,8 +321,8 @@ export const Liste: React.FC<{ tip: ListeTip; baslik?: string; maddeler: string[
             return (
               <div key={i} style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '26px 0' }}>
                 <div style={{ position: 'absolute', left: 0, bottom: 0, height: 2, width: `${p * 100}%`, background: rgba(palet.murekkep, 0.35) }} />
-                <div style={{ fontFamily: font.govde, fontSize: 50, color: palet.murekkep, opacity: p, transform: `translateY(${(1 - p) * 16}px)` }}>{m}</div>
-                <div style={{ fontFamily: font.mono, fontSize: 34, color: palet.acik ? palet.soluk : palet.vurgu, opacity: p }}>{String(i + 1).padStart(2, '0')}</div>
+                <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 50, color: palet.murekkep, opacity: p, transform: `translateY(${(1 - p) * 16}px)` }}>{m}</div>
+                <div style={{ fontFamily: font.mono, fontWeight: font.monoAgirlik, fontSize: 34, color: palet.acik ? palet.soluk : palet.vurgu, opacity: p }}>{String(i + 1).padStart(2, '0')}</div>
               </div>
             );
           })}
@@ -338,12 +338,12 @@ export const Liste: React.FC<{ tip: ListeTip; baslik?: string; maddeler: string[
         return tip === 'numarali-yigin' ? (
           <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 30, marginBottom: 22, opacity: sinirla(p * 2), transform: `translateX(${(1 - p) * -80}px)` }}>
             <div style={{ fontFamily: font.baslik, fontWeight: 800, fontSize: 96, color: palet.vurgu, width: 120, lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</div>
-            <div style={{ fontFamily: font.govde, fontSize: 50, color: palet.murekkep }}>{m}</div>
+            <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 50, color: palet.murekkep }}>{m}</div>
           </div>
         ) : (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 26, marginBottom: 26, opacity: sinirla(p * 2) }}>
             <svg width={56} height={56}><rect x={3} y={3} width={50} height={50} rx={10} fill="none" stroke={palet.vurgu} strokeWidth={4} /><path d="M14 29 L25 40 L44 17" fill="none" stroke={palet.vurgu} strokeWidth={6} strokeDasharray={50} strokeDashoffset={50 * (1 - p)} strokeLinecap="round" /></svg>
-            <div style={{ fontFamily: font.govde, fontSize: 52, color: palet.murekkep }}>{m}</div>
+            <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 52, color: palet.murekkep }}>{m}</div>
           </div>
         );
       })}
@@ -362,7 +362,7 @@ export const Karsilastirma: React.FC<{ sol: { ad: string; deger: number }; sag: 
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', height: 760, width: 380 }}>
       <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 80, color: palet.murekkep, marginBottom: 14 }}>{Math.round(x.deger * p).toLocaleString('en-US')}{birim}</div>
       <div style={{ width: 300, height: (x.deger / mx) * 520 * p, background: renk, borderRadius: '14px 14px 0 0' }} />
-      <div style={{ fontFamily: font.govde, fontSize: 40, color: palet.soluk, marginTop: 18 }}>{x.ad}</div>
+      <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 40, color: palet.soluk, marginTop: 18 }}>{x.ad}</div>
     </div>
   );
   return <AbsoluteFill style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 160 }}>{sut(sol, palet.vurgu2)}{sut(sag, palet.vurgu)}</AbsoluteFill>;
@@ -386,7 +386,7 @@ export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; y
     return (
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ fontFamily: font.baslik, fontWeight: 900, fontSize: 300, color: palet.vurgu, lineHeight: 1, letterSpacing: font.aralik, opacity: q, transform: `translateY(${(1 - q) * 70}px)` }}>{a.yil}</div>
-        <div style={{ fontFamily: font.govde, fontSize: 48, color: palet.murekkep, marginTop: 24, opacity: ilerle(yf, 6, fps * 0.3, hareket) }}>{a.yazi}</div>
+        <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 48, color: palet.murekkep, marginTop: 24, opacity: ilerle(yf, 6, fps * 0.3, hareket) }}>{a.yazi}</div>
         <div style={{ position: 'absolute', bottom: 130, left: 300, right: 300, display: 'flex', gap: 14 }}>
           {adimlar.map((_, k) => <div key={k} style={{ flex: 1, height: 8, borderRadius: 4, background: k < i ? palet.vurgu : rgba(palet.murekkep, 0.18), overflow: 'hidden' }}>
             {k === i ? <div style={{ height: '100%', width: `${sinirla(yf / adim) * 100}%`, background: palet.vurgu }} /> : null}</div>)}
@@ -406,7 +406,7 @@ export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; y
             <div key={i} style={{ position: 'absolute', left: x, top: y, width: bw - 20, opacity: p, transform: `translateY(${(1 - p) * 60}px)` }}>
               <div style={{ height: 10, background: palet.vurgu, width: `${p * 100}%` }} />
               <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 58, color: palet.murekkep, marginTop: 14 }}>{a.yil}</div>
-              <div style={{ fontFamily: font.govde, fontSize: 28, color: palet.soluk, marginTop: 4 }}>{a.yazi}</div>
+              <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 28, color: palet.soluk, marginTop: 4 }}>{a.yazi}</div>
             </div>
           );
         })}
@@ -423,7 +423,7 @@ export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; y
           return (
             <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 36, marginBottom: 34, opacity: 0.25 + 0.75 * p * (i === aktif ? 1 : 0.6) }}>
               <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: i === aktif ? 96 : 64, color: i === aktif ? palet.vurgu : palet.murekkep, width: 300 }}>{a.yil}</div>
-              <div style={{ fontFamily: font.govde, fontSize: 40, color: palet.murekkep, maxWidth: 900 }}>{a.yazi}</div>
+              <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 40, color: palet.murekkep, maxWidth: 900 }}>{a.yazi}</div>
             </div>
           );
         })}
@@ -445,7 +445,7 @@ export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; y
         return (
           <div key={i} style={{ position: 'absolute', left: x - 170, width: 340, top: ust ? Y - 190 : Y + 50, textAlign: 'center', opacity: p, transform: `translateY(${(1 - p) * (ust ? 20 : -20)}px)` }}>
             <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 54, color: palet.vurgu }}>{a.yil}</div>
-            <div style={{ fontFamily: font.govde, fontSize: 28, color: palet.murekkep, marginTop: 6 }}>{a.yazi}</div>
+            <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 28, color: palet.murekkep, marginTop: 6 }}>{a.yazi}</div>
           </div>
         );
       })}

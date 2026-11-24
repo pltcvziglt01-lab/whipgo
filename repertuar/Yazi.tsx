@@ -34,7 +34,7 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
   const R = renk || palet.murekkep;
   const temel: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: boyut, lineHeight: 1.04, letterSpacing: font.aralik, color: R, maxWidth: maxGenislik, margin: 0 };
   const ustSatir = ust ? (
-    <div style={{ fontFamily: font.govde, fontSize: boyut * 0.24, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: boyut * 0.22, opacity: sinirla(f / 10) }}>{ust}</div>
+    <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: boyut * 0.24, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: boyut * 0.22, opacity: sinirla(f / 10) }}>{ust}</div>
   ) : null;
   const sure = Math.round(fps * 0.7);
   let govde: React.ReactNode;
