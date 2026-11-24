@@ -15,7 +15,6 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | # | İş | Kabul ölçütü | Kim / durum |
 |---|---|---|---|
 | 2 | v04'ü tüm yeniliklerle baştan render + kapılar + izleyici incelemesi | standart 4; eski/yeni yan yana | #1'den sonra |
-| 3 | Galeri kuralları → varsayılanlar: kamera hiç durmaz (sabit = 1,00→1,02 nefes, tutuşta yavaş itme), tam durgunluk ≤1,5 sn kapısı, yasak efektler tona bağlı (glitch/ışık patlaması yalnız enerjik), `yay-esnek`/`geri-sekme` ciddi-gizem-sakinde kapalı, aynı geçiş art arda ≤2 ve pay ≤%25, palet tek vurgu, `yazi_kontrol` kontrast 4,5:1 + boy kapısı | standart 1–3; katalog önce/sonra | #1'den sonra (aynı dosyalar) |
 | 4 | Galeri teknikleri (öncelik 3): cubuk-trend, italik-vurgu, nesne-dalisi, bolum-cetveli, yil-tarama, ustu-cizili-degisim, nokta-oran-izgarasi, hayalet-yil, odak-karartma, bolum-numarasi, cubuk-yarisi, belge-tarama-isigi | her biri TİP + etiket + katalog karesi gözle; dogrula PASS | #1'den sonra |
 | 10 | Önizleme medyası konuya göre (hep aynı asker fotoğrafları), dil kitleye göre (Almanca kitle → Almanca metin) | deniz/şehir/futbol önizlemesi kendi görselleriyle | açık |
 | 12 | Beat ızgarası (müzikli/enerjik kanallar): kesim ve büyük hareket vuruşa ±0,15 sn | müzikli deneme videosunda kesimlerin %80'i vuruşta | açık |
@@ -27,9 +26,15 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 20 | Film seridi cercevesi cok baskin (cercevelilerin %65'i): cerceve secimi icinde cesitlilik | v04 telefon sayfasinda film seridi tekrari yok | acik |
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
+| 22 | `OKUNUR.enaz` 32 -> 36 px (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
+| 23 | stil_dna en az 4 gecis tipi secsin (%25 tavan ancak k>=4'te mumkun) | Onizlemede hicbir tip >%25 | acik |
+| 24 | kalite_kapisi 'duragan kare payi' UYARI'si pencereli olcume gecsin (nefesli kareyi duragan sayiyor) | nefesli test videosunda duragan pay ~0 | acik |
+| 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
+| 26 | Tek doygun vurgu: GrenliGradyan, IsikKacagi, tint-sizinti, Karsilastirma, kirmizi-zemin paleti vurgu2'yi ana renk gibi kullaniyor | katalogda vurgu2 ikincil | acik |
 | 18 | (izin gerekir) CC0 SFX paketleri ve lisanslı stok medya avı (Wikimedia/Openverse) + kredi satırları | kullanıcı indirme onayı | bekliyor |
 
 ## Kapanan (2026-11-24)
+- #3 galeri kurallari varsayilan: kamera hic durmaz (nefes), sekmesiz ton, yasak efektler yalniz enerjik, gecis plani (art arda <=2), durgunluk kapisi 1,5 sn (pencereli), kontrast 4,5:1 + boy kapisi — gecis sinirlari yonetici tarafindan gozle onaylandi
 - #1 okunurluk — v04 telefon karsilastirmasi yonetici tarafindan gozle onaylandi (c4a7487)
 - #5 kaynak gomulu yazi — kaynak_yazi.py + kurgu_denetim UYARI; v04 13 cakisma (77,9 sn "Good morning." dahil)
 - #6 cerceve orani olcumu — v04 %14 (hedef %15); asil tekrar film-seridi (49 cercevenin 32si)

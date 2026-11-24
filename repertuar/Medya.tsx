@@ -1,33 +1,41 @@
 import React, { useMemo } from 'react';
 import { AbsoluteFill, Img, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
-import { DEKLANSOR, Stil, fbm, rastgele, rgba, sinirla } from './temel';
+import { DEKLANSOR, Stil, YAY_SURE, fbm, kameraNefes, rastgele, rgba, sinirla, yay } from './temel';
 import { ZamanBulanik } from './Hareket';
 
 // ---------------- KAMERA (gorsel/klip icindeki hareket) ----------------
 // klasik Claude = her fotoda 'ken-burns-ice' 1.05 + 0.015/sn. Repertuar karistirir; stil_dna 2-3 tip secer.
+// KAMERA HIC DURMAZ (Opus galerisi A-3): 'sabit' bile 1,00 -> 1,02 nefes alir (temel.ts kameraNefes); Medya'ya kamera
+// verilmezse tutusta yavas itme (foto 1,00 -> 1,05, hareketli video 1,00 -> 1,03). Gercekten durgun medya yalniz nefes={0}
+// ile (medyayi kendisi hareket ettiren kapsayici icin: sayi karti zemini).
 export const KAMERA_TIPLERI = ['sabit', 'ken-burns-ice', 'ken-burns-disa', 'pan-sol', 'pan-sag', 'pan-yukari', 'el-kamerasi', 'zoom-darbe', 'dolly-egik', 'paralaks-cift'] as const;
 export type KameraTip = typeof KAMERA_TIPLERI[number];
+/** nefes/itme genligi: 'sabit' kilit kare, kamera verilmemis foto / video (video itmesi abartilmaz, ust sinir VIDEO_ENCOK) */
+export const NEFES = { sabit: 0.02, foto: 0.05, video: 0.03 } as const;
+const VIDEO_ENCOK = 0.04;
 
 // kamera durumu sayisal: CSS sirasi scale(s) translate(x y) rotate(r); x/y birimi '%' (ogenin boyu) ya da 'px'.
 type KameraDurum = { s: number; x: number; y: number; birim: '%' | 'px'; r: number };
-const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1): KameraDurum => {
+const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1, nefes: number = NEFES.sabit): KameraDurum => {
   const T = t * hiz;
   const d = (s: number, x = 0, y = 0, birim: '%' | 'px' = '%', r = 0): KameraDurum => ({ s, x, y, birim, r });
   switch (tip) {
+    case 'sabit': return d(kameraNefes(T, nefes));
     case 'ken-burns-ice': return d(1.04 + 0.035 * T);
     case 'ken-burns-disa': return d(Math.max(1.02, 1.22 - 0.035 * T));
     case 'pan-sol': return d(1.18, 6 - 2.2 * T);
     case 'pan-sag': return d(1.18, -6 + 2.2 * T);
     case 'pan-yukari': return d(1.2, 0, 6 - 2 * T);
     case 'el-kamerasi': { const h = tohum.length; return d(1.08, fbm(T * 0.9, h, 1) * 14, fbm(h, T * 0.9, 2) * 10, 'px', fbm(T * 0.5, 3, h) * 0.6); }
-    case 'zoom-darbe': { const p = sinirla(f / 6); return d(1.25 - 0.17 * (1 - Math.pow(1 - p, 3)) + 0.012 * T); }
+    // darbe kesimde baslar, kamera yayi (kritik, asimsiz) ile YAY_SURE.kamera (0,6 sn) icinde oturur: ogelerden yavas (galeri A-3/A-6)
+    case 'zoom-darbe': return d(1.25 - 0.17 * yay(sinirla(t / YAY_SURE.kamera), 1) + 0.012 * T);
     case 'dolly-egik': return d(1.1 + 0.02 * T, 0, 0, '%', -1.2 + 0.5 * T);
     default: return d(1);
   }
 };
-const kameraCss = (tip: KameraTip, k: KameraDurum) => tip === 'sabit' ? 'none'
-  : `scale(${k.s})${k.x || k.y ? ` translate(${k.x}${k.birim}, ${k.y}${k.birim})` : ''}${k.r ? ` rotate(${k.r}deg)` : ''}`;
+const kameraCss = (k: KameraDurum) =>
+  `scale(${k.s.toFixed(5)})${k.x || k.y ? ` translate(${k.x}${k.birim}, ${k.y}${k.birim})` : ''}${k.r ? ` rotate(${k.r}deg)` : ''}`;
 /** iki kamera durumu arasinda ogenin koselerinin en buyuk ekran kaymasi (px); W/H = oge boyu (kompozisyon boyu ust sinir) */
 const kameraKayma = (a: KameraDurum, b: KameraDurum, W: number, H: number) => {
   const nokta = (k: KameraDurum, px: number, py: number) => {
@@ -51,10 +59,15 @@ const Ham: React.FC<{ m: MedyaKaynak; style?: React.CSSProperties }> = ({ m, sty
   return m.video ? <OffthreadVideo muted src={src} startFrom={Math.round((m.bas || 0) * fps)} style={st} /> : <Img src={src} style={st} />;
 };
 
-export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number; tohum?: string }> = ({ m, kamera = 'sabit', hiz = 1, tohum = 'k' }) => {
+/** kamera verilmezse yavas itme (foto NEFES.foto, video NEFES.video); kamera='sabit' -> NEFES.sabit nefes.
+ *  nefes: sabit/varsayilan genligi elle (0 = tamamen durgun; yalniz medyayi kendisi hareket ettiren kapsayicida). */
+export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number; tohum?: string; nefes?: number }> = ({ m, kamera: kameraVerilen, hiz = 1, tohum = 'k', nefes }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
+  const kamera: KameraTip = kameraVerilen ?? 'sabit';
+  const g0 = nefes ?? (kameraVerilen === undefined ? (m.video ? NEFES.video : NEFES.foto) : NEFES.sabit);
+  const genlik = m.video ? Math.min(g0, VIDEO_ENCOK) : g0;
   if (kamera === 'paralaks-cift') {
     // sahte 2.5B: arkada bulanik buyuk kopya yavas, onde keskin kopya hizli ve hafif maskeli
     return (
@@ -65,11 +78,12 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
     );
   }
   // hareket bulanikligi: kamera durumu deklansor araliginda (180 derece) orneklenir; yavas kamerada (kayma < 2 px) tek katman
-  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz);
-  const boy = kamera === 'sabit' ? 0 : kameraKayma(durum(-DEKLANSOR / 2), durum(DEKLANSOR / 2), W, H);
+  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz, genlik);
+  if (kamera === 'sabit' && genlik <= 0) return <AbsoluteFill style={{ overflow: 'hidden' }}><Ham m={m} /></AbsoluteFill>;
+  const boy = kameraKayma(durum(-DEKLANSOR / 2), durum(DEKLANSOR / 2), W, H);
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
-      <ZamanBulanik boy={boy} donusum={(dt) => kameraCss(kamera, durum(dt))}><Ham m={m} /></ZamanBulanik>
+      <ZamanBulanik boy={boy} donusum={(dt) => kameraCss(durum(dt))}><Ham m={m} /></ZamanBulanik>
     </AbsoluteFill>
   );
 };
@@ -79,13 +93,14 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
 export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid', 'tv-crt', 'letterbox', 'pencere', 'film-seridi', 'bolunmus', 'kolaj', 'yuvarlak-yan', 'altin-cerceve'] as const;
 export type CerceveTip = typeof CERCEVE_TIPLERI[number];
 
-export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera = 'sabit', hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
+export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c' }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const t = f / fps;
   const { palet, font } = stil;
   const ap = <Arkaplan tip={arkaplan} stil={stil} tohum={tohum} />;
-  const md = (x: MedyaKaynak, k: KameraTip = kamera) => <Medya m={x} kamera={k} hiz={hiz} tohum={tohum} />;
+  // kamera verilmezse Medya'nin varsayilani (yavas itme) gecerli
+  const md = (x: MedyaKaynak, k: KameraTip | undefined = kamera) => <Medya m={x} kamera={k} hiz={hiz} tohum={tohum} />;
   const kutu = (l: number, tp: number, w: number, h: number, ic: React.ReactNode, ek: React.CSSProperties = {}) => (
     <div style={{ position: 'absolute', left: l, top: tp, width: w, height: h, overflow: 'hidden', ...ek }}>{ic}</div>
   );

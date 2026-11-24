@@ -232,6 +232,10 @@ KONU_HIS = {'deniz': ['sinematik', 'belgesel', 'karanlik'], 'askeri': ['belgesel
             'haber': ['resmi', 'modern'], 'biyografi': ['sinematik', 'belgesel', 'arsiv'], 'felsefe': ['sinematik', 'karanlik', 'temiz'],
             'liste': ['dinamik', 'oyunbaz', 'modern'], 'egitim': ['temiz', 'modern'], 'eglence': ['oyunbaz', 'dinamik']}
 TON_ENERJI = {'ciddi': 2.2, 'gizem': 2.0, 'sakin': 1.5, 'enerjik': 4.0}
+# Opus galerisi A-5/A-6: sekmeli/esnek yay ("bouncy easing") yasak listesinde; yalniz enerjik tonda secilir.
+# Repertuar tarafinda da ayni kural var (temel.ts SEKMELI_HAREKET / SEKMESIZ_TON / tonHareket): eski DNA'lar da guvende.
+SEKMELI_HAREKET = ('yay-esnek', 'geri-sekme')
+SEKMESIZ_TON = ('ciddi', 'gizem', 'sakin')
 # etiket sozlugunde konu adlari (etiketler.json'daki konu listeleri bunlardan olmali)
 KONULAR = sorted(KONU_KELIME)
 HISLER = ['belgesel', 'arsiv', 'resmi', 'teknik', 'sinematik', 'karanlik', 'retro', 'neon', 'modern', 'temiz', 'sicak', 'yumusak', 'oyunbaz', 'dinamik']
@@ -742,7 +746,9 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
                            agirlik={p: (1 + 2 * NP.get(PALET_SINIF.get(p), 0)) * (0.35 if (PALET_SINIF.get(p) == Y['palet_sinif'] and not nis_normu('palet', Y['palet_sinif'])) else 1) for p in paletler})[0]
     fontlar = [f for f in tsx_sozluk_anahtar(rep, 'temel.ts', 'FONTLAR') if not T.get('font') or f in T['font']]
     dna['font'] = sabit['font'] if sabit.get('font') else gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, yasak=tuple(Y.get('font_yasak') or ()) + KK('font'), gecmis=g('font'), eksen='font', kullanim=kul, kacin=k2('font'))[0]
-    hareketler = [h for h in ['yay-esnek', 'kubik-hizli', 'ustel-sert', 'adim-stop', 'geri-sekme', 'dogrusal-mekanik'] if h not in T.get('hareket_disi', [])]
+    # sekmeli hareket tona bagli KESIN filtre (etiket kapisi 'tona uyan yetmezse kapisiz' geri dususunde de, etiketsiz kurulumda da)
+    hareketler = [h for h in ['yay-esnek', 'kubik-hizli', 'ustel-sert', 'adim-stop', 'geri-sekme', 'dogrusal-mekanik']
+                  if h not in T.get('hareket_disi', []) and not (ton in SEKMESIZ_TON and h in SEKMELI_HAREKET)]
     dna['hareket'] = sec(r, hareketler, gecmis=g('hareket'), eksen='hareket', kullanim=kul, kacin=k2('hareket'))[0]
     ark = [x for x in L('Arkaplan.tsx', 'ARKAPLAN_TIPLERI') if x not in T.get('arkaplan_disi', [])]
     dna['arkaplan'] = sec(r, ark, yasak=KK('arkaplan'), gecmis=g('arkaplan'), eksen='arkaplan', kullanim=kul, n=3, kacin=k2('arkaplan'))          # [kart, cerceve, bolum]

@@ -7,15 +7,30 @@ Gerekli: py -m pip install rapidocr  (edit_dili.py ile ayni OCR)
 
 FAIL  yazi kadrajin kenarina degiyor/kesik (kenar payi %1)
 UYARI guvenli alan disi (16:9: kenarlardan %5; 9:16 Shorts: ust %8, alt %22, sag %14 telefon arayuzu)
-      ust uste binen farkli yazilar · yazi/zemin kontrasti < 3:1 · dusuk guvenli okuma (bozuk/yarim kelime)
+      ust uste binen farkli yazilar · dusuk guvenli okuma (bozuk/yarim kelime)
+      yazi/zemin kontrasti: ana metin < 4,5:1, buyuk baslik (buyuk harf >= 56 px @1080p) < 3:1 (Opus galerisi A-4)
+      boy kapisi (yalniz --plan ile, bizim yazimiz): tahmini buyuk harf yuksekligi 1080p'de < 24 px (telefonda okunmaz)
 --plan props.json: planin kart/etiket/altyazi metinleriyle (veri.cekimler[].kart.a/b, .etiket, veri.kelimeler) o anda
-      bulanik eslesen OCR kutulari "bizim yazimiz" sayilir; kenar/kesik/guvenli alan/kontrast/ust uste kontrolleri (FAIL dahil)
+      bulanik eslesen OCR kutulari "bizim yazimiz" sayilir; kenar/kesik/guvenli alan/kontrast/boy/ust uste kontrolleri (FAIL dahil)
       yalniz bunlara uygulanir. Eslesmeyen kutular KAYNAK GORUNTU yazisidir (sponsor panosu, gomulu altyazi): tek satirlik
-      ozet UYARI ("kaynak goruntude N yazi"). Plan verilmezse her yazi bizimmis gibi denetlenir (eski davranis).
+      ozet UYARI ("kaynak goruntude N yazi"). Plan verilmezse her yazi bizimmis gibi denetlenir (eski davranis; boy kapisi yok).
+Buyuk harf yuksekligi OCR kutusundan tahmin edilir: kutu ic bosluklu, olculen oran (7 font, 32-64 px) karisik harfte ~0,45,
+      tumu buyuk harfte ~0,55 (sapma +-0,1; esige yakin uyarida kareyi ac).
 Not: animasyon ortasinda yakalanan yarim yazi uyari uretebilir; uyarinin oldugu ani acip bak.
 """
 import argparse, difflib, json, os, re, subprocess, sys
 import numpy as np
+
+KONTRAST_ANA, KONTRAST_BUYUK = 4.5, 3.0   # WCAG AA: ana metin / buyuk baslik
+BUYUK_CAP = 56                            # 1080p buyuk harf yuksekligi (px) bunun ustundeyse "buyuk baslik" (~80 px font)
+BOY_ENAZ_CAP = 24                         # 1080p buyuk harf yuksekligi alt siniri (px): altinda UYARI
+CAP_ORAN_KARISIK, CAP_ORAN_BUYUK = 0.45, 0.55   # OCR kutu yuksekligi -> buyuk harf yuksekligi (olculdu, bkz. ust not)
+
+
+def cap_tahmin(kutu, metin, h):
+    """OCR kutusu (h yukseklikli karede) -> 1080p'ye olcekli tahmini buyuk harf yuksekligi (px)"""
+    oran = CAP_ORAN_BUYUK if not re.search(r'[a-zà-ÿğışçöü]', metin) else CAP_ORAN_KARISIK
+    return float(np.ptp(kutu[:, 1])) * 1080.0 / h * oran
 
 
 def ocr_motor():
@@ -181,8 +196,12 @@ def main():
             elif x0 < guv[0] or y0 < guv[1] or x1 > guv[2] or y1 > guv[3]:
                 ekle_('guvenli alan disi', an, tx[:40])
             c = kontrast(img, b)
-            if c is not None and c < 3.0 and (y1 - y0) > 0.025 * h:
-                ekle_(f'kontrast <3:1 ({c:.1f}:1)', an, tx[:40])
+            cap = cap_tahmin(b, tx, h)
+            ke = KONTRAST_BUYUK if cap >= BUYUK_CAP else KONTRAST_ANA
+            if c is not None and c < ke and (y1 - y0) > 0.025 * h:
+                ekle_(f'kontrast <{ke:g}:1 ({c:.1f}:1)', an, tx[:40])
+            if plan is not None and biz and cap < BOY_ENAZ_CAP and sc >= 0.6 and len(norm(tx)) >= 3:
+                ekle_(f'kucuk yazi (buyuk harf ~{cap:.0f} px < {BOY_ENAZ_CAP} px @1080p)', an, tx[:40])
             if sc < 0.6 and len(tx) > 3:
                 ekle_('zor okunuyor', an, tx[:40])
         for i in range(len(kutular)):

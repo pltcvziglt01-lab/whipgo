@@ -48,6 +48,11 @@ export const sinirla = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 
 // ---------- PALETLER ----------
 // "gece-kirmizi" = klasik Claude paleti (koyu lacivert-siyah + tek kirmizi). Varsayilan DEGIL; stil_dna onu yasakli listede tutar.
+// TEK DOYGUN VURGU KURALI (Opus galerisi A-8; 418 videonun %56'si, en AE gorunenlerin hepsi): bir karede tek doygun renk vardir,
+// o da 'vurgu'dur (vurgu cizgisi, aktif kelime, sayi, gecis bandi). 'vurgu2' IKINCILDIR ve az kullanilir: ince ayirici serit,
+// soluk ikinci seri, anlamsal karsitlik (artis/azalis, once/sonra) ya da gecisin kisa ara tonu. vurgu2 ana vurgu yerine (dolgu
+// zemini, buyuk yazi, kahraman sayi) kullanilmaz; ayni ogede vurgu ile esit agirlikta yan yana gelmez. Yesil yalniz olumlu,
+// kirmizi yalniz gerekli yerde (anlamsal renk). Doygun vurgu siyaha dogrudan capraz cozunmez (once zemin tonuna iner).
 export type Palet = { ad: string; zemin: string; zemin2: string; murekkep: string; soluk: string; vurgu: string; vurgu2: string; acik: boolean };
 export const PALETLER: Record<string, Palet> = {
   'kum-terrakota':   { ad: 'kum-terrakota',   zemin: '#efe4d2', zemin2: '#e2d1b6', murekkep: '#2b1d14', soluk: '#7d6652', vurgu: '#c4532d', vurgu2: '#2f5d62', acik: true },
@@ -179,6 +184,15 @@ export const konturGolge = (px = 3.5, renk = 'rgba(0,0,0,0.92)', yumusak = 0.55)
   k.push(`0 ${Math.round(px * 1.6)}px ${Math.round(px * 5)}px rgba(0,0,0,${yumusak})`);
   return k.join(', ');
 };
+/** KAMERA NEFESI (galeri A-3: kamera hic durmaz; kilit karede 1,000 -> 1,012 -> 1,000 nefes). Medya 'sabit' (ve kamera
+ *  verilmeden) bununla cizilir: olcek 1 ile 1 + genlik arasinda yumusak gidip gelir (yarim periyot 'yari' sn). Kesimde zaten
+ *  hareket halindedir (faz 'faz' sn ileride: kamera vurusta baslar, sifir hizdan kalkmaz), ilk 'yari - faz' sn tek yonlu itme
+ *  (belgesel cekimlerinin cogu bu surede biter), sonra ayni yumusaklikla geri nefes. Hiz yalniz donus aninda (~0,7 sn) sifira
+ *  yaklasir; iki bilesen olmadigi icin hareket birbirini sondurmez. Olcek 1'in altina inmez, 1 + genligi asmaz (kenar acilmaz).
+ *  Genlik: kilit kare / 'sabit' 0,02 · tutusta yavas itme (kamera verilmedi) foto 0,05, hareketli video 0,03 (video <= 0,04).
+ *  Kart icerigi tutmaItme ile, medya bununla itilir; ikisini ayni katmanda ust uste kullanma (Dna.tsx SayiZemin nefes=0). */
+export const kameraNefes = (t: number, genlik = 0.02, yari = 8, faz = 2) =>
+  1 + genlik * (1 - Math.cos((Math.PI * (Math.max(0, t) + faz)) / yari)) / 2;
 /** tutma suresinde yavas kamera itmesi (donuk kalmasin): t saniye -> olcek/kayma/egim. AE'deki 'slow push' karsiligi. */
 export const tutmaItme = (f: number, fps: number, o: { hiz?: number; egim?: number; yon?: number } = {}) => {
   const t = Math.max(0, f / fps);
@@ -211,7 +225,12 @@ export const ilerle = (f: number, gec: number, sure: number, ad: HareketAd = 'ku
 // sabit); buyuk hareket biraz daha uzun surer. Mevcut egri()/ilerle() DEGISMEDI; bunlar yanina eklenir.
 
 /** kutleli yay, kapali form (durgun halden birakilan sonumlu salinici), t 0..1 -> 0..1, t=1'de tam 1.
- *  sonum = sonum orani (zeta): 1 = kritik, asimsiz | 0.85 ~ %0,3 | 0.8 ~ %1,2 | 0.78 ~ %1,8 (alt sinir: asim hep < %2). */
+ *  sonum = sonum orani (zeta): 1 = kritik, asimsiz | 0.85 ~ %0,3 | 0.8 ~ %1,2 | 0.78 ~ %1,8 (alt sinir: asim hep < %2).
+ *  Galeri A-6 ile olculen uyum (2026-11-24): asim < %2 kurali alt sinir 0.78 ile garanti. Galerideki "oge sonumu 0,72" bir
+ *  sonum ORANI olarak okunursa %3,8 asim verir (kuralla celisir), bu yuzden alt sinir 0.78'de kalir. Oturma suresi yayin
+ *  'sure'sidir: kritik yay normalize surenin %78'inde %2 bandina girer -> oge girisi 0,35-0,45 sn, kamera oturmasi 0,6 sn
+ *  (YAY_SURE); kamera ogeden yavas oturur ve hep kritik (sonum 1, asimsiz). */
+export const YAY_SURE = { oge: 0.35, kamera: 0.6 } as const;
 export const yay = (t: number, sonum = 1): number => {
   t = sinirla(t);
   if (t >= 1) return 1;
@@ -233,10 +252,17 @@ export const cikisSure = (girisSure: number) => Math.max(4, Math.round(girisSure
 
 /** ciddi/gizem tonda ya da maske/kayma girislerinde asim yok */
 export const ASIMSIZ_TON = ['ciddi', 'gizem'];
+/** sekmeli/esnek karakterler (yay-esnek: sin salinimi, geri-sekme: ~%10 geri cekilme) galeri A-5/A-6'da yasak listesinde;
+ *  yalniz enerjik tonda kalir. Bu tonlarda kritik yaya (kubik-hizli -> dogal() ile asimsiz) cevrilir. stil_dna da secmez. */
+export const SEKMELI_HAREKET: HareketAd[] = ['yay-esnek', 'geri-sekme'];
+export const SEKMESIZ_TON = ['ciddi', 'gizem', 'sakin'];
+export const tonHareket = (h: HareketAd, ton?: string): HareketAd => (SEKMESIZ_TON.includes(ton || '') && SEKMELI_HAREKET.includes(h) ? 'kubik-hizli' : h);
 /** girisin dogal karsiligi: yumusak karakterler kutleli yaya cevrilir, bilerek secilmis karakterler (esnek, geri-sekme,
- *  ustel-sert, adim-stop, dogrusal) aynen kalir. kahraman=true yalniz tek bir oge icin (asim %1,5), digerleri asimsiz. */
+ *  ustel-sert, adim-stop, dogrusal) aynen kalir; esnek/geri-sekme ciddi/gizem/sakin tonda kritik yaya iner.
+ *  kahraman=true yalniz tek bir oge icin (asim %1,5), digerleri asimsiz. */
 export const dogal = (ad: HareketAd, t: number, o: { ton?: string; kahraman?: boolean } = {}): number => {
   const asim = !!o.kahraman && !ASIMSIZ_TON.includes(o.ton || '');
+  ad = tonHareket(ad, o.ton);
   switch (ad) {
     case 'yay-yumusak': return yay(t, asim ? 0.8 : 1);
     case 'kubik-hizli': return yay(t, asim ? 0.85 : 1);
@@ -270,6 +296,7 @@ export const DEKLANSOR = 0.5;
 export const kayma = (fn: (kare: number) => number, f: number, perde = DEKLANSOR) => fn(f + perde / 2) - fn(f - perde / 2);
 
 // ---------- STIL (bilesenlere gecen tek nesne) ----------
-/** ton: stil_dna.py'nin konu tonu (ciddi/gizem/enerjik/sakin); verilirse ciddi/gizem tonda hic asim olmaz */
+/** ton: stil_dna.py'nin konu tonu (ciddi/gizem/enerjik/sakin); verilirse ciddi/gizem tonda hic asim olmaz,
+ *  ciddi/gizem/sakin tonda sekmeli hareket (yay-esnek, geri-sekme) kubik-hizli'ya iner (eski DNA'lar da guvende) */
 export type Stil = { palet: Palet; font: FontCifti; hareket: HareketAd; tohum: string; ton?: string };
-export const stilYap = (p?: string, f?: string, h?: HareketAd, tohum = 'x', ton?: string): Stil => ({ palet: palet(p), font: fontCifti(f), hareket: h || 'kubik-hizli', tohum, ton });
+export const stilYap = (p?: string, f?: string, h?: HareketAd, tohum = 'x', ton?: string): Stil => ({ palet: palet(p), font: fontCifti(f), hareket: tonHareket(h || 'kubik-hizli', ton), tohum, ton });

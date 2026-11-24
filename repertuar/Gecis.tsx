@@ -204,18 +204,40 @@ const Sahne: React.FC<{ sure: number; giris?: { tip: GecisTip; d: number }; ciki
 };
 
 export type DiziSahne = { el: React.ReactNode; sure: number };
-/** her sinir icin gecis tipi: liste verilirse tohumla dagitilir, ayni tip art arda gelmez; 'sert' agirligi = 1 - yumusakOran */
+/** yumusak gecis dagilimi (Opus galerisi B-1: uzun videoda tek gecis tipinin tekrari en zayif gorunum):
+ *  ayni tip yumusak gecis dizisinde art arda en cok GECIS_ARDISIK kez; tek tipin yumusak gecisler icindeki payi en cok
+ *  GECIS_PAY (birden fazla tip varsa; k tipte bu oran 1/k'nin altina inemez -> 3 tipli DNA'da tavan %33). */
+export const GECIS_ARDISIK = 2;
+export const GECIS_PAY = 0.25;
+/** her sinir icin gecis tipi: liste verilirse tohumla dagitilir; 'sert' agirligi = 1 - yumusakOran. Yumusak gecislerde once
+ *  bir onceki yumusak tipten farkli olan secilir, ayni tip hic GECIS_ARDISIK'tan fazla art arda gelmez ve kotasini asmaz
+ *  (kota = max(taban(GECIS_PAY * yumusak), tavan(yumusak / k))). Deterministik (tohum). */
 export const gecisPlani = (n: number, gecis: GecisTip | GecisTip[], tohum = 'g', yumusakOran = 1): GecisTip[] => {
   const r = rastgele(tohum + 'gp');
-  const liste = Array.isArray(gecis) ? gecis : [gecis];
-  const out: GecisTip[] = [];
-  for (let i = 0; i < n; i++) {
-    if (r() > yumusakOran) { out.push('sert'); continue; }
-    let t = liste[Math.floor(r() * liste.length)];
-    if (liste.length > 1 && t === out[i - 1]) t = liste[(liste.indexOf(t) + 1) % liste.length];
-    out.push(t);
-  }
-  return out;
+  const liste = Array.from(new Set(Array.isArray(gecis) ? gecis : [gecis]));
+  // 1) sert / yumusak iskeleti (rakibin yumusak orani)
+  const yumusak = Array.from({ length: n }, () => r() <= yumusakOran);
+  if (liste.length <= 1) return yumusak.map((y) => (y ? liste[0] : 'sert'));
+  // 2) yumusak sinirlara tip: ardisik + pay siniri, kalan kotaya gore agirlikli
+  const ny = yumusak.filter(Boolean).length;
+  // kota: payi GECIS_PAY'i asmayan en buyuk adet; k tip ny gecisi tasiyamiyorsa (k*kota < ny) esit dagilimin tavani
+  const kota = Math.max(Math.floor(GECIS_PAY * ny + 1e-9), Math.ceil(ny / liste.length));
+  const say: Record<string, number> = {};
+  const son: GecisTip[] = [];
+  return yumusak.map((y) => {
+    if (!y) return 'sert';
+    const ardisikDolu = (t: GecisTip) => son.length >= GECIS_ARDISIK && son.slice(-GECIS_ARDISIK).every((x) => x === t);
+    const kotada = (t: GecisTip) => (say[t] || 0) < kota;
+    let aday = liste.filter((t) => t !== son[son.length - 1] && kotada(t));
+    if (!aday.length) aday = liste.filter((t) => !ardisikDolu(t) && kotada(t));
+    if (!aday.length) aday = liste.filter((t) => !ardisikDolu(t));
+    const w = aday.map((t) => Math.max(0.5, kota - (say[t] || 0)));
+    let u = r() * w.reduce((a, b) => a + b, 0), t = aday[aday.length - 1];
+    for (let i = 0; i < aday.length; i++) { u -= w[i]; if (u < 0) { t = aday[i]; break; } }
+    say[t] = (say[t] || 0) + 1;
+    son.push(t);
+    return t;
+  });
 };
 export const diziSuresi = (sahneler: DiziSahne[], plan: GecisTip[], kare: number) =>
   sahneler.reduce((a, s, i) => a + s.sure - (i < sahneler.length - 1 && plan[i] !== 'sert' ? kare : 0), 0);

@@ -3,11 +3,15 @@
 
 Kullanim:
   py kalite_kapisi.py final.mp4 [--metin metin.txt --dil de] [--brief brief.json] [--cikti KAPI.md]
-                      [--hedef-lufs -14] [--ilk 0]
+                      [--hedef-lufs -14] [--durgun-sn 1.5]
 
 Kontroller (videonun kendi fps'inde, kucuk gri karelerle):
   FAIL  goruntu sesten kisa/uzun (>0,5 sn) · ilk 2 sn'de hareket/kesim yok (kanca olu)
-        tam siyah bolum (>=0,5 sn, piksellerin %99,8'i siyah; ilk/son 0,3 sn haric; koyu tasarim/altyazili kare sayilmaz) · donmus goruntu (>=2 sn tam durgun)
+        tam siyah bolum (>=0,5 sn, piksellerin %99,8'i siyah; ilk/son 0,3 sn haric; koyu tasarim/altyazili kare sayilmaz)
+        donmus goruntu (tam durgunluk: kare-kare VE +-0,5 sn penceresinde degisim yok; yavas kamera nefesi durgun sayilmaz):
+        uzun formda >=1,5 sn, Shorts'ta (dikey ve <=3 dk) >=2 sn; videonun son karesine
+        degen durgunluk (bitis karti) en cok 2 sn olabilir. --durgun-sn ile elle ayarlanir (Opus galerisi A-2 / B-1:
+        "kompozisyon uzun kalabilir, tam durgunluk kalamaz")
         tek karelik sicrama (bir kare oncesinden ve sonrasindan farkli, ikisi birbirine benzer)
         3 sn'den uzun sessizlik (son 2 sn haric) · LUFS hedef±1 disi · gercek tepe > -1 dBTP
         metin verildiyse: konusmada okunmayan cumle orani > %5 (faster-whisper gerekir; @direktif satirlari atilir, yazili sayilar rakamla esitlenir)
@@ -22,6 +26,11 @@ import argparse, difflib, json, os, re, statistics, subprocess, sys
 import numpy as np
 
 GW, GH = 96, 54
+# tam durgunluk esigi (sn): uzun form galeri olcumu (en AE uzun video 1,5 sn'yi gecmiyor), Shorts eski 2 sn; bitis karti 2 sn
+DURGUN_UZUN, DURGUN_KISA, DURGUN_SON = 1.5, 2.0, 2.0
+# tam durgunluk = kare-kare fark < 0,12 VE +-0,5 sn arasi fark < DURGUN_PENCERE. Yavas kamera nefesi (1,00 -> 1,02) kare-kare
+# 0,06-0,10 verir (96x54'te esik alti) ama 1 sn'de birikir (0,3-0,7); gercek donmus kare 0,00-0,02. Olculdu 2026-11-24.
+DURGUN_PENCERE = 0.08
 
 
 def calis(cmd):
@@ -224,6 +233,8 @@ def main():
     ap.add_argument('--dil', default=None)
     ap.add_argument('--brief')
     ap.add_argument('--hedef-lufs', type=float, default=-14.0)
+    ap.add_argument('--durgun-sn', type=float, default=None,
+                    help=f'tam durgunluk FAIL esigi (sn). Verilmezse uzun form {DURGUN_UZUN}, Shorts (dikey ve <=3 dk) {DURGUN_KISA}')
     ap.add_argument('--cikti')
     a = ap.parse_args()
     F, U, bilgi = [], [], []
@@ -258,9 +269,16 @@ def main():
     siyah = [(b, s) for b, s in siyah if b > kenar / fps and s < (n - kenar) / fps]
     for b, s in siyah:
         F.append(f'siyah bolum {b:.1f}-{s:.1f} sn')
-    don = bolgeler(np.concatenate([[False], d < 0.12]), fps, 2.0)
+    shorts = A['h'] > A['w'] and A['sure'] <= 180
+    esik = a.durgun_sn if a.durgun_sn is not None else (DURGUN_KISA if shorts else DURGUN_UZUN)
+    bilgi.append(f"tam durgunluk esigi {esik:.2f} sn ({'elle' if a.durgun_sn is not None else 'Shorts' if shorts else 'uzun form'}; son kareye degen {max(esik, DURGUN_SON):.1f} sn)")
+    w = max(1, int(round(0.5 * fps)))
+    dw = np.array([np.abs(K[min(n - 1, i + w)].astype(np.int16) - K[max(0, i - w)]).mean() for i in range(n)]) if n > 1 else np.zeros(n)
+    don = bolgeler(np.concatenate([[False], (d < 0.12) & (dw[1:] < DURGUN_PENCERE)]), fps, esik)
     for b, s in don:
-        F.append(f'donmus goruntu {b:.1f}-{s:.1f} sn ({s - b:.1f} sn tam durgun)')
+        if s >= (n - 1) / fps - 0.05 and s - b < max(esik, DURGUN_SON):
+            continue  # bitis karti: son kareye degen durgunluk DURGUN_SON'a kadar serbest
+        F.append(f'donmus goruntu {b:.1f}-{s:.1f} sn ({s - b:.1f} sn tam durgun; esik {esik:.1f} sn)')
     # tek karelik sicrama
     pops = []
     for i in range(1, n - 1):

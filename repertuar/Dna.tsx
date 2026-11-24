@@ -108,9 +108,11 @@ const SayiZemin: React.FC<{ dna: Dna; m: MedyaKaynak }> = ({ dna, m }) => {
   const t = f / fps;
   // koyu palet: goruntu koyulasir (acik yazi okunur); acik palet: palet zeminine yikanir (koyu yazi okunur)
   const filtre = palet.acik ? 'blur(24px) saturate(0.9) brightness(1.08)' : 'blur(24px) saturate(1.2) brightness(0.66)';
+  // zemin kendisi hareket eder (karttaki tutmaItme itmesine ters yonde yavas geri cekilme + kayma = parallax); Medya'nin
+  // varsayilan itmesi buna ucuncu bir hareket eklemesin diye nefes=0 (kamera yine durmaz: kayma/olcek surekli)
   return (
     <AbsoluteFill style={{ overflow: 'hidden', background: palet.zemin }}>
-      <AbsoluteFill style={{ transform: `scale(${(1.24 - 0.01 * t).toFixed(4)}) translateX(${(-0.5 * t).toFixed(3)}%)`, filter: filtre }}><Medya m={m} /></AbsoluteFill>
+      <AbsoluteFill style={{ transform: `scale(${(1.24 - 0.01 * t).toFixed(4)}) translateX(${(-0.5 * t).toFixed(3)}%)`, filter: filtre }}><Medya m={m} nefes={0} /></AbsoluteFill>
       <AbsoluteFill style={{ background: rgbaHex(palet.zemin, palet.acik ? 0.66 : 0.3) }} />
       <AbsoluteFill style={{ background: `radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, ${rgbaHex(palet.acik ? palet.zemin : '#000000', 0.55)} 100%)` }} />
     </AbsoluteFill>

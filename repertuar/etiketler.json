@@ -3,13 +3,10 @@
  "arkaplan": {
   "gradyan-akis": {
    "ton": [
-    "enerjik",
-    "sakin"
+    "enerjik"
    ],
    "konu": [
     "teknoloji",
-    "finans",
-    "yasam",
     "eglence",
     "egitim"
    ],
@@ -21,14 +18,10 @@
   },
   "aurora": {
    "ton": [
-    "sakin",
     "enerjik"
    ],
    "konu": [
-    "bilim",
-    "seyahat",
-    "yasam",
-    "saglik"
+    "bilim"
    ],
    "enerji": 2,
    "his": [
@@ -38,14 +31,10 @@
   },
   "bokeh": {
    "ton": [
-    "sakin",
     "enerjik"
    ],
    "konu": [
-    "yasam",
-    "eglence",
-    "seyahat",
-    "saglik"
+    "eglence"
    ],
    "enerji": 2,
    "his": [
@@ -678,14 +667,12 @@
   },
   "isik-patlamasi": {
    "ton": [
-    "enerjik",
-    "ciddi"
+    "enerjik"
    ],
    "konu": [
     "spor",
     "eglence",
-    "otomotiv",
-    "tarih"
+    "otomotiv"
    ],
    "enerji": 4,
    "his": [
@@ -698,15 +685,11 @@
   },
   "glitch-rgb": {
    "ton": [
-    "gizem",
     "enerjik"
    ],
    "konu": [
     "teknoloji",
-    "oyun",
-    "korku",
-    "suc",
-    "gizem"
+    "oyun"
    ],
    "enerji": 4,
    "his": [
@@ -1617,16 +1600,11 @@
   },
   "koseli-parantez": {
    "ton": [
-    "ciddi",
-    "gizem",
     "enerjik"
    ],
    "konu": [
-    "askeri",
-    "suc",
     "teknoloji",
-    "otomotiv",
-    "muhendislik"
+    "otomotiv"
    ],
    "enerji": 3,
    "his": [
@@ -2226,14 +2204,11 @@
   "el-kamerasi": {
    "ton": [
     "gizem",
-    "ciddi",
     "enerjik"
    ],
    "konu": [
     "suc",
     "korku",
-    "askeri",
-    "haber",
     "gizem"
    ],
    "enerji": 3,
@@ -2579,14 +2554,12 @@
   },
   "kromatik": {
    "ton": [
-    "enerjik",
-    "gizem"
+    "enerjik"
    ],
    "konu": [
     "oyun",
     "teknoloji",
-    "eglence",
-    "korku"
+    "eglence"
    ],
    "enerji": 4,
    "his": [
@@ -2613,14 +2586,10 @@
   },
   "isik-sizintisi": {
    "ton": [
-    "sakin",
     "enerjik"
    ],
    "konu": [
-    "yasam",
-    "seyahat",
-    "eglence",
-    "biyografi"
+    "eglence"
    ],
    "enerji": 2,
    "his": [
@@ -2770,8 +2739,7 @@
   },
   "synth-mor": {
    "ton": [
-    "enerjik",
-    "gizem"
+    "enerjik"
    ],
    "konu": [
     "oyun",
@@ -3185,14 +3153,12 @@
  "hareket": {
   "yay-esnek": {
    "ton": [
-    "enerjik",
-    "sakin"
+    "enerjik"
    ],
    "konu": [
     "eglence",
     "oyun",
-    "liste",
-    "yasam"
+    "liste"
    ],
    "enerji": 4,
    "his": [
@@ -3351,8 +3317,7 @@
   },
   "neon-parilti": {
    "ton": [
-    "enerjik",
-    "gizem"
+    "enerjik"
    ],
    "konu": [
     "oyun",
