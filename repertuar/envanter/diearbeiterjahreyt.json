@@ -1,0 +1,221 @@
+{
+ "kanal": "@diearbeiterjahreyt",
+ "nis": "Almanca nostalji belgesel, 1970ler Almanya fabrika/arşiv, '20 yazılı olmayan kural' liste formatı",
+ "konu": [
+  "tarih",
+  "liste",
+  "yasam"
+ ],
+ "ton": "sakin",
+ "ae_hissi": "Gerçek arşiv film/fotoğraf + renk tonu rampası (mor→turuncu) ve beyaz flaş geçişleri, 4:3 görüntü bulanık dolgu üstünde ortada; alt-orta sarı kalın altyazı. AE hissi güçlü olan tek şey renkli sızıntı geçişleri ve çerçeveli arşiv düzeni; geri kalanı sade ve belgesel-sabit; ses efekti yok.",
+ "teknikler": [
+  {
+   "ad": "tint-sizintisi-gecis",
+   "eksen": "gecis",
+   "tarif": "Tek çekim içinde siyah-beyaz arşiv karesine mor→turuncu→pembe renk tonu rampası (gradient overlay, muhtemelen mix-blend color/screen), 280 ms, sonra sert kesim yeni çekime; 59.7 sn'de kırmızı tint (#B0262C %60) bölüm girişinde sabit kalıyor. Ses vurgusu yok.",
+   "kanit": "video-1 00:32.520, 00:33.0, 00:59.680; edit-dili-sayfa.jpg",
+   "repertuarda": "film-yanigi",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "gizem"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi",
+     "yasam"
+    ],
+    "enerji": 3,
+    "his": [
+     "retro",
+     "arsiv",
+     "sinematik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "beyaz-flas-gecis",
+   "eksen": "gecis",
+   "tarif": "Kesimde 2 kare tam beyaz (#FFFFFF) sonra yeni çekim %20 opaklıktan 320 ms'de açılır; toplam 520 ms; altyazı beyazın üstünde kalır (ayrı katman).",
+   "kanit": "video-1 00:04.120",
+   "repertuarda": "isik-patlamasi",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "yasam"
+    ],
+    "enerji": 3,
+    "his": [
+     "retro",
+     "temiz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "bulanik-dolgulu-4-3-arsiv",
+   "eksen": "cerceve",
+   "tarif": "4:3 arşiv görüntüsü 16:9 çerçevede ortalı (x 0.13-0.86, dikey tam), yanlar aynı görüntünün büyütülmüş bulanık kopyası (karanlık, doygunluksuz) ya da düz koyu (#1A1A1A); %51 çekimde. Arşiv oranını bozmaz.",
+   "kanit": "video-1 00:07-00:10, 00:10.5-00:18, edit-dili.json duzen_zaman",
+   "repertuarda": "bulanik-kopya",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi"
+    ],
+    "enerji": 1,
+    "his": [
+     "arsiv",
+     "belgesel"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "sari-kelime-grubu-altyazi",
+   "eksen": "altyazi",
+   "tarif": "Alt-orta, boyut %8 yükseklik, 3-5 kelimelik gruplar (medyan 4), kalın geometrik sans (Poppins ExtraBold / Montserrat Bold sınıfı), sarı #F6C921 dolgu, siyah yumuşak gölge ya da şeffaf siyah şerit (%50), cümle düzeni, her grup ~1 sn. Bölüm başlığı da aynı stil, numaralı ('3. Der Lehrling holt das Bier') 3-5 sn.",
+   "kanit": "yazi-kirpinti.jpg, video-1 00:00-01:30",
+   "repertuarda": "kutulu",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "liste",
+     "yasam"
+    ],
+    "enerji": 2,
+    "his": [
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "abone-cagrisi-overlay",
+   "eksen": "diger",
+   "tarif": "Sabit çekimde ortada kanal logosu rozeti (lacivert-altın daire) ve altında kırmızı #E52D27 'ABONNIERT' butonu; 0.3 sn sonra kısa 0.16 sn çekim ve kırmızı tint'li bölüm girişi; metin altyazı 'Lass ein Like da und abonnier'.",
+   "kanit": "video-1 00:54.6-00:59.8",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "liste",
+     "eglence"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "numarali-bolum-baslik-altyazi",
+   "eksen": "liste",
+   "tarif": "Liste maddesi ayrı kart yerine altyazı hattında numaralı sarı başlıkla (altyazı ile aynı font) 3-5 sn gösteriliyor; ardından normal altyazıya dönüş. Kart yok, bölüm girişinde renk tint'i (kırmızı) ve ilk 0.3 sn'lik flaş.",
+   "kanit": "video-1 00:59.7-01:05, 01:50, 03:15-03:20",
+   "repertuarda": "numarali-yigin",
+   "etiket": {
+    "ton": [
+     "sakin"
+    ],
+    "konu": [
+     "liste",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "temiz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "siyah-beyaz-sepya-arsiv-akisi",
+   "eksen": "doku",
+   "tarif": "Doygunluk 0.034; siyah-beyaz (#1F1F1F-#E5E5E5) ve sepya (#A08A6B) fotoğraflar ardışık, çekim başı 2.5-3.5 sn (kanca) → 6-12 sn (gövde); vinyet hafif (1.14); film greni belirgin değil.",
+   "kanit": "video-1 00:07-00:30, ilk30-0.5.jpg",
+   "repertuarda": "gren",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "yasam"
+    ],
+    "enerji": 1,
+    "his": [
+     "arsiv",
+     "retro",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "cok-yavas-pan-zoom-fotograf",
+   "eksen": "kamera",
+   "tarif": "Fotoğraflar çok yavaş yatay pan (<%1/sn) ya da zoom (0.01 %/sn ölçüm) ile hareketleniyor; 6-12 sn'lik uzun çekimlerde bile dikkat çeken hareket yok. Hareket varlığını kare_analiz pan etiketleri gösteriyor; ölçüm çelişkili.",
+   "kanit": "video-1 00:18-00:30, 01:50-02:30",
+   "repertuarda": "ken-burns-ice",
+   "etiket": {
+    "ton": [
+     "sakin"
+    ],
+    "konu": [
+     "tarih"
+    ],
+    "enerji": 1,
+    "his": [
+     "belgesel",
+     "yumusak"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "hizli-kanca-klip-ritmi",
+   "eksen": "zaman",
+   "tarif": "İlk 30 sn 11-12 çekim (22-24 kesim/dk, medyan 2.84 sn), çoğu sert kesim ve ilk 4 sn'de iki canlı klip; sonra 7.5 kesim/dk'ya yavaşlayan gövde — ilk dakika bilinçli hızlı.",
+   "kanit": "video-1 00:00-00:30, ritim/analiz.md",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "liste"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2
+  }
+ ]
+}

@@ -1,0 +1,273 @@
+{
+ "kanal": "@AchterdeMotorkap",
+ "nis": "otomotiv / EV haberi (Mazda Wankel range-extender), Felemenkçe, AI görselli haber-belgesel",
+ "konu": [
+  "otomotiv",
+  "teknoloji",
+  "haber",
+  "muhendislik"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "Yumuşak çözünmeler (%91 yumuşak) ve çeşitli itme/wipe/zoom geçişleri her kesimi tasarlanmış gösteriyor; altın serif yıl kartları, turuncu halka sayaç paneli ve vinyetli inset kutular pro motion-design hissi veriyor. Görsellerin AI olması ve hareketin hafif zoom olması şablon izlenimi riskini artırıyor.",
+ "teknikler": [
+  {
+   "ad": "cozunme-agirlikli-gecis-dili",
+   "eksen": "gecis",
+   "tarif": "Geçişlerin %43'ü çapraz çözünme (medyan 333-400 ms), %5 wipe_sola (500 ms), %5 beyaza geçiş, %5 itme_sağa, %3 zoom-içe, ayrıca çözünme+sert bileşikleri (500 ms); sert kesim yalnız %9. Sahne tipine göre değişiyor (yıl kartı → çözünme, harita/kart → itme).",
+   "kanit": "video-1 00:08.067, 00:11.833, 00:18.433, 00:29.400, 00:41.133",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "otomotiv",
+     "haber",
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "altin-serif-yil-karti",
+   "eksen": "sayi",
+   "tarif": "Yüksek kontrastlı serif (Playfair Display/Cormorant sınıfı), altın #D0B262, hafif gölge, görselin ortasında 3-5 sn; altında küçük geniş harf aralıklı etiket; kısa fade-in/out. 2012, 1967, 2030, '20 of 30 procent'.",
+   "kanit": "video-1 00:12-00:18, yazi-kirpinti.jpg",
+   "repertuarda": "buyuk-yil",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "otomotiv",
+     "tarih",
+     "teknoloji",
+     "finans"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "sicak",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "sayac-halka-turuncu",
+   "eksen": "sayi",
+   "tarif": "Beyaz zemin üstünde sağ-alt koyu cam panel; turuncu #F59A43 halka dolumu ve sayaç 0→4→36→50 eşzamanlı (~2 sn); sonra panel kapanır. 48, 31, 62 sayılarında aynı aile.",
+   "kanit": "video-1 00:22.0-00:25.0",
+   "repertuarda": "halka",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "otomotiv",
+     "teknoloji",
+     "finans",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "izgara-isik-metin-karti",
+   "eksen": "arkaplan",
+   "tarif": "Koyu lacivert-siyah zeminde ince ızgara; merkezde sıcak turuncu-kahve radial gradient ışıma; kelime kelime beyaz sans metin; 400 ms çözünme ile geliş.",
+   "kanit": "video-1 00:37.433-00:41.133",
+   "repertuarda": "izgara-perspektif",
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "otomotiv",
+     "teknoloji",
+     "gizem"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "karanlik",
+     "sinematik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "inset-vinyetli-kutu",
+   "eksen": "cerceve",
+   "tarif": "Bulanık krem-kahve kağıt zemin ya da siyah ızgara zemin üzerinde ortalı inset kutu (%60-70), vinyet + gölge/ince mavi çerçeve; içinde görsel veya ekran klibi; kısa bölümlerde (0-8 sn, 52 sn, 60.7 sn, 184 sn).",
+   "kanit": "video-1 00:00, 00:52.4, 01:00.7, 03:04.6",
+   "repertuarda": "inset-golge",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "otomotiv",
+     "teknoloji",
+     "haber"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "beyaz-fon-studyo-rotor",
+   "eksen": "arkaplan",
+   "tarif": "Ürün/parça görseli temiz beyaz-gri stüdyo zeminde (18.4-25.0 sn rotor, 201.6 sn motor) çözünmeyle koyu sahneden açılır; yavaş zoom-out; üstüne cam panel/sayaç biner.",
+   "kanit": "video-1 00:18.433-00:25.0",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "otomotiv",
+     "muhendislik",
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "teknik",
+     "modern"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "bilgi-karti-cam-panel",
+   "eksen": "altbant",
+   "tarif": "Koyu yarı saydam cam panel, sol minik araç thumbnail'i, sağda 'Mazda Go' + küçük gri açıklama satırı; görselin üzerine kısa biner (~3 sn).",
+   "kanit": "video-1 01:35.367",
+   "repertuarda": "cam-panel",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "otomotiv",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "abone-butonu-overlay",
+   "eksen": "diger",
+   "tarif": "Beyaz yuvarlak köşeli küçük buton: mavi beğen ikonu + kırmızı SUBSCRIBE + zil; sağ-alt bölgede 3-4 sn; iki ardışık çekimde aynı yerde.",
+   "kanit": "video-1 01:18.867-01:22.5",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence",
+     "teknoloji"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "hayalet-fade-baslik",
+   "eksen": "baslik",
+   "tarif": "Kanca başlığı 'EINDE AAN / ACTIERADIUSANGST' beyaz serif BÜYÜK HARF, iki satır; 0.0 sn'de çok soluk, 0.5 sn'de tam opak (fade-in ~0.4 sn), 3.5 sn'de yok olur; arka plan vinyetli kutu içinde araç içi, kırmızı uyarı ışığı yanıp söner.",
+   "kanit": "video-1 00:00-00:03.5",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "otomotiv",
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "neon-lazer-stok-klibi",
+   "eksen": "arkaplan",
+   "tarif": "Pembe-kırmızı neon lazer çizgileri ve yeşil kenar flaşı (56.6-60.7 sn) bölüm geçişi için stok video/motion pack; sonrasında çözünmeyle Tesla ekran klibine itme.",
+   "kanit": "video-1 00:56.667-01:00.7",
+   "repertuarda": "isik-huzmesi",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "otomotiv"
+    ],
+    "enerji": 4,
+    "his": [
+     "neon",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "sicak-teal-grade",
+   "eksen": "doku",
+   "tarif": "Parlaklık 0.31, doygunluk 0.24, sıcaklık +3.2; AI görseller teal gölge + turuncu aydınlatma; tarihi bölüm soluk sepya; vinyet 1.10 hafif.",
+   "kanit": "video-1 00:25-00:30, 01:40-01:46",
+   "repertuarda": "vinyet",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "otomotiv",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "sicak"
+    ]
+   },
+   "oncelik": 3
+  }
+ ]
+}

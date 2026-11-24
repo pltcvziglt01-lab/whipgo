@@ -1,0 +1,244 @@
+{
+ "kanal": "@Ethos-j7t",
+ "nis": "tarih belgeseli, 2D çizgi film (stickman + uydu haritası), İngilizce, 'The Entire History of X' uzun format",
+ "konu": [
+  "tarih",
+  "biyografi",
+  "eglence"
+ ],
+ "ton": "sakin",
+ "ae_hissi": "Her sahne özel çizilmiş vektör arka plan + sabit marka karakteri + uydu haritası üstünde animasyonlu dolgu/rota çizgisi; metin etiketleri renk kodlu ve dış çizgili. Şablon gibi durmaz çünkü kamera (yavaş zoom/pan) her sahnede var ve haritalar canlı çiziliyor. Stil olarak AE değil, 'animatic / Cyanide-style' çizgi film hissi.",
+ "teknikler": [
+  {
+   "ad": "cizgi-film-anlatici-karakter",
+   "eksen": "diger",
+   "tarif": "Gri #C2C2C2 zemin ya da harita kenarında sabit konumlu stickman sunucu (şapka+tüy+mızrak), 2-3 poz arasında çizim değişimi; her konu bölümünde geri döner. Kolların hareketi 0.5 sn aralıkla pozlanıyor (duran karelerden).",
+   "kanit": "video-1 00:14-00:19, 00:40, ilk30-0.5.jpg",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi",
+     "eglence"
+    ],
+    "enerji": 2,
+    "his": [
+     "oyunbaz",
+     "belgesel",
+     "yumusak"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "animasyonlu-uydu-haritasi",
+   "eksen": "harita",
+   "tarif": "NASA tarzı uydu görüntüsü zemini; ülke şekli turuncu #E8913A %70 dolgu ile belirir, sonra açık mavi #9CC6E8 suya döner (denizin altı); beyaz ince rota eğrisi uzar (31.7 sn, 1333 ms) kamera zoom+/pan eşliğinde; okyanusta beyaz oklar, mavi nehir çizgileri; etiket yazıları aynı anda.",
+   "kanit": "video-1 00:05-00:11, 00:28-00:33, 01:12-01:16",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "haber",
+     "egitim"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "teknik",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "el-yazisi-kinetik-etiket",
+   "eksen": "baslik",
+   "tarif": "1-3 kelimelik büyük etiket, el yazısı çizgi-film fontu, beyaz dolgu + 3-4 px siyah dış çizgi; anlama göre renk (kırmızı #8B2A25 tehlike, sarı #E8D43A sayı, yeşil doğa); IMPORTANT! altı çizgili; ilk giriş harf harf belirme (0.8 sn). Süre ~1 sn.",
+   "kanit": "yazi-kirpinti.jpg, kirpintilar/04.png, 22.png; video-1 00:01",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "eglence",
+     "egitim"
+    ],
+    "enerji": 3,
+    "his": [
+     "oyunbaz",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "parsomen-rulo-karti",
+   "eksen": "alinti",
+   "tarif": "Koyu kahve #3A2D22 zeminde dikey rulo (0.5 sn) yana açılıp krem #F1E4C3 parşömen (kenarlar #8B5A2B); içine söz satır satır yazılır ya da dairesel rakam yuvaları belirir; açılış wipe_sağa 267-300 ms; parşömen yazıdan sonra ana kelime büyük turuncu ile vurgulanır.",
+   "kanit": "video-1 00:15-00:19.5, 00:54.1-00:57, 03:38",
+   "repertuarda": "kagit-not",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "ciddi"
+    ],
+    "konu": [
+     "tarih",
+     "liste",
+     "egitim"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "sicak",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "ulke-sekli-karakter",
+   "eksen": "diger",
+   "tarif": "Turuncu Hollanda harita silüeti göz+kol+bacak eklenmiş karaktere dönüşür, su birikintisinde ıslanır (yağmur damlaları), yanında SAVAGE etiket (20.0-24.5 sn). Abartılı komedi.",
+   "kanit": "video-1 00:20-00:25, ilk30-0.5.jpg",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "tarih",
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "cizim-sahne-zoom-pan",
+   "eksen": "kamera",
+   "tarif": "Çizgi film arka plan (kıyı + değirmen, 11-14 sn) yavaş zoom-in; kıyıya su dalgaları ve çim şeridi sırayla belirir (14 sn civarı tarla şeritleri sağdan solda açılır). Kamera medyan 1.69 %/sn; bazı sahnelerde pan yukarı/aşağı.",
+   "kanit": "video-1 00:10.8, ilk30-0.5.jpg 11.0-14.0",
+   "repertuarda": "ken-burns-ice",
+   "etiket": {
+    "ton": [
+     "sakin"
+    ],
+    "konu": [
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "yumusak"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "gece-sahnesi-isik-silueti",
+   "eksen": "arkaplan",
+   "tarif": "Koyu mor-turuncu gece gökyüzü degradesi, ay, yanan meşaleler (turuncu-kırmızı ışıltı), insan silüetleri siyah; pencerelerde sarı ışık (35.3 sn). Gün batımı sahnesi: gökyüzü pembe-turuncu → koyu toprak (126-137 sn).",
+   "kanit": "video-1 00:35, 02:06-02:17",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "portre-cozunme-gri-zemin",
+   "eksen": "gecis",
+   "tarif": "Gri zeminde karakter yanında portre (II. Philip tarzı resim) şeffaftan %100'e çözünür; 267-433 ms.",
+   "kanit": "video-1 03:31.467, 03:55.867",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "arsiv"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "sert-kesim-sahne-donusu",
+   "eksen": "gecis",
+   "tarif": "%91 sert; tek sahne değişimi bile yeni arka plan + yeni etiket; yumusak geçiş sadece dönemsel resimden harita/kart geçişinde (300 ms).",
+   "kanit": "edit-dili.json gecis dagilimi",
+   "repertuarda": "sert",
+   "etiket": {
+    "ton": [
+     "sakin",
+     "enerjik"
+    ],
+    "konu": [
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "tablo-ve-gravur-arsiv-sahnesi",
+   "eksen": "cerceve",
+   "tarif": "Gerçek dönem tabloları ve gravürler (deniz resmi 0:00, değirmen tablosu 3:09, sepya baskı 5:44) çizim sahneleri arasında tam ekran, yavaş zoom; kenarları bulanık kopya ile 4:3→16:9 doldurma (156.5 sn'de gözlenir).",
+   "kanit": "video-1 00:00, 02:36.5, 03:09, 05:44",
+   "repertuarda": "bulanik-kopya",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "tarih",
+     "biyografi"
+    ],
+    "enerji": 1,
+    "his": [
+     "arsiv",
+     "belgesel",
+     "sinematik"
+    ]
+   },
+   "oncelik": 3
+  }
+ ]
+}

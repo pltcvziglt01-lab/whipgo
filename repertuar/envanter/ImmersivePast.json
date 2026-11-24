@@ -1,0 +1,284 @@
+{
+ "kanal": "@ImmersivePast",
+ "nis": "WW2 deniz tarihi / U-869 denizaltısı gizemi (dalış, kimliklendirme araştırması), İngilizce, anlatıcı sesli belgesel 22:05",
+ "konu": [
+  "askeri tarih",
+  "gizem",
+  "suc",
+  "bilim"
+ ],
+ "ton": "gizem",
+ "ae_hissi": "Kanala özel çizilmiş düz-renk 2D vektör animasyon sahnesi (su, tekne, denizaltı, fener ışığı) ve gerçek batimetri verisinden render edilmiş koyu haritalar, kalıcı tarih rozeti, derinlik cetveli ve eleme matrisi birlikte tek bir tasarım sistemi gibi duruyor: stok-video + altyazı şablonu değil, After Effects infografik/hareket tasarımı hissi veriyor. Metin kartları az, kısa ve kondanse; kesim ritmi hızlı (22 kesim/dk) ama sahne sürekliliği (aynı çizim farklı kadraj) kaybolmuyor.",
+ "teknikler": [
+  {
+   "ad": "2d-vektor-animasyon-sahne",
+   "eksen": "grafik",
+   "tarif": "Tüm anlatı sahnesi videoya özel çizilmiş düz-renk (flat) 2D vektör animasyon: üstte açık aqua (#5BB8C0) gökyüzü/yüzey şeridi, aşağı doğru koyulaşan derin teal gradyan su (#1B6B7C -> #0E4556), altta kum bandı (#A89678), ortada çelik mavi-gri (#5F7F94) denizaltı gövdesi, hafif gölge/üst ışık tonlu. Tekne, dalgıç, denizaltı ayrı katmanlar; kamera 'sabit' ölçülmüş ama aslında dikey tilt (ilk 3 sn'de tekneden suya inen dalgıcı izleyen aşağı pan, yüzey çizgisi yukarı kayıyor) ve yavaş 1.0->1.15 ölçek. Gövdedeki hasar delikleri siyah-kırık kenarlı poligon, vinç/güverte detayları çizgisel. Aynı sahne farklı kadrajlarla (uzak, orta, yakın hasar, kesit) yeniden kullanılıyor; bu yüzden 22 kesim/dk'ya rağmen görsel süreklilik var. Easing: ease-in-out yaklaşımı (gözlem, durağan kareden çıkarım); kesin eğri bilinmiyor.",
+   "kanit": "video-1 00:00-00:33 (ritim\\ilk30-cekimler.jpg, ilk3sn-0.1.jpg), 01:36-01:48",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "suc"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel",
+     "modern",
+     "temiz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "el-feneri-isik-konisi",
+   "eksen": "doku",
+   "tarif": "Dalgıcın fenerinden çıkan beyaz-yarı saydam koni: tepe noktası dalgıç elinde, genişleyen ve uçta yumuşakça sönen (linear-gradient maskeli üçgen/koni, opacity ~0.55 -> 0), arada küçük kabarcık/toz noktaları. Işık gövdeye vurduğu yerde parlak 'leke' yok, yalnız konisel aydınlık. Sahne boyunca koni yönü kadraja göre değişir (aşağı, sağa çapraz). Mix-blend 'screen' veya 'overlay' ile uygulanabilir (gözlem; tam blend modu bilinmiyor).",
+   "kanit": "video-1 00:05-00:33 (ilk30-cekimler.jpg: 5.4s, 11.6s, 19.8s, 26.4s)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem"
+    ],
+    "konu": [
+     "gizem",
+     "askeri tarih",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel",
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "kalici-tarih-rozeti",
+   "eksen": "altbant",
+   "tarif": "Sol üst köşe, kadraj kenarından ~%1.5 içeride koyu antrasit (#1E2A30, opaklık ~0.85) yatay plaka: üst satır beyaz kondanse kalın büyük harf '2 SEPTEMBER 1991' (Oswald Bold sınıfı), alt satır çok küçük, harf aralıklı açık gri (#B5BEC2) '60 MILES OFF NEW JERSEY'. Sahne boyunca sabit durur, içeriği zaman ilerledikçe değişir ('SEPTEMBER 1991', 'OCTOBER 1991', '1991'): bir zaman-yer çıpası. Giriş/çıkış animasyonu bilinmiyor (kareler hep dolu).",
+   "kanit": "video-1 00:00-00:33, 01:25, 03:46, 03:59 (ilk30-cekimler.jpg, sonrasi-ornek.jpg 120-239s)",
+   "repertuarda": "cip-etiket",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "haber",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "resmi",
+     "temiz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "derinlik-cetveli",
+   "eksen": "grafik",
+   "tarif": "Kadrajın sağ kenarında dikey ölçek: 5-6 yatay çentik, her birinin yanında minik beyaz-gri değer etiketi (69 FT, 130 FT, 175 FT, 230 FT) ve en dipte yeşilimsi vurgu etiketi. Dalgıç/denizaltı derinliği bu çizgiyle okunuyor; '230 FEET' ve 'SPORT DIVING LIMIT 130 FT' kartları aynı eksende kesikli yatay çizgiyle bağlanıyor (gözlem: 85.5s karede kesikli çizgi var). Etiketler çok küçük (okunması için kadraj zoom'u gerekiyor).",
+   "kanit": "video-1 00:07 (ilk30-cekimler.jpg 7.1s), 01:25 (yuzde30-cekimler-1.jpg 85.5s)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "bilim",
+     "gizem",
+     "askeri tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "koyu-batimetri-harita",
+   "eksen": "harita",
+   "tarif": "Koyu lacivert-siyah (#0C1520) zemin üzerine GEBCO/ETOPO batimetri rölyefi (gölgelendirilmiş yükselti, çok düşük kontrast gri-mavi doku), ince açık mavi (#6FA3C4, ~1 px) kıyı çizgisi ve eyalet sınırları. Üstüne beyazımsı küçük nokta işaretçi, kesikli rota çizgisi (transatlantik rota 307s: ince kesikli beyaz yay), minik harf aralıklı etiketler ('ABOUT 3,500 MILES', '10,000 ATTACKS ON FILE'). Kamera yavaş zoom (+/-) ve hafif pan; bazı karelerde işaretçi etrafında genişleyen halka (gözlem 201s). Açıklamada 'GEBCO 2026 Grid; Natural Earth; Terrain Tiles on AWS (ETOPO1)' kaynak gösteriliyor, yani gerçek veriyle üretilmiş.",
+   "kanit": "video-1 00:38, 01:01, 03:07, 03:21, 03:36, 04:56, 05:07 (sonrasi-ornek.jpg)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "bilim",
+     "haber"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "karanlik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "eleme-izgarasi",
+   "eksen": "grafik",
+   "tarif": "Siyah zeminde çok sayıda minik denizaltı silueti satır-sütun matrisi (1,171 U-boat); aday sayısı daraldıkça (1,171 -> 36 -> 2) elenenler soluyor, kalan tek silüet turuncu-kırmızı (#E0653A) parlıyor. '1,171 U-BOATS' kartı iki tonlu: sayı kırık beyaz (#F2EBE4), 'U-BOATS' terracotta (#C9735B), Oswald Bold sınıfı kondanse. Geçişte 'A DEAD END' alt-orta kalın beyaz kondanse etiket.",
+   "kanit": "video-1 04:48 (sonrasi-ornek.jpg 288.0s), 05:40 (GECIS 340.5s), font-aday-01.jpg",
+   "repertuarda": "nokta-matris",
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "bilim",
+     "liste"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "nesne-spot-izolasyon",
+   "eksen": "diger",
+   "tarif": "Kanıt nesnesi (porselen kase, kartal+gamalı haç damgası; saplı yemek bıçağı) siyah-antrasit boş zeminde, merkezden yumuşak daire spot ışığı (radial-gradient, kenarlar #000'a düşüyor); nesne yavaş zoom+ (kase 145.8s -> 148.7s yakınlaşma, bıçak 251.5/254.2/258.4s üç ardışık kadraj). Gölge zeminle bütünleşik (fotogerçekçi, muhtemelen CG/AI render, gözlem). Üstüne metin kartı: sol/alt orta '1942' (krem kağıt zeminli etiket) veya 'MARTIN HORENBURG' (beyaz kondanse, koyu zemin).",
+   "kanit": "video-1 02:25-02:38 (kase), 04:11-04:22 (bıçak), sonrasi-ornek.jpg",
+   "repertuarda": "spot-isik",
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "daktilo-alinti",
+   "eksen": "alinti",
+   "tarif": "Siyahtan açılan (siyaha-gecis, 133-200 ms) koyu kömür/duman dokulu zemin (#14171B, lekeli); sol üstte serif italik açık krem (#E6DFD2) alıntı metni, harf harf beliriyor ('\"', '\"Th', '\"The' ...); altında küçük harf aralıklı kırmızımsı (#C0553E) kaynak adı (HORST BREDOW). Metin sol hizalı, kadrajın üst üçte biri, satır başı 2-3 kelime. Bölüm sonu cümlesi olarak 'It cannot be at the shore, or at the coast of New Jersey.' tam görününce siyaha düşüyor.",
+   "kanit": "video-1 05:16-05:20 (GECIS siyaha_gecis 316.867s, 320.433s)",
+   "repertuarda": "daktilo-belge",
+   "etiket": {
+    "ton": [
+     "gizem",
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi",
+     "gizem"
+    ],
+    "enerji": 1,
+    "his": [
+     "sinematik",
+     "karanlik",
+     "resmi"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "kisa-ifade-altyazi",
+   "eksen": "baslik",
+   "tarif": "Videoda sürekli altyazı yok; yalnız anahtar ifade kartları: 1-4 kelime büyük harf, kondanse kalın (Oswald Bold/Barlow Condensed sınıfı), kırık beyaz (#E8E8EA, ölçüm 200,201,203), kadrajın ortasında veya üst-ortada, arkasında koyu yarı saydam (#202020, ~0.6) yatay plaka, hafif gölge. Örnekler: '230 FEET', 'GERMAN NAVY: NO RECORD', 'WHICH BOAT?', 'SPORT DIVING LIMIT 130 FT', '16-18 MILLION' (plakasız, görüntü üstünde). Boyut ekran yüksekliğinin ~%4.4-6. Animasyon: ölçüm 'kutulu olası' 0.63; giriş çözünme/pop bilinmiyor.",
+   "kanit": "video-1 00:11, 00:28, 00:46, 01:25, 05:53 (yazi-kirpinti, kirpintilar\\12, 15, 20)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "siyaha-gecis",
+   "eksen": "gecis",
+   "tarif": "Bölüm kapanışlarında 133-200 ms (4-6 kare) siyaha düşüp bir sonraki kartta (alıntı/harita) siyahtan açılma; tüm geçişlerin %9'u. 5:47'de 133 ms'lik çapraz çözünme (fotoğraf kolajı -> arşiv fotoğrafı), 5:53'te 533 ms uzun çözünme ('16-18 MILLION' kartı altta sabit kalıp arka plan değişiyor).",
+   "kanit": "video-1 03:44, 05:16, 05:20, 05:40, 05:47, 05:53 (GECIS blokları)",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "gizem"
+    ],
+    "enerji": 1,
+    "his": [
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "gercek-arsiv",
+   "eksen": "arkaplan",
+   "tarif": "Siyah-beyaz Navy/Bundesarchiv fotoğrafları (denizaltı iskele, güvertede mürettebat, muhrip), tam ekran, 1.0->1.12 yavaş zoom+ (Ken Burns içe, ~1.5-3 %/sn), sert kesim; arada çerçeveli (beyaz ince çerçeve, koyu kömür zemin) fotoğraf kartı (04:21 civarı). Bir iki harita/delil kağıdı bölümünde 'cerceveli-duz-renk' (ölçüm %4).",
+   "kanit": "video-1 01:52, 03:04, 03:16, 03:23, 04:21, 04:48 (sonrasi-ornek.jpg)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "haber"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "belgesel",
+     "resmi"
+    ]
+   },
+   "oncelik": 3
+  }
+ ]
+}

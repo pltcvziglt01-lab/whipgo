@@ -1,0 +1,255 @@
+{
+ "kanal": "@BoneWitness-r6y",
+ "nis": "Ortaçağ savaş arkeolojisi / Visby 1361 Korsbetningen toplu mezarı, İngilizce anlatıcı sesli belgesel 21:35",
+ "konu": [
+  "askeri tarih",
+  "biyografi",
+  "suc",
+  "bilim"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "Parşömen zeminli çerçeveli kartlar, boş parşömen üzerinden çözünme geçişi, ağır vinyet ve sepya grade ile sahneler tek bir 'yaşlanmış arşiv' tasarım dilinde birleşiyor; drone, müze makro ve canlandırma farklı kaynakları aynı filtre dünyasına çekiyor. Hareket tasarımı sınırlı (zoom+pan, büyük kırmızı rakam), yani AE hissi parşömen sistemiyle geliyor, animasyonla değil.",
+ "teknikler": [
+  {
+   "ad": "parsomen-gecis",
+   "eksen": "gecis",
+   "tarif": "Görsel/kart değişimi doğrudan çapraz çözünme değil, boş parşömen (krem-bej #CDB88F, lekeli doku, ağır koyu kenar vinyeti) üzerinden: önceki kare (kemik, kafatası, drone) ~100 ms içinde boş parşömene fade-out, sonra yeni öğe (çerçeveli eser, harita, tablo) parşömenden fade-in; toplam 6 kare = 200 ms (5 kare 167 ms de var). Ölçüm bunu 'cozunme' (%10) sayıyor. Sert kesimden (%82) farklı olarak yalnız arşiv-ögeye (eser, tablo, harita) giriş yapılırken kullanılıyor.",
+   "kanit": "video-1 00:17.5, 00:52.6, 02:14.5, 02:37, 02:54 (edit-dili-sayfa.jpg GECIS blokları)",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "sicak",
+     "retro",
+     "belgesel"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "parsomen-cerceve-kart",
+   "eksen": "cerceve",
+   "tarif": "Müze eseri/tablo/harita/zırh çizimi, parşömen zemin üstünde kadrajın ~%60-65'ini kaplayan ortalanmış inset: ince açık (#E8DCC2, ~2 px) iç çizgi, hafif yumuşak gölge, eserin kendi renkleri korunuyor (kırmızı kumaş üstü zincir başlık, Bruegel 'Ölümün Zaferi', Holbein portre, kilise). Zemin ağır elips vinyetle karartılmış, kenarlar #1A1208'e düşüyor. Kart yavaş zoom+ (1.0->1.08) alır; bazen 7 sn sabit. Giriş: boş parşömenden çözünme.",
+   "kanit": "video-1 00:17.5 (zincir kafatası), 00:52.6, 02:14, 02:54, 03:19 (yuzde30-cekimler-1.jpg, edit-dili-sayfa.jpg)",
+   "repertuarda": "polaroid",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "sicak",
+     "retro"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "sepya-harita",
+   "eksen": "harita",
+   "tarif": "Antik harita görünümü: sepya parşömen (#CDB88F) üstüne koyu kahve (#6B5545, ölçüm 96,81,70) kıyı silüeti ve tonlu bölge alanları (İsveç, Danimarka, Almanya gibi isimler harf aralıklı büyük harf, #915D44 civarı); kenar vinyeti. İki ayrı harita tipi var: (1) düz renk vektör kıta silueti (124.2s, 272.1s: açık bej zemin, koyu kahve kara), (2) gerçek eski gravür harita (Gotland, 'DEUTSCHES MEER' harf aralıklı, 184.3s renk lekeli bölge haritası). Kamera yavaş zoom+ veya sabit, işaretçi nokta ve etiketlerle rota.",
+   "kanit": "video-1 02:04 (124.2s), 02:29, 03:04, 04:32 (yuzde30 + sonrasi-ornek.jpg), kirpintilar\\12 14 15 18 22",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "seyahat",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "retro",
+     "sicak"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "kirmizi-sayi-alt-cizgi",
+   "eksen": "sayi",
+   "tarif": "Parşömen/kraft zeminde (#BBA583) koyu kırmızı (#AF1E1C) ağır kondanse büyük rakam '1,185', '2,000+', 'AT LEAST 1 IN 3'; altında el çizimi izlenimli kırmızı kalın alt çizgi (fırça darbesi). Boyut ekran yüksekliğinin %28-34'ü (kanalın en büyük yazısı). Zeminle çarpma karışımı (multiply) gibi duruyor: kağıt dokusu rakam içinden geçiyor (gözlem). Font: Bebas Neue / Oswald sınıfı; kesin yüz bilinmiyor (1,185 için Bebas Neue skoru 2.66).",
+   "kanit": "video-1 00:32 (1,185), 01:20 (AT LEAST 1 IN 3), 06:04 (2,000+) -- kirpintilar\\01 02 10, font-aday-01.jpg",
+   "repertuarda": "alt-cizgi",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "suc",
+     "biyografi"
+    ],
+    "enerji": 3,
+    "his": [
+     "arsiv",
+     "retro",
+     "sicak"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "buyuk-yil-etiketi",
+   "eksen": "baslik",
+   "tarif": "Sahne üstüne beyaz (#FBFCFA) kondanse ağır büyük harf yıl/tarih: '1905', '22 July 1361', '1361', '1288'. Boyut %12-13 yükseklik, kadrajın sol-üst veya üst-orta bölgesinde; arkada koyu (#0D0F0A - #2A2928) görüntü, harf kenarı ince koyu gölgeli. 1288 küçük (sol üst köşe, ~%4) ve görüntü üstünde, ana yıllar büyük. 22 July 1361 kart arkaplanında yarı saydam beyaz bir ışık/kıyafet var: metin kontrastı yüksek.",
+   "kanit": "video-1 00:01 (1905), 02:02 (1361), 03:34 (1288), 05:46 (22 July 1361) -- kirpintilar\\05 06 07 08",
+   "repertuarda": "buyuk-yil",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi",
+     "haber"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "arsiv",
+     "resmi"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "vinyet",
+   "eksen": "doku",
+   "tarif": "Tüm videoya uygulanan ağır elips vinyet: merkez/köşe parlaklık oranı 4.85 (ölçüm; JaimeHeinecke 0.9, ImmersivePast 1.12). Köşeler fiilen siyaha düşüyor, merkez parlak; hem drone görüntüsünde hem parşömende hem kemik makrosunda aynı. Büyük olasılıkla tek bir ayarlama katmanı (radial maske, feather ~%60, opaklık ~0.8) tüm videoya uygulanmış.",
+   "kanit": "video-1 tüm kareler (ritim\\ilk30-cekimler.jpg, renk.vinyet_merkez_kose=4.85)",
+   "repertuarda": "vinyet",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi",
+     "suc"
+    ],
+    "enerji": 2,
+    "his": [
+     "karanlik",
+     "sinematik",
+     "arsiv"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "sicak-grade",
+   "eksen": "doku",
+   "tarif": "Sıcaklık (R-B) +20.6, doygunluk 0.27, parlaklık 0.34: sepya/kahve tonlu, düşük doygunluk. Müze kemik çekimleri amber-altın (kırmızı vitrin zemin), parşömen kartlar #CDB88F, drone karelerinde yeşiller hafif soğutulmuş ve gölgeler magentaya kaymış (88.9s: mor-pembe çatılar). Canlandırma çekimleri ise soluk-yeşilimsi gri, yüksek kontrast, vinyetli: iki farklı kaynak tek renk dünyasına çekilmiş (gözlem).",
+   "kanit": "video-1 00:11, 00:35, 01:29, 00:39 (canlandırma)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "sicak",
+     "arsiv",
+     "retro"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "canlandirma-soluk-grade",
+   "eksen": "doku",
+   "tarif": "Ortaçağ savaş canlandırması (zırhlı figürler, mızraklar, bayraklar) klipleri: doygunluk düşük, gölgeler yeşilimsi-gri, gökyüzü beyaza yakın gri, vinyet çok ağır; kamera hafif el-kamerası/yavaş zoom+ (zoom+pan 0.15 %/sn). Birkaç sn'lik kısa kesimler (1.5-2.4 sn) hızlı, savaş sahnesi ritmi.",
+   "kanit": "video-1 00:35, 00:39, 00:49, 00:51, 01:22, 04:10 (yuzde30-cekimler-1.jpg)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri tarih",
+     "suc"
+    ],
+    "enerji": 3,
+    "his": [
+     "karanlik",
+     "sinematik",
+     "belgesel"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "stok-video",
+   "eksen": "arkaplan",
+   "tarif": "Gotland/Visby drone kareleri ve müze kemik/kafatası vitrin makro çekimleri: drone yavaş ileri/yükselme, makro çekimler kayan pan; hepsi tam ekran, zoom+ (2.5 %/sn medyan) ve ağır vinyetle sepya dünyasına uyduruluyor. 2 sn'den kısa çekim oranı yüksek (ilk 30 sn'de 3 çekim <1 sn).",
+   "kanit": "video-1 00:00-00:30, 02:12-02:20, 03:11-03:15",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "seyahat"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "arsiv"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "ken-burns-ice",
+   "eksen": "kamera",
+   "tarif": "Durağan eser/fotoğraf/harita: zoom+ 1.0->1.08 (yavaş) ve çoğu karede zoom+pan karışımı (pan yukarı/sola 0.15 %/sn medyan); ilk 30 sn'de %78 hareketli çekim, zoom medyan 2.56 %/sn. Kısa makro çekimlerde (kemik 14.6s, kafatası 16.1s) zoom+pan daha hızlı.",
+   "kanit": "video-1 00:00-00:30 (ilk30 hareket dağılımı), edit-dili-sayfa.jpg",
+   "repertuarda": "ken-burns-ice",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri tarih",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "arsiv"
+    ]
+   },
+   "oncelik": 3
+  }
+ ]
+}

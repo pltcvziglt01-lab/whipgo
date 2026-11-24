@@ -1,0 +1,252 @@
+{
+ "kanal": "@TactCoreYT",
+ "nis": "ABD ordusu / askeri adalet (UCMJ) explainer, İngilizce, kod ile üretilmiş piksel-art + blueprint infografik animasyon",
+ "konu": [
+  "askeri",
+  "egitim",
+  "haber"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "Kesim yok: tek sürekli sahnede takvim, sayaç, piksel askerler, damgalar ve merdiven akıyor; sabit üst sekme ve 'FILE 01/09' etiketi UI/HUD hissi verir. Gerçekten tasarlanmış motion-graphics görünümü var, ancak ince; Remotion kodunun düzgün kullanımı belli ve şablon izlenimi vermiyor çünkü her öğe konuya özgü.",
+ "teknikler": [
+  {
+   "ad": "mavi-print-izgara-sahne",
+   "eksen": "arkaplan",
+   "tarif": "Koyu lacivert #12254A zemin, ince açık-mavi ızgara (~24 px, %6-10), hafif vinyet; sahne temizlense de kalır (kalıcı katman); üstüne tüm öğeler biner.",
+   "kanit": "video-1 00:00-00:30, kalici-katman.jpg",
+   "repertuarda": "blueprint",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "egitim",
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik",
+     "resmi",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "baslik-sekmesi-ve-dosya-sayaci",
+   "eksen": "altbant",
+   "tarif": "Üst-solda turuncu #F28C2A eğik kenarlı sekme, içinde küçük beyaz büyük harf video başlığı; üst-sağda gri çerçeveli 'FILE 01 / 09' bölüm sayacı. Tüm video boyunca sabit (kalıcı katman).",
+   "kanit": "video-1 00:00-02:51, kalici-katman.jpg",
+   "repertuarda": "cip-etiket",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "haber",
+     "egitim"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "teknik",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "sayac-takvim-tufek",
+   "eksen": "sayi",
+   "tarif": "0.5 sn takvim ikonu '3' ölçek belirir; 1.0-1.9 sn turuncu sayaç 0→1→4→6→7→8 (6 adımda ~0.9 sn, ease-out gibi: hızlı başlar yavaşlar); 1.6-2.5 sn 8 piksel asker yukarıdan sıraya dizilir; alt etiket küçük gri.",
+   "kanit": "video-1 00:00.5-00:02.5, ilk3sn-0.1.jpg",
+   "repertuarda": "sayac",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "resmi",
+     "teknik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "damga-etiketi",
+   "eksen": "baslik",
+   "tarif": "Koyu lacivert şeritli kutu, 2 px kırmızı #C4635B çerçeve, dar kalın büyük harf sans, ~-3° eğik; 'FIRST SINCE 1961', 'MISSED DUTY', 'NO JUDGE', 'NO JURY' kırmızı; 'ACCEPTED' yeşil #5E9276. Giriş basma (scale+opacity) olası.",
+   "kanit": "video-1 00:15.0, yazi-kirpinti.jpg, kirpintilar/03.png",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "suc",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "resmi",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "ceza-merdiveni-listesi",
+   "eksen": "liste",
+   "tarif": "Sağ kenarda 6 çerçeveli koyu kutu dikey liste (EXECUTION/DISCHARGE/PRISON/COURT-MARTIAL/ARTICLE 15/WARNING); ekran temizlendikten sonra belirir ve sabit kalır; seviye atlama vurgusu olası.",
+   "kanit": "video-1 00:20.0-00:29.5",
+   "repertuarda": "panel-yigini",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "suc",
+     "liste",
+     "egitim"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "teknik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "piksel-karakter-anlatici",
+   "eksen": "diger",
+   "tarif": "16-32 px piksel-art asker karakter (haki üniforma), nearest-neighbor büyütme; turuncu isim etiketi (PVT. MILLER); 0.5 sn aralıkla poz (kol açma); yanında küçük chip balonu. 8 askerlik sıra aynı stil.",
+   "kanit": "video-1 00:01.5-00:04.0, 00:21.5-00:29.5",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "egitim",
+     "oyun"
+    ],
+    "enerji": 3,
+    "his": [
+     "retro",
+     "oyunbaz",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "daktilo-mono-etiket",
+   "eksen": "altyazi",
+   "tarif": "Koyu şerit üstünde mono-slab (Courier Prime/Special Elite sınıfı) kısa etiketler; anlam renk kodu: teal $0 lost, yeşil rank kept, pembe-kırmızı not punish, turuncu nobody knows which; 'he can say NO' turuncu el yazısı; 1-9 sn.",
+   "kanit": "yazi-kirpinti.jpg, kirpintilar",
+   "repertuarda": "daktilo",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "askeri",
+     "egitim",
+     "liste"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "retro",
+     "temiz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "ekran-temizleme-gecisi",
+   "eksen": "gecis",
+   "tarif": "19.0-19.5 sn'de ekrandaki öğeler (asker sırası, sayaç, damga) sağa kayarak/küçülerek çıkıyor; ızgara kalıyor; ardından 20 sn merdiven kutuları belirir. Kesim yok, aynı sahne içi.",
+   "kanit": "video-1 00:19.0-00:20.0",
+   "repertuarda": "kaydirma-itme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "egitim"
+    ],
+    "enerji": 3,
+    "his": [
+     "dinamik",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "kinetik-baslik-turuncu-dar",
+   "eksen": "baslik",
+   "tarif": "Dar kalın büyük harf sans (Bebas Neue/Oswald sınıfı), turuncu #F28C2A: 'WHY?', 'ARTICLE 15', 'PVT. MILLER' (3-13 sn ekranda); beyaz 'CORRECTIVE TRAINING' (15 sn).",
+   "kanit": "yazi-kirpinti.jpg",
+   "repertuarda": "olcek-darbe",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "egitim"
+    ],
+    "enerji": 3,
+    "his": [
+     "resmi",
+     "modern"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "tek-sahne-ekran-ici-ritim",
+   "eksen": "zaman",
+   "tarif": "171 sn boyunca kesim yok; her 2-4 sn'de yeni öğe girişi (takvim → sayaç → askerler → isim etiketleri 8.5 sn → damga 15 sn → temizle 19.5 sn → merdiven 20 sn → karakter 21.5 sn); kelime/dk 184.",
+   "kanit": "video-1 00:00-00:30 (30 sn gözlendi)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "egitim",
+     "haber"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "dinamik"
+    ]
+   },
+   "oncelik": 1
+  }
+ ]
+}
