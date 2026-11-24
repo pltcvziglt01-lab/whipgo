@@ -1,4 +1,4 @@
-# yt-uretim (ÖZEL)
+# whipgo (ÖZEL)
 
 YouTube video üretim sisteminin tek kaynağı: Claude skill'i, Remotion edit repertuarı, araçlar ve lisanslı edit paketleri.
 **Repo özel kalır** — `varlik/` içindeki paketlerin lisansı (Adobe Basics) dağıtımı yasaklar.
