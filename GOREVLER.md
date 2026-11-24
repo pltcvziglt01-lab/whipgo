@@ -28,10 +28,10 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 22 | `OKUNUR.enaz` 32 -> 36 px; ortak baslik `ust` satiri 32 px ve vurgu renginde (beton-sari'de okunmuyor) (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
 | 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
 | 26 | Tek doygun vurgu: kalan `tint-sizinti` (Gecis.tsx; GrenliGradyan, IsikKacagi, Karsilastirma, kirmizi-zemin duzeltildi) | katalogda vurgu2 ikincil | acik |
-| 27 | Gercek italik font dosyalari (PlayfairDisplay/DMSerifDisplay/EBGaramond/SourceSerif4 italic): italik-vurgu sentetik egik cizliyor | italik-vurgu gercek italikle | acik (indirme: OFL Google Fonts — kullanici onayi) |
+| 27 | Gercek italik fontlar: 4 dosya indirildi (OFL, scratchpad/italik); fontlar/ + FONT_AGIRLIK + FontYukle style:italic kaydi | italik-vurgu gercek italikle | repertuar ajanindan sonra (ana oturum) |
 | 28 | VideoDna odak bilgisi: nesne-dalisi `DiziSahne.odak`, belge-tarama-isigi `bolge` (DnaHud), odak-karartma coklu medya | v04 benzeri kurguda dalis odagi konuya gore | acik |
 | 29 | Onizleme: nokta-oran-izgarasi icin [pay, payda] verisi; yil-tarama tipi (Kart.tsx ZAMAN, tarif opus raporunda) | onizleme karesi anlamli | acik |
-| 18 | (izin gerekir) CC0 SFX paketleri ve lisanslı stok medya avı (Wikimedia/Openverse) + kredi satırları | kullanıcı indirme onayı | bekliyor |
+| 18 | CC0 SFX paketleri (cc0-sfx sekmesi) + lisanslı gerçek görüntü avı ve rakip kaynak türü → kaynak stratejisi (gorsel-kaynak sekmesi) | Sfx paletinde CC0 secenek; kanal sablonunda kaynak plani; test sahnesi icin kaynakli gercek gorsel | sekmelerde (kullanici onayi 2026-11-24) |
 
 ## Kapanan (2026-11-24)
 - #4 galeri teknikleri: 12 tip (cubuk-trend, nokta-oran-izgarasi, cubuk-yarisi, italik-vurgu, ustu-cizili-degisim, bolum-numarasi, nesne-dalisi, bolum-cetveli, hayalet-yil, belge-tarama-isigi, odak-karartma) — telefon 360 px karesi yonetici tarafindan onaylandi
