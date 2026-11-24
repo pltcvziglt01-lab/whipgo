@@ -14,6 +14,7 @@ Rakibin görsel dilini SPEC'ten çıkar (ışık, palet, kadraj, gerçekçilik d
 - Kalite: Nano Banana Pro, 16:9, x2; gerekirse Real-ESRGAN ile büyüt (POW hattı).
 
 ## Flow üretimi
+Not: bu bölümdeki `ayarla.py`, `uret.py`, `kontakt.py`, `surekli.sh` skill'in `scripts/` betikleri DEĞİL; Flow/görsel sunucu hattının video klasörü betikleridir (`sablon-video/`'dan ya da bir önceki `videoNN\`'den kopyalanır, `references/kaynak/YOUTUBE-OTOMASYON-SISTEMI.md`).
 1. Flow sekmesi + proje açık, doğru hesap (`u/N`). `py flow/ayarla.py` → model çipine BİR kez tık (ikinci tık kapatır) → x2 → "Nano Banana Pro" seç → Escape → çipte "Nano Banana Pro" ve "x2" doğrula. Sayfa yenilenince "Nano Banana 2 / x1"e döner, her turda çalıştır.
 2. `bash surekli.sh` (ayarla + uret döngüsü, eksikleri tamamlar, bitince log'a `BITTI2`) → bağımsız süreç. İzleme filtresi: `BITTI|Traceback|Error|0 gorsel`. Her görsel satırını izleme.
 3. `uret.py` her istemde: ızgarada yüzde gösteren kutu kalmayana kadar bekle (geç gelen görsel yanlış isme yazılmasın) → "önce" listesi → (karakterliyse karakteri ekle) → `[contenteditable=true]`'ya tıkla, `insertText`, Enter → 240 sn'ye kadar 2 yeni görsel → `img/<ad>_a.jpg`, `_b.jpg`.
@@ -22,9 +23,9 @@ Rakibin görsel dilini SPEC'ten çıkar (ışık, palet, kadraj, gerçekçilik d
 6. "Kullanım sınırınıza ulaştınız" → dur, kullanıcıya sor (bekle / Nano Banana 2'ye onayla geç). Kredi satın alma yok. Hata kartları ızgarada kalır; hata ancak sayı ARTARSA yenidir.
 
 ## Kontrol (tek tek, atlama)
-- `py kontakt.py` → etiketli kontakt sayfaları (≤2000 px). Çok sayfa varsa önce Sonnet alt ajan bulgu listesi çıkarsın, ana model yalnız sorunlu kareye baksın. Aynı görseli iki kez okuma.
+- Video klasöründe `kontakt.py` (Flow hattı) → etiketli kontakt sayfaları (≤2000 px). Çok sayfa varsa önce Sonnet alt ajan bulgu listesi çıkarsın, ana model yalnız sorunlu kareye baksın. Aynı görseli iki kez okuma.
 - Ele: yanlış tür/ırk, yazı/tabela, çerçeve/kolaj/parşömen, deforme el/pençe, yüzü görünen yabancı, sahneye ait olmayan hayvan/nesne, farklı sunucu yüzü, stil kopması.
-- İkisi de kötüyse istemi düzelt, yalnız onu yeniden üret: `py uret.py ad1,ad2`.
+- İkisi de kötüyse istemi düzelt, yalnız onu yeniden üret: video klasöründe `uret.py ad1,ad2` (Flow hattı).
 - Seçim: `B="ad1 ad2"` → `_b`, diğerleri `_a` → `motion/public/vNN/<ad>.jpg`.
 
 ## Stok ve gerçek görüntü

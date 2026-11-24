@@ -7,6 +7,8 @@ Kullanim:
                  [--hedef -14] --cikti final.mp4|mix.wav
   py ses_miks.py --vurus muzik.mp3 [--cikti vurus.json]     (librosa ile vurus/tempo haritasi)
 sfx.json: [{"dosya": "C:/.../whoosh.wav", "t": 12.34, "db": -6}, ...]  (t = saniye; kesim anlari icin)
+  istege bagli "kirp" (dosya basindan atlanan sn) + "sure" (calma suresi sn): atrim + 2 kare giris / 0,25 sn cikis yumusamasi.
+  VideoDna kurgusunun SFX'i icin json'u elle yazma: py sfx_plan.py --plan props.json (Remotion sfxPlani ile birebir).
 --video verilirse goruntu kopyalanir (-c:v copy), ses yeni miksle degisir.
 Muzik: konusma varken sidechain ile ~-12 dB daha kisilir; konusma yokken muzik-db seviyesinde.
 """
@@ -65,8 +67,14 @@ def main():
     if a.sfx:
         for i, e in enumerate(json.load(open(a.sfx, encoding='utf-8-sig'))):
             girdiler += ['-i', e['dosya']]
-            ms = int(float(e['t']) * 1000)
-            filtre.append(f'[{n}:a]aformat=sample_rates=48000:channel_layouts=stereo,volume={e.get("db", -6)}dB,'
+            ms = int(round(float(e['t']) * 1000))
+            zarf = ''
+            if e.get('kirp') is not None or e.get('sure') is not None:   # sfx_plan.py: Remotion SfxKatmani ile ayni kirpma + zarf
+                k, s = float(e.get('kirp') or 0), e.get('sure')
+                zarf = f'atrim=start={k:.4f}' + (f':duration={float(s):.4f}' if s else '') + ',asetpts=PTS-STARTPTS,afade=t=in:d=0.066,'
+                if s:
+                    zarf += f'afade=t=out:st={max(0.1, float(s) - 0.25):.4f}:d={min(0.25, float(s)):.4f},'
+            filtre.append(f'[{n}:a]aformat=sample_rates=48000:channel_layouts=stereo,{zarf}volume={e.get("db", -6)}dB,'
                           f'adelay={ms}|{ms}[s{i}]')
             karisim.append(f'[s{i}]')
             n += 1

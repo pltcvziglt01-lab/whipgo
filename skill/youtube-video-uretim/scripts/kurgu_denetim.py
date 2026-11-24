@@ -19,6 +19,13 @@ Kontroller (FAIL = teslim yok; UYARI = bak, gerekceyle birak):
   KLIP  cekim suresi dagilimi rakipten sapmis (medyan ±%30, p90, <0,8 sn oran, en uzun) · ayni kaynak parcasi tekrar gosteriliyor
   TEKRAR ayni kart turu 3+ kez art arda · flas/vurgu duzenli aralikla (dongu) · hareket etiketleri dongusel (A-B-C-A-B-C):
         lag-2/3 eslesme orani tesadufi beklentiden > 0,25 fazla · tek hareket payi rakipten > 0,2 fazla
+  CERCEVE (plan) gerceklesen cerceveli cekim orani: DnaMedya secimi birebir taklit (temel.ts `rastgele` portu,
+        rastgele(tohum + 'md' + sira) < iskelet.cerceveli_oran); adet ya da sure payi hedeften ±%5 disi -> UYARI
+  KAYNAK YAZISI (plan) alt bant / altyazi / kelime karti gelen cekimin kaynak penceresinde (kb, kb + sure) alt ucte birde
+        gomulu yazi (kaynak videonun kendi altyazisi, haber bandi) -> UYARI "kaynak yazisiyla cakisma". Olcum:
+        py kaynak_yazi.py <motion>/public/<klasor> --plan props.json  (yazmazsa kontrol atlanir, ozet satiri soyler)
+        --duzelt: cekimi ayni kaynagin yazisiz penceresine kaydirir (kb); yoksa alt bantli cekime etiket_ust: true
+        (alt bandi ust koseye alma isareti — VideoDna.tsx'te uygulanmasi gerekir; uygulanana kadar UYARI kalir)
 Cikis kodu: FAIL varsa 1.
 """
 import argparse, json, math, os, re, statistics as st, sys
@@ -200,6 +207,210 @@ def dongu_bulgu(d, ref, ad):
     if d['lag'][1] - d['beklenti'] > 0.25:
         out.append(('UYARI', f'{ad}-art-arda', 'lag-1', f"ayni {ad} art arda cok (eslesme {d['lag'][1]:.2f}, tesadufi {d['beklenti']:.2f})", None))
     return out
+
+
+# ---------------------------------------------------------------- repertuar/temel.ts `rastgele` birebir portu
+M32 = 0xFFFFFFFF
+
+
+def _imul(a, b):
+    return (a * b) & M32
+
+
+def hash_str(s):
+    """temel.ts hashStr: FNV-1a, JS charCodeAt (UTF-16 kod birimi) uzerinden"""
+    h = 2166136261
+    b = s.encode('utf-16-le')
+    for i in range(0, len(b), 2):
+        h ^= b[i] | (b[i + 1] << 8)
+        h = _imul(h, 16777619)
+    return h
+
+
+def rastgele(tohum):
+    """temel.ts rastgele (mulberry32): ayni tohum -> JS ile ayni dizi (0 <= x < 1). Bitler mod 2^32 ayni; JS'in isaretli
+    int32 ara degerleri sonucu degistirmez (yalniz XOR/imul/toplama, hepsi mod 2^32)."""
+    a = [hash_str(tohum) if isinstance(tohum, str) else int(tohum) & M32]
+
+    def r():
+        a[0] = (a[0] + 0x6D2B79F5) & M32
+        x = a[0]
+        t = _imul(x ^ (x >> 15), 1 | x)
+        t = ((t + _imul(t ^ (t >> 7), 61 | t)) & M32) ^ t
+        return ((t ^ (t >> 14)) & M32) / 4294967296
+    return r
+
+
+# ---------------------------------------------------------------- cerceve orani (Dna.tsx DnaMedya taklidi)
+def cerceve_olc(props):
+    """DnaMedya: r = rastgele(tohum + 'md' + sira); cerceveli = r() < cerceveli_oran; tip = cerceve[floor(r() * n)].
+    VideoDna her cekime sira = cekim indeksi verir; medya gorunen cekimler: kart yok ya da kelime karti (sayi/alinti medya gostermez)."""
+    dna = props.get('dna') or {}
+    oran = (dna.get('iskelet') or {}).get('cerceveli_oran')
+    if oran is None or not dna.get('tohum'):
+        return None
+    tipler = dna.get('cerceve') or []
+    fps = props['veri']['fps']
+    n = cer = 0
+    sure_top = sure_cer = 0.0
+    tur = Counter()
+    for i, c in enumerate(props['veri']['cekimler']):
+        if (c.get('kart') or {}).get('tur') in ('sayi', 'alinti'):
+            continue
+        r = rastgele(f"{dna['tohum']}md{i}")
+        s = c['kare'] / fps
+        n += 1
+        sure_top += s
+        if r() < oran:
+            cer += 1
+            sure_cer += s
+            tur[tipler[math.floor(r() * len(tipler))] if tipler else '?'] += 1
+    if not n:
+        return None
+    return {'hedef': oran, 'adet': n, 'cerceveli': cer, 'oran': cer / n, 'sure_oran': sure_cer / sure_top if sure_top else 0, 'tur': dict(tur)}
+
+
+def cerceve_bulgu(o):
+    if not o:
+        return []
+    sap = max(abs(o['oran'] - o['hedef']), abs(o['sure_oran'] - o['hedef']))
+    if sap <= 0.05:
+        return []
+    return [('UYARI', 'cerceve-orani', f"%{o['oran'] * 100:.0f}",
+             f"cerceveli cekim %{o['oran'] * 100:.0f} (sure payi %{o['sure_oran'] * 100:.0f}), hedef iskelet.cerceveli_oran %{o['hedef'] * 100:.0f} ±5 "
+             f"({', '.join(f'{k} {v}' for k, v in o['tur'].items())}) — tohum bu videoda orani saptiriyor; tohumu degistir ya da DnaMedya'da kotali secim", None)]
+
+
+# ---------------------------------------------------------------- kaynak videodaki gomulu yazi (kaynak_yazi.py ciktisi)
+ALT_UCTE_BIR = 0.62     # kaynak_yazi.py ile ayni: kutu merkezi bunun altinda -> alt bant / altyazi / kelime karti alani
+RESIM = re.compile(r'\.(jpe?g|png|webp|avif)$', re.I)
+
+
+def public_bul(plan_yolu):
+    d = os.path.dirname(os.path.abspath(plan_yolu))
+    for _ in range(6):
+        if os.path.isdir(os.path.join(d, 'public')):
+            return os.path.join(d, 'public')
+        d = os.path.dirname(d)
+    return None
+
+
+def kaynak_yazi_yukle(props, public):
+    """cekim indeksi -> (src, yazi.json icerigi ya da None). Resim kaynaklar atlanir."""
+    v = props['veri']
+    out = {}
+    onb = {}
+    for i, c in enumerate(v['cekimler']):
+        if not c.get('tag') and not c.get('src'):
+            continue
+        src = c.get('src') or f"{v.get('klasor', '')}/kaynak/{c['tag']}.mp4"
+        if RESIM.search(src) or c.get('video') is False:
+            continue
+        if src not in onb:
+            y = os.path.join(public, os.path.splitext(src)[0] + '.yazi.json') if public else ''
+            try:
+                onb[src] = jyukle(y) if y and os.path.exists(y) else None
+            except ValueError:
+                onb[src] = None          # yazilirken okundu / bozuk: olculmemis say
+        out[i] = (src, onb[src])
+    return out
+
+
+def alt_yazi_turu(c, cek, kelimeler, altyazi_var):
+    """cekimde alt ucte birde BIZIM hangi yazimiz var: altbant / kart-kelime / altyazi / None"""
+    k = (c.get('kart') or {}).get('tur')
+    if k == 'kelime':
+        return 'kart-kelime'
+    if k:
+        return None          # sayi / alinti karti: altyazi gizli, medya alt bolgesi kartin altinda
+    if c.get('etiket'):
+        return 'altbant'
+    if altyazi_var and any(w['bas'] < cek['son'] and w['son'] > cek['bas'] for w in kelimeler):
+        return 'altyazi'
+    return None
+
+
+def kaynak_cakisma(yj, a, b, tum_kare=False):
+    """[a, b] kaynak penceresinde alt ucte birdeki (tum_kare: karenin herhangi bir yerindeki) gomulu yazi bolgeleri; None = olculmemis"""
+    if not yj:
+        return None
+    ol = yj.get('olculen') or [[0, yj.get('sure', 0)]]
+    if not any(p - 0.01 <= a and b <= q + yj.get('aralik', 1) for p, q in ol):
+        return None
+    return [g for g in yj.get('bolgeler', []) if g.get('tur', 'kaplama') == 'kaplama'          # sahne yazisi (pano, sponsor duvari) sayilmaz
+            and (tum_kare or g['kutu'][1] + g['kutu'][3] / 2 >= ALT_UCTE_BIR) and min(b, g['bit']) - max(a, g['bas']) > 0.05]
+
+
+def kaynak_denetle(props, cek, ky):
+    """alt bant / altyazi / kelime karti gelen cekimin kaynak penceresinde (kb, kb + sure) alt ucte birde gomulu yazi -> UYARI"""
+    v = props['veri']
+    dna = props.get('dna') or {}
+    altyazi_var = (dna.get('altyazi') or 'yok') != 'yok'
+    kel = v.get('kelimeler') or []
+    bulgular, ozet = [], {'denetlenen': 0, 'olculmemis': 0, 'cakisma': 0, 'bekleyen_ust': 0}
+    for i, c in enumerate(v['cekimler']):
+        if i not in ky:
+            continue
+        tur = alt_yazi_turu(c, cek[i], kel, altyazi_var)
+        if not tur:
+            continue
+        src, yj = ky[i]
+        a, b = float(c.get('kb') or 0), float(c.get('kb') or 0) + cek[i]['sure']
+        g = kaynak_cakisma(yj, a, b)
+        if g is None:
+            ozet['olculmemis'] += 1
+            continue
+        ozet['denetlenen'] += 1
+        if not g:
+            continue
+        yer = f"#{i} {cek[i]['bas']:.1f}s {tur}"
+        gm = '; '.join(f"\"{x['metin'][:32]}\" ({x['bas']:.0f}-{x['bit']:.0f}s)" for x in g[:2])
+        bilgi = {'i': i, 'tur': tur, 'src': src}
+        if tur == 'altbant' and c.get('etiket_ust'):
+            ozet['bekleyen_ust'] += 1
+            bulgular.append(('UYARI', 'kaynak-yazisi-etiket-ust', yer, f"etiket_ust isaretli ama VideoDna.tsx henuz uygulamiyor: alt bant hala {gm} ustunde", bilgi))
+            continue
+        ozet['cakisma'] += 1
+        bulgular.append(('UYARI', 'kaynak-yazisi-cakisma', yer, f"kaynak '{os.path.basename(src)}' {a:.1f}-{b:.1f}s alt ucte birde gomulu yazi: {gm}", bilgi))
+    return bulgular, ozet
+
+
+def kaynak_duzelt(props, ky, asgari_kare=18):
+    """cakisan cekimi ayni kaynagin yazisiz (olculmus) penceresine kaydir (kb degisir, en yakin pencere, ayni parca baska cekimde
+    kullanilmiyor); bulunamazsa alt bantli cekime etiket_ust: true (alt bandi ust koseye almak icin; VideoDna.tsx'te uygulanmali)."""
+    v = props['veri']
+    fps = v['fps']
+    cek, _ = plan_ogeleri(v)
+    bul, _ = kaynak_denetle(props, cek, ky)
+    islem = []
+    for _s, kod, _y, _m, bi in bul:
+        if kod != 'kaynak-yazisi-cakisma':
+            continue
+        i = bi['i']
+        c = v['cekimler'][i]
+        src, yj = ky[i]
+        sure = c['kare'] / fps
+        kb0 = float(c.get('kb') or 0)
+        diger = [(float(x.get('kb') or 0), float(x.get('kb') or 0) + x['kare'] / fps) for j, x in enumerate(v['cekimler'])
+                 if j != i and j in ky and ky[j][0] == src]
+        adim = 0.25
+        aday = []          # (temiz_kare, s): hic kaplama yazisi olmayan pencere (ortada baslik da yok) tercih, alt ucte biri temiz yeter
+        for p, q in yj.get('olculen') or []:
+            s = math.ceil(p / adim) * adim
+            while s + sure <= min(q, yj.get('sure', q) - 0.1):
+                if kaynak_cakisma(yj, s, s + sure) == [] and all(min(s + sure, y) - max(s, x) <= 0.5 for x, y in diger):
+                    aday.append((kaynak_cakisma(yj, s, s + sure, tum_kare=True) == [], s))
+                s += adim
+        if aday:
+            temiz, s = min(aday, key=lambda x: abs(x[1] - kb0) + (0 if x[0] else 10))   # kaplamasiz pencere 10 sn'ye kadar daha uzakta olabilir
+            c['kb'] = round(s, 3)
+            islem.append(f"#{i} ({bi['tur']}): kb {kb0:.2f} -> {s:.2f} sn ('{os.path.basename(src)}' {'kaplama yazisiz' if temiz else 'alt ucte biri yazisiz'} pencere, {s - kb0:+.1f} sn)")
+        elif bi['tur'] == 'altbant':
+            c['etiket_ust'] = True
+            islem.append(f"#{i} (altbant): '{os.path.basename(src)}' icinde yazisiz {sure:.1f} sn pencere yok -> etiket_ust: true (VideoDna.tsx uygulamali)")
+        else:
+            islem.append(f"#{i} ({bi['tur']}): yazisiz pencere yok, cozulmedi — baska kaynak sec ya da altyazi konumunu tasi")
+    return props, islem
 
 
 # ---------------------------------------------------------------- rakip hedefleri
@@ -390,6 +601,20 @@ def main():
         bulgular += yazi_denetle(yazilar, veri.get('kelimeler') or [])
         kb, o = klip_denetle([c['sure'] for c in cek], ref)
         bulgular += kb + tekrar_denetle(cek)
+        co = cerceve_olc(props)
+        bulgular += cerceve_bulgu(co)
+        if co:
+            ozet['cerceveli (DnaMedya taklidi)'] = (f"%{co['oran'] * 100:.0f} cekim ({co['cerceveli']}/{co['adet']}), sure payi %{co['sure_oran'] * 100:.0f}"
+                                                    f" · hedef %{co['hedef'] * 100:.0f} · {', '.join(f'{k} {v}' for k, v in co['tur'].items()) or '-'}")
+        public = public_bul(a.plan)
+        ky = kaynak_yazi_yukle(props, public)
+        kbul, kozet = kaynak_denetle(props, cek, ky)
+        bulgular += kbul
+        olculen_kaynak = sum(1 for s, yj in ky.values() if yj)
+        ozet['kaynak gomulu yazi'] = (f"{kozet['denetlenen']} alt yazili cekim denetlendi, {kozet['cakisma']} cakisma"
+                                      + (f", {kozet['bekleyen_ust']} etiket_ust bekliyor" if kozet['bekleyen_ust'] else '')
+                                      + (f", {kozet['olculmemis']} cekimin kaynak penceresi olculmemis" if kozet['olculmemis'] else '')
+                                      + ('' if olculen_kaynak else f" — kaynak_yazi.py calistirilmamis: py kaynak_yazi.py {public or '<public>'}/{veri.get('klasor', '')} --plan {a.plan}"))
         kartd = dongu([c['kart'] or 'medya' for c in cek])
         bulgular += [b for b in dongu_bulgu(kartd, None, 'kart') if b[0] == 'FAIL']
         ozet.update({'cekim': len(cek), 'medyan cekim': f"{o['medyan']:.2f} sn", 'p90': f"{o['p90']:.1f} sn", 'en uzun': f"{o['en_uzun']:.1f} sn",
@@ -405,11 +630,18 @@ def main():
         if a.duzelt:
             import copy
             yeni, islem = duzelt(copy.deepcopy(props), bulgular)
+            ky2 = kaynak_yazi_yukle(yeni, public)          # yazi duzeltmesi cekim silebilir: indeksler yeniden
+            yeni, kislem = kaynak_duzelt(yeni, ky2)
+            islem += kislem
             json.dump(yeni, open(a.duzelt, 'w', encoding='utf-8'), ensure_ascii=False)
             cek2, y2 = plan_ogeleri(yeni['veri'])
-            b2 = yazi_denetle(y2, yeni['veri'].get('kelimeler') or []) + klip_denetle([c['sure'] for c in cek2], ref)[0] + tekrar_denetle(cek2)
+            kb2, kozet2 = kaynak_denetle(yeni, cek2, ky2)
+            b2 = (yazi_denetle(y2, yeni['veri'].get('kelimeler') or []) + klip_denetle([c['sure'] for c in cek2], ref)[0] + tekrar_denetle(cek2)
+                  + cerceve_bulgu(cerceve_olc(yeni)) + kb2)
             toplam = (sum(c['kare'] for c in veri['cekimler']), sum(c['kare'] for c in yeni['veri']['cekimler']))
             ozet['duzeltme'] = f"{len(islem)} islem · FAIL {sum(b[0] == 'FAIL' for b in bulgular)} -> {sum(b[0] == 'FAIL' for b in b2)} · toplam kare {toplam[0]} -> {toplam[1]}"
+            ozet['kaynak gomulu yazi (duzeltme sonrasi)'] = (f"{kozet['cakisma']} -> {kozet2['cakisma']} cakisma"
+                                                            + (f", {kozet2['bekleyen_ust']} etiket_ust bekliyor (VideoDna.tsx uygulamali)" if kozet2['bekleyen_ust'] else ''))
             nf = rapor(os.path.basename(a.duzelt), b2, ozet, cikti, islem)
             print(f'duzeltildi -> {a.duzelt} | {ozet["duzeltme"]} | rapor {cikti}')
             sys.exit(1 if nf else 0)
