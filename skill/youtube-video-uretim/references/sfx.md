@@ -36,7 +36,7 @@ Kullanıcının iki paketi var: **SFX_Pack_Mini** (~80 dosya, @adobebasics) ve *
 - Ton paleti (`SFX_PALET`: ciddi / gizem / enerjik / sakin; mizah sesleri yok). Video başına her rolden 2 ses seçilir (tohum) ve sırayla döner: tutarlı ses dili, aynı ses art arda yok.
 - Yoğunluk: yumuşak geçişlere rakibin `sfx_orani` olasılığı; iki ses arası ≥ 0,8 sn (çakışmada öncelikli rol kalır); dakika tavanı ciddi 12, gizem 10, enerjik 26, sakin 6.
 - **Senkron:** `SFX_OLCU` her dosyanın ölçülen ses başlangıcı ve **tepe anı** (10 ms zarf). Baştaki sessizlik kırpılır (`trimBefore`), tepe olay karesine oturur (whoosh tepesi kesimde). Eskiden sabit öteleme vardı; `thump` 0,8 sn, `deep-whoosh` 2 sn geç vuruyordu.
-- **Seviye:** tepe seviyesine göre normalize (−3 dBFS × rol seviyesi 0,12–0,32); sessiz kâğıt/deklanşör de duyulur. Yeni ses eklenince ölçüm yeniden alınıp `SFX_OLCU` güncellenir.
+- **Seviye:** örnek tepesine göre normalize (−3 dBFS × rol seviyesi 0,12–0,32); sessiz kâğıt/deklanşör de duyulur. Yeni ses eklenince `py scripts/sfx_olc.py` ölçümü yeniden yazar (örnek tepesine göre; kırpılma olmaz). Ölçüsüz ses `dogrula.py`'de FAIL.
 - Kapatmak için `<VideoDna sfx={false} />` (yalnız sesi ffmpeg ile bindiren hatlarda; `sfxPlani` çıktısını `ses_miks.py --sfx` json'una çeviren araç henüz yok, gerekirse yazılacak).
 
 ## Remotion'da (elle, özel sahneler için)

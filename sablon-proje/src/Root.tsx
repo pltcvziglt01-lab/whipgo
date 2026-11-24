@@ -1,3 +1,4 @@
+import { VideoDna } from './VideoDna';
 import React from 'react';
 import { AbsoluteFill, Composition } from 'remotion';
 import { Izgara } from './Katalog';
@@ -113,5 +114,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />
+      <Composition id="VideoDna" component={VideoDna as any} durationInFrames={300} fps={30} width={1920} height={1080}
+      defaultProps={{ dna: {} as any, veri: { klasor: '', fps: 30, toplam: 30, cekimler: [], kelimeler: [] } }}
+      calculateMetadata={({ props }: any) => ({ durationInFrames: Math.max(30, props.veri.toplam) })} />
   </>
 );

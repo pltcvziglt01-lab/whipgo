@@ -11,7 +11,8 @@ import { SfxOlay } from './Sfx';
 // Cekim zamanlari seslendirmeye bagli; DnaDizi'nin gecis bindirmesi sureyi kisaltmasin diye her sahneye gecis karesi eklenir.
 // Render'dan ONCE: `py scripts/kurgu_denetim.py --plan props.json --rakip <kutuphane>/kanallar/@Rakip/video-1 --duzelt props-duzeltilmis.json`
 export type Kart = { tur: 'kelime' | 'sayi' | 'alinti'; a: string; b?: string };
-export type Cekim = { kare: number; tag: string; kb: number; kart?: Kart | null; etiket?: string | null; flas?: boolean };
+/** src verilirse dogrudan o dosya (foto/klip); yoksa <klasor>/kaynak/<tag>.mp4. video verilmezse uzantidan anlasilir. */
+export type Cekim = { kare: number; tag: string; kb: number; kart?: Kart | null; etiket?: string | null; flas?: boolean; src?: string; video?: boolean };
 export type SahneVeri = { klasor: string; fps: number; toplam: number; cekimler: Cekim[]; kelimeler: { k: string; bas: number; son: number }[] };
 
 const SAYI = /^([^\d-]*?)(\d[\d,.]*)(\D*)$/;
@@ -54,7 +55,9 @@ export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; 
   const d = (i: number) => (i >= 0 && i < plan.length && plan[i] !== 'sert' ? dna.iskelet.gecis_kare : 0);
   let kartNo = 0; // kelime kartlari arasinda baslik girisi donusumlu
   const sahneler = veri.cekimler.map((c, i) => {
-    const medya = <DnaMedya dna={dna} sira={i} m={{ src: `${veri.klasor}/kaynak/${c.tag}.mp4`, video: true, bas: c.kb }} />;
+    const src = c.src || `${veri.klasor}/kaynak/${c.tag}.mp4`;
+    const video = c.video ?? !/\.(jpe?g|png|webp|avif)$/i.test(src);
+    const medya = <DnaMedya dna={dna} sira={i} m={video ? { src, video: true, bas: c.kb } : { src }} />;
     let el: React.ReactNode;
     if (c.kart && c.kart.tur === 'sayi') el = <Vurus stil={dnaStil(dna)} seviye={vurusSeviye(dna.ton)} tohum={dna.tohum + i}><KartEl dna={dna} k={c.kart} /></Vurus>;
     else if (c.kart && c.kart.tur === 'alinti') el = <KartEl dna={dna} k={c.kart} />;
