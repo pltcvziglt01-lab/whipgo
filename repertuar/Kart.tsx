@@ -6,7 +6,7 @@ import { FONTLAR, Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 // stil_dna kanal basina her kart turu icin BIR varyant kilitler (kanal imzasi), rakibinkinden farkli olani.
 
 // ---------- ALT BANT (isim / yer / tarih etiketi) ----------
-export const ALTBANT_TIPLERI = ['cizgi-acilis', 'blok-kayma', 'cip-etiket', 'koseli-parantez', 'cam-panel'] as const;
+export const ALTBANT_TIPLERI = ['cizgi-acilis', 'blok-kayma', 'cip-etiket', 'koseli-parantez', 'cam-panel', 'damga'] as const;
 export type AltBantTip = typeof ALTBANT_TIPLERI[number];
 /** medyaUstu (varsayilan): video/foto ustunde -> acik yazi + golge; false: Arkaplan ustunde -> palet murekkebi */
 export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu?: boolean }> = ({ tip, ust, alt, stil, sag, medyaUstu = true }) => {
@@ -51,6 +51,20 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
           <div style={{ position: 'absolute', right: 0, bottom: 0, width: k, height: k, borderRight: c, borderBottom: c, transform: `translate(${(1 - p) * -40}px, ${(1 - p) * -20}px)` }} />
           <div style={{ ...ustSt, fontFamily: font.mono, fontSize: 44, opacity: q }}>{U}</div>
           {alt ? <div style={{ ...altSt, fontFamily: font.mono, opacity: q }}>{alt}</div> : null}
+        </div>
+      );
+    }
+    case 'damga': {
+      // hafif egik kirmizi cerceveli damga (@TactCoreYT): basilir gibi buyukten oturur, kenarda murekkep puruzu
+      const d = ilerle(f, 0, fps * 0.25, 'ustel-sert');
+      const kirmizi = palet.acik ? '#b3261e' : '#ff4b3e';
+      return (
+        <div style={{ ...yer, transform: `rotate(-4deg) scale(${1.6 - 0.6 * d})`, opacity: sinirla(d * 2), transformOrigin: sag ? 'right bottom' : 'left bottom' }}>
+          <div style={{ border: `5px solid ${kirmizi}`, borderRadius: 6, padding: '8px 22px', boxShadow: `inset 0 0 0 2px ${rgba(kirmizi, 0.35)}`, background: rgba(kirmizi, 0.06),
+            WebkitMaskImage: 'radial-gradient(circle at 30% 40%, #000 60%, rgba(0,0,0,.75) 75%, #000 90%)' }}>
+            <div style={{ fontFamily: font.mono, fontWeight: 700, fontSize: 44, letterSpacing: 4, color: kirmizi, textTransform: 'uppercase' }}>{U}</div>
+            {alt ? <div style={{ fontFamily: font.mono, fontSize: 24, letterSpacing: 3, color: kirmizi, opacity: 0.85, textTransform: 'uppercase' }}>{alt}</div> : null}
+          </div>
         </div>
       );
     }

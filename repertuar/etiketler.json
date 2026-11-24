@@ -106,6 +106,9 @@
    "enerji": 2,
    "his": [
     "teknik"
+   ],
+   "kaynak": [
+    "@TactCoreYT"
    ]
   },
   "topografik": {
@@ -686,6 +689,9 @@
    "his": [
     "dinamik",
     "sinematik"
+   ],
+   "kaynak": [
+    "@diearbeiterjahreyt"
    ]
   },
   "glitch-rgb": {
@@ -944,7 +950,31 @@
     "belgesel"
    ],
    "kaynak": [
-    "@BoneWitness-r6y"
+    "@BoneWitness-r6y",
+    "@Ethos-j7t"
+   ]
+  },
+  "tint-sizinti": {
+   "ton": [
+    "sakin",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "tarih",
+    "yasam",
+    "biyografi",
+    "eglence",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "retro",
+    "sicak",
+    "dinamik"
+   ],
+   "kaynak": [
+    "@diearbeiterjahreyt"
    ]
   }
  },
@@ -1457,6 +1487,28 @@
     "modern",
     "temiz"
    ]
+  },
+  "damga": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "haber",
+    "tarih",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "resmi",
+    "arsiv",
+    "teknik"
+   ],
+   "kaynak": [
+    "@TactCoreYT"
+   ]
   }
  },
  "sayi": {
@@ -1514,6 +1566,9 @@
    "enerji": 3,
    "his": [
     "modern"
+   ],
+   "kaynak": [
+    "@AchterdeMotorkap"
    ]
   },
   "cubuk": {
@@ -1594,7 +1649,8 @@
     "sinematik"
    ],
    "kaynak": [
-    "@WhereTheyStood"
+    "@WhereTheyStood",
+    "@AchterdeMotorkap"
    ]
   },
   "el-alti-cizgi": {
@@ -2053,6 +2109,9 @@
    "his": [
     "modern",
     "temiz"
+   ],
+   "kaynak": [
+    "@AchterdeMotorkap"
    ]
   },
   "bulanik-kopya": {
@@ -2070,6 +2129,9 @@
    "enerji": 2,
    "his": [
     "modern"
+   ],
+   "kaynak": [
+    "@diearbeiterjahreyt"
    ]
   },
   "polaroid": {
@@ -3145,7 +3207,8 @@
     "karanlik"
    ],
    "kaynak": [
-    "@WhereTheyStood"
+    "@WhereTheyStood",
+    "@Ethos-j7t"
    ]
   },
   "kesik-rota": {
@@ -3361,6 +3424,30 @@
    ],
    "kaynak": [
     "@ImmersivePast"
+   ]
+  },
+  "dosya-sekmesi": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "enerjik"
+   ],
+   "konu": [
+    "askeri",
+    "suc",
+    "egitim",
+    "haber",
+    "liste",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "resmi",
+    "teknik",
+    "modern"
+   ],
+   "kaynak": [
+    "@TactCoreYT"
    ]
   }
  }

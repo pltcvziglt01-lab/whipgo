@@ -21,6 +21,9 @@ eksik teknik repertuara eklenir (bkz. §5).
 | Medya | `Medya.tsx` | kamera 10 (KB iç/dış, pan ×3, el kamerası, zoom darbe, dolly eğik, paralaks), çerçeve 11 (tam, inset gölge, bulanık kopya, polaroid, TV-CRT, letterbox, pencere, film şeridi, bölünmüş, kolaj, yuvarlak), doku 9 |
 | Stil | `temel.ts` | 16 palet (`gece-kirmizi` klasik, seçilmez), 12 font çifti, 7 hareket eğrisi |
 | **Bitiş (AE görünümü)** | `Bitis.tsx` | 6 post-prodüksiyon katmanı (sinema-film, temiz-dijital, arsiv-proje, neon-parilti, sicak-hale, soguk-belgesel): kamera nefesi (wiggle), kalkık siyahlar + split-tone grade, kayan ışık cepleri, gren, titreme, projektör sallantısı, bölüm geçişinde ışık süzülmesi. **Her video `DnaBitis` ile sarılır** — ham Remotion çıktısı "kod" gibi görünür |
+| Harita | `Harita.tsx` | rota 3 (isik-rota, kesik-rota, ok-yay) — `DnaHarita`; kılavuz etiketli zoom `DnaEtiketliHarita`; bölge/ülke vurgusu `DnaBolge`. Zemin: CC harita/uydu görseli (`zemin`), yoksa DNA'nın 3. arka planı. Koordinatlar ekran oranı (0..1) |
+| Grafik | `Grafik.tsx` | çizgi grafik 3 (cizgi-isik, alan-dolgu, basamak) — `DnaGrafik`; eleme ızgarası (1.171 → 36 → 2) `DnaEleme` |
+| HUD | `Hud.tsx` | medya üstü kalıcı katman 4 (derinlik-cetvel, koordinat, zaman-kodu, tarih-rozeti) — `DnaHud`; değer kamera hareketiyle eş zamanlı akar |
 | Öğrenilmiş | `Preset.tsx` | Premiere presetlerinden zoom / shake / slide / whip / blur-in (338) — `varlik-paketleri.md` |
 
 ## 3. Akış
@@ -75,8 +78,18 @@ export const Video04 = () => (<><FontYukle /><DnaBitis dna={dna} anlar={[0, 2710
 - `DnaDizi` geçişleri DNA'dan, süreyi (`gecis_kare`) ve sertlik oranını (`yumusak_oran`) rakipten alır.
 - `DnaVurgu` yalnız vurgulanan kelimede/cümlede (metindeki `*kelime*` işaretleri) kullanılır; dakikada en çok ~2.
 - SFX: `iskelet.sfx_orani` > 0,5 ise geçişlere whoosh, vurgulara hit (`sfx.md`, `varlik/sfx/sfx-katalog.json`).
+- Harita / grafik / HUD (metinde yer, rota, sayı dizisi, derinlik, tarih geçtiğinde — stok görüntü yerine):
+  ```tsx
+  { sure: 150, el: <DnaHarita dna={dna} zemin={{ src: 'v04/harita/pasifik.jpg' }} noktalar={[{ x: .62, y: .22, ad: 'Tokyo' }, { x: .4, y: .8, ad: 'Iwo Jima' }]} etiket="750 mi" /> },
+  { sure: 120, el: <DnaGrafik dna={dna} veriler={[12, 40, 95, 160]} etiketler={['1939', '40', '41', '42']} baslik="Allied ships sunk" /> },
+  { sure: 90, el: <><DnaMedya dna={dna} m={{ src: 'v04/klip/dalis.mp4', video: true }} sira={5} /><DnaHud dna={dna} tip="derinlik-cetvel" deger={73} birim="m" sure={3} /></> },
+  ```
+  `DnaHud tip="tarih-rozeti"` bölüm boyunca kalıcı (etiket = yer, ust = tarih); bölüm değişince yeni değerle yeniden girer.
 
 ## 5. Repertuarı büyütmek (her yeni kanal bir şey ekler)
+Kanal ekleme akışı (2026-11-24'te 10 kanalla yapıldı): `kanal_isle.py --liste <liste> --adet 1` (yalnız en popüler video; indirilenler analizden sonra silinir) →
+alt model (Sonnet) her kanal için EDIT-DILI.md + `teknikler/` gözlemleri + **teknik envanteri** (JSON: eksen, tarif, repertuarda var mı, etiket önerisi, öncelik) yazar →
+ana model öncelik ≥2 ve repertuarda olmayan teknikleri bileşen olarak kodlar, `etiketler.json`'a `kaynak` ile ekler, katalogda gözle kontrol eder → commit + push (hook Drive aynasını günceller).
 - Rakipte gözle gördüğün ama repertuarda olmayan tekniği koda dök: ilgili dosyaya bileşen + `*_TIPLERI`'ne ad ekle.
 - `sablon-proje`'de katalog kompozisyonunu render et (`KatArkaplan`, `KatEdit`, `KatGecis`, `KatBaslik`, `KatYazi2`, `KatKart`, `KatCerceve`), sayfayı **gözle** kontrol et: okunurluk (açık palet + koyu zemin çakışması), taşma, kesilme.
 - Bileşen palet/font/hareket dışında sabit renk/font/easing kullanmaz (yeni klasik görünüm doğmasın).

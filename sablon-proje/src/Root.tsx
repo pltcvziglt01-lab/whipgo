@@ -90,6 +90,9 @@ const KatYeni: React.FC = () => (
     { ad: 'grafik: eleme-izgara', el: <ElemeIzgara stil={st(12)} asamalar={[1171, 36, 2]} etiketler={['U-boats lost', 'near New Jersey', 'candidates']} ikon="denizalti" asamaSn={1.2} /> },
     ...HUD_TIPLERI.map((h, i) => ({ ad: 'hud: ' + h, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><Hud tip={h} stil={st(12 + i)} deger={h === 'koordinat' ? 24.7841 : h === 'zaman-kodu' ? 1 : 2430} baslangic={h === 'koordinat' ? 141.3168 : h === 'zaman-kodu' ? 3 * 3600 : 0} birim="m" etiket={h === 'tarih-rozeti' ? 'North Atlantic' : ''} ust={h === 'tarih-rozeti' ? 'Feb 11, 1945' : ''} sure={2} /></AbsoluteFill> })),
     { ad: 'gecis: parsomen', el: <GecisliDizi stil={st(1)} gecis="parsomen" kare={24} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'gecis: tint-sizinti', el: <GecisliDizi stil={st(6)} gecis="tint-sizinti" kare={12} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'altbant: damga', el: <AbsoluteFill><Medya m={B} /><AltBant tip="damga" ust="Article 113" alt="UCMJ" stil={st(12)} /></AbsoluteFill> },
+    { ad: 'hud: dosya-sekmesi', el: <AbsoluteFill><Arkaplan tip="blueprint" stil={st(13)} /><Hud tip="dosya-sekmesi" stil={st(13)} etiket="Sleeping on post" deger={3} baslangic={9} /></AbsoluteFill> },
   ]} />
 );
 const KatPreset: React.FC = () => {

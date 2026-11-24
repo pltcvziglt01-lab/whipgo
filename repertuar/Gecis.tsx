@@ -6,7 +6,7 @@ import { HareketAd, Stil, egri, rastgele, rgba, sinirla } from './temel';
 // Iskelet kurali: gecis SURESI rakibin yumusak gecis medyanindan, SIKLIGI rakibin yumusak gecis oranindan gelir (stil_dna.py).
 export const GECIS_TIPLERI = [
   'sert', 'cozunme', 'bulaniklik', 'isik-patlamasi', 'glitch-rgb', 'whip-sol', 'whip-yukari', 'kaydirma-itme',
-  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen',
+  'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen', 'tint-sizinti',
 ] as const;
 /** 'filmburn:fb-03:1.4' = varlik/filmburn/fb-03.mp4, en parlak an 1.4 sn: kesim tam o ana denk gelir */
 export type GecisTip = typeof GECIS_TIPLERI[number] | `filmburn:${string}`;
@@ -63,6 +63,17 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ ti
       <AbsoluteFill style={{ mixBlendMode: 'screen' }}>
         <div style={{ position: 'absolute', left: -600 + p * (W + 600), top: -200, width: 1100, height: H + 400, borderRadius: '50%', background: `radial-gradient(ellipse, ${rgba('#ffd08a', a)} 0%, ${rgba(stil.palet.vurgu, a * 0.8)} 40%, transparent 70%)`, filter: 'blur(60px)' }} />
         <AbsoluteFill style={{ background: rgba('#ff9a3c', a * 0.25) }} />
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'tint-sizinti') {
+    // renk tonu rampasi (@diearbeiterjahreyt): kesimde ekran once vurgu2 (soguk), sonra vurgu (sicak) tonuna boyanir, 280 ms
+    const a = Math.sin(p * Math.PI);
+    const renk = p < 0.5 ? stil.palet.vurgu2 : stil.palet.vurgu;
+    return (
+      <AbsoluteFill style={{ mixBlendMode: 'color', opacity: Math.min(1, a * 1.4) }}>
+        <AbsoluteFill style={{ background: `linear-gradient(${120 + p * 60}deg, ${rgba(stil.palet.vurgu2, 0.95)} ${-40 + p * 80}%, ${rgba(stil.palet.vurgu, 0.95)} ${20 + p * 90}%)` }} />
+        <AbsoluteFill style={{ background: rgba(renk, 0.25 * a), mixBlendMode: 'screen' }} />
       </AbsoluteFill>
     );
   }

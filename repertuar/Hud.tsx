@@ -5,7 +5,7 @@ import { Stil, egri, ilerle, rgba, sinirla } from './temel';
 // HUD — medyanin USTUNE binen kalici bilgi katmanlari (saydam). Ogrenildigi kanallar: @Ground-Engineering (kamerayla senkron
 // derinlik sayaci), @ImmersivePast (sag kenarda derinlik cetveli + sol ustte guncellenen tarih/yer rozeti).
 // Deger animasyonu: baslangic -> deger, 'sure' saniyede (kamera hareketiyle es zamanli kullanilir).
-export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti'] as const;
+export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi'] as const;
 export type HudTip = typeof HUD_TIPLERI[number];
 
 const kose = (renk: string, k = 22, c = 3): React.CSSProperties[] => [
@@ -88,6 +88,20 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
             <div style={{ color: renk, fontSize: 18, letterSpacing: 4 }}>{(etiket || 'LOCAL TIME').toUpperCase()}</div>
             <div style={{ fontSize: 40 }}>{z(hh)}:{z(mm)}:{z(ss)}<span style={{ opacity: 0.6, fontSize: 28 }}>:{z(kk)}</span></div>
             {ust ? <div style={{ fontSize: 20, opacity: 0.8, marginTop: 4 }}>{ust}</div> : null}
+          </div>
+        </AbsoluteFill>
+      );
+    }
+    case 'dosya-sekmesi': {
+      // ust kenarda vurgu renkli baslik sekmesi + sag ustte 'FILE 03 / 09' sayaci (@TactCoreYT); deger = bu dosya, baslangic = toplam
+      const k = ilerle(f, gec, fps * 0.35, 'ustel-sert');
+      const z = (n: number) => String(Math.max(0, Math.round(n))).padStart(2, '0');
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', left: 64, top: 0, padding: '14px 28px 12px', background: renk, color: palet.acik ? '#ffffff' : palet.zemin, transform: `translateY(${(k - 1) * 100}%)`,
+            fontFamily: font.govde, fontWeight: 800, fontSize: 28, letterSpacing: 4, textTransform: 'uppercase', borderRadius: '0 0 10px 10px', boxShadow: `0 8px 24px ${rgba('#000', 0.35)}` }}>{etiket}</div>
+          <div style={{ position: 'absolute', right: 64, top: 30, ...yazi, fontSize: 26, letterSpacing: 3, opacity: k }}>
+            FILE <span style={{ color: renk, fontWeight: 700 }}>{z(deger)}</span><span style={{ opacity: 0.6 }}> / {z(baslangic)}</span>
           </div>
         </AbsoluteFill>
       );
