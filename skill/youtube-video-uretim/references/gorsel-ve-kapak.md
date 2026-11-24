@@ -29,6 +29,7 @@ Not: bu bölümdeki `ayarla.py`, `uret.py`, `kontakt.py`, `surekli.sh` skill'in 
 - Seçim: `B="ad1 ad2"` → `_b`, diğerleri `_a` → `motion/public/vNN/<ad>.jpg`.
 
 ## Stok ve gerçek görüntü
+- Oran ve sahne türü → kaynak: `kanal-sablon.json → kaynak` (kaynak stratejisi). Gerçek görüntü avı: `kaynak-avi.md` (`stok_ara.py` Commons/Openverse/web sayfası → kontakt → seç → `credits.json` + `ATIF.txt`).
 - Magnific stok (sağlık hattında ≥%35–40 stok); günlük kota.
 - Gerçek ilan/arşiv fotoğrafı: kullanım hakkını video başına kontrol et, açıklamaya kaynak/kredi (Commons künyesi sabit yoruma). Kullanılamıyorsa harita/hava fotoğrafı + AI temsilî görsel **etiketli**.
 - YouTube klibi (gerçek footage hattı): kaynak tsv + kredi, CFR/bt709 transcode, filigran kırpma.

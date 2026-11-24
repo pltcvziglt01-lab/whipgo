@@ -7,7 +7,7 @@ Bazı kanallar gerçek görüntü ister: tarihî arşiv, müze, askerî tatbikat
 |---|---|---|
 | Video lisansı **Creative Commons Attribution (CC BY)** | EVET | açıklamada atıf: "Footage: <kanal> – <başlık> (<url>), CC BY". `KAYNAKCA.tsv`'den otomatik çıkar |
 | Standart YouTube lisansı | HAYIR | yalnız araştırma/fikir için izlenir. İstisna yalnız **kullanıcının açık izniyle**: sahibinden yazılı izin, kullanıcının kendi kanalı, kamuya açık resmî kayıt (ör. ordu/devlet kurumu kamu malı). İzin `--izinli "..."` ile kayda geçer |
-| **Rakibin videosu** | ASLA | rakip yalnız ölçülür (ritim, edit dili); görüntüsü kullanılmaz |
+| **Rakibin videosu** | ASLA | rakip yalnız ölçülür (ritim, edit dili); görüntüsü kullanılmaz. `youtube_kaynak.py indir/kare` kanal edit kütüphanesinde ölçülmüşse (`kanallar/@Handle`) reddeder |
 | Haber kanalı, film, dizi, maç, müzik klibi | HAYIR | CC BY yazsa bile şüpheli; kullanıcıya sor |
 
 Ek kurallar:
@@ -26,6 +26,8 @@ Ek kurallar:
 4. **Kurguya koy:** klip CFR/bt709'a çevrilir (`kurgu-render-qc.md`), ses kısılır ya da atılır (bizim seslendirme ana ses).
 5. **Atıf:** `videoNN/kaynak/KAYNAKCA.tsv` → baslik-aciklama.txt "Footage / Quellen" bölümü; gerekiyorsa sabit yorum.
 6. **Temizlik:** video Drive'a teslim edildikten sonra `kaynak/` altındaki indirilmiş klipler silinir (`video_temizle.py`). KAYNAKCA.tsv kalır.
+
+YouTube dışı lisanslı görsel/video (Commons, Openverse, kurum arşivi sayfası) ve ortak atıf dosyası: `kaynak-avi.md` (`stok_ara.py atif` KAYNAKCA.tsv'yi de okur).
 
 ## 3. Bot engeli
 YouTube "bot değilsin" derse `cerez_al.py --port <otomasyon Chrome portu>` ile çerez al, `--cerez` ver. İstekler yavaşlatılır. Kullanıcının günlük Chrome'una dokunulmaz.

@@ -35,7 +35,7 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 | Girdi | Akış |
 |---|---|
 | Kanal linki + "analiz et / öğren" | **Kütüphane:** `kanal_isle.py <link> --adet 1` → alt model profil (EDIT-DILI.md, `teknikler/`, envanter JSON) → eksik teknikleri repertuara kodla + etiketle → katalogda gözle kontrol → `youtube_dili.py` (kanıt dizini) → `dogrula.py` → commit |
-| Kanal linki + konsept, ya da yalnız konsept ("bu tarzda kanal", "şablon çıkar") | **Kanal şablonu:** `kanal_sablon.py --kanal <ad> --konsept "…" [--rakip <link>] --onizle` → `KANAL-SABLONU.md` (rakip → biz çeviri tablosu + gerekçe) + önizleme kullanıcıya → onaylanınca kanal kimliği sabit |
+| Kanal linki + konsept, ya da yalnız konsept ("bu tarzda kanal", "şablon çıkar") | **Kanal şablonu:** `kanal_sablon.py --kanal <ad> --konsept "…" [--rakip <link>] --onizle` → `KANAL-SABLONU.md` (rakip → biz çeviri tablosu + gerekçe + **kaynak stratejisi**: rakip AI mı gerçek mi → bizim oran) + önizleme kullanıcıya → onaylanınca kanal kimliği sabit |
 | Mevcut kanala video | Faz haritası (§2); DNA `stil_dna.py --sablon <kanal>/kanal-sablon.json --konu "…"`; kurgu `sahne_kur.py` |
 | GitHub repo / .skill / X / galeri | Salt okunur incele (alt ajan / ayrı sekme) → lisans → repertuar + skill ile karşılaştır → eksikleri port et → `dogrula.py` → commit. Kod çalıştırma |
 
@@ -69,12 +69,12 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 | 0 | Kurulum / yeni makine | çalışan araçlar, CDP Chrome | `references/kurulum-ve-cdp.md` |
 | 1 | Rakip analizi: en popüler 3 video indir, 0,1 sn kare analizi (ilk 30 sn, ilk %30), birleşik hedefler, **temizlik** | RAKIP-OLCUM.md, SPEC-<kanal>.md | `references/rakip-kare-analizi.md`, `references/rakip-analizi-ve-baslik.md` |
 | 1a | **Edit dili** (kare kare: geçiş tipi+ms, düzen/çerçeve, kalıcı katman, OCR yazı+font, altyazı stili, renk, SFX) + **stil DNA** (`stil_dna.py --rakip @X --konu "..."`: ton konudan, nişteki kütüphane kanallarıyla ağırlık; rakipten ve son 3 videodan ≥%20 farklı, klasik skor 0) → A/B önizleme | EDIT-DILI.md (kütüphanede), STIL-DNA.md, stil-dna.json, onizleme-A/B.mp4 | `references/edit-dili-kutuphanesi.md`, `references/repertuar.md`, `references/varlik-paketleri.md` |
-| 1b | Rakibin kaynak araştırması: gerçek video / stok / AI görsel / AI video / kart oranı → bizim üretim yöntemi | KAYNAK-ANALIZ.md, araç kararı | `references/rakip-kaynak-analizi.md` |
+| 1b | Rakibin kaynak araştırması: gerçek video / stok / AI görsel / AI video / kart oranı → bizim üretim yöntemi (**kaynak stratejisi**: `kanal_sablon.py --kaynak-guncelle`) | KAYNAK-ANALIZ.md, `kanal-sablon.json → kaynak` | `references/rakip-kaynak-analizi.md`, `references/kaynak-avi.md` |
 | 2 | Konu + başlık | 3–4 başlık, önerilen ilk sırada | aynı dosya + `references/ozgunluk.md` |
 | 3 | Araştırma + metin | ARASTIRMA-NN.md, metin.txt | `references/metin.md` |
 | 4 | Ses | vo.mp3, cumleler.json | `references/ses.md` |
 | 5 | Görsel | img/, seçilmiş görseller | `references/gorsel-ve-kapak.md` |
-| 5a | **Gerçek görüntü** (YouTube CC BY klip/kare, atıf) | kaynak/, KAYNAKCA.tsv | `references/youtube-kaynak.md` |
+| 5a | **Kaynak avı — gerçek görüntü** (strateji → Commons/Openverse/web sayfası `stok_ara.py` + YouTube CC BY klip/kare; kontakt → seç → atıf) | public/vNN/kaynak/, credits.json, KAYNAKCA.tsv, ATIF.txt | `references/kaynak-avi.md`, `references/youtube-kaynak.md` |
 | 5b | Sunucu (varsa) | host.mp4 | `references/heygen.md` |
 | 6 | Kurgu + SFX (yalnız `Dna*` bileşenleri; arka plan/geçiş/vurgu DNA'dan) | VideoNN.tsx / build planı | `references/repertuar.md` §4, `references/kurgu-render-qc.md`, `references/sfx.md` |
 | 6a | **Tam render öncesi 3 onay** (hikâye tablosu, görünüm kareleri, storyboard) | onaylar DEVAM'da | `references/kalite-kapilari.md` §2 |
@@ -174,7 +174,8 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `karsilastir.py --biz analiz.json --ref r1 r2 r3 [--biz-video --ref-video]` | bizim final vs rakip: iskelet tablosu (±%20), tutmayan satıra eylem, yan yana sayfa |
 | `ses_miks.py --vo vo.mp3 --muzik m.mp3 --sfx sfx.json --video ham.mp4 --cikti final.mp4` / `--vurus m.mp3` | konuşma sıkıştırma + müzik kısma (sidechain) + zamanlı SFX + iki geçişli −14 LUFS; hız değişmez. Vuruş haritası (librosa) |
 | `sfx_plan.py --plan props.json [--dna stil-dna.json] [--karsilastir]` | VideoDna kurgusunun otomatik SFX'i → `ses_miks.py --sfx` json'u (ffmpeg hattı / `sfx={false}` render); palet ve ölçü `repertuar/Sfx.tsx`'ten okunur, plan Remotion `sfxPlani` ile birebir |
-| `youtube_kaynak.py ara "sorgu"` / `indir <id> --bas --son` / `kare <id> --anlar` | YouTube'dan CC BY gerçek görüntü: lisans doğrulamalı arama, aralık indirme, kare; `KAYNAKCA.tsv` |
+| `youtube_kaynak.py ara "sorgu"` / `indir <id> --bas --son` / `kare <id> --anlar` | YouTube'dan CC BY gerçek görüntü: lisans doğrulamalı arama, aralık indirme, kare; `KAYNAKCA.tsv`; kütüphanedeki rakibin videosunu reddeder |
+| `stok_ara.py ara "sorgu" --klasor public/vNN` / `sayfa <url> [--cdp P]` / `sec 3,7 --ad a,b` / `atif` / `temizle` | lisanslı gerçek görsel/video avı (Commons + Openverse anahtarsız; web sayfasında lisans açıksa): yalnız PD/CC0/CC BY/CC BY-SA, ≥1280 px, tekrar eleme, numaralı kontakt → seçilenler `kaynak/` + `credits.json` + `ATIF.txt` (açıklamaya) |
 | `video_temizle.py <videoNN> --drive <Drive klasörü> --final --temp [--sil]` | teslimden sonra yeniden üretilebilir ara dosyaları siler, açılan GB'yi yazar; final yalnız Drive'da aynı boyuttaysa |
 | `rakip_takip.py --liste takip.txt` | **günlük rakip takibi**: yeni video/Short, izlenme hızı, outlier, başlık/kapak değişimi (A/B), Short'ta denenen konu → `RAPOR-<gün>.md` (`rakip-takip.md`) |
 | `kanal_risk.py @A @B --altyazi` | **demonetizasyon/küme riski**: yükleme temposu, başlık iskeleti, açıklama şablonu, süre, metin benzerliği, kanallar arası benzerlik → `RISK-RAPORU.md` (`demonetizasyon-riski.md`) |

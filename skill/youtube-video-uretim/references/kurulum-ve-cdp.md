@@ -41,7 +41,8 @@ Tam kurulum kılavuzu, komutlar ve `kit/` dosya tablosu: `kaynak/YOUTUBE-OTOMASY
 4. Öğe `null` ise hemen tıklama (`NoneType` hatası) → 1 sn arayla 10–15 deneme → yoksa ekran görüntüsü al ve bak.
 5. Önce `Page.bringToFront` (gizli sekmede menü açılmaz).
 6. Dosya yükleme: `Page.setInterceptFileChooserDialog enabled=True` + `DOM.enable` → yükle düğmesi → `Page.fileChooserOpened` → `DOM.setFileInputFiles(backendNodeId, [MUTLAK yol])`. Alternatif: `DOM.querySelectorAll(pierce=True)` ile `input[type=file]`.
-7. Kritik her adımdan sonra (ayar, karakter ekleme, gönder, yükleme bitti) `Page.captureScreenshot` → dosya → Read ile **bak**.
+7. Okuma amaçlı (kaynak avı): `stok_ara.py sayfa <url> --cdp <PORT>` yeni sekme açar, DOM'u okur, sekmeyi kapatır; tıklama/giriş yok (`kaynak-avi.md` §5).
+8. Kritik her adımdan sonra (ayar, karakter ekleme, gönder, yükleme bitti) `Page.captureScreenshot` → dosya → Read ile **bak**.
 
 ## Uzun işler
 - Harness arka plan görevleri zaman sınırında öldürülür → Flow/render/HeyGen beklemesi **bağımsız süreç**:

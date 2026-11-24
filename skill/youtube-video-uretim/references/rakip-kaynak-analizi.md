@@ -37,12 +37,14 @@ Kural: **rakibin kaynak karışımını ve oranını koru** (izleyici o dokuya a
 | AI görsel + Ken Burns | Google Flow Nano Banana Pro (16:9, x2), stil kilidi + karakter/mekân değişkenleri | `gorsel-ve-kapak.md`; zoom hızı RAKIP-OLCUM'dan |
 | AI video | Flow Video (kredi yer → **kullanıcı onayı**), veya AI görsel + paralaks/hareket kartlarıyla taklit | maliyeti kullanıcıya söyle, kısa klip (4–8 sn) |
 | Stok video | Magnific stok (günlük ~100 indirme), konu başına arama listesi; oranı rakiple eşle (sağlık hattında ≥%35–40) | aynı klibi iki videoda kullanma |
-| Stok/gerçek foto | Magnific / Wikimedia Commons (lisans + künye sabit yoruma) / kullanıcının izinli kaynağı | kredi zorunlu |
+| Stok/gerçek foto | `stok_ara.py` (Commons + Openverse + lisansı açık web sayfası; yalnız PD/CC0/CC BY/CC BY-SA) / Magnific / kullanıcının izinli kaynağı | kredi zorunlu: `credits.json` → `ATIF.txt` (`kaynak-avi.md`) |
 | Gerçek arşiv / haber / film klibi | kısa, dönüştürücü, kredili kullanım (gerçek footage hattı: kaynak tsv, transcode, filigran kırpma); mümkünse kamu malı/Commons arşivi | **telif riskini kullanıcıya açıkça söyle**, kararı o versin; uzun kesit yok |
 | Sunucu | HeyGen Avatar III | `heygen.md` |
 | Kart/grafik/harita | Remotion kart sistemi, `Karte.tsx` | oran ve sıklık rakiple aynı |
 
 Karışık kanallarda (ör. %50 stok video + %30 AI görsel + %20 kart) PLAN'da her çekime kaynak türü etiketi koy (`kaynak: 'stok'|'flow'|'kart'|…`) ve sayımı hedefe göre kontrol et.
+
+Otomatik ilk tahmin: `kanal_sablon.py` (yeni kanal) ya da `kanal_sablon.py --kanal <ad> --kaynak-guncelle` → `KANAL-SABLONU.md` "Kaynak stratejisi" (ölçüm + EDIT-DILI/açıklama gözlemi → AI / gerçek / stok payı, bizim hedef oran, sahne türü → araç). Güven "düşük" ise yukarıdaki §1–2 ile gözle doğrula.
 
 Kullanıcıya tek tabloyla sun: "Rakip: … → Önerim: …, maliyet/risk: …" ve onay al (yeni kanalda stil tarifiyle birlikte). Karar DEVAM §2'ye kilitli karar olarak yazılır.
 

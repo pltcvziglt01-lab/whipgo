@@ -16,7 +16,7 @@ Kurallar (references/youtube-kaynak.md): CC BY = atifla kullanilir. Standart You
 kullanilmaz; istisna yalniz kullanicinin acik izni (sahibinden yazili izin, kendi kanali, kamu malı resmi kayit)
 ve bu izin --izinli ile kayda gecer. Rakibin videosu kaynak olarak ASLA kullanilmaz.
 """
-import argparse, csv, json, os, subprocess, sys, urllib.parse
+import argparse, csv, glob, json, os, re, subprocess, sys, urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rakip_indir as R
@@ -28,7 +28,7 @@ def bilgi(vid):
     url = vid if vid.startswith('http') else f'https://www.youtube.com/watch?v={vid}'
     j = json.loads(R.ytdlp('--skip-download', '--dump-json', url))
     return {'id': j['id'], 'url': f'https://www.youtube.com/watch?v={j["id"]}', 'baslik': j.get('title', ''),
-            'kanal': j.get('channel') or j.get('uploader', ''), 'lisans': j.get('license') or 'Standard YouTube License',
+            'kanal': j.get('channel') or j.get('uploader', ''), 'kanal_id': j.get('uploader_id') or '', 'lisans': j.get('license') or 'Standard YouTube License',
             'sure': j.get('duration'), 'izlenme': j.get('view_count'), 'genislik': j.get('width'), 'yukseklik': j.get('height')}
 
 
@@ -59,7 +59,27 @@ def ara(a):
     print(f'{sum(1 for s in satir if cc_mi(s["lisans"]))}/{len(satir)} kullanilabilir -> {a.cikti}')
 
 
+def rakip_mi(b):
+    """kanal edit kutuphanesinde olculmus bir rakip mi (kanallar/@Handle) -> handle | None. Rakibin videosu kaynak olarak ASLA kullanilmaz."""
+    try:
+        from stil_dna import kutuphane_bul
+        kut = kutuphane_bul()
+    except Exception:
+        return None
+    if not kut:
+        return None
+    adlar = {re.sub(r'[^a-z0-9]', '', x.lower()) for x in (b.get('kanal_id'), b.get('kanal')) if x}
+    for d in glob.glob(os.path.join(kut, 'kanallar', '@*')):
+        h = os.path.basename(d)
+        if re.sub(r'[^a-z0-9]', '', re.sub(r'\s*\(\d+\)$', '', h).lower()) in adlar:
+            return h
+    return None
+
+
 def izin_kontrol(b, izinli):
+    r = rakip_mi(b)
+    if r:
+        sys.exit(f"REDDEDILDI: {b['url']} kanali kutuphanede olculmus rakip ({r}). Rakibin videosu kaynak olarak asla kullanilmaz.")
     if cc_mi(b['lisans']):
         return 'CC BY'
     if not izinli:
