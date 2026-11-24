@@ -1,0 +1,269 @@
+{
+ "kanal": "@ReichonRecord",
+ "nis": "WW2 askeri tarih (Alman generallerin sorgu ifadeleri), yüzsüz AI ses + arşiv görüntü",
+ "konu": [
+  "askeri",
+  "tarih",
+  "biyografi"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "Kanal şablon gibi değil, belgesel stüdyosu gibi görünüyor: sepya parşömen zemin + vinyetli arşiv inset, harita üzerinde bölge dolgusu ve kırmızı nabız, belge üzerinde elle çizilmiş elips ve sayı etiketleri birbirini tamamlıyor. Sınırlı palet (sepya, lacivert harita, kırmızı vurgu) tek bir 'proje' hissi veriyor; zayıf yön: kamera hareketi çok yavaş ve çeşitlilik düşük.",
+ "teknikler": [
+  {
+   "ad": "parsomen-vinyet-inset-kutu",
+   "eksen": "cerceve",
+   "tarif": "Tam kare sepya parşömen zemin (ortada ~#8c7a5b, kenarda ~#1a140e güçlü vinyet, ince kağıt gren). Ortada ~%55-65 genişlikte, kenarı yumuşak/bulanık siyah-beyaz arşiv klibi; sağ üstte filigran. Giriş: önceki çekimden 400 ms çözünme; kutu içi çok yavaş ölçek (<%1/sn). Zemin boş kalarak çekim bitişinde (36.8 sn) arşivden boş parşömene çözünme yapılıyor.",
+   "kanit": "video-1 00:37.7-00:46, 01:26.8-01:50; sonrasi-ornek.jpg 86.8/93.5/102 sn; edit-dili-sayfa.jpg #16-#21",
+   "repertuarda": "inset-golge",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri",
+     "tarih",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "belgesel",
+     "retro",
+     "sinematik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "bolge-dolgulu-harita",
+   "eksen": "harita",
+   "tarif": "Koyu lacivert harita (~#0a1420), kara koyu yeşil (~#16301f). Önce Avrupa görünür, Almanya'da kırmızı işaret/nabız halkası (~#d02828), sonra SSCB tüm şekliyle ~0.5 sn'de mavi (~#2a6fd0) dolgu olur + ortada küçük gri 'SOVIET UNION'. 02:53'te sınırda kırmızı parlama dalgası, iki bölge yan yana (kırmızı sol, mavi sağ, mor geçiş).",
+   "kanit": "video-1 00:17.4-00:27; 02:53-03:00; ilk30-0.5.jpg 17.5-27 sn; sonrasi-ornek.jpg 166-179 sn",
+   "repertuarda": "bolge vurgu",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "resmi",
+     "belgesel"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "bolge-isik-nabiz-isareti",
+   "eksen": "harita",
+   "tarif": "Haritada tek nokta kırmızı daire (~#d02828) 2-3 kez genişleyen halka olarak nabız atar (~1 sn periyot); koyu zemin üzerinde yumuşak glow. Yüzde otomatik sınırlar yok.",
+   "kanit": "video-1 00:18.5-00:20 (Germany işareti), 02:53",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "alt-sol-isim-bandi",
+   "eksen": "altbant",
+   "tarif": "Portre klibi alt-sol: iki satır küçük beyaz büyük harf (isim bold, unvan ince), ~%7 boy, şeritsiz, hafif gölge. Giriş solda siyah bir dikdörtgenden açılma (00:03.2-04.5), kalış ~12 sn (portre boyunca), çıkış çekimle birlikte çözünür.",
+   "kanit": "video-1 00:03.2-00:15; ilk30-0.5.jpg 3.5-15 sn",
+   "repertuarda": "blok-kayma",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "biyografi",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "arsiv"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "buyuk-beyaz-sayi-yil",
+   "eksen": "sayi",
+   "tarif": "Arşiv klibi üstünde çok kalın beyaz grotesk (Fjalla/Montserrat ExtraBold benzeri) yıl veya sayı ('1941', '38', '41 DIVISIONS', '200 DIVISIONS'), çekim yüksekliğinin %12-45'i; çok hafif yukarıdan sönme/yazıdan görünüp çıkış. Sayılar bir saniye kadar sayarak değişir ('200' → '197 DIVISIONS' 128-132 sn).",
+   "kanit": "video-1 00:28-00:30, 02:08-02:12, 02:40-02:46; kirpintilar/02,04,08,09.png",
+   "repertuarda": "buyuk-yil",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 3,
+    "his": [
+     "arsiv",
+     "resmi"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "belge-kirmizi-elips-vurgu",
+   "eksen": "liste",
+   "tarif": "Bej kareli kâğıt belge, ortada siyah kalın sans 'KINZEL' (~%32 boy); etrafında elle çizilmiş kırmızı elips (~#c82020, ~8 px, kalem çizgisi gibi kenar titremesi), çizim ~0.4 sn'de başlar-biter; çevresinde 'OPERATIONAL FILE / FHO Chief / Assigned Team / SECRET' alanları. Elips yayı zamanla büyür (stroke-dashoffset).",
+   "kanit": "video-1 01:35.8-01:42; kirpintilar/03.png; sonrasi-ornek.jpg 93.5/95.8 sn",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "gizem"
+    ],
+    "konu": [
+     "askeri",
+     "tarih",
+     "suc"
+    ],
+    "enerji": 3,
+    "his": [
+     "belgesel",
+     "arsiv",
+     "resmi"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "sag-ust-istatistik-listesi",
+   "eksen": "liste",
+   "tarif": "Sağ-üstte 3-4 satır (kalın başlık 'INTELLIGENCE METRICS', alt satırlar 'Counting Soviet divisions', 'Measuring railway capacity', 'Mapping Soviet industry'); küçük beyaz sans, ~%4 boy; her satır anlatım o noktaya gelince eklenir (gözlem; satır zamanı OCR'dan 74-84 sn).",
+   "kanit": "video-1 01:14-01:24 (yazi_ogeleri)",
+   "repertuarda": "isaretli",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "teknik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "alinti-portre-karti",
+   "eksen": "alinti",
+   "tarif": "Siyah-beyaz arşiv üstü yarı koyu; solda büyük serif beyaz alıntı '\"You only have to kick in the door...\"', alt satır '— ADOLF HITLER', sağ altta küçük portre kutusu; alıntı kelime kelime anlatımla gelir (konusma_eslesme 0.92), kalış ~10 sn.",
+   "kanit": "video-1 02:28-02:38; sonrasi-ornek.jpg 150.9/157.2 sn",
+   "repertuarda": "yan-cizgi",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "tarih",
+     "biyografi"
+    ],
+    "enerji": 2,
+    "his": [
+     "resmi",
+     "arsiv"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "sepya-soluk-grade-gercek-arsiv",
+   "eksen": "bitis",
+   "tarif": "Doygunluk 0.15, parlaklık 0.35, siyah-beyaz oran %40; renklendirilmiş arşiv ayrı çekimlerde; vinyet merkez/köşe 1.54 (çok güçlü). Hepsi eski film grenli.",
+   "kanit": "video-1 genel; edit-dili-sayfa.jpg",
+   "repertuarda": "arsiv-proje",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "arsiv",
+     "belgesel",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "cozunme-400ms",
+   "eksen": "gecis",
+   "tarif": "Çekimler arası 200-400 ms çapraz çözünme (30 fps'te 6-12 kare), %30 oranında; portre → arşiv → harita geçişlerinde; kalan %62 sert kesim.",
+   "kanit": "video-1 00:03.2, 00:15.3, 00:17.4, 00:36.8",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "sakin"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 2,
+    "his": [
+     "belgesel",
+     "arsiv"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "pillarbox-siyah-4-3",
+   "eksen": "cerceve",
+   "tarif": "4:3 haber filmi 16:9 içinde ortada (~%77 genişlik, 0.115 sol boşluk), iki yan saf siyah (#000); bazı çekimlerde bulanık kopya yerine düz siyah.",
+   "kanit": "video-1 00:46.5-00:53.5, 02:12-02:20 (duzen_zaman)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "askeri",
+     "tarih"
+    ],
+    "enerji": 1,
+    "his": [
+     "arsiv",
+     "retro"
+    ]
+   },
+   "oncelik": 1
+  }
+ ]
+}

@@ -1,0 +1,217 @@
+{
+ "kanal": "@SpongeTruth",
+ "nis": "çizgi film (SpongeBob) fan analizi / yorum, İngilizce",
+ "konu": [
+  "eglence"
+ ],
+ "ton": "enerjik",
+ "ae_hissi": "AE hissi zayıf, 'YouTube fan edit' hissi güçlü: asıl görsel diziden; kanalın imzası tematik desen zemin değişimi, inset klip + gölge, çok hızlı kesim (34/dk) ve çok büyük yuvarlak kelime vurguları. Kompozit katmanlar basit ama tutarlı; zemin rengi sahne duygusuyla değiştiği için 'tasarlanmış' görünüyor.",
+ "teknikler": [
+  {
+   "ad": "tematik-desen-zemin-rotasyonu",
+   "eksen": "arkaplan",
+   "tarif": "SpongeBob temalı desen duvar kâğıdı sahneye göre değişir: pembe-mor tiki (~#c060d0), açık mavi çiçekli (~#30a8d0), koyu mavi tiki (~#2030b8), turkuaz dalgalı (~#30a8c0), mor ananas (~#7a3cc8). Zemin tam kare, hafif bulanık/koyulaştırılmış, klip altında; sahne değişince desen/renk sert veya kısa çözünmeyle değişir (~her 15-40 sn).",
+   "kanit": "video-1 00:00, 00:28, 01:00, 01:40, 02:25; edit-dili-sayfa.jpg + sonrasi-ornek.jpg",
+   "repertuarda": "kareli-defter",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz",
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "golgeli-inset-klip",
+   "eksen": "cerceve",
+   "tarif": "4:3 dizi klibi zemin üstünde ~%45-60 genişlikte, sağ-alta yumuşak koyu gölge (~8-10 px blur), köşeler keskin; bazı çekimlerde ~2 derece eğim ve beyaz kenar (fotoğraf/albüm). Giriş ve çıkış sert kesim.",
+   "kanit": "video-1 00:14-00:20, 00:33-00:41, 01:03-01:10; sonrasi-ornek.jpg 63.9-80.2 sn",
+   "repertuarda": "inset-golge",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "dev-yuvarlak-kelime-vurgu",
+   "eksen": "altyazi",
+   "tarif": "Kritik kelime/ifade tek başına çok büyük (ekran yüksekliğinin %13-24'ü) beyaz kalın yuvarlak grotesk (Fredoka/Baloo benzeri), ince koyu kontur + yumuşak gölge, ortada/üstte; 1-3 sn; anlatıcı aynı kelimeyi söylerken ('Perfect story', 'Weird', 'meant to or not?', 'Nobody likes you!').",
+   "kanit": "video-1 00:13, 00:20, 01:56-01:58; yazi-kirpinti.jpg",
+   "repertuarda": "tek-kelime",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "punch-in-zoom",
+   "eksen": "kamera",
+   "tarif": "Çekim başı yüksek hız zoom (+15 ila +47 %/sn, ilk 30 sn medyan 7.6 %/sn), çoğu çekim tek yönlü; hızlı vurgu hissi; zoom-içi ve zoom-dışı yaklaşık eşit dağılır.",
+   "kanit": "video-1 00:11.9, 00:15.8, 00:19.1, 00:21.0; ritim/analiz.md",
+   "repertuarda": "zoom-darbe",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik",
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "baslik-karti-yakin-giris",
+   "eksen": "baslik",
+   "tarif": "Dizi bölüm başlık kartı (pembe zemin üzerinde mavi tebeşir çerçeveli kart, mor 'Breath of Fresh Squidward') küçük başlar, 700 ms'de yakınlaşıp ölçeklenerek dolgu olur; sonra 11.6 sn'de tam ekran kart dikey bulanık/dalgalı kayma ile bir sonraki klibe geçer.",
+   "kanit": "video-1 00:00.5-00:03.8, 00:11.6-00:12.8; edit-dili-sayfa.jpg",
+   "repertuarda": "olcek-darbe",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "dikey-bulanik-kayma-gecis",
+   "eksen": "gecis",
+   "tarif": "Başlık kartı yatay çizgilere ayrılıp dikey yönde bulanıklaşarak aşağı kayar (RGB ayrışması belirgin değil), ~1.17 sn; sonra yeni klip; tek örnek.",
+   "kanit": "video-1 00:11.645; edit-dili-sayfa.jpg son GECIS şeridi",
+   "repertuarda": "glitch-rgb",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "dinamik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "retro-tv-kaynak-cerceve",
+   "eksen": "cerceve",
+   "tarif": "Koyu gri dokulu zemin üzerinde turuncu-kırmızı eski tüplü TV; içinde klip oynar; kamera yavaşça yakınlaşıp ekran tam kare olur (08.4-11.6 sn). Not: bu sahne büyük olasılıkla dizinin kendi sahnesi/kompozisyonu.",
+   "kanit": "video-1 00:08.4-00:11.6; edit-dili-sayfa.jpg #5-#6",
+   "repertuarda": "tv-crt",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 3,
+    "his": [
+     "retro",
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "gri-tonlu-flashback",
+   "eksen": "bitis",
+   "tarif": "Tek çekim (61.2 sn) siyah-beyaz doygunluğu sıfırlanmış sahne; zoom-dışı; anlatımda anı/hatıra vurgusu.",
+   "kanit": "video-1 01:01.2; sonrasi-ornek.jpg",
+   "repertuarda": "soguk-belgesel",
+   "etiket": {
+    "ton": [
+     "gizem"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 2,
+    "his": [
+     "retro"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "hizli-kesim-34-dk",
+   "eksen": "diger",
+   "tarif": "34.4 kesim/dk, medyan 1.45 sn, <1 sn çekim 34/116; kelime/çekim 5.4. Her 5-6 kelimede kesim; kesimlerin %77'si sert.",
+   "kanit": "video-1 genel (ritim/analiz.md)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 5,
+    "his": [
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "bulanik-yakin-plan-gag",
+   "eksen": "diger",
+   "tarif": "Aşırı bulanık yakın plan (Squidward ağzı) tek çekim 1-2 sn, komik vurgu / şaşkınlık; hemen sonra net plana kesim.",
+   "kanit": "video-1 00:47.9, 01:50.6, 02:29.9",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "eglence"
+    ],
+    "enerji": 4,
+    "his": [
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 1
+  }
+ ]
+}

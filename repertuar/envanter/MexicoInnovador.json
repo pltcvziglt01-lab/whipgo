@@ -1,0 +1,182 @@
+{
+ "kanal": "@MéxicoInnovador",
+ "nis": "teknoloji/otomotiv reaksiyon-doğrulama (Rogan + Tesla Roadster)",
+ "konu": [
+  "teknoloji",
+  "otomotiv",
+  "haber"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "AE hissi yok: hiç yakılmış yazı/kart yok, yalnız klipler + çözünme/siyaha geçiş + sabit hızlı yavaş zoom. Koyu tonlu kaynak görüntü sinematik bir hava veriyor ama bu şablon-benzeri ve 'otomatik montaj' hissi yaratıyor; ritmik tutarlılık (2.6 sn çekimler) tek ayırt edici özellik.",
+ "teknikler": [
+  {
+   "ad": "metronom-zoom-ritmi",
+   "eksen": "kamera",
+   "tarif": "Çekim ~2.6 sn (medyan 2.65), zoom ~2.6-3.8 %/sn aynı yönde art arda (24 komşu çift), 400 ms çözünme ile bağlanır; seri 15-20 çekim sürer (00:21-01:40). Bu, nabız gibi tekrar eden hareket etkisi verir.",
+   "kanit": "video-1 00:21.8-01:40; sonrasi-ornek.jpg 85.6-101.6 sn",
+   "repertuarda": "ken-burns-ice",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "otomotiv"
+    ],
+    "enerji": 2,
+    "his": [
+     "modern",
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "cozunme-400ms-baskin",
+   "eksen": "gecis",
+   "tarif": "Yumuşak geçiş oranı %70: çözünme %39 (400 ms = 12 kare), 18.9 sn sonrası ardışık dört çekimde tekrarlar; geçiş sırasında iki klip %50 şeffaf üst üste.",
+   "kanit": "video-1 00:21.833, 00:24.433, 00:27.033, 00:29.667",
+   "repertuarda": "cozunme",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "otomotiv"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "siyaha-gecis-300-500ms",
+   "eksen": "gecis",
+   "tarif": "Podcast stüdyosu klibinden demo klibine geçerken kısa siyah (1-2 kare) sonra yeni klip; süre 300-500 ms, oran %20.",
+   "kanit": "video-1 00:18.867, 00:32.167, 00:40.633",
+   "repertuarda": "sert",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "otomotiv"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik",
+     "karanlik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "zoom-gecis-ice-isik",
+   "eksen": "gecis",
+   "tarif": "Işık hüzmesi sahnesine geçişte zoom_gecis_ice (~1.5 sn), ışık bulanıklaşıp merkeze çekilir; tek örnek.",
+   "kanit": "video-1 01:05.433",
+   "repertuarda": "zoom-darbe",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 3,
+    "his": [
+     "sinematik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "dusuk-anahtar-kirmizi-vurgu-grade",
+   "eksen": "bitis",
+   "tarif": "Parlaklık 0.149, vinyet merkez/köşe 2.0; neon sarı-turuncu tabela (#f0b030 / #e04830) ve sahne kırmızı ışık şeritleri tek canlı renk; çoğunlukla siyah zemin. Büyük olasılıkla kaynak görüntünün kendi görünümü, ekstra grade belirlenmedi.",
+   "kanit": "video-1 genel; ilk30-cekimler.jpg",
+   "repertuarda": "sinema-film",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "otomotiv"
+    ],
+    "enerji": 2,
+    "his": [
+     "karanlik",
+     "sinematik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "letterbox-sinematik-sahne",
+   "eksen": "cerceve",
+   "tarif": "Geniş sahneler ve demo kareleri için 2.35:1 siyah bant (%9); yalnız bazı çekimlerde.",
+   "kanit": "video-1 duzen_zaman letterbox %9",
+   "repertuarda": "letterbox",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "sinematik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "yazisiz-kurgu",
+   "eksen": "diger",
+   "tarif": "Hiç yakılmış başlık/altyazı/kart yok; tüm bilgi anlatımla. Kanıt: altyazı öğesi 2, kart öğelerinin tamamı kaynak tabela/logo.",
+   "kanit": "video-1 yazi_ogeleri",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 1,
+    "his": [
+     "temiz"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "uzun-sabit-klip-bekleme",
+   "eksen": "zaman",
+   "tarif": "12-25 sn tek çekim (sabit; 00:06.6 12.3 sn, 00:42.8 25 sn) anlatım yoğun kısımda görüntü sabit.",
+   "kanit": "video-1 00:06.6, 00:42.8, 01:11.6 (14 sn)",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "sakin"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 1,
+    "his": [
+     "sinematik"
+    ]
+   },
+   "oncelik": 1
+  }
+ ]
+}

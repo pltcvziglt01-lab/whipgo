@@ -6,7 +6,7 @@ import { Stil, egri, ilerle, rastgele, rgba, sinirla } from './temel';
 // ayni seyi yapmiyorsa ve en fazla 1 eksen olarak kullanir.
 export const BASLIK_TIPLERI = [
   'maske-yukari', 'harf-dalga', 'bulaniklik', 'scramble', 'daktilo', 'kutu-acilis', 'dikey-yigin',
-  'harf-aralik', 'kontur-dolma', 'olcek-darbe', 'uzun-golge', 'alt-cizgi', 'kutu-vurgu', 'zemin-perspektif', 'asagidan-yay',
+  'harf-aralik', 'kontur-dolma', 'olcek-darbe', 'uzun-golge', 'alt-cizgi', 'kutu-vurgu', 'zemin-perspektif', 'asagidan-yay', 'el-elips', 'arama-cubugu',
 ] as const;
 export type BaslikTip = typeof BASLIK_TIPLERI[number];
 export type Konum = 'orta' | 'sol-alt' | 'sol-ust' | 'sol-orta' | 'sag-alt' | 'ust-orta';
@@ -142,6 +142,50 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
               </div>
             );
           })}
+        </div>
+      );
+      break;
+    }
+    case 'el-elips': {
+      // agir kelime + etrafina ELLE cizilmis kirmizi elips (@ReichonRecord): metin hafif olcekle oturur, ardindan 0,4 sn'de
+      // kalem cizgisi (bir turdan biraz fazla, ucu kapanmayan, kenari titrek) dolanir. Belge/dosya kartlarinda isim/yil vurgusu.
+      const p = ilerle(f, 0, sure * 0.6, hareket);
+      const c = sinirla((f - sure * 0.55) / (fps * 0.4));
+      const r = rastgele(metin + 'el');
+      const genis = Math.min(maxGenislik, m.length * boyut * 0.62) + boyut * 0.9, yuk = boyut * 1.7;
+      const n = 90, nokta: string[] = [];
+      for (let i = 0; i <= n * c; i++) {
+        const t = (i / n) * Math.PI * 2 * 1.12 - 0.5;
+        const tit = 1 + Math.sin(i * 0.9 + r() * 6) * 0.015 + (i / n) * 0.05;
+        nokta.push(`${(genis / 2) * tit * Math.cos(t) + genis / 2 + 6},${(yuk / 2) * tit * Math.sin(t) * (1 + 0.04 * Math.sin(t * 3)) + yuk / 2 + 6}`);
+      }
+      const kirmizi = palet.acik ? '#c22a22' : '#ff4b3e';
+      govde = (
+        <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: genis + 12, height: yuk + 12 }}>
+          <div style={{ ...temel, fontWeight: Math.max(800, font.baslikAgirlik), transform: `scale(${1.08 - 0.08 * p})`, opacity: sinirla(p * 2) }}>{m}</div>
+          <svg width={genis + 12} height={yuk + 12} style={{ position: 'absolute', inset: 0, overflow: 'visible', transform: 'rotate(-3deg)' }}>
+            {nokta.length > 1 ? <polyline points={nokta.join(' ')} fill="none" stroke={kirmizi} strokeWidth={boyut * 0.07} strokeLinecap="round" strokeLinejoin="round" opacity={0.92} /> : null}
+          </svg>
+        </div>
+      );
+      break;
+    }
+    case 'arama-cubugu': {
+      // yuvarlak beyaz arama cubugu (@InnovatingCore): cubuk soldan acilir, metin harf harf yazilir + yanip sonen imlec,
+      // bitince hafif 'basildi' cokmesi. Marka/logo YOK (genel arama kutusu).
+      const ac = ilerle(f, 0, sure * 0.6, 'kubik-hizli');
+      const yazBas = sure * 0.5, harfKare = fps * 0.045;
+      const harf = Math.floor(sinirla((f - yazBas) / (Math.max(1, m.length) * harfKare)) * metin.length);
+      const bitti = harf >= metin.length;
+      const bas = bitti ? ilerle(f, yazBas + metin.length * harfKare + 6, 8, 'ustel-sert') : 0;
+      const yuk = boyut * 0.95;
+      govde = (
+        <div style={{ display: 'flex', alignItems: 'center', gap: boyut * 0.3, height: yuk, width: Math.min(maxGenislik, boyut * 10) * ac, padding: `0 ${boyut * 0.4}px`, background: '#ffffff', borderRadius: yuk / 2,
+          boxShadow: `0 ${boyut * 0.12}px ${boyut * 0.5}px ${rgba('#000000', 0.35)}`, transform: `scale(${1 - 0.03 * Math.sin(bas * Math.PI)})`, opacity: sinirla(ac * 3), overflow: 'hidden', boxSizing: 'border-box' }}>
+          <svg width={yuk * 0.42} height={yuk * 0.42} viewBox="0 0 24 24" style={{ flex: 'none' }}><circle cx="10" cy="10" r="6.5" fill="none" stroke="#5f6368" strokeWidth="2.6" /><line x1="15" y1="15" x2="21" y2="21" stroke="#5f6368" strokeWidth="2.6" strokeLinecap="round" /></svg>
+          <div style={{ fontFamily: font.govde, fontWeight: 500, fontSize: boyut * 0.42, color: '#202124', whiteSpace: 'nowrap', letterSpacing: 0 }}>
+            {metin.slice(0, harf)}<span style={{ display: 'inline-block', width: 3, height: boyut * 0.5, marginLeft: 3, verticalAlign: 'middle', background: '#1a73e8', opacity: Math.floor(f / 15) % 2 || !bitti ? 1 : 0 }} />
+          </div>
         </div>
       );
       break;

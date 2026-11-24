@@ -1,11 +1,11 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Stil, egri, ilerle, rgba, sinirla } from './temel';
+import { Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 
 // HUD — medyanin USTUNE binen kalici bilgi katmanlari (saydam). Ogrenildigi kanallar: @Ground-Engineering (kamerayla senkron
 // derinlik sayaci), @ImmersivePast (sag kenarda derinlik cetveli + sol ustte guncellenen tarih/yer rozeti).
 // Deger animasyonu: baslangic -> deger, 'sure' saniyede (kamera hareketiyle es zamanli kullanilir).
-export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi'] as const;
+export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi', 'haber-bandi'] as const;
 export type HudTip = typeof HUD_TIPLERI[number];
 
 const kose = (renk: string, k = 22, c = 3): React.CSSProperties[] => [
@@ -88,6 +88,26 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
             <div style={{ color: renk, fontSize: 18, letterSpacing: 4 }}>{(etiket || 'LOCAL TIME').toUpperCase()}</div>
             <div style={{ fontSize: 40 }}>{z(hh)}:{z(mm)}:{z(ss)}<span style={{ opacity: 0.6, fontSize: 28 }}>:{z(kk)}</span></div>
             {ust ? <div style={{ fontSize: 20, opacity: 0.8, marginTop: 4 }}>{ust}</div> : null}
+          </div>
+        </AbsoluteFill>
+      );
+    }
+    case 'haber-bandi': {
+      // canli haber bandi (@SvenskaBilar): altta tam genislik koyu serit, solda vurgu kutusunda etiket (LIVE),
+      // saga dogru surekli sola kayan kalin mansetler ('ust' alaninda '|' ile ayrilir), aralarda vurgu '//' ayirici.
+      const k = ilerle(f, gec, fps * 0.4, 'ustel-sert');
+      const mansetler = (ust || 'BREAKING').split('|').map((x) => x.trim()).filter(Boolean);
+      const kay = ((f - gec) / fps) * 140; // px/sn
+      const serit = H * 0.075;
+      const zemin = palet.acik ? karistir(palet.murekkep, '#0b1a2e', 0.5) : karistir(palet.zemin, '#0b1a2e', 0.6);
+      const dizi = [...mansetler, ...mansetler, ...mansetler];
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: H * 0.05, height: serit, background: rgba(zemin, 0.92), transform: `translateY(${(1 - k) * 160}%)`, display: 'flex', alignItems: 'center', overflow: 'hidden', boxShadow: `0 -4px 24px ${rgba('#000', 0.35)}` }}>
+            <div style={{ flex: 'none', height: '100%', display: 'flex', alignItems: 'center', padding: `0 ${serit * 0.45}px`, background: renk, color: '#ffffff', fontFamily: font.govde, fontWeight: 800, fontSize: serit * 0.46, letterSpacing: 2, textTransform: 'uppercase', zIndex: 1 }}>{etiket || 'LIVE'}</div>
+            <div style={{ whiteSpace: 'nowrap', transform: `translateX(${-kay % (W * 1.5)}px)`, paddingLeft: serit * 0.5, fontFamily: font.govde, fontWeight: 700, fontSize: serit * 0.42, color: '#ffffff', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              {dizi.map((x, i) => <span key={i}>{x}<span style={{ color: renk, margin: `0 ${serit * 0.4}px`, fontWeight: 800 }}>//</span></span>)}
+            </div>
           </div>
         </AbsoluteFill>
       );

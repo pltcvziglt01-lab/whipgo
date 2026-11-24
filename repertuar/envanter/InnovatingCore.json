@@ -1,0 +1,280 @@
+{
+ "kanal": "@InnovatingCore",
+ "nis": "teknoloji-jeopolitik (ABD icadı / bakıra karşı alternatif), İngilizce",
+ "konu": [
+  "teknoloji",
+  "muhendislik",
+  "haber",
+  "finans"
+ ],
+ "ton": "ciddi",
+ "ae_hissi": "Hızlı stok görüntü + alt-sol etiketler + iki renkli büyük başlık kartları ve glitch kümeleri, 'bilgi kartı sunumu' hissi veriyor; arama çubuğu, sarı serif kutu etiket ve daire iris wipe gibi küçük UI öğeleri sıradan şablon dışı. Zayıf: glitch sayısı az, tüm etiketler küçük, grade soğuk-nötr ve kurumsal.",
+ "teknikler": [
+  {
+   "ad": "alt-sol-siyah-serit-etiket",
+   "eksen": "altbant",
+   "tarif": "Alt-solda siyah dikdörtgen şerit (yazı genişliğine uyar, ~%3-4 yüksek), içinde beyaz küçük kalın sans; solda ince kırmızı çubuk (tick). Giriş: şerit soldan açılır ve metin soldan yazılırmış gibi harf harf görünür (~0.5 sn; 'Under the hood of your car' 7.0-8.0 sn), kalış 2-3 sn, kesimle birlikte ya da kesim sonrası yine görünür kalabilir (57.7-60.7 sn 'Heat Transfer Nearly 3x Faster' hızlı kesimler boyunca sabit).",
+   "kanit": "video-1 00:05.4-00:12.5, 00:19.5-00:22, 00:57.7-01:00.7; ilk30-0.5.jpg 5.5-12.5 sn; yuzde30-cekimler-1.jpg 57.7-60.7 sn",
+   "repertuarda": "blok-kayma",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "muhendislik"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "teknik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "arama-cubugu-baslik",
+   "eksen": "baslik",
+   "tarif": "Beyaz yuvarlatılmış arama çubuğu (~%25 genişlik, sol alt-soluk), solda büyüteç, sağda x; içine mavi/siyah metin 'Copper: King of Electricity' harf harf yazılır (2.5 sn'de 'Copper: King of E...' → 4.5 sn tam), alt-solda; Google arama UI taklidi.",
+   "kanit": "video-1 00:02.5-00:05.4; ilk30-0.5.jpg 2.5-5.4 sn",
+   "repertuarda": null,
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "oyunbaz"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "tarih-yigin-sayaci-altin",
+   "eksen": "sayi",
+   "tarif": "Altın-sarı (~#f0c030) kalın dar sans '150 years' (150 beyaz, years sarı) merkezde; üstünde ve altında soluk tarih sütunu (1000 / 1910 / 1920) yukarı kayarak değişir (rulo); metin 0.5 sn'de büyüyerek belirir, 2.0 sn'de sağa kayarak biter.",
+   "kanit": "video-1 00:00.5-00:02.2; ilk30-0.5.jpg",
+   "repertuarda": "rulo",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "sari-kutu-serif-etiket",
+   "eksen": "baslik",
+   "tarif": "Açık sarı (~#f5e46a) dikdörtgen kutu, içinde siyah serif büyük harf 'COPPER' (Times/Playfair benzeri), harf harf yazım (C → CO → COP → COPPER, ~0.7 sn), görüntünün sol-üstünde, 27.2-33 sn boyunca sabit kalır; arka klip çekimleri değişirken yerinde kalır.",
+   "kanit": "video-1 00:27.2-00:33; ilk30-0.5.jpg / edit-dili-sayfa.jpg #9-#11",
+   "repertuarda": "daktilo",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "sicak"
+    ]
+   },
+   "oncelik": 3
+  },
+  {
+   "ad": "daire-iris-wipe",
+   "eksen": "gecis",
+   "tarif": "Gümüş külçe karesinde ortada küçük daire açılır (noktadan büyüyerek), içinde yeni klip görünür, daire tüm kareye yayılır (16 kare = 533 ms); daire kenarı ince beyaz çizgi.",
+   "kanit": "video-1 00:24.900; edit-dili-sayfa.jpg GECIS zoom_gecis_disa",
+   "repertuarda": "maske-daire",
+   "etiket": {
+    "ton": [
+     "ciddi",
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "muhendislik"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "kayan-inset-kart-giris",
+   "eksen": "gecis",
+   "tarif": "Yeni klip kareyi tam kaplamak yerine dikdörtgen kutu olarak yukarıdan aşağı kayarak girer (ortu_asagi 467 ms) ve eski klibin üstünde kısa süre kalır; kutuya etiket eklenir.",
+   "kanit": "video-1 00:27.200-00:27.7; edit-dili-sayfa.jpg GECIS ortu_asagi",
+   "repertuarda": "kaydirma-itme",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "iki-renkli-kinetik-baslik",
+   "eksen": "baslik",
+   "tarif": "Merkezde iki satır kalın dar sans beyaz 'Why Copper / Became a' + kırmızı 'Problem' (en vurgulu kelime kırmızı ~#e02020), anlatıma yakın; hızlı kesimlerde görüntü üstünde bulanık-katmanlı çift görünür (88.7-90.3 sn, ~1.6 sn).",
+   "kanit": "video-1 01:28.7-01:30.3; yuzde30-cekimler-1.jpg 88.7-89.8 sn",
+   "repertuarda": "kutu-vurgu",
+   "etiket": {
+    "ton": [
+     "enerjik",
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "finans"
+    ],
+    "enerji": 4,
+    "his": [
+     "modern",
+     "dinamik"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "hizli-montaj-kesim-kumesi",
+   "eksen": "diger",
+   "tarif": "01:25-01:32 aralığında 0.3-0.5 sn çekimler (27 çekim <1 sn), 6 bileşik glitch + 3 bileşik sert; üstünde etiketler ('Beyond Science', 'Science') kesimlerle yerinde kalır.",
+   "kanit": "video-1 01:25.2-01:31.3; yuzde30-cekimler-1.jpg 84.9-92.4 sn",
+   "repertuarda": "glitch-rgb",
+   "etiket": {
+    "ton": [
+     "enerjik"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim"
+    ],
+    "enerji": 5,
+    "his": [
+     "dinamik",
+     "modern"
+    ]
+   },
+   "oncelik": 2
+  },
+  {
+   "ad": "kolaj-izgara-lab",
+   "eksen": "cerceve",
+   "tarif": "3x3 laboratuvar çekimi ızgarası; hücreler arası ince beyaz boşluk, her hücre farklı klip; tek örnek.",
+   "kanit": "video-1 01:09.767",
+   "repertuarda": "bolunmus",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "bilim",
+     "teknoloji"
+    ],
+    "enerji": 3,
+    "his": [
+     "teknik",
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "ortada-ince-kutu-bulanik-cerceve",
+   "eksen": "cerceve",
+   "tarif": "Dikey bulanık/siyah çerçeveli ortalanmış klip (iç kutu ~%31 genişlik) – geçici düzen; letterbox çekimleri 02:54-02:56.",
+   "kanit": "video-1 02:49-02:54.5",
+   "repertuarda": "letterbox",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji"
+    ],
+    "enerji": 2,
+    "his": [
+     "teknik"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "kontrastli-ikinci-baslik-etiketi",
+   "eksen": "baslik",
+   "tarif": "Küçük kısa ifade etiketleri ('Not in a research paper', 'Beyond Science') alt-solda siyah şerit/beyaz yazı; anlatım ifadeleriyle eşleşir (konusma_eslesme 33/339 ≥0.5).",
+   "kanit": "video-1 00:43.6, 01:30.9",
+   "repertuarda": "cip-etiket",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "bilim"
+    ],
+    "enerji": 3,
+    "his": [
+     "modern"
+    ]
+   },
+   "oncelik": 1
+  },
+  {
+   "ad": "soguk-notr-kurumsal-grade",
+   "eksen": "bitis",
+   "tarif": "Doygunluk 0.267, kontrast 0.196, sıcaklık R-B +2 (nötr), vinyet yok (1.11), stok fabrika/laboratuvar klipleri.",
+   "kanit": "video-1 genel",
+   "repertuarda": "temiz-dijital",
+   "etiket": {
+    "ton": [
+     "ciddi"
+    ],
+    "konu": [
+     "teknoloji",
+     "muhendislik"
+    ],
+    "enerji": 2,
+    "his": [
+     "temiz",
+     "modern",
+     "teknik"
+    ]
+   },
+   "oncelik": 1
+  }
+ ]
+}

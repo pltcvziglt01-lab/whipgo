@@ -1300,6 +1300,53 @@
    "kaynak": [
     "@Ground-Engineering"
    ]
+  },
+  "el-elips": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "suc",
+    "gizem",
+    "biyografi",
+    "haber"
+   ],
+   "enerji": 3,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "resmi"
+   ],
+   "kaynak": [
+    "@ReichonRecord"
+   ]
+  },
+  "arama-cubugu": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "bilim",
+    "egitim",
+    "finans",
+    "yasam",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "temiz",
+    "teknik"
+   ],
+   "kaynak": [
+    "@InnovatingCore"
+   ]
   }
  },
  "altyazi": {
@@ -3497,6 +3544,28 @@
    ],
    "kaynak": [
     "@TactCoreYT"
+   ]
+  },
+  "haber-bandi": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "haber",
+    "otomotiv",
+    "teknoloji",
+    "finans",
+    "spor"
+   ],
+   "enerji": 3,
+   "his": [
+    "resmi",
+    "modern",
+    "dinamik"
+   ],
+   "kaynak": [
+    "@SvenskaBilar"
    ]
   }
  }
