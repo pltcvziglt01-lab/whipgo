@@ -20,6 +20,7 @@ eksik teknik repertuara eklenir (bkz. §5).
 | Kartlar | `Kart.tsx` | alt bant 5, sayı 6 (sayaç/rulo/halka/çubuk/dev-kontur/tabela), alıntı 5 (büyük tırnak/kâğıt not/daktilo belge/yan çizgi/fosfor satır), liste 4 (işaretli/numaralı yığın/panel yığını/cetvel), karşılaştırma, zaman çizelgesi 4 (yatay düğüm/dikey şerit/büyük yıl/merdiven). Kâğıt kartların tonu palete bağlı |
 | Medya | `Medya.tsx` | kamera 10 (KB iç/dış, pan ×3, el kamerası, zoom darbe, dolly eğik, paralaks), çerçeve 11 (tam, inset gölge, bulanık kopya, polaroid, TV-CRT, letterbox, pencere, film şeridi, bölünmüş, kolaj, yuvarlak), doku 9 |
 | Stil | `temel.ts` | 16 palet (`gece-kirmizi` klasik, seçilmez), 12 font çifti, 7 hareket eğrisi |
+| **Bitiş (AE görünümü)** | `Bitis.tsx` | 6 post-prodüksiyon katmanı (sinema-film, temiz-dijital, arsiv-proje, neon-parilti, sicak-hale, soguk-belgesel): kamera nefesi (wiggle), kalkık siyahlar + split-tone grade, kayan ışık cepleri, gren, titreme, projektör sallantısı, bölüm geçişinde ışık süzülmesi. **Her video `DnaBitis` ile sarılır** — ham Remotion çıktısı "kod" gibi görünür |
 | Öğrenilmiş | `Preset.tsx` | Premiere presetlerinden zoom / shake / slide / whip / blur-in (338) — `varlik-paketleri.md` |
 
 ## 3. Akış
@@ -59,7 +60,7 @@ Her repertuar öğesinin etiketi var; `stil_dna.py` seçimi bunlarla yapar. **Ye
 ```tsx
 import dna from './v04/stil-dna.json';
 import presetler from '../public/varlik/preset-dili-remotion.json';
-import { DnaDizi, DnaMedya, DnaBaslik, DnaSayi, DnaAltyazi, DnaAltBant, DnaVurgu, DnaGiris, DnaDoku } from './repertuar/Dna';
+import { DnaBitis, DnaDizi, DnaMedya, DnaBaslik, DnaSayi, DnaAltyazi, DnaAltBant, DnaVurgu, DnaGiris, DnaDoku } from './repertuar/Dna';
 import { FontYukle } from './repertuar/FontYukle';
 // sahne süreleri cumleler.json'dan; ilk 30 sn medyanı dna.iskelet.ilk30_medyan_sn'yi ±%20 tutar
 const sahneler = [
@@ -67,7 +68,8 @@ const sahneler = [
   { sure: 60, el: <><DnaVurgu dna={dna} presetler={presetler} gec={24}><DnaMedya dna={dna} m={{ src: 'v04/foto/3.jpg' }} sira={2} /></DnaVurgu><DnaAltyazi dna={dna} kelimeler={k3} /></> },
   { sure: 70, el: <DnaGiris dna={dna} presetler={presetler}><DnaSayi dna={dna} deger={1928} onEk="$" ust="..." /></DnaGiris> },
 ];
-export const Video04 = () => (<><FontYukle /><DnaDizi dna={dna} sahneler={sahneler} /><DnaDoku dna={dna} /></>);
+// bolum baslarinin kareleri: isik suzulmesi orada gecer
+export const Video04 = () => (<><FontYukle /><DnaBitis dna={dna} anlar={[0, 2710, 6020]}><DnaDizi dna={dna} sahneler={sahneler} /><DnaDoku dna={dna} /></DnaBitis></>);
 ```
 - `DnaMedya` `sira`'ya göre tam ekran/çerçeveli kararını `iskelet.cerceveli_oran` ile verir; kamera hareketini döndürür.
 - `DnaDizi` geçişleri DNA'dan, süreyi (`gecis_kare`) ve sertlik oranını (`yumusak_oran`) rakipten alır.

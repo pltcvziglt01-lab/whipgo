@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { FontYukle } from './FontYukle';
-import { Dna, DnaAlinti, DnaAltBant, DnaAltyazi, DnaBaslik, DnaDizi, DnaDoku, DnaListe, DnaMedya, DnaSayi, DnaZaman } from './Dna';
+import { Dna, DnaAlinti, DnaAltBant, DnaAltyazi, DnaBaslik, DnaBitis, DnaDizi, DnaDoku, DnaListe, DnaMedya, DnaSayi, DnaZaman } from './Dna';
 import { diziSuresi, gecisPlani } from './Gecis';
 import { DnaVurgu, DnaGiris } from './Dna';
 import { PresetVeri } from './Preset';
@@ -35,8 +35,10 @@ export const onizlemeSuresi = (p: OnizlemeProps) => {
 export const Onizleme: React.FC<OnizlemeProps> = (p) => (
   <AbsoluteFill>
     <FontYukle />
-    {/* onizlemede her sinirda gecis gosterilir (yumusakOran 1); gercek videoda iskeletin orani kullanilir */}
-    <DnaDizi dna={p.dna} sahneler={sahneler(p)} yumusakOran={1} />
-    <DnaDoku dna={p.dna} />
+    <DnaBitis dna={p.dna} anlar={[Math.round(onizlemeSuresi(p) * 0.45)]}>
+      {/* onizlemede her sinirda gecis gosterilir (yumusakOran 1); gercek videoda iskeletin orani kullanilir */}
+      <DnaDizi dna={p.dna} sahneler={sahneler(p)} yumusakOran={1} />
+      <DnaDoku dna={p.dna} />
+    </DnaBitis>
   </AbsoluteFill>
 );

@@ -642,6 +642,11 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     if set(d) == {'gren', 'vinyet'}:
         d = d[:1]
     dna['doku'] = d
+    # bitis (post-produksiyon: grade + kamera nefesi + isik) — AE hissi; Bitis.tsx yoksa atlanir
+    if os.path.isfile(os.path.join(rep, 'Bitis.tsx')):
+        dna['bitis'] = sec(r, L('Bitis.tsx', 'BITIS_TIPLERI'), gecmis=g('bitis'), eksen='bitis', kullanim=kul, kacin=k2('bitis'))[0]
+        if dna['bitis'] in ('arsiv-proje', 'sinema-film'):  # bitis kendi gren/kenar karartmasini getirir; doku tekrar etmesin
+            dna['doku'] = [x for x in dna['doku'] if x not in ('gren', 'vinyet')]
     # iskelet (rakipten)
     isk = rk['iskelet']
     fps = 30
@@ -658,7 +663,7 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     return dna
 
 ESIK_DEGISIM = 0.20  # her video rakipten VE kanalin son 3 videosundan en az %20 farkli yuzey (demonetizasyon / AI slop)
-EKSENLER = ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'doku', 'vurgu', 'kayma']
+EKSENLER = ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'kamera', 'cerceve', 'baslik', 'altyazi', 'altbant', 'sayi', 'alinti', 'liste', 'zaman', 'doku', 'vurgu', 'kayma', 'bitis']
 
 def fark(a, b):
     n = 0
@@ -718,17 +723,17 @@ def md_yaz(yol, rk, secenekler, kut, gecmis, tb=None, nis=None, diger=None):
     for e in EKSENLER:
         h = []
         for d in secenekler:
-            v = d[e]
+            v = d.get(e)
             v = (', '.join(v) or '-') if isinstance(v, list) else (v or '-')
-            kn = [kanit(kut, e, x) for x in (d[e] if isinstance(d[e], list) else [d[e]]) if x]
+            kn = [kanit(kut, e, x) for x in (v if isinstance(v, list) else [v]) if x]
             kn = [k for k in kn if k['kanal_sayisi']]
             h.append(v + ('' if v == '-' else f" <br><sub>kanit: {kn[0]['teknik']} ({kn[0]['kanal_sayisi']} kanal, or. {', '.join(kn[0]['ornek'][:2])})</sub>" if kn else (' <br><sub>yeni (repertuar)</sub>' if e in TEKNIK else '')))
         s.append(f"| {e} | {rakip_sutun.get(e, 'olculmez (gozle)')} | " + ' | '.join(h) + ' |')
     s += ['', '## Secim nedenleri (etiketler)', '']
     for i, d in enumerate(secenekler):
         sat = []
-        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'alinti', 'liste', 'zaman', 'altbant', 'doku']:
-            for x in (d[e] if isinstance(d[e], list) else [d[e]]):
+        for e in ['palet', 'font', 'hareket', 'arkaplan', 'gecis', 'baslik', 'altyazi', 'cerceve', 'kamera', 'sayi', 'alinti', 'liste', 'zaman', 'altbant', 'doku', 'bitis']:
+            for x in (d.get(e) if isinstance(d.get(e), list) else [d.get(e)]):
                 if isinstance(x, str) and not x.startswith('video:'):
                     sat.append(f"{e}/{x}: {ETK.neden(e, x)}")
         uyumsuz = [x for x in sat if 'UYUMSUZ' in x]

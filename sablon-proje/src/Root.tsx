@@ -9,6 +9,7 @@ import { CERCEVE_TIPLERI, Cerceve, DOKU_TIPLERI, Doku, KAMERA_TIPLERI, Medya } f
 import { FONTLAR, PALETLER, stilYap } from './repertuar/temel';
 import { Onizleme, onizlemeSuresi } from './repertuar/Onizleme';
 import { PresetHareket } from './repertuar/Preset';
+import { BITIS_TIPLERI, Bitis } from './repertuar/Bitis';
 import ornekDna from './ornek-dna.json';
 // public/varlik = repo varlik/ klasoru (varlik_kur.py kanal ile baglanir)
 import presetler from '../public/varlik/preset-dili-remotion.json';
@@ -57,6 +58,18 @@ const KatCerceve: React.FC = () => (
     ...KAMERA_TIPLERI.slice(5, 10).map((k) => ({ ad: 'kamera: ' + k, el: <Medya m={B} kamera={k} /> })),
   ]} />
 );
+const bitisSahne = (i: number) => (
+  <AbsoluteFill>
+    <Medya m={i % 2 ? B : A} kamera="ken-burns-ice" />
+    <Baslik tip="maske-yukari" metin="Operation Nightfall" ust="Chapter 3" stil={st(12)} boyut={110} />
+  </AbsoluteFill>
+);
+const KatBitis: React.FC = () => (
+  <Izgara sutun={3} hucreler={[
+    { ad: 'bitis: ham (yok)', el: bitisSahne(0) },
+    ...BITIS_TIPLERI.map((b, i) => ({ ad: 'bitis: ' + b, el: <Bitis tip={b} stil={st(12 + i)} anlar={[40]}>{bitisSahne(i + 1)}</Bitis> })),
+  ]} />
+);
 const KatPreset: React.FC = () => {
   const sec = ['zoom', 'sarsinti', 'kayma', 'gecis', 'yazi', 'zoom', 'sarsinti', 'kayma', 'gecis'].map((s, i) => (presetler as any[]).filter((p) => p.sinif === s)[i]).filter(Boolean);
   return <Izgara sutun={3} hucreler={sec.map((p: any, i) => ({ ad: p.id, el: <AbsoluteFill style={{ background: '#111' }}><PresetHareket preset={p} dongu gec={6}><Medya m={i % 2 ? B : A} /></PresetHareket></AbsoluteFill> }))} />;
@@ -66,7 +79,7 @@ const K = (id: string, c: React.FC, d = 300) => <Composition id={id} component={
 export const RemotionRoot: React.FC = () => (
   <>
     {K('KatArkaplan', KatArkaplan)}{K('KatEdit', KatEdit)}{K('KatGecis', KatGecis, 60)}{K('KatBaslik', KatBaslik)}
-    {K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}
+    {K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />

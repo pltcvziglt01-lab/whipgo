@@ -6,6 +6,7 @@ import { Alinti, AlintiTip, AltBant, AltBantTip, Liste, ListeTip, SayiKarti, Say
 import { Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
 import { HareketAd, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
+import { Bitis, BitisTip } from './Bitis';
 import { Altyazi, AltyaziTip, BaslikTip, Baslik, Kelime, Konum } from './Yazi';
 
 // stil-dna.json (stil_dna.py ciktisi) -> bilesenler. Video kodu yalniz bunlari kullanir; boylece her video/kanal
@@ -17,6 +18,8 @@ export type Dna = {
   tohum: string;
   /** ogrenilmis Premiere presetleri (id): vurgu = anahtar kelimede zoom/sarsinti, kayma = oge girisi */
   vurgu?: string[]; kayma?: string;
+  /** post-produksiyon katmani (Bitis.tsx): grade + kamera nefesi + isik; yoksa ham */
+  bitis?: BitisTip;
 };
 export const dnaStil = (d: Dna): Stil => stilYap(d.palet, d.font, d.hareket, d.tohum);
 
@@ -64,4 +67,9 @@ export const DnaDoku: React.FC<{ dna: Dna }> = ({ dna }) => <>{dna.doku.map((d) 
 /** sahne dizisi: gecis tipleri DNA'dan, sure ve siklik iskeletten (rakibin olculmus degerleri) */
 export const DnaDizi: React.FC<{ dna: Dna; sahneler: DiziSahne[]; yumusakOran?: number }> = ({ dna, sahneler, yumusakOran }) => (
   <GecisliDizi sahneler={sahneler} gecis={dna.gecis} kare={dna.iskelet.gecis_kare} yumusakOran={yumusakOran ?? dna.iskelet.yumusak_oran} stil={dnaStil(dna)} tohum={dna.tohum} zemin={<DnaArkaplan dna={dna} rol={1} />} />
+);
+
+/** tum videoyu sarar: <DnaBitis dna={dna} anlar={[bolum basi kareleri]}> ...DnaDizi, DnaDoku, DnaAltyazi... </DnaBitis> */
+export const DnaBitis: React.FC<{ dna: Dna; anlar?: number[]; children: React.ReactNode }> = ({ dna, anlar, children }) => (
+  <Bitis tip={dna.bitis} stil={dnaStil(dna)} anlar={anlar}>{children}</Bitis>
 );

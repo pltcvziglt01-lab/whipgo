@@ -2855,5 +2855,131 @@
     "teknik"
    ]
   }
+ },
+ "bitis": {
+  "sinema-film": {
+   "ton": [
+    "ciddi",
+    "gizem",
+    "sakin",
+    "enerjik"
+   ],
+   "konu": [
+    "tarih",
+    "biyografi",
+    "askeri",
+    "suc",
+    "seyahat",
+    "felsefe",
+    "korku",
+    "gizem",
+    "spor"
+   ],
+   "enerji": 2,
+   "his": [
+    "sinematik",
+    "karanlik"
+   ]
+  },
+  "temiz-dijital": {
+   "ton": [
+    "enerjik",
+    "sakin",
+    "ciddi"
+   ],
+   "konu": [
+    "teknoloji",
+    "finans",
+    "egitim",
+    "saglik",
+    "bilim",
+    "muhendislik",
+    "liste"
+   ],
+   "enerji": 3,
+   "his": [
+    "temiz",
+    "modern"
+   ]
+  },
+  "arsiv-proje": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "suc"
+   ],
+   "enerji": 1,
+   "his": [
+    "arsiv",
+    "retro",
+    "belgesel"
+   ]
+  },
+  "neon-parilti": {
+   "ton": [
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "oyun",
+    "teknoloji",
+    "eglence",
+    "spor",
+    "otomotiv"
+   ],
+   "enerji": 4,
+   "his": [
+    "neon",
+    "dinamik"
+   ]
+  },
+  "sicak-hale": {
+   "ton": [
+    "sakin",
+    "enerjik",
+    "ciddi"
+   ],
+   "konu": [
+    "yasam",
+    "seyahat",
+    "biyografi",
+    "spor",
+    "otomotiv",
+    "saglik"
+   ],
+   "enerji": 2,
+   "his": [
+    "sicak",
+    "sinematik",
+    "yumusak"
+   ]
+  },
+  "soguk-belgesel": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "haber",
+    "askeri",
+    "bilim",
+    "muhendislik",
+    "suc",
+    "felsefe",
+    "teknoloji"
+   ],
+   "enerji": 2,
+   "his": [
+    "belgesel",
+    "teknik",
+    "resmi",
+    "karanlik"
+   ]
+  }
  }
 }
