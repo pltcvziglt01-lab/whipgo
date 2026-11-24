@@ -39,5 +39,13 @@ py skill\youtube-video-uretim\scripts\kurulum.py ayna      # Drive kütüphanesi
 py skill\youtube-video-uretim\scripts\kurulum.py paketle   # skill değiştiyse yeniden yükle
 ```
 
+## `varlik_kur.py yukle/indir` "gh auth login" derse
+Bazı kabuklarda Python'un alt süreci Windows kimlik deposundaki gh token'ını göremiyor. O zaman doğrudan gh ile:
+```powershell
+& "C:\Program Files\GitHub CLI\gh.exe" release download varlik-v1 -p "ab-*.mp4" -D varlik\arkaplan --skip-existing
+& "C:\Program Files\GitHub CLI\gh.exe" release download varlik-v1 -p "fb-*.mp4" -D varlik\filmburn --skip-existing
+& "C:\Program Files\GitHub CLI\gh.exe" release upload varlik-v1 (Get-ChildItem varlik\arkaplan\*.mp4) --clobber
+```
+
 ## Yeni edit paketi
 `skill/youtube-video-uretim/references/varlik-paketleri.md` §2 (`varlik_kur.py katalog` → `presetler` → `yukle`).
