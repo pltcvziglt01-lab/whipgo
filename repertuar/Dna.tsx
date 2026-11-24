@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { DiziSahne, GecisTip, GecisliDizi } from './Gecis';
-import { Alinti, AlintiTip, AltBant, AltBantTip, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
+import { Alinti, AlintiTip, AltBant, AltBantKonum, AltBantTip, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
 import { Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
 import { HareketAd, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
@@ -75,13 +75,52 @@ export const kameraSec = (dna: Dna, sira: number) => {
   return p[sira];
 };
 
-/** medya sahnesi: sira numarasina gore tam ekran / cerceveli karar verir (cerceveli_oran kadar), kamerayi dongusuz secer */
-export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; sira: number; etiket?: string; zorla?: CerceveTip }> = ({ dna, m, m2, m3, sira, etiket, zorla }) => {
-  const r = rastgele(dna.tohum + 'md' + sira);
-  const cerceveli = zorla ? zorla !== 'tam' : r() < dna.iskelet.cerceveli_oran;
+/** cerceve plani: cekim cerceveli mi — eskisi gibi rastgele(tohum + 'md' + sira)() < cerceveli_oran (kurgu_denetim cerceve_olc
+ *  ayni orani olcer). Cerceveli cekimin TIPI artik zar degil, kotali dagitim (v04: film-seridi 49 cercevenin 32'si = %65 idi):
+ *  - yakin tekrar yok: son CERCEVE_YAKIN cekim icinde kullanilan tip (DNA'da baska tip varsa) secilmez — ayni cerceve art arda
+ *    gelmez; hepsi yakinda kullanildiysa en uzun suredir kullanilmayan;
+ *  - denge: yalniz en az kullanilan tipin en fazla 1 fazlasi kadar kullanilmis tipler aday (tek tipin payi pratikte <= %55,
+ *    CERCEVE_PAY = %60 tavan); adaylar arasinda eksigi buyuk olan agirlikli, tohumlu secilir (mekanik A-B-A-B'ye kilitlenmez).
+ *  Deterministik (tohum); VideoDna nesne-dalisi odagi icin de bunu kullanir. */
+export const CERCEVE_PAY = 0.6;
+export const CERCEVE_YAKIN = 8;
+const cerceveOnbellek = new Map<string, CerceveTip[]>();
+export const cerceveSec = (dna: Dna, sira: number): CerceveTip => {
+  const anahtar = dna.tohum + '|' + (dna.cerceve || []).join(',') + '|' + dna.iskelet.cerceveli_oran;
+  let p = cerceveOnbellek.get(anahtar);
+  if (!p) { p = []; cerceveOnbellek.set(anahtar, p); }
+  const K = Array.from(new Set(dna.cerceve || [])).filter((t) => t !== 'tam') as CerceveTip[];
+  const say: Record<string, number> = {};
+  p.forEach((t) => { if (t !== 'tam') say[t] = (say[t] || 0) + 1; });
+  while (p.length <= sira) {
+    const i = p.length, r = rastgele(dna.tohum + 'md' + i);
+    if (!K.length || r() >= dna.iskelet.cerceveli_oran) { p.push('tam'); continue; }
+    const yakin = new Set(p.slice(Math.max(0, i - CERCEVE_YAKIN)).filter((t) => t !== 'tam'));
+    const enaz = Math.min(...K.map((t) => say[t] || 0));
+    let aday = K.filter((t) => !yakin.has(t) && (say[t] || 0) <= enaz + 1);
+    if (!aday.length) {
+      // hepsi yakinda kullanildi: dengede kalanlardan en uzun suredir kullanilmayan (onceki cekimle ayni olamaz)
+      const sonKullanim = (t: CerceveTip) => p!.lastIndexOf(t);
+      const denge = K.filter((t) => (say[t] || 0) <= enaz + 1 && p![i - 1] !== t);
+      const havuz = denge.length ? denge : K.filter((t) => p![i - 1] !== t).length ? K.filter((t) => p![i - 1] !== t) : K;
+      const eski = Math.min(...havuz.map(sonKullanim));
+      aday = havuz.filter((t) => sonKullanim(t) === eski);
+    }
+    const w = aday.map((t) => enaz + 2 - (say[t] || 0));
+    let u = r() * w.reduce((a, b) => a + b, 0), t = aday[aday.length - 1];
+    for (let k = 0; k < aday.length; k++) { u -= w[k]; if (u < 0) { t = aday[k]; break; } }
+    say[t] = (say[t] || 0) + 1;
+    p.push(t);
+  }
+  return p[sira];
+};
+
+/** medya sahnesi: sira numarasina gore tam ekran / cerceveli karar verir (cerceveSec), kamerayi dongusuz secer.
+ *  odak: odak-karartma penceresi [x, y, gen, yuk] (0..1; verilmezse ortadaki dikey pencere) */
+export const DnaMedya: React.FC<{ dna: Dna; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; sira: number; etiket?: string; zorla?: CerceveTip; odak?: [number, number, number, number] }> = ({ dna, m, m2, m3, sira, etiket, zorla, odak }) => {
   const { tip: kamera, hiz } = kameraSec(dna, sira);
-  const tip: CerceveTip = zorla || (cerceveli ? dna.cerceve[Math.floor(r() * dna.cerceve.length)] : 'tam');
-  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} />;
+  const tip: CerceveTip = zorla || cerceveSec(dna, sira);
+  return <Cerceve tip={tip} m={m} m2={m2} m3={m3} kamera={kamera} hiz={hiz} stil={dnaStil(dna)} arkaplan={dna.arkaplan[1 % dna.arkaplan.length]} etiket={etiket} tohum={dna.tohum + sira} odak={odak} />;
 };
 
 /** arkaplanli=false (medya ustu): baslik koyu konturlu + golgeli cizilir ve guvenli alanin tamamini (1720 px) kullanabilir */
@@ -95,8 +134,10 @@ export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; g
   const plan = React.useMemo(() => sfxPlani(olaylar, ton, dna.tohum, dna.iskelet.fps || 30, dna.iskelet.sfx_orani ?? 0.5), [olaylar, ton, dna.tohum]);
   return <SfxKatmani plan={plan} klasor={klasor} genelSes={genelSes} />;
 };
-export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[] }> = ({ dna, kelimeler }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} />);
-export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
+/** konum 'ust-ucte-bir': kaynak goruntunun alt ucte birinde gomulu yazi olan cekimlerde (VideoDna etiket_ust) altyazi yukari alinir */
+export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[]; konum?: 'alt' | 'orta' | 'ust-ucte-bir' }> = ({ dna, kelimeler, konum }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} konum={konum} />);
+/** konum 'ust': alt bant ust kosede (kaynak goruntunun alt ucte birinde gomulu yazi varsa; VideoDna etiket_ust) */
+export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean; konum?: AltBantKonum }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
 /** sayi karti. kaynak verilirse zemin O CEKIMIN goruntusudur (bulanik + koyulastirilmis/palet tonuna yikanmis, karta ters yonde
  *  yavas kayar -> parallax): her sayi karti kendi sahnesinin rengini tasir, ayni sablon tekrar etmez. kaynak yoksa DNA arka plani. */
 export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (
@@ -160,12 +201,14 @@ export const DnaEtiketliHarita: React.FC<{ dna: Dna; etiketler: HaritaNokta[]; z
 export const DnaBolge: React.FC<{ dna: Dna; kenar: [number, number][]; ad?: string; zemin?: MedyaKaynak }> = ({ dna, ...p }) => (
   <BolgeVurgu stil={dnaStil(dna)} arkaplan={dna.arkaplan[2 % dna.arkaplan.length]} {...p} />
 );
-export const DnaGrafik: React.FC<{ dna: Dna; veriler: number[]; etiketler?: string[]; baslik?: string; birim?: string }> = ({ dna, ...p }) => (
+/** gec (kare) / sure (sn, cizgi tipleri): animasyon zamanlamasi; negatif gec animasyonu ileriden baslatir (onizleme sahnesi) */
+export const DnaGrafik: React.FC<{ dna: Dna; veriler: number[]; etiketler?: string[]; baslik?: string; birim?: string; gec?: number; sure?: number }> = ({ dna, ...p }) => (
   <CizgiGrafik tip={dna.grafik && dna.grafik !== 'eleme-izgara' ? dna.grafik : 'cizgi-isik'} stil={dnaStil(dna)} {...p} />
 );
-export const DnaEleme: React.FC<{ dna: Dna; asamalar: number[]; etiketler?: string[]; ikon?: 'denizalti' | 'kisi' | 'nokta' }> = ({ dna, ...p }) => <ElemeIzgara stil={dnaStil(dna)} {...p} />;
+export const DnaEleme: React.FC<{ dna: Dna; asamalar: number[]; etiketler?: string[]; ikon?: 'denizalti' | 'kisi' | 'nokta'; gec?: number; asamaSn?: number }> = ({ dna, ...p }) => <ElemeIzgara stil={dnaStil(dna)} {...p} />;
 /** medya ustune binen HUD; tip verilmezse DNA'nin hud ekseni */
-export const DnaHud: React.FC<{ dna: Dna; tip?: HudTip; deger?: number; baslangic?: number; birim?: string; etiket?: string; ust?: string; sure?: number }> = ({ dna, tip, ...p }) => (
+/** bolge: belge-tarama-isigi'nin kilitlendigi alan [x, y, gen, yuk] (0..1); verilmezse ortadaki satir bandi */
+export const DnaHud: React.FC<{ dna: Dna; tip?: HudTip; deger?: number; baslangic?: number; birim?: string; etiket?: string; ust?: string; sure?: number; gec?: number; bolge?: [number, number, number, number] }> = ({ dna, tip, ...p }) => (
   <Hud tip={tip || dna.hud || 'tarih-rozeti'} stil={dnaStil(dna)} {...p} />
 );
 /** cubuk yarisi (siralama tablosu, cok donemli): seriler = satirlar (donem basina degerler), donemler = yil etiketleri.

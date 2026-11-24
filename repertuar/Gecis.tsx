@@ -143,13 +143,16 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil; odak?: Od
     );
   }
   if (tip === 'tint-sizinti') {
-    // renk tonu rampasi (@diearbeiterjahreyt): kesimde ekran once vurgu2 (soguk), sonra vurgu (sicak) tonuna boyanir, 280 ms
+    // renk tonu rampasi (@diearbeiterjahreyt): kesimde ekran once soguk ara tona, sonra vurgu (sicak) tonuna boyanir, 280 ms.
+    // Tek doygun vurgu (temel.ts): ara ton vurgu2 DEGIL, vurgu2'nin zemin2 ile %65 karisimi (doygunlugu dusuk, kisa: gecisin ilk
+    // ~%35'i); ekrani dolduran tek doygun renk vurgu, o da tepede %80 orti ile. screen parlamasi yalniz vurgu fazinda.
     const a = Math.sin(p * Math.PI);
-    const renk = p < 0.5 ? stil.palet.vurgu2 : stil.palet.vurgu;
+    const ara = karistir(stil.palet.vurgu2, stil.palet.zemin2, 0.65);
+    const q = egri('kubik-hizli', sinirla((p - 0.1) / 0.35));
     return (
-      <AbsoluteFill style={{ mixBlendMode: 'color', opacity: Math.min(1, a * 1.4) }}>
-        <AbsoluteFill style={{ background: `linear-gradient(${120 + p * 60}deg, ${rgba(stil.palet.vurgu2, 0.95)} ${-40 + p * 80}%, ${rgba(stil.palet.vurgu, 0.95)} ${20 + p * 90}%)` }} />
-        <AbsoluteFill style={{ background: rgba(renk, 0.25 * a), mixBlendMode: 'screen' }} />
+      <AbsoluteFill style={{ mixBlendMode: 'color', opacity: Math.min(0.8, a * 1.2) }}>
+        <AbsoluteFill style={{ background: `linear-gradient(${120 + p * 60}deg, ${rgba(ara, 0.85)} ${-60 + q * 60}%, ${rgba(stil.palet.vurgu, 0.9)} ${-10 + q * 70}%)` }} />
+        {q > 0.5 ? <AbsoluteFill style={{ background: rgba(stil.palet.vurgu, 0.18 * a), mixBlendMode: 'screen' }} /> : null}
       </AbsoluteFill>
     );
   }

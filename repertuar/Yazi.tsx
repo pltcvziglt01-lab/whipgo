@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { GUVENLI, OKUNUR, Stil, dogalIlerle, egri, ilerle, kademe, kayma, konturGolge, mesafeSure, metinGenislik, rastgele, rgba, sapma, satirBol, siganBoyut, sinirla, yay, yazYerlesim } from './temel';
+import { GUVENLI, OKUNUR, Stil, dogalIlerle, egri, ilerle, kademe, kayma, konturGolge, mesafeSure, metinGenislik, okunurVurgu, rastgele, rgba, sapma, satirBol, siganBoyut, sinirla, yay, yazYerlesim } from './temel';
 import { YonBulanik } from './Hareket';
 
 // BASLIK GIRISLERI — klasik Claude = 'asagidan-yay' (opacity + 30px yukari, yumusak yay). Repertuar onu yalniz rakip
@@ -33,18 +33,7 @@ const konumStil = (k: Konum, blokYuk = 0, H = 1080): React.CSSProperties => {
 
 const KARAKTER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&$';
 
-/** WCAG kontrasti (okunurluk kapisi 4,5:1): vurgu rengi yazi olarak zeminde esigi gecmiyorsa (ornek beton-sari: sari yazi acik
- *  gri zeminde 1,6:1) murekkebe dogru adim adim kaydirilir; ton kimligi olabildigince korunur. */
-const lum = (hex: string) => {
-  const x = hex.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x.slice(0, 6), 16);
-  const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); });
-  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
-};
-const kontrast = (a: string, b: string) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
-const okunurVurgu = (vurgu: string, zemin: string, murekkep: string, esik = 4.5) => {
-  for (let t = 0; t <= 1.001; t += 0.1) { const c = karistirHex(vurgu, murekkep, t); if (kontrast(c, zemin) >= esik) return c; }
-  return murekkep;
-};
+// yazi olarak vurgu kontrasti: temel.ts okunurVurgu (Grafik.tsx ile ortak)
 
 /** editoryal serif (italik vurgu, bolum numarasi): ciftin basligi serifse o, degilse govdesi serifse o, yoksa PlayfairDisplay.
  *  Cinzel (yalniz buyuk harf) ve AbrilFatface (asiri kontrast) italikte bozuk durur; atlanir. Italik dosyasi yok: tarayici
@@ -151,9 +140,11 @@ export const Baslik: React.FC<{ metin: string; ust?: string; tip: BaslikTip; sti
   // (ornek gazete-sepya koyu kirmizisi videoda koyu zeminde kaybolur -> acik yaziya dogru acilir)
   const vurguYazi = !/^#/.test(R) ? palet.vurgu : okunurVurgu(palet.vurgu, golge ? '#141414' : palet.zemin, R);
   const temel: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: B, lineHeight: 1.04, letterSpacing: font.aralik, color: R, maxWidth: maxW, margin: 0, whiteSpace: 'pre-line', textShadow: glg };
+  // ust satir (bolum etiketi): en az OKUNUR.enaz (36 px); vurgu renginde ama zeminde 4,5:1 (beton-sari'de sari -> koyu hardal)
   const ustBoyut = Math.max(OKUNUR.enaz, B * 0.24);
+  const ustRenk = okunurVurgu(palet.vurgu, golge ? '#141414' : palet.zemin, golge ? (palet.acik ? palet.zemin : palet.murekkep) : palet.murekkep);
   const ustSatir = ust && tip !== 'bolum-numarasi' ? (
-    <div style={{ fontFamily: font.govde, fontWeight: Math.max(700, font.govdeAgirlik), fontSize: ustBoyut, letterSpacing: 3, color: palet.vurgu, textTransform: 'uppercase', marginBottom: B * 0.22, opacity: yay(f / 12), textShadow: glg }}>{ust}</div>
+    <div style={{ fontFamily: font.govde, fontWeight: Math.max(700, font.govdeAgirlik), fontSize: ustBoyut, letterSpacing: 3, color: ustRenk, textTransform: 'uppercase', marginBottom: B * 0.22, opacity: yay(f / 12), textShadow: glg }}>{ust}</div>
   ) : null;
   const sure = Math.round(fps * 0.7);
   /** karakter karakter cizilen tiplerde satir sonu */

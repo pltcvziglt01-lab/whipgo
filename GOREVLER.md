@@ -21,19 +21,21 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 14 | Drive kütüphane bakımı: `teknikler/inset-vinyetli-kutu/TANIM.md` eksik; EDIT-DILI atıf yaptığı ama yazılmamış gözlem dosyaları (harita-rota, alinti-karti, madde-listesi-karti, gercek-arsiv, ekran-ici-tv) | `profil_kontrol.py` temiz | açık |
 | 16 | @StillInsideFilms uçtan uca test: 3 video ölç → kanal şablonu → deneme video bölümü → kapılar → izleyici incelemesi | standart 3–4 | #1–4'ten sonra |
 | 17 | Skill paketi + masaüstü `ON NUMARA II\GITHUB ENTEGRE.skill`; kullanıcı claude.ai'ye yükler | paket tarihli ve güncel | her büyük turdan sonra |
-| 19 | Kaynak yazisi cakismasinda alt bant/altyazi ust koseye (`etiket_ust` bayragi `VideoDna.tsx`'te uygulanmali; kurgu_denetim --duzelt isaretliyor) | v04 77,9 sn alt bant ust kosede | #4 ile birlikte |
-| 20 | Film seridi cercevesi cok baskin (cercevelilerin %65'i): cerceve secimi icinde cesitlilik | v04 telefon sayfasinda film seridi tekrari yok | acik |
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
-| 22 | `OKUNUR.enaz` 32 -> 36 px; ortak baslik `ust` satiri 32 px ve vurgu renginde (beton-sari'de okunmuyor) (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
-| 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
-| 26 | Tek doygun vurgu: kalan `tint-sizinti` (Gecis.tsx; GrenliGradyan, IsikKacagi, Karsilastirma, kirmizi-zemin duzeltildi) | katalogda vurgu2 ikincil | acik |
 | 27 | Gercek italik fontlar: 4 dosya indirildi (OFL, scratchpad/italik); fontlar/ + FONT_AGIRLIK + FontYukle style:italic kaydi | italik-vurgu gercek italikle | repertuar ajanindan sonra (ana oturum) |
-| 28 | VideoDna odak bilgisi: nesne-dalisi `DiziSahne.odak`, belge-tarama-isigi `bolge` (DnaHud), odak-karartma coklu medya | v04 benzeri kurguda dalis odagi konuya gore | acik |
-| 29 | Onizleme: nokta-oran-izgarasi icin [pay, payda] verisi; yil-tarama tipi (Kart.tsx ZAMAN, tarif opus raporunda) | onizleme karesi anlamli | acik |
+| 30 | kurgu_denetim: cerceve_olc yeni cerceveSec mantigini taklit etsin; etiket_ust UYARI'si kalksin; --duzelt cozemedigi kelime karti/altyazi cakismasina etiket_ust koysun | rapor %50 gosterir | alt model |
+| 31 | Ust uc birde altyazi bazen konusanin basina biniyor (v04 #98); ust orta kelime karti letterbox'a 10 px | v04 karesi | acik |
 | 18 | CC0 SFX paketleri (cc0-sfx sekmesi) + lisanslı gerçek görüntü avı ve rakip kaynak türü → kaynak stratejisi (gorsel-kaynak sekmesi) | Sfx paletinde CC0 secenek; kanal sablonunda kaynak plani; test sahnesi icin kaynakli gercek gorsel | sekmelerde (kullanici onayi 2026-11-24) |
 
 ## Kapanan (2026-11-24)
+- #19 alt bant/altyazi kaynak yazisindan kacar (etiket_ust; 80,9 sn kanit yonetici onayi)
+- #20 cerceveSec kotali dagilim (v04 %50; rapor taklidi #30)
+- #22 OKUNUR.enaz 36, ust satir 4,5:1
+- #25 videoda Ken Burns <= 1,08
+- #26 tint-sizinti tek vurgu
+- #28 odak bilgisi (nesne-dalisi, HUD bolge, odak-karartma)
+- #29 onizleme grafik verisi + yil-tarama tipi
 - #4 galeri teknikleri: 12 tip (cubuk-trend, nokta-oran-izgarasi, cubuk-yarisi, italik-vurgu, ustu-cizili-degisim, bolum-numarasi, nesne-dalisi, bolum-cetveli, hayalet-yil, belge-tarama-isigi, odak-karartma) — telefon 360 px karesi yonetici tarafindan onaylandi
 - #23 stil_dna en az 4 gecis tipi (D-Day: 4 tip)
 - #24 duragan pay ve 8 sn hareketsiz cekim uyarisi pencereli olcum (nefes duragan sayilmaz)

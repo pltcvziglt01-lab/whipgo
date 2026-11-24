@@ -15,11 +15,32 @@ export type KameraTip = typeof KAMERA_TIPLERI[number];
 export const NEFES = { sabit: 0.02, foto: 0.05, video: 0.03 } as const;
 const VIDEO_ENCOK = 0.04;
 
+/** hareketli VIDEO kaynakta acikca secilen Ken Burns tiplerinin (ken-burns-ice/disa, pan-*, dolly-egik) olcek tavani: klip zaten
+ *  hareketli ve cozunurlugu foto kadar yuksek degil; 1,2'ye buyutmek pikseli acar ve iki hareket ust uste biner. Foto degerleri aynen. */
+export const VIDEO_KB_ENCOK = 1.08;
+/** 0 -> 1'e asimptotik yaklasim (tau sn): kamera hic durmaz ama tavani hic gecmez */
+const yaklas = (T: number, tau: number) => 1 - Math.exp(-Math.max(0, T) / tau);
+/** video Ken Burns: olcek <= VIDEO_KB_ENCOK; pan genligi kenar acilmayacak kadar (|x| <= 50 (s-1)/s %), dolly egimi +-1,2 derece
+ *  (1,2 derece donmeyi ortmek icin 1,037 olcek yeter; 1,06'dan baslar) */
+const videoKB = (tip: KameraTip, T: number) => {
+  const E = VIDEO_KB_ENCOK, A = 50 * (E - 1) / E - 0.3;   // ~3,4 %
+  switch (tip) {
+    case 'ken-burns-ice': return { s: 1.01 + (E - 1.01) * yaklas(T, 4.5), x: 0, y: 0, r: 0 };
+    case 'ken-burns-disa': return { s: E - (E - 1.02) * yaklas(T, 4.5), x: 0, y: 0, r: 0 };
+    case 'pan-sol': return { s: E, x: A * (1 - 2 * yaklas(T, 3.5)), y: 0, r: 0 };
+    case 'pan-sag': return { s: E, x: -A * (1 - 2 * yaklas(T, 3.5)), y: 0, r: 0 };
+    case 'pan-yukari': return { s: E, x: 0, y: A * (1 - 2 * yaklas(T, 3.5)), r: 0 };
+    case 'dolly-egik': return { s: 1.06 + (E - 1.06) * yaklas(T, 4), x: 0, y: 0, r: -1.2 + 2.4 * yaklas(T, 4) };
+    default: return null;
+  }
+};
+
 // kamera durumu sayisal: CSS sirasi scale(s) translate(x y) rotate(r); x/y birimi '%' (ogenin boyu) ya da 'px'.
 type KameraDurum = { s: number; x: number; y: number; birim: '%' | 'px'; r: number };
-const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1, nefes: number = NEFES.sabit): KameraDurum => {
+const kameraDurum = (tip: KameraTip, t: number, f: number, tohum: string, hiz = 1, nefes: number = NEFES.sabit, video = false): KameraDurum => {
   const T = t * hiz;
   const d = (s: number, x = 0, y = 0, birim: '%' | 'px' = '%', r = 0): KameraDurum => ({ s, x, y, birim, r });
+  if (video) { const v = videoKB(tip, T); if (v) return d(v.s, v.x, v.y, '%', v.r); }
   switch (tip) {
     case 'sabit': return d(kameraNefes(T, nefes));
     case 'ken-burns-ice': return d(1.04 + 0.035 * T);
@@ -78,7 +99,7 @@ export const Medya: React.FC<{ m: MedyaKaynak; kamera?: KameraTip; hiz?: number;
     );
   }
   // hareket bulanikligi: kamera durumu deklansor araliginda (180 derece) orneklenir; yavas kamerada (kayma < 2 px) tek katman
-  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz, genlik);
+  const durum = (dt: number) => kameraDurum(kamera, (f + dt) / fps, f + dt, tohum, hiz, genlik, !!m.video);
   if (kamera === 'sabit' && genlik <= 0) return <AbsoluteFill style={{ overflow: 'hidden' }}><Ham m={m} /></AbsoluteFill>;
   const boy = kameraKayma(durum(-DEKLANSOR / 2), durum(DEKLANSOR / 2), W, H);
   return (
@@ -95,7 +116,35 @@ export const CERCEVE_TIPLERI = ['tam', 'inset-golge', 'bulanik-kopya', 'polaroid
   'odak-karartma'] as const;
 export type CerceveTip = typeof CERCEVE_TIPLERI[number];
 
-/** odak: odak-karartma'nin tek medyada parlak kalan alani [x, y, gen, yuk] (0..1); verilmezse ortadaki dikey pencere */
+/** odak-karartma tek medyada varsayilan odak penceresi [x, y, gen, yuk] (0..1): ortadaki dikey pencere (konu cogu kez ortada) */
+export const ODAK_PENCERE: [number, number, number, number] = [0.32, 0.12, 0.36, 0.76];
+/** cerceve tipinde ana medyanin kadrajdaki kutusu [x, y, gen, yuk] (0..1, 1920x1080 duzeni; Cerceve ile ayni olculer) */
+export const cerceveKutu = (tip: CerceveTip, odak?: [number, number, number, number]): [number, number, number, number] => {
+  const W = 1920, H = 1080;
+  switch (tip) {
+    case 'inset-golge': return [0.12, 0.11, 0.76, 0.78];
+    case 'bulanik-kopya': { const w = (H * 0.86 * 1.2) / W; return [(1 - w) / 2, 0.07, w, 0.86]; }
+    case 'polaroid': return [0.27 + 26 / W, 0.08 + 26 / H, 0.46 - 52 / W, 0.84 - 146 / H];
+    case 'tv-crt': return [0.17 + 40 / W, 0.1 + 40 / H, 0.66 - 80 / W, 0.8 - 80 / H];
+    case 'letterbox': return [0, 0.12, 1, 0.76];
+    case 'pencere': return [0.14, 0.1 + 54 / H, 0.72, 0.8 - 54 / H];
+    case 'film-seridi': return [0, 90 / H, 1, (H - 180) / H];
+    case 'bolunmus': return [60 / W, 60 / H, (W / 2 - 75) / W, (H - 120) / H];
+    case 'kolaj': return [0.05, 0.08, 0.5, 0.84];
+    case 'yuvarlak-yan': return [0.5, 0.12, (H * 0.76) / W, 0.76];
+    case 'altin-cerceve': return [0.2, 0.13, 0.6, 0.74];
+    case 'odak-karartma': return odak || ODAK_PENCERE;
+    default: return [0, 0, 1, 1];
+  }
+};
+/** cercevenin optik merkezi (0..1): ana medya kutusunun yatay ortasi, dikeyde geometrik merkezin biraz ustu (%46) —
+ *  nesne-dalisi gecisi, kart/etiket yoksa buraya dalar */
+export const cerceveOdak = (tip: CerceveTip, odak?: [number, number, number, number]): [number, number] => {
+  const [x, y, w, h] = cerceveKutu(tip, odak);
+  return [x + w / 2, y + h * 0.46];
+};
+
+/** odak: odak-karartma'nin tek medyada parlak kalan alani [x, y, gen, yuk] (0..1); verilmezse ODAK_PENCERE */
 export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKaynak; m3?: MedyaKaynak; kamera?: KameraTip; hiz?: number; stil: Stil; arkaplan?: ArkaplanTip; etiket?: string; tohum?: string; odak?: [number, number, number, number] }> = ({ tip, m, m2, m3, kamera, hiz = 1, stil, arkaplan = 'gradyan-akis', etiket, tohum = 'c', odak }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
@@ -236,7 +285,7 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
           </AbsoluteFill>
         );
       }
-      const [ox, oy, ow, oh] = odak || [0.32, 0.12, 0.36, 0.76];
+      const [ox, oy, ow, oh] = odak || ODAK_PENCERE;
       const a = yay(sinirla((t - 0.5) / 0.45));
       const L = { x: ox * W * a, y: oy * H * a, w: W + (ow * W - W) * a, h: H + (oh * H - H) * a };
       return (

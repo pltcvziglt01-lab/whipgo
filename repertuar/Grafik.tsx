@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, rgba, siganBoyut, sinirla, yay } from './temel';
+import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, okunurVurgu, rgba, siganBoyut, sinirla, yay } from './temel';
 
 // GRAFIK — veri animasyonlari. Ogrenildigi kanallar: @TheUnreturned-b2k (koyu panelde cizilen cizgi grafik),
 // @ImmersivePast (eleme izgarasi: 1.171 -> 36 -> 2 kucuk siluet). Hepsi palete bagli; panel zemini paletin koyu tonundan.
@@ -128,18 +128,6 @@ export const ElemeIzgara: React.FC<{ stil: Stil; asamalar: number[]; etiketler?:
 // ---------------- Opus galerisi grafikleri ----------------
 /** grafik paneli (palete bagli): acik palette palet zemini + koyu murekkep, koyu palette koyulastirilmis zemin + acik murekkep.
  *  Yazi rengi hep palet.murekkep (zemine zit secilmis), gri ogeler soluk tonundan. */
-/** WCAG kontrasti (okunurluk kapisi 4,5:1): vurgu rengi yazi olarak zeminde esigi gecmiyorsa (ornek beton-sari: sari yazi acik
- *  gri zeminde 1,6:1) murekkebe dogru adim adim kaydirilir; ton kimligi olabildigince korunur. */
-const lum = (hex: string) => {
-  const x = hex.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x.slice(0, 6), 16);
-  const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); });
-  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
-};
-const kontrast = (a: string, b: string) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
-const okunurVurgu = (vurgu: string, zemin: string, murekkep: string, esik = 4.5) => {
-  for (let t = 0; t <= 1.001; t += 0.1) { const c = karistir(vurgu, murekkep, t); if (kontrast(c, zemin) >= esik) return c; }
-  return murekkep;
-};
 const panelRenk = (stil: Stil) => {
   const { palet } = stil;
   const zemin = palet.acik ? palet.zemin : karistir(palet.zemin, '#000000', 0.25);

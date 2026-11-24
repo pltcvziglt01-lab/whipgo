@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { FONTLAR, OKUNUR, Stil, egri, hashStr, ilerle, karistir, konturGolge, metinGenislik, rgba, satirBol, sinirla, tutmaItme } from './temel';
+import { FONTLAR, OKUNUR, Stil, egri, hashStr, ilerle, karistir, konturGolge, metinGenislik, okunurVurgu, rastgele, rgba, satirBol, sinirla, tutmaItme, yay } from './temel';
 
 // KARTLAR — saydam katmanlardir; arkalarina Arkaplan ya da Medya konur. Her kartin birden cok tasarim varyanti var;
 // stil_dna kanal basina her kart turu icin BIR varyant kilitler (kanal imzasi), rakibinkinden farkli olani.
@@ -8,24 +8,31 @@ import { FONTLAR, OKUNUR, Stil, egri, hashStr, ilerle, karistir, konturGolge, me
 // ---------- ALT BANT (isim / yer / tarih etiketi) ----------
 export const ALTBANT_TIPLERI = ['cizgi-acilis', 'blok-kayma', 'cip-etiket', 'koseli-parantez', 'cam-panel', 'damga'] as const;
 export type AltBantTip = typeof ALTBANT_TIPLERI[number];
+/** 'alt' (varsayilan): sol/sag alt kose. 'ust': ust kose (kaynak goruntunun alt ucte birinde gomulu yazi varsa — kurgu_denetim
+ *  --duzelt etiket_ust: true isaretler, VideoDna uygular). Ust konumda blok ust guvenli alana (110 px) dayanir, scrim ust
+ *  koseden iner, dikey giris yonleri aynalanir (cam-panel yukaridan iner, damga ust koseden basilir). */
+export type AltBantKonum = 'alt' | 'ust';
 /** medyaUstu (varsayilan): video/foto ustunde -> acik yazi + koyu kontur + alt kosede yumusak koyu gecis (scrim); false: Arkaplan
  *  ustunde -> palet murekkebi. Okunurluk tabani (OKUNUR): ust satir >= 64 px, alt satir >= 40 px, kalinlik >= 600; uzun etiket
  *  1500 px'te satira bolunur (kucultulmez). Plakasiz tipte (cizgi-acilis) kontrast scrim + kontur ile, digerlerinde
  *  yari saydam koyu/acik plaka ile saglanir. */
-export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu?: boolean }> = ({ tip, ust, alt, stil, sag, medyaUstu = true }) => {
+export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu?: boolean; konum?: AltBantKonum }> = ({ tip, ust, alt, stil, sag, medyaUstu = true, konum = 'alt' }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet, font, hareket } = stil;
   const p = ilerle(f, 0, fps * 0.6, hareket), q = ilerle(f, fps * 0.25, fps * 0.6, hareket);
   const U = font.buyukHarf ? ust.toUpperCase() : ust;
-  const yer: React.CSSProperties = { position: 'absolute', bottom: 140, maxWidth: 1560, ...(sag ? { right: 100, textAlign: 'right' } : { left: 100 }) };
+  const ustte = konum === 'ust';
+  /** dikey yon: altta +1 (asagidan gelir), ustte -1 (yukaridan iner) */
+  const dy = ustte ? -1 : 1;
+  const yer: React.CSSProperties = { position: 'absolute', ...(ustte ? { top: 110 } : { bottom: 140 }), maxWidth: 1560, ...(sag ? { right: 100, textAlign: 'right' } : { left: 100 }) };
   const yaziR = medyaUstu ? (palet.acik ? palet.zemin : palet.murekkep) : palet.murekkep;
   const glg = medyaUstu ? konturGolge(3) : 'none';
   const ustSt: React.CSSProperties = { fontFamily: font.baslik, fontWeight: Math.max(600, font.baslikAgirlik), fontSize: OKUNUR.ana, lineHeight: 1.08, color: yaziR, letterSpacing: font.aralik, textShadow: glg, maxWidth: 1500 };
   const altSt: React.CSSProperties = { fontFamily: font.govde, fontWeight: Math.max(600, font.govdeAgirlik), fontSize: OKUNUR.ikincil, lineHeight: 1.15, color: medyaUstu ? yaziR : palet.soluk, marginTop: 8, textShadow: glg, maxWidth: 1500 };
   // alt kosede yumusak koyu gecis: plakasiz tipte bile parlak zeminde (beyaz tisort, isik) yazinin altinda koyu ton olur
   const scrim = medyaUstu ? <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: p,
-    background: `radial-gradient(ellipse 75% 60% at ${sag ? '88%' : '12%'} 100%, ${rgba('#000', 0.62)} 0%, ${rgba('#000', 0.32)} 45%, transparent 75%)` }} /> : null;
+    background: `radial-gradient(ellipse 75% 60% at ${sag ? '88%' : '12%'} ${ustte ? '0%' : '100%'}, ${rgba('#000', 0.62)} 0%, ${rgba('#000', 0.32)} 45%, transparent 75%)` }} /> : null;
   const sar = (el: React.ReactNode) => <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>{scrim}{el}</div>;
   switch (tip) {
     case 'cizgi-acilis':
@@ -71,7 +78,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
       const kirmizi = palet.acik || medyaUstu ? '#b3261e' : '#ff4b3e';
       const zemin = medyaUstu ? rgba('#f3ede1', 0.9) : rgba(kirmizi, 0.06);
       return sar(
-        <div style={{ ...yer, transform: `rotate(-4deg) scale(${1.6 - 0.6 * d})`, opacity: sinirla(d * 2), transformOrigin: sag ? 'right bottom' : 'left bottom' }}>
+        <div style={{ ...yer, transform: `rotate(-4deg) scale(${1.6 - 0.6 * d})`, opacity: sinirla(d * 2), transformOrigin: `${sag ? 'right' : 'left'} ${ustte ? 'top' : 'bottom'}` }}>
           <div style={{ border: `6px solid ${kirmizi}`, borderRadius: 6, padding: '10px 26px', boxShadow: `inset 0 0 0 2px ${rgba(kirmizi, 0.35)}${medyaUstu ? `, 0 12px 34px ${rgba('#000', 0.45)}` : ''}`, background: zemin,
             WebkitMaskImage: 'radial-gradient(circle at 30% 40%, #000 60%, rgba(0,0,0,.82) 75%, #000 90%)' }}>
             <div style={{ fontFamily: font.mono, fontWeight: 700, fontSize: OKUNUR.ana, lineHeight: 1.08, letterSpacing: 4, color: kirmizi, textTransform: 'uppercase', maxWidth: 1400 }}>{U}</div>
@@ -83,7 +90,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
     case 'cam-panel':
       // buzlu cam panel: koyu paletlerde daha koyu (0.66), acik paletlerde daha acik (0.78) -> parlak/koyu her goruntude kontrast
       return sar(
-        <div style={{ ...yer, background: rgba(palet.zemin, palet.acik ? 0.78 : 0.66), backdropFilter: 'blur(18px)', border: `1px solid ${rgba(palet.murekkep, 0.25)}`, borderRadius: 22, padding: '22px 36px', opacity: p, transform: `translateY(${(1 - p) * 40}px)`, boxShadow: `0 16px 44px ${rgba('#000', 0.35)}` }}>
+        <div style={{ ...yer, background: rgba(palet.zemin, palet.acik ? 0.78 : 0.66), backdropFilter: 'blur(18px)', border: `1px solid ${rgba(palet.murekkep, 0.25)}`, borderRadius: 22, padding: '22px 36px', opacity: p, transform: `translateY(${(1 - p) * 40 * dy}px)`, boxShadow: `0 16px 44px ${rgba('#000', 0.35)}` }}>
           <div style={{ ...ustSt, color: palet.murekkep, textShadow: 'none' }}>{U}</div>
           {alt ? <div style={{ ...altSt, color: palet.acik ? palet.murekkep : rgba(palet.murekkep, 0.86), textShadow: 'none' }}>{alt}</div> : null}
         </div>
@@ -515,13 +522,106 @@ export const Karsilastirma: React.FC<{ sol: { ad: string; deger: number }; sag: 
 };
 
 // ---------- ZAMAN CIZELGESI ----------
-export const ZAMAN_TIPLERI = ['yatay-dugum', 'dikey-serit', 'buyuk-yil', 'merdiven'] as const;
+// yil-tarama: Opus galerisi (envanter/opus-galeri) — yillar hizlanip yavaslayan montajla akar, hedef yilda darbe + aciklama
+export const ZAMAN_TIPLERI = ['yatay-dugum', 'dikey-serit', 'buyuk-yil', 'merdiven', 'yil-tarama'] as const;
 export type ZamanTip = typeof ZAMAN_TIPLERI[number];
-export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: { yil: string; yazi: string }[]; stil: Stil }> = ({ tip, adimlar, stil }) => {
+type ZamanAdim = { yil: string; yazi: string };
+/** yil-tarama zamanlamasi (sn): ilk ve son adim, ara adimlar; en cok kac ara adim otomatik doldurulur */
+export const YIL_TARAMA = { uc: 0.5, ara: 0.25, enCokAra: 8 } as const;
+/** yil-tarama adim listesi: verilen adimlar + iki sayisal yil arasi bos ise ara yillar (ileri ya da geri sayim). Ara bosluk
+ *  YIL_TARAMA.enCokAra'dan buyukse esit aralikli enCokAra yil secilir. Yil sayi degilse ('Mart 1943') araya bir sey konmaz. */
+export const yilTaramaAdimlari = (adimlar: ZamanAdim[]): ZamanAdim[] => {
+  const out: ZamanAdim[] = [];
+  const sayi = (y: string) => (/^\s*-?\d{1,5}\s*$/.test(y) ? parseInt(y, 10) : null);
+  adimlar.forEach((a, i) => {
+    if (i > 0) {
+      const y0 = sayi(adimlar[i - 1].yil), y1 = sayi(a.yil);
+      if (y0 != null && y1 != null && Math.abs(y1 - y0) > 1) {
+        const bos = Math.abs(y1 - y0) - 1, yon = Math.sign(y1 - y0), k = Math.min(YIL_TARAMA.enCokAra, bos);
+        for (let j = 1; j <= k; j++) out.push({ yil: String(y0 + yon * Math.round((j * (bos + 1)) / (k + 1))), yazi: '' });
+      }
+    }
+    out.push(a);
+  });
+  return out;
+};
+
+/** YIL TARAMA. Ici bos dev rakam (kadraj yuksekliginin ~%42'si) her adimda lostan parlaga gelir; adim sureleri ilk ve son
+ *  0,5 sn, aradakiler 0,25 sn (hizlanip yavaslayan montaj). Hedef (son) yilda kontur vurgu rengine doner, 1 -> 1,02 kisa
+ *  darbe, ardindan yavas itme (kamera durmaz); altinda yazi (>= 64 px) maskeden yukselir. Adim degisimi ciddi/gizem/sakin tonda
+ *  temiz sert kesim; yalniz enerjik tonda 3 karelik yatay tarama cizgili glitch (dilim kaymasi + renk ayrismasi). Ara adimlarin
+ *  yazisi gosterilmez (0,25 sn okunmaz): her durak ayri sahne olmali. */
+const YilTarama: React.FC<{ adimlar: ZamanAdim[]; stil: Stil }> = ({ adimlar, stil }) => {
+  const f = useCurrentFrame();
+  const { fps, height: H } = useVideoConfig();
+  const { palet, font, ton } = stil;
+  const liste = yilTaramaAdimlari(adimlar);
+  const n = liste.length;
+  const sure = (i: number) => Math.round(fps * (i === 0 || i === n - 1 ? YIL_TARAMA.uc : YIL_TARAMA.ara));
+  const bas: number[] = [];
+  liste.forEach((_, i) => bas.push(i ? bas[i - 1] + sure(i - 1) : 0));
+  let i = 0;
+  while (i < n - 1 && f >= bas[i + 1]) i++;
+  const yf = f - bas[i];
+  const son = i === n - 1;
+  const a = liste[i];
+  // rakam: kadraj yuksekliginin %42'si, dar kalin font; cok haneli/uzun yil genislige sigsin (1700 px)
+  const df = darFont(stil);
+  const fs0 = H * 0.42;
+  const fs = Math.min(fs0, (1700 / Math.max(1, metinGenislik(a.yil, fs0, df.fontFamily as string))) * fs0);
+  // lostan parlaga: adimin ilk ~%70'inde (ara adimda 0,17 sn) %22 -> %100
+  const parlak = 0.22 + 0.78 * egri('kubik-hizli', sinirla(yf / Math.max(2, sure(i) * 0.7)));
+  // montaj boyunca yavas yaklasma (0,94 -> 1), hedefte darbe 1 -> 1,02 -> 1 (0,3 sn) + yavas itme
+  const top = bas[n - 1];
+  const yaklas = 0.94 + 0.06 * egri('kubik-hizli', sinirla(f / Math.max(1, top)));
+  const darbe = son ? 0.02 * Math.sin(Math.PI * sinirla(yf / (fps * 0.3))) : 0;
+  const itme = son ? 0.008 * Math.max(0, yf - fps * 0.3) / fps : 0;
+  const olcek = yaklas * (1 + darbe + itme);
+  const hedefR = okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep, 3);
+  const kontur = son ? karistir(palet.murekkep, hedefR, egri('kubik-hizli', sinirla(yf / 6))) : palet.murekkep;
+  // kontur ~7 px @1080p (360 px telefonda ~1,4 px; daha incesi kaybolur); ic %7 tonlu: bos okunur ama zeminle karismaz
+  const kalin = Math.max(4, fs / 65);
+  const rakamSt: React.CSSProperties = { ...df, fontSize: fs, lineHeight: 1, letterSpacing: fs * 0.01, color: rgba(kontur, 0.07), WebkitTextStroke: `${kalin}px ${kontur}`, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' };
+  // enerjik ton: adim degisiminin ilk 3 karesinde yatay tarama cizgili glitch
+  const glitch = ton === 'enerjik' && i > 0 && yf < 3;
+  const r = rastgele(stil.tohum + 'yt' + f);
+  const dilimler = glitch ? Array.from({ length: 5 }, () => ({ y: r() * 100, h: 4 + r() * 14, dx: (r() - 0.5) * fs * 0.18 })) : [];
+  const yaziP = son && a.yazi ? yay(sinirla((yf - fps * 0.12) / (fps * 0.38))) : 0;
+  const yaziU = font.buyukHarf ? a.yazi.toUpperCase() : a.yazi;
+  const yaziB = Math.max(OKUNUR.ana, Math.min(72, siganBoyutTek(yaziU, 72, font.govde, 1500)));
+  return (
+    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', transform: `translateY(${liste[n - 1].yazi ? -H * 0.04 : 0}px)` }}>
+        <div style={{ position: 'relative', transform: `scale(${olcek.toFixed(5)})`, opacity: parlak, filter: son ? `drop-shadow(0 0 ${(fs * 0.04).toFixed(1)}px ${rgba(hedefR, 0.35 * sinirla(yf / 8))})` : undefined }}>
+          <div style={{ ...rakamSt, clipPath: glitch ? 'inset(0 0 0 0)' : undefined }}>{a.yil}</div>
+          {glitch ? (
+            <>
+              <div style={{ ...rakamSt, position: 'absolute', inset: 0, WebkitTextStroke: `${kalin}px ${rgba('#ff2a4a', 0.8)}`, transform: `translateX(${-fs * 0.025}px)`, mixBlendMode: 'screen' }}>{a.yil}</div>
+              <div style={{ ...rakamSt, position: 'absolute', inset: 0, WebkitTextStroke: `${kalin}px ${rgba('#22e4ff', 0.8)}`, transform: `translateX(${fs * 0.025}px)`, mixBlendMode: 'screen' }}>{a.yil}</div>
+              {dilimler.map((d, k) => <div key={k} style={{ ...rakamSt, position: 'absolute', inset: 0, clipPath: `inset(${d.y}% 0 ${Math.max(0, 100 - d.y - d.h)}% 0)`, transform: `translateX(${d.dx}px)` }}>{a.yil}</div>)}
+            </>
+          ) : null}
+        </div>
+        {son && a.yazi ? (
+          <div style={{ overflow: 'hidden', marginTop: fs * 0.02, padding: '0 12px 8px' }}>
+            <div style={{ fontFamily: font.govde, fontWeight: Math.max(700, font.govdeAgirlik), fontSize: yaziB, lineHeight: 1.12, letterSpacing: font.buyukHarf ? 3 : 0.5, color: palet.murekkep,
+              maxWidth: 1500, textAlign: 'center', transform: `translateY(${((1 - yaziP) * 110).toFixed(2)}%)` }}>{yaziU}</div>
+          </div>
+        ) : null}
+      </div>
+      {glitch ? <AbsoluteFill style={{ background: `repeating-linear-gradient(180deg, ${rgba('#000', 0.28)} 0 2px, transparent 2px 5px)`, pointerEvents: 'none' }} /> : null}
+    </AbsoluteFill>
+  );
+};
+/** tek satir: maxGen'e sigan boyut (boyut'u gecmez) */
+const siganBoyutTek = (s: string, boyut: number, fontAd: string, maxGen: number) => Math.min(boyut, (maxGen / Math.max(1, metinGenislik(s, boyut, fontAd))) * boyut);
+
+export const ZamanCizelgesi: React.FC<{ tip: ZamanTip; adimlar: ZamanAdim[]; stil: Stil }> = ({ tip, adimlar, stil }) => {
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const { palet, font, hareket } = stil;
   const n = adimlar.length;
+  if (tip === 'yil-tarama') return <YilTarama adimlar={adimlar} stil={stil} />;
   if (tip === 'buyuk-yil') {
     // her adim tek basina: dev tarih ekrani doldurur, alta aciklama; altta ilerleme cubugu
     const adim = fps * 1.6;

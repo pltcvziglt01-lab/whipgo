@@ -123,8 +123,25 @@ export const fontCifti = (ad?: string): FontCifti => FONTLAR[ad || ''] || FONTLA
 // ---------- OKUNURLUK (1080p tabani; telefonda 360 px genislikte de okunmali) ----------
 /** izleyiciye donuk yazi boyutu tabani (px, 1920x1080). ana: tek basina okunan satir (alt bant ust satiri, alinti govdesi);
  *  ikincil: ikinci satir / etiket; enaz: hicbir izleyici yazisi bunun altina inmez; sus: dekoratif mikro yazi (dosya adi,
- *  koordinat susu, cetvel rakami) alt siniri. 360 px telefonda enaz 32 px ~ 6 px buyuk harf yuksekligi: daha azi okunmaz. */
-export const OKUNUR = { ana: 64, ikincil: 40, enaz: 32, sus: 28 } as const;
+ *  koordinat susu, cetvel rakami) alt siniri. enaz 36 px: buyuk harf yuksekligi ~25 px (yazi_kontrol boy kapisi 24 px @1080p;
+ *  32 px'te ~21 px kaliyordu), 360 px telefonda ~8 px buyuk harf. */
+export const OKUNUR = { ana: 64, ikincil: 40, enaz: 36, sus: 28 } as const;
+
+// ---------- KONTRAST (okunurluk kapisi, WCAG) ----------
+/** goreli parlaklik (WCAG 2.x) */
+export const parlaklikWcag = (hex: string) => {
+  const x = hex.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x.slice(0, 6), 16);
+  const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); });
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+/** iki rengin kontrast orani (1..21) */
+export const kontrast = (a: string, b: string) => { const x = parlaklikWcag(a), y = parlaklikWcag(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+/** yazi olarak vurgu: vurgu rengi zeminde esigi (4,5:1) gecmiyorsa (ornek beton-sari: sari yazi acik gri zeminde 1,6:1)
+ *  murekkebe dogru adim adim kaydirilir; ton kimligi olabildigince korunur. Hicbiri gecmezse murekkep. */
+export const okunurVurgu = (vurgu: string, zemin: string, murekkep: string, esik = 4.5) => {
+  for (let t = 0; t <= 1.001; t += 0.1) { const c = karistir(vurgu, murekkep, t); if (kontrast(c, zemin) >= esik) return c; }
+  return murekkep;
+};
 /** baslik guvenli alani: yazi blogu bu genisligi asmaz (1920'nin %90'i civari, kenarlarda 100 px pay) */
 export const GUVENLI = { genislik: 1720, kenar: 100 } as const;
 

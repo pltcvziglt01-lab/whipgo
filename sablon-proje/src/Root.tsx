@@ -14,6 +14,7 @@ import { BITIS_TIPLERI, Bitis } from './repertuar/Bitis';
 import { BolgeVurgu, EtiketliHarita, HARITA_TIPLERI, HaritaRota } from './repertuar/Harita';
 import { CizgiGrafik, CubukYarisi, ElemeIzgara } from './repertuar/Grafik';
 import { HUD_TIPLERI, Hud } from './repertuar/Hud';
+import { DnaHud } from './repertuar/Dna';
 import ornekDna from './ornek-dna.json';
 // public/varlik = repo varlik/ klasoru (varlik_kur.py kanal ile baglanir)
 import presetler from '../public/varlik/preset-dili-remotion.json';
@@ -142,6 +143,28 @@ const KatYeni: React.FC = () => (
   ]} />
 );
 const KatOpus: React.FC = () => <Izgara sutun={4} hucreler={opusHucre} />;
+// GOREVLER #19 #22 #25 #26 #28 #29 gozle kontrol: alt bant ust konumu (6 tip; altta kaynaga gomulu sahte yazi), altyazi ust ucte
+// bir, yil-tarama (ciddi temiz kesim / enerjik glitch + geri sayim), beton-sari baslik ust satiri, tint-sizinti, video Ken Burns
+// tavani (1,08) ve foto karsiligi, DnaHud bolge
+const gomulu = <div style={{ position: 'absolute', left: 0, right: 0, bottom: 80, textAlign: 'center', font: '700 58px Arial', color: '#fff', textShadow: '0 0 8px #000, 0 0 2px #000' }}>GOOD MORNING.</div>;
+const V = { src: 'varlik/arkaplan/ab-01.mp4', video: true };
+const tonlu = (i: number, ton: string) => ({ ...st(i), ton });
+const KatGorev: React.FC = () => (
+  <Izgara sutun={4} hucreler={[
+    ...ALTBANT_TIPLERI.map((a, i) => ({ ad: 'altbant (ust): ' + a, el: <AbsoluteFill><Medya m={i % 2 ? A : B} />{gomulu}<AltBant tip={a} ust="Appointed 29 June 2026" alt="3-year deal" stil={st(i + 5)} konum="ust" /></AbsoluteFill> })),
+    { ad: 'altyazi: ust-ucte-bir (tek-kelime)', el: <AbsoluteFill><Medya m={A} />{gomulu}<Altyazi tip="tek-kelime" kelimeler={kel} stil={st(8)} konum="ust-ucte-bir" /></AbsoluteFill> },
+    { ad: 'altyazi: ust-ucte-bir (karaoke)', el: <AbsoluteFill><Medya m={B} />{gomulu}<Altyazi tip="karaoke" kelimeler={kel} stil={st(9)} konum="ust-ucte-bir" /></AbsoluteFill> },
+    { ad: 'zaman: yil-tarama (ciddi)', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={tonlu(11, 'ciddi')} /><ZamanCizelgesi tip="yil-tarama" adimlar={[{ yil: '1939', yazi: '' }, { yil: '1945', yazi: 'The war ends in Europe' }]} stil={tonlu(11, 'ciddi')} /></AbsoluteFill> },
+    { ad: 'zaman: yil-tarama (enerjik, geri sayim)', el: <AbsoluteFill><Arkaplan tip="dalgali-izgara" stil={tonlu(6, 'enerjik')} /><ZamanCizelgesi tip="yil-tarama" adimlar={[{ yil: '2026', yazi: '' }, { yil: '2019', yazi: 'Where it all started' }]} stil={tonlu(6, 'enerjik')} /></AbsoluteFill> },
+    { ad: 'baslik ust: beton-sari (arkaplanli)', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={st(5)} /><Baslik tip="maske-yukari" metin="The Cheapest Rifle" ust="Chapter 2" stil={st(5)} boyut={120} /></AbsoluteFill> },
+    { ad: 'gecis: tint-sizinti (synth-mor)', el: <GecisliDizi stil={st(6)} gecis="tint-sizinti" kare={12} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'gecis: tint-sizinti (okyanus-mercan)', el: <GecisliDizi stil={st(8)} gecis="tint-sizinti" kare={12} sahneler={[{ el: <Medya m={B} />, sure: 40 }, { el: <Medya m={A} />, sure: 40 }]} /> },
+    { ad: 'kamera: video pan-sag (<= 1,08)', el: <Medya m={V} kamera="pan-sag" /> },
+    { ad: 'kamera: video dolly-egik (<= 1,08)', el: <Medya m={V} kamera="dolly-egik" /> },
+    { ad: 'kamera: foto pan-sag (1,18, degismedi)', el: <Medya m={A} kamera="pan-sag" /> },
+    { ad: 'DnaHud: belge-tarama-isigi bolge', el: <AbsoluteFill><Medya m={A} /><DnaHud dna={ornekDna as any} tip="belge-tarama-isigi" etiket="Exhibit 12" ust="Page 4" bolge={[0.08, 0.2, 0.5, 0.16]} /></AbsoluteFill> },
+  ]} />
+);
 const KatPreset: React.FC = () => {
   const sec = ['zoom', 'sarsinti', 'kayma', 'gecis', 'yazi', 'zoom', 'sarsinti', 'kayma', 'gecis'].map((s, i) => (presetler as any[]).filter((p) => p.sinif === s)[i]).filter(Boolean);
   return <Izgara sutun={3} hucreler={sec.map((p: any, i) => ({ ad: p.id, el: <AbsoluteFill style={{ background: '#111' }}><PresetHareket preset={p} dongu gec={6}><Medya m={i % 2 ? B : A} /></PresetHareket></AbsoluteFill> }))} />;
@@ -151,7 +174,7 @@ const K = (id: string, c: React.FC, d = 300) => <Composition id={id} component={
 export const RemotionRoot: React.FC = () => (
   <>
     {K('KatArkaplan', KatArkaplan)}{K('KatEdit', KatEdit)}{K('KatGecis', KatGecis, 60)}{K('KatBaslik', KatBaslik)}
-    {K('KatYazi', KatYazi)}{K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}{K('KatOpus', KatOpus, 120)}
+    {K('KatYazi', KatYazi)}{K('KatYazi2', KatYazi2)}{K('KatKart', KatKart)}{K('KatKart2', KatKart2)}{K('KatCerceve', KatCerceve)}{K('KatPreset', KatPreset, 90)}{K('KatBitis', KatBitis, 120)}{K('KatYeni', KatYeni, 120)}{K('KatOpus', KatOpus, 120)}{K('KatGorev', KatGorev, 120)}
     <Composition id="Onizleme" component={Onizleme as any} durationInFrames={300} fps={30} width={1920} height={1080}
       defaultProps={{ dna: ornekDna as any, foto: ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], presetler: presetler as any }}
       calculateMetadata={({ props }: any) => ({ durationInFrames: onizlemeSuresi(props) })} />

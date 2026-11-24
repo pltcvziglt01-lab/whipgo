@@ -2198,6 +2198,30 @@
    "his": [
     "modern"
    ]
+  },
+  "yil-tarama": {
+   "ton": [
+    "ciddi",
+    "enerjik",
+    "gizem"
+   ],
+   "konu": [
+    "tarih",
+    "haber",
+    "teknoloji",
+    "finans",
+    "askeri",
+    "biyografi"
+   ],
+   "enerji": 4,
+   "his": [
+    "sinematik",
+    "dinamik",
+    "belgesel"
+   ],
+   "kaynak": [
+    "opus-galeri"
+   ]
   }
  },
  "kamera": {
