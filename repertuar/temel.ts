@@ -116,7 +116,9 @@ export const FONT_AGIRLIK: Record<string, string> = {
   Cinzel: '400 900', CormorantGaramond: '300 700', CourierPrime: '400', DMSans: '100 1000', DMSerifDisplay: '400', EBGaramond: '400 800', FjallaOne: '400',
   Inter: '100 900', Kanit: '700', Lato: '700', LeagueSpartan: '100 900', Lora: '400 700', Merriweather: '300 900', Montserrat: '100 900', NotoSansJP: '100 900',
   NotoSerifJP: '200 900', Nunito: '200 1000', OpenSans: '300 800', Oswald: '200 700', PlayfairDisplay: '400 900', Poppins: '700', Raleway: '100 900',
-  Roboto: '100 900', RobotoCondensed: '100 900', Rubik: '300 900', SourceSerif4: '200 900', SpaceGrotesk: '300 700', Staatliches: '400', Teko: '300 700', WorkSans: '100 900',
+  Roboto: '100 900', RobotoCondensed: '100 900',
+  // gercek italik kesimler (OFL): FontYukle bunlari ana ailenin 'italic' stili olarak kaydeder
+  'PlayfairDisplay-Italic': '400 900', 'DMSerifDisplay-Italic': '400', 'EBGaramond-Italic': '400 800', 'SourceSerif4-Italic': '200 900', Rubik: '300 900', SourceSerif4: '200 900', SpaceGrotesk: '300 700', Staatliches: '400', Teko: '300 700', WorkSans: '100 900',
 };
 export const fontCifti = (ad?: string): FontCifti => FONTLAR[ad || ''] || FONTLAR['grotesk-modern'];
 

@@ -124,7 +124,7 @@ def k_font():
     n_set = len(re.findall(r"^\s+'[a-z-]+':\s+\{ ad:", blok, re.M))
     if len(setler) != n_set:
         ekle('FAIL', 'font', f'{n_set} font setinden {len(setler)} tanesi tam (govdeAgirlik/monoAgirlik eksik)')
-    ag = dict(re.findall(r"(\w+): '([\d ]+)'", t[t.index('FONT_AGIRLIK'):t.index('};', t.index('FONT_AGIRLIK'))]))
+    ag = dict(re.findall(r"'?([\w-]+)'?: '([\d ]+)'", t[t.index('FONT_AGIRLIK'):t.index('};', t.index('FONT_AGIRLIK'))]))
     dosya = {os.path.splitext(f)[0] for f in os.listdir(os.path.join(KOK, 'fontlar'))}
     hata = []
     for ad, b, g, m, bw, gw, mw in setler:
@@ -270,6 +270,11 @@ def k_kanallar(projeler):
         vd = os.path.join(m, 'src', 'VideoDna.tsx')
         if not os.path.exists(vd) or 'repertuar/VideoDna' not in oku(vd):
             sorun.append('ortak VideoDna yok')
+        pf = os.path.join(m, 'public', 'fontlar')
+        if os.path.isdir(pf):
+            eksik_f = sorted({f for f in os.listdir(os.path.join(KOK, 'fontlar')) if f.endswith('.ttf')} - set(os.listdir(pf)))
+            if eksik_f:
+                sorun.append(f'public/fontlar kopya ve eksik: {eksik_f[:4]} (kurulum.py kanal ile repoya baglanmali)')
         sfx = os.path.join(m, 'public', 'varlik', 'sfx')
         if not os.path.isdir(sfx):
             sorun.append('public/varlik/sfx yok')

@@ -23,12 +23,12 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 17 | Skill paketi + masaüstü `ON NUMARA II\GITHUB ENTEGRE.skill`; kullanıcı claude.ai'ye yükler | paket tarihli ve güncel | her büyük turdan sonra |
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
-| 27 | Gercek italik fontlar: 4 dosya indirildi (OFL, scratchpad/italik); fontlar/ + FONT_AGIRLIK + FontYukle style:italic kaydi | italik-vurgu gercek italikle | repertuar ajanindan sonra (ana oturum) |
 | 30 | kurgu_denetim: cerceve_olc yeni cerceveSec mantigini taklit etsin; etiket_ust UYARI'si kalksin; --duzelt cozemedigi kelime karti/altyazi cakismasina etiket_ust koysun | rapor %50 gosterir | alt model |
 | 31 | Ust uc birde altyazi bazen konusanin basina biniyor (v04 #98); ust orta kelime karti letterbox'a 10 px | v04 karesi | acik |
 | 18 | CC0 SFX paketleri (cc0-sfx sekmesi) + lisanslı gerçek görüntü avı ve rakip kaynak türü → kaynak stratejisi (gorsel-kaynak sekmesi) | Sfx paletinde CC0 secenek; kanal sablonunda kaynak plani; test sahnesi icin kaynakli gercek gorsel | sekmelerde (kullanici onayi 2026-11-24) |
 
 ## Kapanan (2026-11-24)
+- #27 gercek italik fontlar (PlayfairDisplay/DMSerifDisplay/EBGaramond/SourceSerif4, OFL) — italik-vurgu gercek italikle (yonetici gozle onayladi); dogrula kopya font klasorundeki eksikleri uyarir
 - #19 alt bant/altyazi kaynak yazisindan kacar (etiket_ust; 80,9 sn kanit yonetici onayi)
 - #20 cerceveSec kotali dagilim (v04 %50; rapor taklidi #30)
 - #22 OKUNUR.enaz 36, ust satir 4,5:1

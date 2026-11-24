@@ -12,7 +12,14 @@ export const FontYukle: React.FC<{ adlar?: string[] }> = ({ adlar }) => {
       yuklendi.add(a);
       // weight tanimi SART: degisken fontta yoksa tarayici varsayilan (cogu zaman en ince) kesimi cizer
       return new FontFace(a, `url(${staticFile(`fontlar/${a}.ttf`)})`, { weight: FONT_AGIRLIK[a] || '100 900' }).load().then((ff) => { (document as any).fonts.add(ff); }).catch(() => undefined);
-    })).then(() => continueRender(h));
+    }).concat(
+      // gercek italikler: '<Aile>-Italic' dosyasi ayni aile adinin italic stili olur (fontStyle: italic sentetik egilmez)
+      Object.keys(FONT_AGIRLIK).filter((k) => k.endsWith('-Italic') && !yuklendi.has(k)).map((k) => {
+        yuklendi.add(k);
+        return new FontFace(k.replace(/-Italic$/, ''), `url(${staticFile(`fontlar/${k}.ttf`)})`, { weight: FONT_AGIRLIK[k], style: 'italic' }).load()
+          .then((ff) => { (document as any).fonts.add(ff); }).catch(() => undefined);
+      }),
+    )).then(() => continueRender(h));
   }, []);
   return null;
 };
