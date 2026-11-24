@@ -107,7 +107,9 @@ def ceviri_tablosu(dna, rakipler, kut, yt, sd):
     satirlar.append({'eksen': 'palet', 'rakip': ', '.join(f'{k} %{v * 100:.0f}' for k, v in en_cok(oz.get('palet'))) or '-',
                      'biz': f"{dna['palet']} ({sd.PALET_SINIF.get(dna['palet'], '?')})", 'neden': neden('palet', dna['palet'])})
     # ayirt edici yuzeyde rakiple ayni kalan oge: uyari (font adi, altyazi ailesi)
-    if bf.replace(' ', '') in {k.replace(' ', '') for k in font_adi}:
+    en_f = max(font_adi.values()) if font_adi else 0
+    rakip_f = {k.replace(' ', '') for k, n in font_adi.items() if n >= max(2, en_f * 0.5)}
+    if bf.replace(' ', '') in rakip_f:
         satirlar[0]['neden'] = 'UYARI rakiple ayni baslik fontu! ' + satirlar[0]['neden']
     rk_alt = max(oz.get('altyazi') or {'-': 0}, key=(oz.get('altyazi') or {'-': 0}).get)
     if sd.ALTYAZI_AILE.get(dna['altyazi']) == rk_alt and rk_alt != 'yok':
@@ -125,7 +127,8 @@ def onizle(dna, hedef, konsept=''):
     if not os.path.exists(CHROME):
         print('UYARI onizleme atlandi: chrome-headless-shell yok')
         return []
-    m = re.search(r"[\"'“‘]([^\"'”’]{8,80})[\"'”’]", konsept or '')
+    # ornek baslik: tirnak icindeki ifade; acilis tirnagindan once bosluk/bas (Tesla's kesme isareti acilis sayilmaz)
+    m = re.search(r"(?:(?<=\s)|^)[\"“‘']([^\"”]{8,90}?)[\"”’'](?=[\s,.;:)]|$)", konsept or '')
     baslik = m.group(1) if m else ' '.join((konsept or 'The Story Nobody Told').split()[:6]).strip(' .,:;')
     pj = os.path.join(hedef, 'onizleme-props.json')
     json.dump({'dna': dna, 'foto': ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg'], 'presetler': [], 'metin': {'baslik': baslik}}, open(pj, 'w', encoding='utf-8'), ensure_ascii=False)
@@ -196,7 +199,7 @@ def main():
     rakipler = rakip_hazirla(a.rakip, kut) if a.rakip else []
     # secim motoru: konsept + rakip (yoksa nis); 6 secenek -> en uygunu, kanal adi -> diger kanallarla ayni gorunum yok
     cmd = [sys.executable, '-I', os.path.join(BURASI, 'stil_dna.py'), '--konu', a.konsept, '--cikti', hedef, '--kanal', a.kanal, '--kanallar', a.kanallar,
-           '--secenek', '6', '--tohum', 'sablon-' + a.kanal]
+           '--secenek', '6', '--kimlik-uret', '--tohum', 'sablon-' + a.kanal]
     if rakipler:
         cmd += ['--rakip', ','.join(rakipler)]
     r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')

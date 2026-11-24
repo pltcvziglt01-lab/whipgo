@@ -503,11 +503,19 @@ def nis_agirlik(nis):
     return pa, ga, ca
 
 
+def handle_norm(kut, x):
+    """kutuphane klasor adi: '@Kanal', 'UC...' ya da tek video olcumu 'video_<id>' — klasor varsa oldugu gibi, yoksa '@' eklenir"""
+    x = x.strip()
+    if x.startswith(('@', 'UC')) or (kut and os.path.isdir(os.path.join(kut, 'kanallar', x))):
+        return x
+    return '@' + x
+
+
 def rakip_oku(kut, handle, jsonlar):
     vids = []
     # handle: tek kanal ya da virgullu liste (konsept/sablon akisinda nis kanallari: iskelet = nisin ortak YouTube edit dili)
     for h in [x.strip() for x in (handle or '').split(',') if x.strip()]:
-        h = h if h.startswith('@') or h.startswith('UC') else '@' + h
+        h = handle_norm(kut, h)
         kj = os.path.join(kut or '', 'kanallar', h, 'kanal.json')
         if not os.path.isfile(kj):
             sys.exit(f'HATA: {kj} yok. Once kanal_isle.py {h} --adet 3 calistir.')
@@ -691,7 +699,7 @@ def nis_normu(eksen, deger, esik=0.5):
     return (n if n is not None else YT.pay_genel(eksen, deger)) >= esik
 
 
-def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk=None, nis=None, diger=(), etk=None, sabit=None):
+def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk=None, nis=None, diger=(), etk=None, sabit=None, kimlik_uret=False):
     global ETK
     vk = vk or {'katalog': {'arkaplan': {}, 'filmburn': {}}, 'presetler': []}
     if etk is not None:
@@ -716,20 +724,23 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     # palet: rakibin sinifindan farkli sinif; klasik yasak
     paletler = [p for p in tsx_sozluk_anahtar(rep, 'temel.ts', 'PALETLER') if p != KLASIK['palet'] and (not T.get('palet') or p in T['palet'])]
     sabit = sabit or {}
+    # kanallar arasi kesin kacinma: sablon uretirken kimlik eksenleri (palet/font/baslik) baska kanalda olmaz;
+    # sablonla video uretirken kimlik sabit oldugu icin ortusme hakki dolu olabilir -> degisken gorunur eksenler kesin kacinir
+    KK = lambda e: tuple(k2(e)) if (kimlik_uret and e in ('palet', 'font', 'baslik')) or (sabit and e in ('arkaplan', 'cerceve', 'alinti', 'liste', 'zaman')) else ()
     if sabit.get('palet'):
         dna['palet'] = sabit['palet']
     elif 'palet' in kilit and gecmis:
         dna['palet'] = gecmis[-1]['palet']
     else:
         # renk konuya/nise uyar: nisteki siniflar one cikar; rakibin sinifi yasak degil ama geri planda (x0.35)
-        dna['palet'] = sec(r, paletler, gecmis=g('palet'), eksen='palet', kullanim=kul, kacin=k2('palet'),
+        dna['palet'] = sec(r, paletler, yasak=KK('palet'), gecmis=g('palet'), eksen='palet', kullanim=kul, kacin=k2('palet'),
                            agirlik={p: (1 + 2 * NP.get(PALET_SINIF.get(p), 0)) * (0.35 if (PALET_SINIF.get(p) == Y['palet_sinif'] and not nis_normu('palet', Y['palet_sinif'])) else 1) for p in paletler})[0]
     fontlar = [f for f in tsx_sozluk_anahtar(rep, 'temel.ts', 'FONTLAR') if not T.get('font') or f in T['font']]
-    dna['font'] = sabit['font'] if sabit.get('font') else gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, yasak=tuple(Y.get('font_yasak') or ()), gecmis=g('font'), eksen='font', kullanim=kul, kacin=k2('font'))[0]
+    dna['font'] = sabit['font'] if sabit.get('font') else gecmis[-1]['font'] if ('font' in kilit and gecmis) else sec(r, fontlar, yasak=tuple(Y.get('font_yasak') or ()) + KK('font'), gecmis=g('font'), eksen='font', kullanim=kul, kacin=k2('font'))[0]
     hareketler = [h for h in ['yay-esnek', 'kubik-hizli', 'ustel-sert', 'adim-stop', 'geri-sekme', 'dogrusal-mekanik'] if h not in T.get('hareket_disi', [])]
     dna['hareket'] = sec(r, hareketler, gecmis=g('hareket'), eksen='hareket', kullanim=kul, kacin=k2('hareket'))[0]
     ark = [x for x in L('Arkaplan.tsx', 'ARKAPLAN_TIPLERI') if x not in T.get('arkaplan_disi', [])]
-    dna['arkaplan'] = sec(r, ark, gecmis=g('arkaplan'), eksen='arkaplan', kullanim=kul, n=3, kacin=k2('arkaplan'))          # [kart, cerceve, bolum]
+    dna['arkaplan'] = sec(r, ark, yasak=KK('arkaplan'), gecmis=g('arkaplan'), eksen='arkaplan', kullanim=kul, n=3, kacin=k2('arkaplan'))          # [kart, cerceve, bolum]
     # paket videosu: palete uyan parlaklikta, az kullanilmis, iyi donen bir video bir rolu alir
     va = vk['katalog'].get('arkaplan') or {}
     if va and r.random() < 0.65:
@@ -771,10 +782,10 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     # Ozgunluk ayirt edici yuzeyden gelir (palet, font, baslik, kartlar, cerceve, gecis ailesi).
     dna['kamera'] = sec(r, [k for k in kam if k != 'sabit'], gecmis=g('kamera'), eksen='kamera', kullanim=kul, n=3, kacin=k2('kamera'))
     cer = [c for c in L('Medya.tsx', 'CERCEVE_TIPLERI') if c != 'tam']
-    dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
+    dna['cerceve'] = sec(r, cer, yasak=tuple(Y['cerceve']) + KK('cerceve'), gecmis=g('cerceve'), eksen='cerceve', kullanim=kul, n=2, agirlik={c: 1 + 2 * NC.get(c, 0) for c in cer}, kacin=k2('cerceve'))
     bas = [b for b in L('Yazi.tsx', 'BASLIK_TIPLERI') if b != KLASIK['baslik']]
     # iki baslik girisi: kelime kartlari arasinda donusumlu (art arda ayni giris animasyonu yok — givemotion kurali)
-    b2 = sec(r, bas, gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'), n=2)
+    b2 = sec(r, bas, yasak=KK('baslik'), gecmis=g('baslik'), eksen='baslik', kullanim=kul, kacin=k2('baslik'), n=2)
     dna['baslik'] = b2[0]
     dna['baslik2'] = b2[1] if len(b2) > 1 else b2[0]
     alt = list(L('Yazi.tsx', 'ALTYAZI_TIPLERI')) + ['yok']
@@ -783,7 +794,7 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     dna['altyazi'] = sec(r, alt, gecmis=g('altyazi'), eksen='altyazi', kullanim=kul, kacin=k2('altyazi'), aile=ALTYAZI_AILE, yasak_aile=(Y['altyazi_aile'],) if Y['altyazi_aile'] != 'yok' else ())[0]
     for eksen, dosya, ad in [('altbant', 'Kart.tsx', 'ALTBANT_TIPLERI'), ('sayi', 'Kart.tsx', 'SAYI_TIPLERI'), ('alinti', 'Kart.tsx', 'ALINTI_TIPLERI'),
                              ('liste', 'Kart.tsx', 'LISTE_TIPLERI'), ('zaman', 'Kart.tsx', 'ZAMAN_TIPLERI')]:
-        dna[eksen] = sec(r, L(dosya, ad), gecmis=g(eksen), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0]
+        dna[eksen] = sec(r, L(dosya, ad), yasak=KK(eksen), gecmis=g(eksen), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0]
     # harita / grafik / HUD dili (dosya varsa)
     for eksen, dosya, ad in [('harita', 'Harita.tsx', 'HARITA_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI'), ('hud', 'Hud.tsx', 'HUD_TIPLERI')]:
         if os.path.isfile(os.path.join(rep, dosya)):
@@ -975,6 +986,7 @@ def main():
     ap.add_argument('--varlik', help='repo varlik/ klasoru (varsayilan: repo kokunden bulunur)')
     ap.add_argument('--kanallar', help='kanal klasorlerinin koku (varsayilan C:\\otomasyon); diger kanallarin DNA\'lari buradan okunur')
     ap.add_argument('--kanal', help='bu videonun kanali (varsayilan: --cikti yolundan, ornek C:\\otomasyon\\ranks\\video10 -> ranks)')
+    ap.add_argument('--kimlik-uret', action='store_true', help='kanal_sablon.py kullanir: palet/font/baslik baska kanalda olmayacak (kesin)')
     ap.add_argument('--sablon', help='kanal-sablon.json (kanal_sablon.py): kimlik eksenleri sabit, nis iskeleti ve ton sablondan')
     a = ap.parse_args()
     kut = kutuphane_bul(a.kok)
@@ -997,7 +1009,7 @@ def main():
     rk = rakip_oku(kut, a.rakip, a.rakip_json)
     rk['kaynak'] = a.rakip or ', '.join(a.rakip_json or [])
     konu = a.konu + (' ' + open(a.konu_dosya, encoding='utf-8', errors='replace').read()[:3000] if a.konu_dosya and os.path.isfile(a.konu_dosya) else '')
-    rlist = [x.strip() if x.strip().startswith(('@', 'UC')) else '@' + x.strip() for x in (a.rakip or '').split(',') if x.strip()]
+    rlist = [handle_norm(kut, x) for x in (a.rakip or '').split(',') if x.strip()]
     rh = rlist[0] if rlist else None
     rmetin = ' | '.join(kanal_metni(os.path.join(kut, 'kanallar', x)) for x in rlist[:4]) if (kut and rlist) else ''
     if a.ton:
@@ -1020,7 +1032,7 @@ def main():
             tb['kaynak'] += f" + konu oyu ({tb['ton']} -> {t2})"
         tb['ton'], tb['puan'] = t2, {k: round(v, 2) for k, v in oy.items()}
     # konseptte acik ton sozcugu ('calm', 'relaxing', 'ruhig'...) konu tonunu ezer (--ton verilmediyse)
-    if tb.get('kaynak') != 'elle verildi' and re.search(r'(calm|relaxing|relaxed|soothing|gentle|cozy|ruhig|entspannt|sakin|huzurlu|dingin)', konu.lower()):
+    if tb.get('kaynak') != 'elle verildi' and re.search(r'\b(calm|relaxing|relaxed|soothing|gentle|cozy|ruhig|entspannt|sakin|huzurlu|dingin)\b', konu.lower()):
         tb['kaynak'] += ' + konseptte acik sakin sozcugu -> sakin'
         tb['ton'] = 'sakin'
     a.ton = tb['ton']
@@ -1072,7 +1084,7 @@ def main():
     for i in range(a.secenek):
         en_iyi = None
         for deneme in range(40):
-            d = dna_uret(rk, rep, kut, gecmis, kilit, f'{tohum}-{i}-{deneme}', secenekler, a.ton, vk, nis, list(diger.values()), etk, sabit=(sablon or {}).get('kimlik'))
+            d = dna_uret(rk, rep, kut, gecmis, kilit, f'{tohum}-{i}-{deneme}', secenekler, a.ton, vk, nis, list(diger.values()), etk, sabit=(sablon or {}).get('kimlik'), kimlik_uret=a.kimlik_uret)
             rf = sum(1 for _, b in rakip_fark(d, rk) if b)
             gf = min([fark(d, x) for x in gecmis[-3:]] or [99])
             if gecmis and gf / len(EKSENLER) < ESIK_DEGISIM:

@@ -196,9 +196,10 @@ def k_ts(projeler):
 # ------------------------------------------------------------------ 4. secim motoru
 def k_motor(T):
     konular = [('askeri', 'D-Day landing failures at Omaha beach soldiers'), ('futbol', 'Why Man City cannot win without Pep Guardiola football'),
-               ('teknoloji', 'The magnet-free electric motor that changes EV engineering'), ('gizem', 'A submarine vanished in 1945 and was found 46 years later')]
+               ('teknoloji', 'The magnet-free electric motor that changes EV engineering'), ('gizem', 'A submarine vanished in 1945 and was found 46 years later'),
+               ('sakin', 'Retirement and personal finance explained in a calm, relaxing way')]
     # rakipsiz (yalniz konsept): motor nis iskeletini kutuphaneden bulmali ve tonu konudan dogru cikarmali
-    BEKLENEN_TON = {'askeri': {'ciddi'}, 'futbol': {'enerjik'}, 'teknoloji': {'enerjik', 'ciddi'}, 'gizem': {'gizem', 'ciddi'}}
+    BEKLENEN_TON = {'askeri': {'ciddi'}, 'futbol': {'enerjik'}, 'teknoloji': {'enerjik', 'ciddi'}, 'gizem': {'gizem', 'ciddi'}, 'sakin': {'sakin'}}
     paletler = []
     for ad, konu in konular:
         d = tempfile.mkdtemp(prefix='dogrula-dna-')
