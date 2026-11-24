@@ -14,6 +14,7 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 ## Açık (öncelik sırası)
 | # | İş | Kabul ölçütü | Kim / durum |
 |---|---|---|---|
+| 0 | **KENDINI TEKRAR EDEN EDIT (kullanici sikayeti, en yuksek oncelik):** VideoDna cekim basina yalniz goruntu/kelime/sayi/alinti/alt bant uretiyor; harita, grafik, zaman, liste, karsilastirma, bolum, degisim, coklu medya, HUD videoya hic girmiyor; kart eksenlerinde tek varyant. Cozum: zengin sahne turleri + tur ici varyant + anlatimdan sahne firsati cikarici + tekrar denetimi | her 60 sn'de >=3 farkli sahne turu; ayni kart+varyant 2 dk'da <=3; v04 tur seridi once/sonra; izleyici gozu 'tekrar etmiyor' | sahne-cesitliligi sekmesi |
 | 2 | v04'ü tüm yeniliklerle baştan render + kapılar + izleyici incelemesi | standart 4; eski/yeni yan yana | #1'den sonra |
 | 10 | Önizleme medyası konuya göre (hep aynı asker fotoğrafları), dil kitleye göre (Almanca kitle → Almanca metin) | deniz/şehir/futbol önizlemesi kendi görselleriyle | açık |
 | 12 | Beat ızgarası (müzikli/enerjik kanallar): kesim ve büyük hareket vuruşa ±0,15 sn | müzikli deneme videosunda kesimlerin %80'i vuruşta | açık |
