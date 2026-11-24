@@ -37,6 +37,8 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 - **HeyGen'de yalnız Avatar III.** "Avatar IV" veya "kredi" uyarısı görünürse GÖNDERME, dur. Ses klonlama yok; "Ses Yansıtma" kapalı.
 - **Kaynaksız sayı/iddia yok, uydurma anı/unvan yok** (sunucu doktor/veteriner/uzman değilse öyle konuşmaz). Kanalda olmayan videoya "kanalda var" denmez.
 - **Kontrol etmediğin şeye "tamam" deme.** Ekran görüntüsüne, dosya boyutuna, LUFS'a, süreye kendin bak. Ajan raporu kanıt değildir.
+- **Her video ölçülebilir en az %20 farklı (demonetizasyon / "AI slop" koruması):** rakip analizinden sonra yüzey (edit dili) rakipten ve kanalın son 3 videosundan ayrı ayrı en az %20 değişir — `stil_dna.py` kontrol satırı `TAMAM` olmadan kurguya geçilmez. Metin %100 özgün, kalıp cümleler `kalip_kontrol.py` temiz, `ozgunluk.md` §AI slop listesindeki işaretlerin hiçbiri yok.
+- **Edit dili konuya uyar:** ton anlatılan olaydan belirlenir (`stil_dna.py --konu "<başlık + olay>"`; savaş/tarih/ekonomi = ciddi, suç/gizem/korku = gizem, teknoloji/spor/liste = enerjik, sağlık/yaşam/seyahat = sakin). Askeri ya da trajik bir konuda neşeli edit (çizgi roman zemini, zıplayan/esnek hareket, pastel, bokeh) kullanılmaz. Seçim kütüphanede aynı tondaki kanalların ölçülmüş edit diliyle ağırlıklandırılır (STIL-DNA.md §Konu ve ton).
 - **Klasik Claude kurgusu yok:** kurgu yalnız repertuar bileşenleri + videonun `stil-dna.json`'u ile kurulur; kanal başına `Parcalar.tsx` yazılmaz, gece-kırmızı palet / aşağıdan-yay giriş / her karede gren+vinyet / her fotoda aynı Ken Burns kullanılmaz (`references/repertuar.md`).
 - **Rakibin metnini, kurgusunu, kapağını kopyalama.** Kalıbı ve ölçülen ritmi al, içeriği kendin yaz (`references/ozgunluk.md`).
 - **Kullanıcının günlük Chrome'una dokunma**; otomasyon ayrı profil + CDP portuyla. Başka oturumların Chrome/render süreçlerini öldürme.
@@ -51,7 +53,7 @@ Skill hiçbir kanala bağlı değildir. Kanal adları, rakipler ve takip listesi
 |---|---|---|---|
 | 0 | Kurulum / yeni makine | çalışan araçlar, CDP Chrome | `references/kurulum-ve-cdp.md` |
 | 1 | Rakip analizi: en popüler 3 video indir, 0,1 sn kare analizi (ilk 30 sn, ilk %30), birleşik hedefler, **temizlik** | RAKIP-OLCUM.md, SPEC-<kanal>.md | `references/rakip-kare-analizi.md`, `references/rakip-analizi-ve-baslik.md` |
-| 1a | **Edit dili** (kare kare: geçiş tipi+ms, düzen/çerçeve, kalıcı katman, OCR yazı+font, altyazı stili, renk, SFX) + **stil DNA** (`stil_dna.py`: rakipten ≥6/7 eksen farklı, son 3 videodan farklı, klasik skor 0) → A/B önizleme | EDIT-DILI.md (kütüphanede), STIL-DNA.md, stil-dna.json, onizleme-A/B.mp4 | `references/edit-dili-kutuphanesi.md`, `references/repertuar.md`, `references/varlik-paketleri.md` |
+| 1a | **Edit dili** (kare kare: geçiş tipi+ms, düzen/çerçeve, kalıcı katman, OCR yazı+font, altyazı stili, renk, SFX) + **stil DNA** (`stil_dna.py --rakip @X --konu "..."`: ton konudan, nişteki kütüphane kanallarıyla ağırlık; rakipten ve son 3 videodan ≥%20 farklı, klasik skor 0) → A/B önizleme | EDIT-DILI.md (kütüphanede), STIL-DNA.md, stil-dna.json, onizleme-A/B.mp4 | `references/edit-dili-kutuphanesi.md`, `references/repertuar.md`, `references/varlik-paketleri.md` |
 | 1b | Rakibin kaynak araştırması: gerçek video / stok / AI görsel / AI video / kart oranı → bizim üretim yöntemi | KAYNAK-ANALIZ.md, araç kararı | `references/rakip-kaynak-analizi.md` |
 | 2 | Konu + başlık | 3–4 başlık, önerilen ilk sırada | aynı dosya + `references/ozgunluk.md` |
 | 3 | Araştırma + metin | ARASTIRMA-NN.md, metin.txt | `references/metin.md` |
@@ -85,7 +87,7 @@ Sorun çıktığında önce `references/tuzaklar.md` tablosuna bak — yaşanmı
 Kullanıcının standart istemi `references/kaynak/KANAL-URETIM-PROMPT.md`'dir. Özeti ve onay noktaları:
 
 1. **Rakip analizi** — `kanal_isle.py @Rakip --adet 3 --cerez-port 9334` (kütüphanenin `_araclar/`'ı; kütüphane toplu işinde varsayılan `--adet 1`) tek komutla: en popüler 3 videonun ilk %30'u, ritim + edit dili ölçümü, kütüphaneye kayıt. Ayrıntı: en popüler 3 videoyu indir (`rakip_indir.py --video`), her birini 0,1 sn karelerle tara (`kare_analiz.py`): cümle/çekim, çekim süresi, zoom/kaydırma, geçiş, kelime/çekim; ilk 30 sn çekim çekim ve ilk %30 yoğunluğu birebir; 3 videonun medyanı = hedef (`--birlestir`). Başlık kalıbı ve outlier oranı (≥2,0). Bitince indirilen videoları sil (`temizle.py`). → RAKIP-OLCUM + SPEC.
-1a. **Edit dili + stil DNA** — rakibin geçiş/düzen/yazı/font/altyazı/renk/SFX dilini çıkar; iskeleti (ritim, kanca, yoğunluk, geçiş süresi/sıklığı, kaynak türü) koru, yüzeyi `stil_dna.py --rakip @X --ton <niş>` ile repertuardan seç (≥6/7 eksen farklı, klasik skor 0). **A/B önizlemeyi render edip kullanıcıya sun** (kanalın ilk videosunda; sonra A otomatik). (`edit-dili-kutuphanesi.md`, `repertuar.md`)
+1a. **Edit dili + stil DNA** — rakibin geçiş/düzen/yazı/font/altyazı/renk/SFX dilini çıkar; iskeleti (ritim, kanca, yoğunluk, geçiş süresi/sıklığı, kaynak türü) koru, yüzeyi `stil_dna.py --rakip @X --konu "<başlık + anlatılan olay>"` ile repertuardan seç (ton konudan otomatik; rakipten ve son 3 videodan ≥%20 farklı, klasik skor 0). **A/B önizlemeyi render edip kullanıcıya sun** (kanalın ilk videosunda; sonra A otomatik). (`edit-dili-kutuphanesi.md`, `repertuar.md`)
 1b. **Kaynak araştırması** — rakip gerçek video mu, stok mu, AI görsel mi, AI video mu, kart mı kullanıyor; oranlarıyla (`rakip-kaynak-analizi.md`). Bizim araç seçimi buna göre (Flow / Flow Video / Magnific stok / kredili arşiv / HeyGen / Remotion kart) → **kullanıcıya tabloyla sun, onay al**.
 2. **Başlık** — kazanan iskeleti çıkar, 3–4 başlık öner (AskUserQuestion, önerilen ilk + "(Önerilen)"). **Kullanıcı seçer.**
 3. **Metin** — kaynaklı, rakibin yapısında ama özgün cümlelerle; uzunluk ve cümle kısalığı rakibe yakın. `metin_kontrol.py` + `kalip_kontrol.py` temiz. **Kullanıcıya göster.**
@@ -128,7 +130,7 @@ Akiya + medical explainer'dan çıkan genel kurgu/tutunma/ölçüm dersleri: `re
 | `sfx_kur.py <zip...> --hedef <klasör>` | SFX paketlerini açar, adları temizler, `sfx-katalog.json` (süre + kategori) yazar |
 | `rakip_indir.py @kanal --adet 3 [--video]` | en popüler 3 video: kapak, açıklama/etiket/kaynak ipuçları, (≤720p video + altyazı), `indirilenler.json` |
 | `kare_analiz.py video.mp4` / `--birlestir a b c` | 0,1 sn tarama: kesimler, çekim süreleri, zoom/pan, geçiş, kelime/çekim, kaynak tahmini (durağan görsel/video/kart); ilk 30 sn, ilk %30, sonrası; kontakt sayfaları; birleşik hedefler |
-| `stil_dna.py --rakip @X --ton ciddi\|enerjik\|sakin [--gecmis ...] [--kilit palet,font] --cikti vNN/` | **stil DNA**: rakip imzası → repertuardan A/B yüzey (arka plan, geçiş, palet, font, başlık, altyazı, kart, kamera, çerçeve, doku, vurgu presetleri); `STIL-DNA.md` kanıt + kontrol |
+| `stil_dna.py --rakip @X --konu "..." [--ton ciddi\|gizem\|enerjik\|sakin] [--gecmis ...] [--kilit palet,font] --cikti vNN/` | **stil DNA**: rakip imzası → repertuardan A/B yüzey (arka plan, geçiş, palet, font, başlık, altyazı, kart, kamera, çerçeve, doku, vurgu presetleri); `STIL-DNA.md` kanıt + kontrol |
 | `varlik_kur.py katalog\|presetler\|yukle\|indir\|kanal <motion>` | lisanslı paketler: 1080p kopya + ölçüm + katalog, preset derleme, GitHub Release yükle/indir, kanal projesine bağlantı |
 | `preset_ogren.py paket.prfpset` | Premiere preset XML'inden anahtar kare + bezier eğrisi → Remotion (`PresetHareket`) |
 | `kutuphane_ara.py [--ritim 2.0 --tolerans 0.3 ...]` | kütüphane indeksi (`_indeks/`) + ritim/geçiş/düzen/altyazı filtresi |
@@ -177,6 +179,7 @@ Betikler Python 3 + ffmpeg/ffprobe; ek olarak `kare_analiz.py`/`edit_dili.py` nu
 - [ ] Gerçek görüntü varsa hepsi CC BY ya da izinli, atıflar açıklamada
 - [ ] Rakip analiz klasöründe (yerel) indirilmiş video kalmadı (`temizle.py`), kütüphaneye de video konmaz
 - [ ] Rakip kütüphaneye girdi (`durum.txt = bitti`), `STIL-DNA.md` kontrol satırı temiz (rakipten ≥6/7, son 3 videodan ≥6 eksen farklı, klasik skor 0), `stil-dna.json` video klasöründe, kendi finalimiz `edit_dili.py` ile ölçülüp DEVAM'a yazıldı
+- [ ] STIL-DNA.md §Konu ve ton konuyla uyumlu (askeri/trajik konuda neşeli yüzey yok); §Kontrol satırı `TAMAM` (rakipten ve son 3 videodan ≥%20)
 - [ ] Kurguda kanal başına yazılmış bileşen yok; yalnız `repertuar/` + `Dna*` (yeni teknik gerektiyse repertuara eklendi ve commit edildi)
 - [ ] Teslim `money printer\<KANAL>\<video>\` altında; Drive'da ad + boyut görüldü (yükleme paneline güvenme)
 - [ ] `video_temizle.py --sil` çalıştı, açılan GB kullanıcıya söylendi

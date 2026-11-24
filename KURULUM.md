@@ -28,7 +28,7 @@ Mevcut kanal (gta6, paycheck, ranks, casus): yalnız son komut (src\repertuar, p
 
 ## Her video
 1. `git -C C:\otomasyon\yt-uretim pull`
-2. `py ...\scripts\stil_dna.py --rakip @Rakip --ton <ciddi|enerjik|sakin> --gecmis <son videoların stil-dna.json> --kilit palet,font --cikti vNN\`
+2. `py ...\scripts\stil_dna.py --rakip @Rakip --konu "<başlık + anlatılan olay>" --gecmis <son videoların stil-dna.json> --kilit palet,font --cikti vNN\`
 3. Kanalın ilk videosunda A/B önizleme (`Onizleme` kompozisyonu) → kullanıcı seçer; sonra A.
 4. VideoNN.tsx yalnız `repertuar/Dna*` bileşenleriyle (skill `references/repertuar.md` §4).
 

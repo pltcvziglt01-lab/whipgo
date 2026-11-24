@@ -26,12 +26,12 @@ eksik teknik repertuara eklenir (bkz. §5).
 1. Rakip kütüphaneye girmiş olmalı (`kanal_isle.py @Rakip --adet 3`).
 2. DNA:
    ```
-   py scripts/stil_dna.py --rakip @Rakip --ton ciddi|enerjik|sakin --gecmis <önceki videoların stil-dna.json> --kilit palet,font --cikti <videoNN>/
+   py scripts/stil_dna.py --rakip @Rakip --konu "<başlık + anlatılan olay>" --gecmis <önceki videoların stil-dna.json> --kilit palet,font --cikti <videoNN>/
    ```
-   - `--ton`: nişe uymayan yüzeyi eler (tarih/savaş/belgesel = ciddi; teknoloji/spor/liste = enerjik; yaşam/sağlık/seyahat = sakin).
+   - `--konu`: ton buradan otomatik (savaş/tarih/ekonomi = ciddi, suç/gizem/korku = gizem, teknoloji/spor/liste = enerjik, sağlık/yaşam/seyahat = sakin); kütüphanede aynı tondaki kanallar seçimi ağırlıklandırır. Gerekirse `--ton` ile elle.
    - `--kilit palet,font`: kanal kimliği (2. videodan itibaren). İlk videoda kilit yok.
    - Çıktı: `stil-dna-A.json`, `stil-dna-B.json`, `STIL-DNA.md` (rakip vs A/B tablosu, kanıt kanalları, kontrol satırı).
-3. Kontrol satırı: rakipten farklı eksen ≥ 6/7, son 3 videoya göre ≥ 6 eksen, klasik skor 0. Tutmuyorsa `--tohum` değiştir.
+3. Kontrol satırı `TAMAM`: rakipten ve son 3 videonun her birinden en az %20 farklı, klasik skor 0. §Konu ve ton bölümünü oku: ton konuyla çelişiyorsa `--ton` ile düzelt. Tutmuyorsa `--tohum` değiştir.
 4. **Önizleme** (`sablon-proje` Root'unda `Onizleme`):
    ```
    npx remotion render src/index.ts Onizleme onizleme-A.mp4 --props=props-A.json

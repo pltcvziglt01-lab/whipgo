@@ -27,6 +27,22 @@ Sunucu/karakter görünüşü, konu ve kitle, kaynaklı anlatım biçimi. Bunlar
 | L Açıklama/kapak | açıklamanın ilk 2 cümlesi yeni; kapak zemini/ok/yazı konumu dönüşümlü; kapak yazısı başlığı tekrar etmez |
 | M Reklam/CTA | %30'dan sonraki ilk bölüm sınırı; cümlesi her videoda yeniden yazılır |
 
+## Her video en az %20 farklı (zorunlu)
+Rakip analizinden sonra her videoda iki karşılaştırma yapılır ve ikisi de en az %20 olmak zorundadır:
+1. **Rakibe göre:** edit dili (stil_dna rakip eksenleri) + metin + kapak. Metin ve kapak zaten %100 bizim; edit dilinde ≥%20 (pratikte 6/7 eksen).
+2. **Kanalın son 3 videosuna göre:** stil DNA eksenleri (17 eksen; `--kilit palet,font` ile kimlik 2 eksen sabit kalsa da en az 4 eksen değişir) + bu dosyadaki A–M eksenleri (≥8).
+`STIL-DNA.md` §Kontrol `TUTMADI` derse `--tohum` değiştirilir; elle "yeterince farklı" denmez.
+
+## AI slop işaretleri (hiçbiri olmayacak)
+- Her sahnede aynı geçiş / aynı Ken Burns / aynı giriş animasyonu (repertuar + DNA bunu engeller; elle kurgu yazılmaz).
+- Her cümleye bir stok görüntü, görüntü konuyla gevşek ilgili; aynı görselin tekrarı (`kalite_kapisi.py` tekrar eden görsel).
+- Robotik ritim: tüm çekimler eşit süre (iskelet rakipten gelir; sahne süreleri cümle uzunluğuyla değişir).
+- Kalıp cümleler ("In this video…", "Let's dive in", "But here's the thing", "Stay tuned") — `kalip_kontrol.py`.
+- Kaynaksız iddia, uydurma anı, genel geçer dolgu paragrafları.
+- Konuyla çelişen ton (savaş anlatırken neşeli müzik/edit; gizemde parlak pastel).
+- Her videoda aynı kapak şablonu, aynı başlık kalıbı (A ve L eksenleri).
+- Yapay ses tonu tek düze: TTS sesi kanal başına seçilir, cümle vurguları metinde işaretlenir (`ses.md`).
+
 ## Yasaklar
 - Uydurma anı/unvan, kaynaksız rakam.
 - Başka kanalın metnini, kurgusunu, kapağını kopyalamak. Rakip videolar konu fikri, yapı ve ritim ölçümü için kullanılır; cümleler %100 bizim.

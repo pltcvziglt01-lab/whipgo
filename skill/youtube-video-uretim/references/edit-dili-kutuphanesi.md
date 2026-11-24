@@ -50,8 +50,10 @@ kullanılabilir (amaç rakipten ve klasik görünümden uzaklaşmak; ritim zaten
 
 ## 4. Stil DNA (elle kütüphane taraması YOK)
 ```
-py scripts/stil_dna.py --rakip @Rakip --ton ciddi|enerjik|sakin [--gecmis v01/stil-dna.json ...] [--kilit palet,font] --cikti <videoNN>/
+py scripts/stil_dna.py --rakip @Rakip --konu "<başlık + anlatılan olay>" [--gecmis v01/stil-dna.json ...] [--kilit palet,font] --cikti <videoNN>/
 ```
+- **Ton konudan:** `--konu` (+ rakibin niş satırı ve başlıkları) → ciddi / gizem / enerjik / sakin (`--ton` ile elle de verilir). Tona uymayan yüzey elenir (ciddi/gizemde çizgi roman zemini, bokeh, esnek/zıplayan hareket, pastel yok).
+- **Kütüphane nişi:** aynı tondaki (ortak anahtar kelimesi en çok olan) 12 kanalın ölçülmüş palet sınıfı, geçiş ailesi ve çerçevesi seçimi ağırlıklandırır; STIL-DNA.md'de listelenir. Rakibin kendi ailesi yine yasak, rakibin renk sınıfı geri planda.
 - Rakibin `kanal.json` + `edit-dili.json`'larından imza çıkarır: geçiş aileleri, düzen dağılımı, altyazı ailesi (≥ 8 öğe/dk = yakılmış altyazı), renk sınıfı, doku, kamera, iskelet sayıları.
 - Repertuardan (`repertuar.md`) ve varlıklardan (`varlik-paketleri.md`) A/B iki DNA seçer; `STIL-DNA.md` rakip vs A/B tablosunu, kanıt kanallarını (teknikler/ gözlem sayısı) ve kontrol satırını yazar.
 - Benzer ritimli kütüphane kanallarını görmek gerekiyorsa (stil sohbeti, kanıt arama): `py scripts/kutuphane_ara.py --ritim <ilk30 medyan sn> --tolerans 0.3 [--gecis cozunme --duzen cerceveli --altyazi var --etiket edit]` (indeksi de yeniden üretir; token harcamaz).
