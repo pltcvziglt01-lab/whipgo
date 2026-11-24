@@ -766,7 +766,8 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
             k = r.choices(uy, weights=w)[0]
             dna['arkaplan'][r.choice([1, 2])] = 'video:%s:%s' % (k, va[k]['sure'])
     gec = [x for x in L('Gecis.tsx', 'GECIS_TIPLERI') if x != 'sert']
-    dna['gecis'] = sec(r, gec, gecmis=g('gecis'), eksen='gecis', kullanim=kul, n=3, aile=GECIS_AILE, yasak_aile=tuple(Y['gecis_aileleri']),
+    # en az 4 yumusak gecis tipi: gecisPlani'nin tek tip <=%25 tavani ancak k>=4'te tutar (galeri kurali)
+    dna['gecis'] = sec(r, gec, gecmis=g('gecis'), eksen='gecis', kullanim=kul, n=4, aile=GECIS_AILE, yasak_aile=tuple(Y['gecis_aileleri']),
                        agirlik={x: 1 + 2 * NG.get(GECIS_AILE.get(x), 0) for x in gec}, kacin=k2('gecis'))
     fb = vk['katalog'].get('filmburn') or {}
     if fb and 'flas' not in Y['gecis_aileleri'] and ETK.kapi('gecis', 'filmburn') and r.random() < 0.5 * min(1.5, ETK.uyum('gecis', 'filmburn')):

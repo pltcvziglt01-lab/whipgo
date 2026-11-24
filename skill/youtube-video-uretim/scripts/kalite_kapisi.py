@@ -288,12 +288,14 @@ def main():
     for t in pops[:10]:
         F.append(f'tek karelik sicrama {t:.2f} sn')
     # duragan pay ve uzun hareketsiz cekim
-    duragan = float((d < 0.4).mean()) if len(d) else 0
+    # duragan: kare-kare fark kucuk VE +-0,5 sn pencerede de hareket yok (yavas kamera nefesi/itme duragan sayilmaz)
+    HAREKETSIZ_PENCERE = 0.25
+    duragan = float(((d < 0.4) & (dw[1:] < HAREKETSIZ_PENCERE)).mean()) if len(d) else 0
     bilgi.append(f'duragan kare payi %{duragan * 100:.0f}, kesim {len(kesim)}')
     sinirlar = [0] + list(kesim) + [n]
     cekimler = [(sinirlar[i], sinirlar[i + 1]) for i in range(len(sinirlar) - 1) if sinirlar[i + 1] - sinirlar[i] > 2]
     for b, s in cekimler:
-        if (s - b) / fps > 8 and d[b:s - 1].mean() < 0.4:
+        if (s - b) / fps > 8 and d[b:s - 1].mean() < 0.4 and dw[b:s].mean() < HAREKETSIZ_PENCERE:
             U.append(f'{b / fps:.1f}-{s / fps:.1f} sn: {(s - b) / fps:.1f} sn hareketsiz cekim (Ken Burns/kesim ekle)')
     # arka arkaya ayni kadraj ve tekrar eden gorsel
     hs = [dhash(K[(b + s) // 2]) for b, s in cekimler]

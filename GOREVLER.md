@@ -27,13 +27,13 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
 | 22 | `OKUNUR.enaz` 32 -> 36 px (32 px = buyuk harf ~21 px; boy kapisi UYARI veriyor) | yazi_kontrol boy UYARI 0 (bizim yazilar) | acik |
-| 23 | stil_dna en az 4 gecis tipi secsin (%25 tavan ancak k>=4'te mumkun) | Onizlemede hicbir tip >%25 | acik |
-| 24 | kalite_kapisi 'duragan kare payi' UYARI'si pencereli olcume gecsin (nefesli kareyi duragan sayiyor) | nefesli test videosunda duragan pay ~0 | acik |
 | 25 | Videoda acikca secilen Ken Burns tiplerine ust sinir (1,2'yi asiyor) | video kaynakta olcek <= 1,08 | acik |
 | 26 | Tek doygun vurgu: GrenliGradyan, IsikKacagi, tint-sizinti, Karsilastirma, kirmizi-zemin paleti vurgu2'yi ana renk gibi kullaniyor | katalogda vurgu2 ikincil | acik |
 | 18 | (izin gerekir) CC0 SFX paketleri ve lisanslı stok medya avı (Wikimedia/Openverse) + kredi satırları | kullanıcı indirme onayı | bekliyor |
 
 ## Kapanan (2026-11-24)
+- #23 stil_dna en az 4 gecis tipi (D-Day: 4 tip)
+- #24 duragan pay ve 8 sn hareketsiz cekim uyarisi pencereli olcum (nefes duragan sayilmaz)
 - #3 galeri kurallari varsayilan: kamera hic durmaz (nefes), sekmesiz ton, yasak efektler yalniz enerjik, gecis plani (art arda <=2), durgunluk kapisi 1,5 sn (pencereli), kontrast 4,5:1 + boy kapisi — gecis sinirlari yonetici tarafindan gozle onaylandi
 - #1 okunurluk — v04 telefon karsilastirmasi yonetici tarafindan gozle onaylandi (c4a7487)
 - #5 kaynak gomulu yazi — kaynak_yazi.py + kurgu_denetim UYARI; v04 13 cakisma (77,9 sn "Good morning." dahil)
