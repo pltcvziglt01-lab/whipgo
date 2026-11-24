@@ -1025,6 +1025,72 @@
    "kaynak": [
     "givemotion"
    ]
+  },
+  "kareli-kagit": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "otomotiv",
+    "egitim",
+    "liste",
+    "tarih",
+    "haber"
+   ],
+   "enerji": 3,
+   "his": [
+    "belgesel",
+    "temiz",
+    "retro"
+   ],
+   "kaynak": [
+    "@NederlandseAutowereld"
+   ]
+  },
+  "supurme-inset": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "teknoloji",
+    "muhendislik",
+    "haber",
+    "otomotiv",
+    "finans"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "teknik",
+    "resmi"
+   ],
+   "kaynak": [
+    "@SvenskaBilar"
+   ]
+  },
+  "bulanik-hayalet": {
+   "ton": [
+    "gizem",
+    "ciddi"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "biyografi",
+    "suc",
+    "gizem"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "sinematik",
+    "karanlik"
+   ],
+   "kaynak": [
+    "@OkeanosHistory"
+   ]
   }
  },
  "baslik": {
@@ -1769,6 +1835,47 @@
    ],
    "kaynak": [
     "@BoneWitness-r6y"
+   ]
+  },
+  "uzun-golge": {
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "konu": [
+    "otomotiv",
+    "haber",
+    "egitim",
+    "finans",
+    "liste"
+   ],
+   "enerji": 4,
+   "his": [
+    "modern",
+    "dinamik"
+   ],
+   "kaynak": [
+    "@NederlandseAutowereld"
+   ]
+  },
+  "kare-rozet": {
+   "ton": [
+    "ciddi"
+   ],
+   "konu": [
+    "finans",
+    "teknoloji",
+    "otomotiv",
+    "haber",
+    "muhendislik"
+   ],
+   "enerji": 3,
+   "his": [
+    "modern",
+    "resmi"
+   ],
+   "kaynak": [
+    "@SvenskaBilar"
    ]
   }
  },
@@ -3345,6 +3452,48 @@
     "resmi"
    ],
    "kaynak": []
+  },
+  "kavisli-etiket": {
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "biyografi",
+    "seyahat"
+   ],
+   "enerji": 2,
+   "his": [
+    "arsiv",
+    "belgesel",
+    "sicak"
+   ],
+   "kaynak": [
+    "@OkeanosHistory"
+   ]
+  },
+  "bolgeli-uydu": {
+   "ton": [
+    "ciddi",
+    "gizem"
+   ],
+   "konu": [
+    "askeri",
+    "tarih",
+    "haber",
+    "gizem"
+   ],
+   "enerji": 3,
+   "his": [
+    "teknik",
+    "karanlik",
+    "resmi"
+   ],
+   "kaynak": [
+    "@ReichonRecord"
+   ]
   }
  },
  "grafik": {
@@ -3566,6 +3715,26 @@
    ],
    "kaynak": [
     "@SvenskaBilar"
+   ]
+  },
+  "belge-sekmesi": {
+   "ton": [
+    "ciddi"
+   ],
+   "konu": [
+    "tarih",
+    "askeri",
+    "haber",
+    "biyografi",
+    "suc"
+   ],
+   "enerji": 2,
+   "his": [
+    "resmi",
+    "arsiv"
+   ],
+   "kaynak": [
+    "@OkeanosHistory"
    ]
   }
  }

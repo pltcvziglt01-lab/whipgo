@@ -80,7 +80,12 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
 };
 
 // ---------- SAYI KARTI ----------
-export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk', 'dev-kontur', 'tabela', 'serif-zarif', 'el-alti-cizgi'] as const;
+export const SAYI_TIPLERI = ['sayac', 'rulo', 'halka', 'cubuk', 'dev-kontur', 'tabela', 'serif-zarif', 'el-alti-cizgi', 'uzun-golge', 'kare-rozet'] as const;
+/** rengin algilanan parlakligi 0..1 (koyu vurgu koyu zeminde kaybolmasin diye) */
+const parlaklik = (hex: string) => { const x = hex.replace('#', ''); const n = parseInt(x.length === 3 ? x.split('').map((k) => k + k).join('') : x, 16); return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
+/** dar/kondanse baslik fontu: kanalin baslik fontu darsa o, degilse Anton (kalin, okunur) */
+const DAR = ['Anton', 'BarlowCondensed', 'Teko', 'Staatliches', 'BebasNeue', 'Oswald'];
+const darFont = (s: Stil) => (DAR.includes(s.font.baslik) ? { fontFamily: s.font.baslik, fontWeight: s.font.baslikAgirlik } : { fontFamily: FONTLAR['poster-dar'].baslik, fontWeight: FONTLAR['poster-dar'].baslikAgirlik });
 export type SayiTip = typeof SAYI_TIPLERI[number];
 export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; stil: Stil }> = ({ tip, deger, onEk = '', sonEk = '', ust, alt, yuzde, stil }) => {
   const f = useCurrentFrame();
@@ -176,6 +181,57 @@ export const SayiKarti: React.FC<{ tip: SayiTip; deger: number; onEk?: string; s
             opacity: g, transform: `translateY(${(1 - g) * 24}px)`, textShadow: `0 10px 40px ${rgba('#000', 0.35)}` }}>{yaz(deger * p)}</div>
           <div style={{ width: 360 * cizgi, height: 2, background: palet.vurgu, margin: '22px 0 20px' }} />
           {alt ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 30, letterSpacing: 9, color: palet.vurgu, textTransform: 'uppercase', opacity: cizgi, maxWidth: 1300, textAlign: 'center' }}>{alt}</div> : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'uzun-golge': {
+      // karartilmis sahne ustunde dev kondanse rakam, saga-asagi bulaniksiz uzun (extrude) golge (@NederlandseAutowereld).
+      // Giris: buyukten 'pat' diye oturur, golge sonra uzar; altinda aralikli kalin birim etiketi (mono ince kaldigi icin govde 800).
+      const pop = ilerle(f, 0, fps * 0.28, 'ustel-sert');
+      const uz = ilerle(f, fps * 0.12, fps * 0.4, 'kubik-hizli');
+      const et = ilerle(f, fps * 0.3, fps * 0.35, hareket);
+      const s = yaz(deger);
+      const fs = Math.min(400, 2000 / Math.max(2.4, s.length * 0.55));
+      const renk = parlaklik(palet.vurgu) > 0.25 ? palet.vurgu : parlaklik(palet.vurgu2) > 0.25 ? palet.vurgu2 : palet.murekkep;
+      const golgeR = karistir(palet.acik ? palet.murekkep : palet.zemin, '#000000', 0.75);
+      const N = Math.round(fs * 0.055 * uz);
+      const golge = Array.from({ length: N }, (_, k) => `${k + 1}px ${k + 1}px 0 ${golgeR}`).join(', ');
+      const krem = palet.acik ? karistir(palet.zemin, '#ffffff', 0.4) : karistir(palet.murekkep, '#f3e6c8', 0.35);
+      return (
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <AbsoluteFill style={{ background: rgba('#000000', 0.55 * g) }} />
+          {ust ? <div style={{ position: 'relative', fontFamily: font.govde, fontWeight: 800, fontSize: 34, letterSpacing: 6, color: krem, opacity: et, marginBottom: 6, textTransform: 'uppercase', textShadow: `2px 2px 0 ${golgeR}` }}>{ust}</div> : null}
+          <div style={{ position: 'relative', ...darFont(stil), fontSize: fs, lineHeight: 1, color: renk, letterSpacing: fs * 0.01, whiteSpace: 'nowrap', textShadow: golge,
+            transform: `scale(${(1.3 - 0.3 * pop) * (1 + 0.03 * sinirla(f / (fps * 3)))})`, opacity: sinirla(pop * 3) }}>{s}</div>
+          {alt ? <div style={{ position: 'relative', fontFamily: font.govde, fontWeight: 800, fontSize: 40, letterSpacing: 5, color: krem, marginTop: 26, textTransform: 'uppercase', maxWidth: 1400, textAlign: 'center',
+            opacity: et, transform: `translateY(${(1 - et) * 18}px)`, textShadow: `3px 3px 0 ${golgeR}` }}>{alt}</div> : null}
+        </AbsoluteFill>
+      );
+    }
+    case 'kare-rozet': {
+      // kurumsal koyu kare plaka icinde beyaz kondanse rakam (@SvenskaBilar): plaka soldan silinerek acilir, haneler maskeden
+      // tek tek yukari cikar, altta vurgu cubugu uzar; etiket plakanin altinda vurgu cipinde. Sag-ust ucte durur (yayin grafigi).
+      const ac = ilerle(f, 0, fps * 0.3, 'ustel-sert');
+      const cb = ilerle(f, fps * 0.25, fps * 0.45, 'kubik-hizli');
+      const et = ilerle(f, fps * 0.4, fps * 0.3, hareket);
+      const s = yaz(deger);
+      const fs = Math.min(250, 1100 / Math.max(2.5, s.length * 0.52));
+      const plaka = palet.acik ? karistir(palet.murekkep, '#0b1a2e', 0.55) : karistir(palet.zemin, '#12263f', 0.6);
+      const beyaz = karistir('#ffffff', palet.murekkep, palet.acik ? 0 : 0.08);
+      return (
+        <AbsoluteFill>
+          <AbsoluteFill style={{ background: `linear-gradient(250deg, ${rgba('#000000', 0.55 * g)} 0%, ${rgba('#000000', 0.15 * g)} 60%, transparent 100%)` }} />
+          <div style={{ position: 'absolute', right: 150, top: 140, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            {ust ? <div style={{ fontFamily: font.govde, fontWeight: 800, fontSize: 30, letterSpacing: 4, color: '#ffffff', textTransform: 'uppercase', marginBottom: 14, opacity: et, textShadow: `0 2px 10px ${rgba('#000', 0.7)}` }}>{ust}</div> : null}
+            <div style={{ position: 'relative', background: plaka, padding: `${fs * 0.14}px ${fs * 0.22}px ${fs * 0.18}px`, clipPath: `inset(0 ${(1 - ac) * 100}% 0 0)`, boxShadow: `0 24px 60px ${rgba('#000', 0.45)}` }}>
+              <div style={{ display: 'flex', ...darFont(stil), fontSize: fs, lineHeight: 1.02, color: beyaz, letterSpacing: fs * 0.01, fontVariantNumeric: 'tabular-nums' }}>
+                {s.split('').map((c, i) => { const q = ilerle(f, fps * 0.12 + i * 2, fps * 0.3, 'ustel-sert'); return <div key={i} style={{ overflow: 'hidden' }}><div style={{ transform: `translateY(${(1 - q) * 105}%)` }}>{c}</div></div>; })}
+              </div>
+              <div style={{ position: 'absolute', left: 0, bottom: 0, height: Math.max(8, fs * 0.05), width: `${cb * 100}%`, background: palet.vurgu }} />
+            </div>
+            {alt ? <div style={{ marginTop: 16, background: palet.vurgu, color: parlaklik(palet.vurgu) > 0.6 ? '#111111' : '#ffffff', padding: '10px 22px', fontFamily: font.govde, fontWeight: 800, fontSize: 32, letterSpacing: 2,
+              textTransform: 'uppercase', clipPath: `inset(0 0 0 ${(1 - et) * 100}%)` }}>{alt}</div> : null}
+          </div>
         </AbsoluteFill>
       );
     }

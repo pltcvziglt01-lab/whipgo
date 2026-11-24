@@ -76,20 +76,20 @@ const KatBitis: React.FC = () => (
 );
 const rota = [{ x: 0.62, y: 0.22, ad: 'Tokyo' }, { x: 0.48, y: 0.55 }, { x: 0.4, y: 0.8, ad: 'Iwo Jima' }];
 const KatYeni: React.FC = () => (
-  <Izgara sutun={5} hucreler={[
+  <Izgara sutun={7} hucreler={[
     { ad: 'baslik: kutu-vurgu', el: <AbsoluteFill><Medya m={A} kamera="ken-burns-ice" /><AbsoluteFill style={{ background: 'rgba(0,0,0,.45)' }} /><Baslik tip="kutu-vurgu" metin="The ship that *never* came back" stil={st(12)} boyut={96} /></AbsoluteFill> },
     { ad: 'baslik: zemin-perspektif', el: <AbsoluteFill><Arkaplan tip="toz-zerre" stil={st(13)} /><Baslik tip="zemin-perspektif" metin="1 DEC 1963" stil={st(13)} boyut={150} /></AbsoluteFill> },
     { ad: 'sayi: serif-zarif', el: <AbsoluteFill><Arkaplan tip="grenli-gradyan" stil={st(11)} /><SayiKarti tip="serif-zarif" deger={6821} ust="Americans killed" alt="in thirty-six days" stil={st(11)} /></AbsoluteFill> },
     { ad: 'sayi: el-alti-cizgi', el: <AbsoluteFill><Arkaplan tip="kagit" stil={st(1)} /><SayiKarti tip="el-alti-cizgi" deger={1185} alt="bodies in the mass grave" stil={st(1)} /></AbsoluteFill> },
     { ad: 'cerceve: altin-cerceve', el: <Cerceve tip="altin-cerceve" m={B} kamera="ken-burns-ice" stil={st(11)} etiket="Mount Suribachi, February 1945" /> },
-    ...HARITA_TIPLERI.map((h, i) => ({ ad: 'harita: ' + h, el: <HaritaRota tip={h} stil={st(12 + i)} noktalar={rota} arkaplan={(['topografik', 'kagit', 'blueprint'] as const)[i]} etiket="750 mi" sure={1.5} /> })),
+    ...HARITA_TIPLERI.slice(0, 3).map((h, i) => ({ ad: 'harita: ' + h, el: <HaritaRota tip={h} stil={st(12 + i)} noktalar={rota} arkaplan={(['topografik', 'kagit', 'blueprint'] as const)[i]} etiket="750 mi" sure={1.5} /> })),
     { ad: 'harita: etiketli zoom', el: <EtiketliHarita stil={st(3)} zemin={A} etiketler={[{ x: 0.3, y: 0.5, ad: 'Urta-Bulak' }, { x: 0.62, y: 0.4, ad: 'Bukhara' }, { x: 0.78, y: 0.7, ad: 'Gas field' }]} kaynak="Imagery: Landsat / USGS" /> },
     { ad: 'harita: bolge vurgu', el: <BolgeVurgu stil={st(2)} arkaplan="topografik" kenar={[[0.35, 0.3], [0.55, 0.25], [0.66, 0.45], [0.58, 0.72], [0.38, 0.68], [0.3, 0.48]]} ad="France" /> },
     { ad: 'grafik: cizgi-isik', el: <CizgiGrafik tip="cizgi-isik" stil={st(12)} veriler={[12, 40, 95, 160, 120, 210]} etiketler={['1939', '40', '41', '42', '43', '44']} baslik="Allied ships sunk" /> },
     { ad: 'grafik: alan-dolgu', el: <CizgiGrafik tip="alan-dolgu" stil={st(9)} veriler={[3, 5, 4, 8, 12, 18]} baslik="Cost per round" birim="$" /> },
     { ad: 'grafik: basamak', el: <CizgiGrafik tip="basamak" stil={st(10)} veriler={[100, 100, 240, 240, 410, 600]} baslik="Depth reached" birim="m" /> },
     { ad: 'grafik: eleme-izgara', el: <ElemeIzgara stil={st(12)} asamalar={[1171, 36, 2]} etiketler={['U-boats lost', 'near New Jersey', 'candidates']} ikon="denizalti" asamaSn={1.2} /> },
-    ...HUD_TIPLERI.map((h, i) => ({ ad: 'hud: ' + h, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><Hud tip={h} stil={st(12 + i)} deger={h === 'koordinat' ? 24.7841 : h === 'zaman-kodu' ? 1 : 2430} baslangic={h === 'koordinat' ? 141.3168 : h === 'zaman-kodu' ? 3 * 3600 : 0} birim="m" etiket={h === 'tarih-rozeti' ? 'North Atlantic' : ''} ust={h === 'tarih-rozeti' ? 'Feb 11, 1945' : ''} sure={2} /></AbsoluteFill> })),
+    ...HUD_TIPLERI.filter((h) => h !== 'belge-sekmesi').map((h, i) => ({ ad: 'hud: ' + h, el: <AbsoluteFill><Medya m={i % 2 ? A : B} /><Hud tip={h} stil={st(12 + i)} deger={h === 'koordinat' ? 24.7841 : h === 'zaman-kodu' ? 1 : 2430} baslangic={h === 'koordinat' ? 141.3168 : h === 'zaman-kodu' ? 3 * 3600 : 0} birim="m" etiket={h === 'tarih-rozeti' ? 'North Atlantic' : ''} ust={h === 'tarih-rozeti' ? 'Feb 11, 1945' : ''} sure={2} /></AbsoluteFill> })),
     { ad: 'gecis: parsomen', el: <GecisliDizi stil={st(1)} gecis="parsomen" kare={24} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
     { ad: 'baslik: el-elips', el: <AbsoluteFill><Arkaplan tip="kareli-defter" stil={st(1)} /><Baslik tip="el-elips" metin="KINZEL" ust="Operational file" stil={st(1)} boyut={130} /></AbsoluteFill> },
     { ad: 'baslik: arama-cubugu', el: <AbsoluteFill><Arkaplan tip="gradyan-akis" stil={st(9)} /><Baslik tip="arama-cubugu" metin="Copper: King of Electricity" stil={st(9)} boyut={110} /></AbsoluteFill> },
@@ -99,6 +99,14 @@ const KatYeni: React.FC = () => (
     { ad: 'gecis: tint-sizinti', el: <GecisliDizi stil={st(6)} gecis="tint-sizinti" kare={12} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
     { ad: 'altbant: damga', el: <AbsoluteFill><Medya m={B} /><AltBant tip="damga" ust="Article 113" alt="UCMJ" stil={st(12)} /></AbsoluteFill> },
     { ad: 'hud: dosya-sekmesi', el: <AbsoluteFill><Arkaplan tip="blueprint" stil={st(13)} /><Hud tip="dosya-sekmesi" stil={st(13)} etiket="Sleeping on post" deger={3} baslangic={9} /></AbsoluteFill> },
+    { ad: 'gecis: kareli-kagit', el: <GecisliDizi stil={st(1)} gecis="kareli-kagit" kare={24} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'gecis: supurme-inset', el: <GecisliDizi stil={st(12)} gecis="supurme-inset" kare={20} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'gecis: bulanik-hayalet', el: <GecisliDizi stil={st(11)} gecis="bulanik-hayalet" kare={14} sahneler={[{ el: <Medya m={A} />, sure: 40 }, { el: <Medya m={B} />, sure: 40 }]} /> },
+    { ad: 'sayi: uzun-golge', el: <AbsoluteFill><Medya m={A} kamera="ken-burns-ice" /><SayiKarti tip="uzun-golge" deger={142} alt="km/h in a 30 zone" stil={st(14)} /></AbsoluteFill> },
+    { ad: 'sayi: kare-rozet', el: <AbsoluteFill><Medya m={B} kamera="ken-burns-ice" /><SayiKarti tip="kare-rozet" deger={67} sonEk="%" ust="EV share" alt="of new cars, 2025" stil={st(12)} /></AbsoluteFill> },
+    { ad: 'harita: kavisli-etiket', el: <HaritaRota tip="kavisli-etiket" stil={st(1)} arkaplan="kagit" noktalar={[{ x: 0.18, y: 0.6 }, { x: 0.82, y: 0.52 }]} etiket="Thirteen Colonies" /> },
+    { ad: 'harita: bolgeli-uydu', el: <HaritaRota tip="bolgeli-uydu" stil={st(12)} noktalar={[{ x: 0.3, y: 0.46, ad: 'Germany' }, { x: 0.5, y: 0.22 }, { x: 0.84, y: 0.16 }, { x: 0.92, y: 0.5 }, { x: 0.8, y: 0.8 }, { x: 0.56, y: 0.72 }, { x: 0.47, y: 0.45 }]} etiket="Soviet Union" /> },
+    { ad: 'hud: belge-sekmesi', el: <AbsoluteFill><Medya m={A} kamera="ken-burns-ice" /><Hud tip="belge-sekmesi" stil={st(10)} etiket="Alaska Treaty" ust="Washington, 30 March 1867" /></AbsoluteFill> },
   ]} />
 );
 const KatPreset: React.FC = () => {

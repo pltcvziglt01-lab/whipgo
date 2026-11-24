@@ -5,7 +5,7 @@ import { Stil, egri, ilerle, karistir, rgba, sinirla } from './temel';
 // HUD — medyanin USTUNE binen kalici bilgi katmanlari (saydam). Ogrenildigi kanallar: @Ground-Engineering (kamerayla senkron
 // derinlik sayaci), @ImmersivePast (sag kenarda derinlik cetveli + sol ustte guncellenen tarih/yer rozeti).
 // Deger animasyonu: baslangic -> deger, 'sure' saniyede (kamera hareketiyle es zamanli kullanilir).
-export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi', 'haber-bandi'] as const;
+export const HUD_TIPLERI = ['derinlik-cetvel', 'koordinat', 'zaman-kodu', 'tarih-rozeti', 'dosya-sekmesi', 'haber-bandi', 'belge-sekmesi'] as const;
 export type HudTip = typeof HUD_TIPLERI[number];
 
 const kose = (renk: string, k = 22, c = 3): React.CSSProperties[] => [
@@ -107,6 +107,27 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
             <div style={{ flex: 'none', height: '100%', display: 'flex', alignItems: 'center', padding: `0 ${serit * 0.45}px`, background: renk, color: '#ffffff', fontFamily: font.govde, fontWeight: 800, fontSize: serit * 0.46, letterSpacing: 2, textTransform: 'uppercase', zIndex: 1 }}>{etiket || 'LIVE'}</div>
             <div style={{ whiteSpace: 'nowrap', transform: `translateX(${-kay % (W * 1.5)}px)`, paddingLeft: serit * 0.5, fontFamily: font.govde, fontWeight: 700, fontSize: serit * 0.42, color: '#ffffff', textTransform: 'uppercase', letterSpacing: 0.5 }}>
               {dizi.map((x, i) => <span key={i}>{x}<span style={{ color: renk, margin: `0 ${serit * 0.4}px`, fontWeight: 800 }}>//</span></span>)}
+            </div>
+          </div>
+        </AbsoluteFill>
+      );
+    }
+    case 'belge-sekmesi': {
+      // belgenin sol-ust kenarina yapisik egik uclu sekme (@OkeanosHistory): once belge kenari cizgisi soldan uzar, sekme ondan asagi
+      // iner; icinde kalin buyuk harf belge adi + '·' + tarih/yer (ust). Ton: vurgu sicaga kaydirilmis (kahve-turuncu ailesi).
+      const c = ilerle(f, gec, fps * 0.45, 'kubik-hizli');
+      const k = ilerle(f, gec + fps * 0.18, fps * 0.35, 'ustel-sert');
+      const ton = karistir(karistir(palet.vurgu, '#c8602a', 0.35), '#000000', 0.12);
+      const yz = H * 0.065, kenarY = H * 0.14;
+      return (
+        <AbsoluteFill style={{ pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', left: 0, top: kenarY - 3, height: 5, width: W * c, background: ton, boxShadow: `0 2px 10px ${rgba('#000', 0.35)}` }} />
+          <div style={{ position: 'absolute', left: 0, top: kenarY, overflow: 'hidden', height: yz + 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, height: yz, padding: `0 ${yz * 1.1}px 0 ${W * 0.035}px`, background: ton,
+              clipPath: `polygon(0 0, 100% 0, calc(100% - ${yz * 0.7}px) 100%, 0 100%)`, transform: `translateY(${(k - 1) * 105}%)`,
+              fontFamily: font.govde, fontWeight: 800, fontSize: yz * 0.46, letterSpacing: 2.5, color: '#ffffff', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+              <span>{etiket}</span>
+              {ust ? <><span style={{ opacity: 0.7 }}>·</span><span style={{ fontWeight: 600, opacity: 0.92 }}>{ust}</span></> : null}
             </div>
           </div>
         </AbsoluteFill>

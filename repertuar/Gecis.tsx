@@ -1,12 +1,13 @@
 import React from 'react';
 import { AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
-import { HareketAd, Stil, egri, rastgele, rgba, sinirla } from './temel';
+import { HareketAd, Stil, egri, karistir, rastgele, rgba, sinirla } from './temel';
 
 // GECISLER — sahneler arasi. GecisliDizi sahneleri ust uste bindirir; gecis tipi tek ya da liste (tohumla dagitilir).
 // Iskelet kurali: gecis SURESI rakibin yumusak gecis medyanindan, SIKLIGI rakibin yumusak gecis oranindan gelir (stil_dna.py).
 export const GECIS_TIPLERI = [
   'sert', 'cozunme', 'bulaniklik', 'isik-patlamasi', 'glitch-rgb', 'whip-sol', 'whip-yukari', 'kaydirma-itme',
   'maske-daire', 'maske-capraz', 'maske-seritler', 'zoom-darbe', 'film-yanigi', 'kart-cevirme', 'tv-kapanma', 'perde', 'parsomen', 'tint-sizinti', 'renk-bandi', 'zoom-icinden',
+  'kareli-kagit', 'supurme-inset', 'bulanik-hayalet',
 ] as const;
 /** 'filmburn:fb-03:1.4' = varlik/filmburn/fb-03.mp4, en parlak an 1.4 sn: kesim tam o ana denk gelir */
 export type GecisTip = typeof GECIS_TIPLERI[number] | `filmburn:${string}`;
@@ -26,11 +27,22 @@ const cikisStil = (tip: GecisTip, p: number, W: number): React.CSSProperties => 
     case 'renk-bandi': return { transform: `translateX(${-egri('kubik-hizli', p) * 180}px)`, filter: `brightness(${1 - 0.35 * p})` };
     // kameradan gecis: eski sahne buyuyerek bulanir ve solar (derine dalma)
     case 'zoom-icinden': { const q = egri('kubik-hizli', p); return { transform: `scale(${1 + q * 0.9})`, filter: `blur(${q * 16}px)`, opacity: 1 - sinirla((p - 0.35) / 0.5) }; }
+    // supurme-inset: eski kare saga supurulur (gecisin ilk ~%30'u), arkasindan bos koyu panel kalir
+    case 'supurme-inset': { const q = egri('ustel-sert', sinirla(p / SI.supur)); return { transform: `translateX(${q * W * 1.05}px)`, filter: `blur(${Math.sin(q * Math.PI) * 26}px)` }; }
+    // bulanik hayalet: eski kare kararir, bulanir, egilir; yeni kare onun ustune cozunur (@OkeanosHistory)
+    case 'bulanik-hayalet': { const q = egri('kubik-hizli', sinirla(p * 1.6)); return { transform: `rotate(${-5 * q}deg) scale(${1 + 0.24 * q})`, filter: `blur(${q * 30}px) brightness(${1 - 0.58 * q}) saturate(${1 - 0.4 * q})` }; }
     default: return {};
   }
 };
 
-const girisStil = (tip: GecisTip, p: number, W: number): React.CSSProperties => {
+// supurme-inset zamanlamasi (gecisin orani): supurme biter, bos panel, inset belirir, inset tam ekrana acilir
+const SI = { supur: 0.28, bos: 0.4, ac: 0.66 };
+/** koyu kurumsal panel tonu: paletten, laciverte yakin (haber bandi ile ayni aile) */
+export const panelTonu = (stil: Stil) => (stil.palet.acik ? karistir(stil.palet.murekkep, '#0b1a2e', 0.55) : karistir(stil.palet.zemin, '#0b1a2e', 0.6));
+/** defter kagidi tonu: paletten (acik palette zeminin beyaza yakini, koyu palette krem-murekkep karisimi) */
+export const kagitTonu = (stil: Stil) => (stil.palet.acik ? karistir(stil.palet.zemin, '#ffffff', 0.3) : karistir('#e6dcc4', stil.palet.murekkep, 0.25));
+
+const girisStil = (tip: GecisTip, p: number, W: number, stil: Stil): React.CSSProperties => {
   if (tip.startsWith('filmburn')) return { opacity: p >= 0.5 ? 1 : 0 };
   switch (tip) {
     case 'sert': return {};
@@ -51,6 +63,18 @@ const girisStil = (tip: GecisTip, p: number, W: number): React.CSSProperties => 
     case 'perde': { const q = egri('kubik-hizli', p) * 50; return { clipPath: `inset(0 ${50 - q}% 0 ${50 - q}%)` }; }
     case 'renk-bandi': { const x = bandKenar(p) - BANT; return { clipPath: `polygon(0 0, ${x + EGIM}% 0, ${x}% 100%, 0 100%)` }; }
     case 'zoom-icinden': { const q = egri('kubik-hizli', p); return { transform: `scale(${1.35 - 0.35 * q})`, filter: `blur(${(1 - q) * 12}px)`, opacity: sinirla(p * 1.8 - 0.2) }; }
+    // kagit ustteyken (ortada) yeni sahne altta hazir bekler
+    case 'kareli-kagit': return { opacity: p >= 0.5 ? 1 : 0 };
+    case 'supurme-inset': {
+      // kucultulmus inset (sol-ust agirlikli, solda ince vurgu cizgisi) -> tam ekran; disari dev golge = koyu panel
+      if (p < SI.bos) return { opacity: 0 };
+      const q = egri('kubik-hizli', sinirla((p - SI.ac) / (1 - SI.ac)));
+      const g = egri('ustel-sert', sinirla((p - SI.bos) / 0.12));
+      const s = 0.62 + 0.38 * q, dx = -3.5 * (1 - q), dy = 1.5 * (1 - q);
+      return { transform: `translate(${dx}%, ${dy}%) scale(${s * (0.94 + 0.06 * g)})`, opacity: g,
+        boxShadow: `${-14 / s}px 0 0 0 ${stil.palet.vurgu}, 0 0 0 ${3000}px ${panelTonu(stil)}`, filter: `brightness(${0.85 + 0.15 * g})` };
+    }
+    case 'bulanik-hayalet': { const q = egri('kubik-hizli', sinirla((p - 0.25) / 0.75)); return { opacity: q, transform: `scale(${1.05 - 0.05 * q})`, filter: `blur(${(1 - q) * 10}px)` }; }
     default: return { opacity: p };
   }
 };
@@ -124,6 +148,42 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ ti
     const a = Math.sin(p * Math.PI);
     return <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 50%, transparent 30%, ${rgba('#000000', 0.5 * a)} 100%)`, pointerEvents: 'none' }} />;
   }
+  if (tip === 'kareli-kagit') {
+    // kareli defter kagidi (@NederlandseAutowereld): ustten kayarak sahneyi orter, ortada kisa durur (kart zemini anı),
+    // yukari kayip hafif solarak yeni sahneyi acar. Hucre ~ekran genisliginin %4'u, kenarda yumusak golge.
+    const gir = egri('kubik-hizli', sinirla(p / 0.4)), cik = egri('kubik-hizli', sinirla((p - 0.6) / 0.4));
+    const y = p < 0.5 ? (gir - 1) * H : -cik * H;
+    const kagit = kagitTonu(stil);
+    const cizgi = karistir(kagit, karistir(stil.palet.vurgu2, '#000000', 0.3), 0.2);
+    const h = Math.round(W * 0.04);
+    return (
+      <AbsoluteFill style={{ pointerEvents: 'none', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', left: 0, top: y, width: W, height: H, opacity: 1 - 0.45 * cik, background: kagit,
+          backgroundImage: `repeating-linear-gradient(0deg, ${cizgi} 0 2px, transparent 2px ${h}px), repeating-linear-gradient(90deg, ${cizgi} 0 2px, transparent 2px ${h}px)`,
+          boxShadow: `0 26px 60px ${rgba('#000000', 0.45)}, 0 4px 0 ${rgba('#000000', 0.12)}` }}>
+          <AbsoluteFill style={{ mixBlendMode: 'multiply', opacity: 0.28 }}>
+            <svg width={W} height={H}><filter id="gc-kk"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={4} /><feColorMatrix values="0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0.55 0" /></filter><rect width={W} height={H} filter="url(#gc-kk)" /></svg>
+          </AbsoluteFill>
+          <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 40%, transparent 55%, ${rgba('#000000', 0.12)} 100%)` }} />
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'supurme-inset') {
+    // supurme sirasinda bosalan sol bolge koyu panelle dolar; on kenarda ince vurgu cizgisi; sonra kisa bos panel
+    if (p >= SI.bos) return null;
+    const q = egri('ustel-sert', sinirla(p / SI.supur)), x = Math.min(1.05, q * 1.05) * W;
+    return (
+      <AbsoluteFill style={{ pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', left: 0, top: 0, width: x, height: H, background: panelTonu(stil) }} />
+        {p < SI.supur ? <div style={{ position: 'absolute', left: x - 8, top: 0, width: 8, height: H, background: stil.palet.vurgu }} /> : null}
+      </AbsoluteFill>
+    );
+  }
+  if (tip === 'bulanik-hayalet') {
+    const a = Math.sin(p * Math.PI);
+    return <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 50%, transparent 35%, ${rgba('#000000', 0.6 * a)} 100%)`, pointerEvents: 'none' }} />;
+  }
   if (tip === 'tv-kapanma') {
     const a = Math.max(0, 1 - Math.abs(p - 0.5) * 6);
     return <div style={{ position: 'absolute', left: 0, right: 0, top: H / 2 - 2, height: 4, background: rgba('#ffffff', a), boxShadow: `0 0 40px ${rgba('#ffffff', a)}` }} />;
@@ -131,11 +191,11 @@ const GecisUstKatman: React.FC<{ tip: GecisTip; p: number; stil: Stil }> = ({ ti
   return null;
 };
 
-const Sahne: React.FC<{ sure: number; giris?: { tip: GecisTip; d: number }; cikis?: { tip: GecisTip; d: number }; children: React.ReactNode }> = ({ sure, giris, cikis, children }) => {
+const Sahne: React.FC<{ sure: number; giris?: { tip: GecisTip; d: number }; cikis?: { tip: GecisTip; d: number }; stil: Stil; children: React.ReactNode }> = ({ sure, giris, cikis, stil, children }) => {
   const f = useCurrentFrame();
   const { width: W } = useVideoConfig();
   let st: React.CSSProperties = {};
-  if (giris && giris.d > 0 && f < giris.d) st = { ...st, ...girisStil(giris.tip, f / giris.d, W) };
+  if (giris && giris.d > 0 && f < giris.d) st = { ...st, ...girisStil(giris.tip, f / giris.d, W, stil) };
   if (cikis && cikis.d > 0 && f >= sure - cikis.d) {
     const c = cikisStil(cikis.tip, (f - (sure - cikis.d)) / cikis.d, W);
     st = { ...st, ...c, transform: [st.transform, c.transform].filter(Boolean).join(' ') || undefined, filter: [st.filter, c.filter].filter(Boolean).join(' ') || undefined };
@@ -172,7 +232,7 @@ export const GecisliDizi: React.FC<{ sahneler: DiziSahne[]; gecis: GecisTip | Ge
       {zemin}
       {sahneler.map((s, i) => (
         <Sequence key={i} from={bas[i]} durationInFrames={s.sure} layout="none">
-          <Sahne sure={s.sure} giris={i > 0 ? { tip: plan[i - 1], d: d(i - 1) } : undefined} cikis={i < plan.length ? { tip: plan[i], d: d(i) } : undefined}>{s.el}</Sahne>
+          <Sahne stil={stil} sure={s.sure} giris={i > 0 ? { tip: plan[i - 1], d: d(i - 1) } : undefined} cikis={i < plan.length ? { tip: plan[i], d: d(i) } : undefined}>{s.el}</Sahne>
         </Sequence>
       ))}
       {plan.map((t, i) => {
