@@ -1,0 +1,487 @@
+{
+ "anime-wow.mp3": {
+  "sure": 3.97,
+  "kategori": "mizah",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "applause.wav": {
+  "sure": 25.73,
+  "kategori": "kalabalik",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "apple-notification.wav": {
+  "sure": 1.9,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "bass-whoosh.mp3": {
+  "sure": 2.84,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "bing.wav": {
+  "sure": 0.56,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "boom-impact.mp3": {
+  "sure": 15.91,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "boop.mp3": {
+  "sure": 2.6,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "buildup-[1].wav": {
+  "sure": 2.93,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "buildup-[2].wav": {
+  "sure": 2.54,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "buildup-[3].wav": {
+  "sure": 1.8,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "buildup-[4].mp3": {
+  "sure": 2.74,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "buildup.mp3": {
+  "sure": 2.65,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "burning-fire.mp3": {
+  "sure": 10.99,
+  "kategori": "ortam",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "camera-flash.mp3": {
+  "sure": 2.06,
+  "kategori": "kamera",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "camera-shot.wav": {
+  "sure": 0.91,
+  "kategori": "kamera",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "camera-shutter-1a-crunch-click.mp3": {
+  "sure": 0.63,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "camera-shutter-2.wav": {
+  "sure": 0.33,
+  "kategori": "kamera",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "camera-shutter-sound-effect.wav": {
+  "sure": 0.86,
+  "kategori": "kamera",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "camera-shutter.wav": {
+  "sure": 0.6,
+  "kategori": "kamera",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "cinem-cut-swoosh.wav": {
+  "sure": 11.37,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "cinem-wave-swoosh.wav": {
+  "sure": 11.37,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "cinematic-sounds.mp3": {
+  "sure": 295.1,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "cinematic_deep-light-medium-heavy.mp3": {
+  "sure": 12.84,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "click.wav": {
+  "sure": 0.35,
+  "kategori": "tik-klavye",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "clock-tick.mp3": {
+  "sure": 60.35,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "dada-1.wav": {
+  "sure": 1.68,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "deep-main-swoosh2.wav": {
+  "sure": 1.65,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "deep-whoosh.mp3": {
+  "sure": 3.68,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "digital-camera-shutter.wav": {
+  "sure": 0.56,
+  "kategori": "kamera",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "ding.mp3": {
+  "sure": 2.79,
+  "kategori": "pop-bildirim",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "discord_leave.mp3": {
+  "sure": 2.33,
+  "kategori": "mizah",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "dodo.wav": {
+  "sure": 3.33,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "drop-down.mp3": {
+  "sure": 3.85,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "drum-woosh.wav": {
+  "sure": 3.4,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "enter-back.wav": {
+  "sure": 0.08,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "fast-swoosh.mp3": {
+  "sure": 4.04,
+  "kategori": "gecis",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "film-projecter.wav": {
+  "sure": 11.67,
+  "kategori": "kamera",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "fly-by.mp3": {
+  "sure": 3.52,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "gaming-mouse-click.mp3": {
+  "sure": 3.07,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "glass-shatter.mp3": {
+  "sure": 7.54,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "glitch-swoosh.wav": {
+  "sure": 0.78,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "glitch.wav": {
+  "sure": 0.57,
+  "kategori": "glitch",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "gun-clock.mp3": {
+  "sure": 2.15,
+  "kategori": "saat",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "gun-clock.wav": {
+  "sure": 1.43,
+  "kategori": "saat",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "heavy-buildup.mp3": {
+  "sure": 5.77,
+  "kategori": "yukselme",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "home.wav": {
+  "sure": 1.07,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "icons.wav": {
+  "sure": 0.72,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "impact.wav": {
+  "sure": 3.28,
+  "kategori": "darbe",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "impact_swoosh_dust_swoosh.mp3": {
+  "sure": 3.94,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "iphone-receive.wav": {
+  "sure": 0.79,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "iphone-ringtone.mp3": {
+  "sure": 9.17,
+  "kategori": "mizah",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "klick.wav": {
+  "sure": 0.01,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "light-medium-heavy.mp3": {
+  "sure": 12.84,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "lighting-a-fire-14421.mp3": {
+  "sure": 5.52,
+  "kategori": "ortam",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "loud-whip.mp3": {
+  "sure": 1.26,
+  "kategori": "darbe",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "loud-whoosh.mp3": {
+  "sure": 3.85,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "loud-zhwoop.mp3": {
+  "sure": 4.02,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "main-swoosh.wav": {
+  "sure": 1.37,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "minecraft-sfx.wav": {
+  "sure": 0.15,
+  "kategori": "mizah",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "money-counter.wav": {
+  "sure": 6.8,
+  "kategori": "para",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "mouse-click-sound.mp3": {
+  "sure": 3.07,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "mouse-click.mp3": {
+  "sure": 3.34,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "multiple-paper-turn.wav": {
+  "sure": 1.17,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper-crumble-1.wav": {
+  "sure": 3.37,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper-crumble-2.wav": {
+  "sure": 4.24,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper-flip-1.wav": {
+  "sure": 0.93,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper-sketchbook-page-flip.wav": {
+  "sure": 9.08,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper-sounds-video.wav": {
+  "sure": 58.09,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "paper.wav": {
+  "sure": 0.45,
+  "kategori": "kagit",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "pop-2.wav": {
+  "sure": 0.4,
+  "kategori": "pop-bildirim",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "pop.mp3": {
+  "sure": 1.74,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "pop.wav": {
+  "sure": 0.22,
+  "kategori": "pop-bildirim",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "ripping-paper.wav": {
+  "sure": 2.17,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "riser.wav": {
+  "sure": 2.02,
+  "kategori": "yukselme",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "rustling-paper-1.wav": {
+  "sure": 4.6,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "short-whoosh.wav": {
+  "sure": 0.27,
+  "kategori": "gecis",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "side-swoosh.mp3": {
+  "sure": 3.28,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "slap.mp3": {
+  "sure": 3.5,
+  "kategori": "mizah",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "smooth-woosh.wav": {
+  "sure": 12.75,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "sword-slash.mp3": {
+  "sure": 5.87,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "sword-slash.wav": {
+  "sure": 1.22,
+  "kategori": "darbe",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "tearing-paper.wav": {
+  "sure": 1.44,
+  "kategori": "kagit",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "this-one.wav": {
+  "sure": 0.09,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "thump.mp3": {
+  "sure": 2.15,
+  "kategori": "darbe",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "tick.wav": {
+  "sure": 0.01,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "tik-tik.mp3": {
+  "sure": 1.19,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "transition-base-121422.mp3": {
+  "sure": 1.7,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "transition-woosh.mp3": {
+  "sure": 1.97,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "turbulance.mp3": {
+  "sure": 4.52,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "typing-sound.mp3": {
+  "sure": 18.95,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "typing.wav": {
+  "sure": 3.14,
+  "kategori": "tik-klavye",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "ui.wav": {
+  "sure": 0.8,
+  "kategori": "pop-bildirim",
+  "kaynak": "Ultimate 500 Preset Pack.zip"
+ },
+ "user.wav": {
+  "sure": 1.79,
+  "kategori": "pop-bildirim",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "weird-laush.mp3": {
+  "sure": 2.48,
+  "kategori": "mizah",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "whoosh-sounds-1.mp3": {
+  "sure": 49.46,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "whoosh.mp3": {
+  "sure": 3.64,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ },
+ "zhwoop.mp3": {
+  "sure": 3.01,
+  "kategori": "gecis",
+  "kaynak": "SFX Pack Mini.zip"
+ }
+}

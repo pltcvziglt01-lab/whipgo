@@ -1,0 +1,146 @@
+HANNES BRÜCKNER KANALI – ÖZGÜNLÜK KURALLARI
+(Tekrar eden içerik / özgün olmayan içerik ihlaline takılmamak için. Her videoya başlamadan önce okunur.)
+Oluşturma: 2026-10-20 – kullanıcı isteği. Dosya: hund-analiz\sistem\OZGUNLUK-KURALLARI.txt
+
+======================================================================
+0) NEDEN
+======================================================================
+YouTube iki şeyi cezalandırır:
+- "Özgün olmayan / yeniden kullanılmış içerik": başkasının malzemesini anlamlı katkı olmadan kullanmak.
+- "Tekrar eden içerik": şablondan seri üretilmiş, birbirinin neredeyse aynısı videolar. İzleyici videoları birbirinden ayıramaz.
+
+Bizim riskimiz ikincisi. Aynı sunucu, aynı kalıp, aynı cümleler ve aynı kurgu her videoda tekrarlanıyor.
+
+Çözüm: Niş sabit kalır. Biçim, dil, kurgu ve başlık her videoda bir önceki videoya göre ÖLÇÜLEBİLİR şekilde değişir.
+
+Sabit kalanlar (kimlik):
+- Sunucu Hannes'in yüzü, sakalı, kasketi ve düdüğü
+- Konu: koruyucu, bekçi ve yanınızda kalan köpekler; Alman izleyici, 50 yaş üstü
+- Kaynaklı anlatım: FCI standardı ve kanun
+
+======================================================================
+1) HER VİDEODA ZORUNLU DEĞİŞİM KONTROLÜ
+======================================================================
+Yeni video, son 3 videoyla karşılaştırılır. Aşağıdaki maddelerin EN AZ 8'i farklı olmalı.
+A–D ve J her zaman farklı olur.
+
+A. BAŞLIK YAPISI
+   Son 5 videonun kalıbı tekrar etmez. Havuz:
+   - soru + vaat: "Nachts allein im Haus? Mit diesen …"
+   - neden sorusu: "Warum Einbrecher …"
+   - birinci tekil tavsiye: "Ich würde jeder Frau …"
+   - iki nokta: "Kleine Wohnung, echter Wächter: …"
+   - tek ırk sorgusu: "Der Dobermann: Beschützer oder …?"
+   - tire ile tema: "Allein im Alter – …"
+   - rakamsız iddia: "Kein Einbrecher kommt an diesem Hund vorbei"
+   - karşılaştırma: "X oder Y – wer schützt besser?"
+   - hata/yanılgı: "Diese Fehler machen fast alle Wachhund-Halter"
+   - senaryo: "Wenn es nachts klingelt …"
+   - zaman/yaş: "Mit 70 noch einen Hund? …"
+   Yasak: "Diese 10 Hunderassen …", "Wer …, sollte diese 10 Hunderassen kennen" ve "10 Hunderassen, die …" artık hiç kullanılmaz.
+
+B. FORMAT / YAPI
+   Son 2 videoyla aynı format üst üste 3. kez olmaz. Havuz:
+   - geri sayım (10, 8, 7, 12 ırk – sayıyı da değiştir)
+   - tek ırk derinlemesine
+   - iki ırk karşılaştırması
+   - yanılgılar listesi
+   - senaryo / soru-cevap
+   - "Teil 1–6" bölümlü anlatım
+   - bir günün akışı (Tagesablauf)
+
+C. AÇILIŞ (KANCA) FORMÜLÜ
+   İlk cümle tipi her videoda farklı. Havuz:
+   - sahne ("Es ist spät …")
+   - soru ("Welcher Hund …?")
+   - iddia ("Ein Einbrecher sucht keinen Kampf.")
+   - rakam
+   - standarttan alıntıyla açılış
+   - izleyici yorumundan çıkan soru (gerçek yorum varsa)
+   - kişisel gözlem (uydurma anı YASAK; genel gözlem olur)
+
+D. KALIP CÜMLELER (her videoda değiştir, en çok 1 kez kullan)
+   Şu an HER videoda aynı olan ve artık dönüşümlü kullanılacaklar:
+   - "Fangen wir an." → alternatifler: "Los geht's." / "Beginnen wir mit Nummer …" / "Schauen wir uns den ersten an." / doğrudan ilk ırka geçiş
+   - "Und wie immer lese ich Ihnen vor, was wirklich … steht." → son 3 videoda kullanıldıysa yazma; yerine: "Alles, was ich sage, steht so im offiziellen Standard." / "Ich halte mich an den Rassestandard, nicht an Gerüchte." / hiç söyleme
+   - "Ehrlich gesagt:" → bir videoda EN FAZLA 3 kez. Diğerleri: "Was Sie wissen sollten:" / "Der Haken:" / "Bevor Sie sich verlieben:" / "Die Kehrseite:" / "Mein Rat:" / "Was oft verschwiegen wird:"
+   - "Jeder Hund ist anders. Passen Sie gut auf sich auf. Bis zum nächsten Mal." → kapanış her videoda farklı (bkz. I)
+   - "Nummer zehn. Der …" → geçişlerin yarısını değiştir: "Auf Platz neun …" / "Weiter mit …" / "Der nächste stammt aus …" / "Jetzt wird es größer: …"
+   - "Und jetzt hören Sie, was im Standard steht" / "Und dann ein Satz …" → video başına en çok 1 kez
+   Kontrol: yazdıktan sonra kalip_kontrol (bkz. 4) çalıştır.
+
+E. KURGU STİLİ (her videoda en az 2 öğe değişir)
+   - Vurgu rengi (AMBER sabiti): Kehribar #F3B23A / Ateş kırmızısı #E4572E / Çam yeşili #4CAF7A / Gök mavisi #4DA3FF / Bal sarısı #FFC94D / Somon #FF8A65 – son 2 videodakini kullanma.
+   - Altyazı: minimal beyaz (46/600) ↔ kelime kutulu ↔ alt bant ↔ büyük vurgu kelimesi.
+   - Irk kartı (RASSE): sol alt kart ↔ tam ekran başlık ↔ üst şerit ↔ harita/ülke çipi.
+   - Alıntı kartı (ZITAT): koyu bulanık arka plan ↔ görsel üstünde yarı saydam panel ↔ kâğıt/belge görünümü.
+   - Geçiş (GECIS): sert kesim ↔ kısa çapraz geçiş (12 kare) ↔ itme/kaydırma.
+   - Facecam: sağ üst daire ↔ sol üst daire ↔ köşesi yuvarlak kare.
+   - Görsel hareketi: yavaş zoom-in ↔ yatay kaydırma ↔ hafif paralaks.
+   - Özet (RECAP): 2 sütun liste ↔ tek sütun geri sayım ↔ fotoğraf ızgarası.
+
+F. GÖRSEL DİL (Flow)
+   - Işık/mevsim teması her videoda farklı: sonbahar gri / altın akşam / kış karı / bahar yeşili / gece mavisi.
+   - Kare tipi karışımı: portre, insanlı sahne, tarihî siyah-beyaz, detay çekim. Aynı oranı kopyalama.
+   - Aynı ırkın aynı pozu (örn. "çayırda portre") art arda iki videoda olmasın.
+
+G. SUNUCU
+   - Kıyafet döngüsü 2–3 videoda bir (DEVAM.md'deki tablo).
+   - Sunucunun ekranda kaldığı yerler (H noktaları) videodan videoya farklı cümlelere düşsün; hep "Ehrlich gesagt" anına koyma.
+
+H. ORTA BÖLÜM KONUSU
+   Hep farklı kaynak türü:
+   - eyalet kanunu (bir önceki videodakinden FARKLI eyalet ya da konu)
+   - istatistik
+   - hayvan koruma yönetmeliği
+   - sigorta
+   - kira hukuku / mahkeme kararı
+   - eğitim ve sağlık
+   Aynı kanun ya da istatistik art arda iki videoda kullanılmaz.
+
+I. KAPANIŞ VE YORUM SORUSU
+   - Yorum sorusu her videoda farklı tip: deneyim / tercih / tartışma / bilgi yarışması ("Welche Rasse war Ihr Tipp für Platz eins?").
+   - Kapanış cümlesi havuzu, son 3 videoyla aynısı yok:
+     "Bis bald." / "Bleiben Sie wachsam." / "Und grüßen Sie Ihren Hund von mir." / "Wir sehen uns beim nächsten Video." / "Schönen Abend noch." / imza cümlesi + kısa sessiz son sahne.
+
+J. IRK SEÇİMİ
+   - Son 3 videonun ırkları yok.
+   - Aynı eski videodan en fazla 3 ırk.
+   - Sıralamada 1 numara son 5 videoda 1 numara olmamış bir ırk.
+
+K. SÜRE VE TEMPO
+   - 8–10 dk (1250–1350 kelime).
+   - Süre videodan videoya ±30 sn oynasın; hep 9:30 olmasın.
+   - Irk başına ayrılan süre eşit olmak zorunda değil. 1–2 ırkı uzun anlat.
+
+L. AÇIKLAMA / ETİKET / KAPAK
+   - Açıklamanın ilk 2 cümlesi her videoda yeniden yazılır; hazır şablon kopyalanmaz.
+   - Kapak yazı zemini dönüşümlü: lacivert fırça / düz / kırmızı bant. Ok ve yazı konumu da değişebilir.
+   - Kapak yazısı başlık cümlesini tekrar etmez.
+
+M. REKLAM (Gumroad)
+   - %30'dan sonraki ilk bölüm sınırı.
+   - Reklam cümlesi her videoda yeniden yazılır; aynı "Kurz in eigener Sache …" cümlesi tekrar edilmez.
+
+======================================================================
+2) YASAKLAR (her videoda)
+======================================================================
+- Uydurma kişisel anı, uydurma unvan, kaynaksız rakam.
+- Başka kanalın metnini, kurgusunu ya da kapağını kopyalamak. Rakip videolar sadece konu fikri için kullanılır.
+- Aynı görseli iki farklı videoda yeniden kullanmak (stok görsel havuzu yok, her video kendi görselleri).
+- Aynı metin bloğunu (alıntı dışında, 2+ cümle) başka videodan kopyalamak.
+
+======================================================================
+3) VİDEO BAŞINA DEĞİŞİM KAYDI (doldurulur, DEVAM.md'ye de yazılır)
+======================================================================
+Her video için sistem\varyasyon.tsv dosyasına bir satır:
+video | başlık kalıbı | format | ırk sayısı | kanca tipi | vurgu rengi | altyazı stili | ırk kartı stili | geçiş | facecam | ışık teması | orta bölüm konusu | kapanış cümlesi | yorum sorusu tipi | kapak zemini | 1 numara
+
+Yeni videoya başlarken son 3 satıra bakılır, en az 8 sütun değiştirilir.
+
+======================================================================
+4) KONTROL ADIMI (TTS'ten ÖNCE)
+======================================================================
+py sistem\kalip_kontrol.py NN
+→ metin.txt içinde kalıp cümleleri sayar, son 3 videonun metinleriyle 6+ kelimelik ortak dizileri listeler.
+Sonuç temiz değilse metin düzeltilir, sonra seslendirilir.

@@ -1,0 +1,43 @@
+# Kurulum ve günlük kullanım
+
+## Yeni makine (bir kez)
+```powershell
+winget install --id GitHub.cli -e
+& "C:\Program Files\GitHub CLI\gh.exe" auth login --web --git-protocol https
+git clone https://github.com/<hesap>/yt-uretim C:\otomasyon\yt-uretim
+cd C:\otomasyon\yt-uretim
+py skill\youtube-video-uretim\scripts\varlik_kur.py indir          # 35 arka plan + 26 filmburn (1080p) Release'den
+py -m pip install -U yt-dlp numpy opencv-python pillow rapidocr websocket-client librosa
+py skill\youtube-video-uretim\scripts\kurulum.py kontrol
+```
+Gerekli: Python 3, ffmpeg (PATH), Node 20+, Google Drive masaüstü (edit kutuphane + money printer).
+
+## Skill'i güncellemek (claude.ai)
+```powershell
+py skill\youtube-video-uretim\scripts\kurulum.py paketle --hedef "$env:USERPROFILE\Desktop"
+```
+Çıkan `youtube-video-uretim-<tarih>.skill` dosyasını claude.ai → Ayarlar → Skills'te eski skill'in yerine yükle.
+
+## Yeni kanal
+```powershell
+Copy-Item -Recurse C:\otomasyon\yt-uretim\sablon-proje C:\otomasyon\<kanal>\motion
+cd C:\otomasyon\<kanal>\motion; npm install
+py C:\otomasyon\yt-uretim\skill\youtube-video-uretim\scripts\varlik_kur.py kanal C:\otomasyon\<kanal>\motion
+```
+Mevcut kanal (gta6, paycheck, ranks, casus): yalnız son komut (src\repertuar, public\fontlar, public\varlik bağlantıları); eski `Parcalar.tsx` yeni videolarda kullanılmaz.
+
+## Her video
+1. `git -C C:\otomasyon\yt-uretim pull`
+2. `py ...\scripts\stil_dna.py --rakip @Rakip --ton <ciddi|enerjik|sakin> --gecmis <son videoların stil-dna.json> --kilit palet,font --cikti vNN\`
+3. Kanalın ilk videosunda A/B önizleme (`Onizleme` kompozisyonu) → kullanıcı seçer; sonra A.
+4. VideoNN.tsx yalnız `repertuar/Dna*` bileşenleriyle (skill `references/repertuar.md` §4).
+
+## Repertuar ya da araç değişince
+```powershell
+git add -A; git commit -m "..."; git push
+py skill\youtube-video-uretim\scripts\kurulum.py ayna      # Drive kütüphanesindeki _araclar/ ve remotion/repertuar/ aynası
+py skill\youtube-video-uretim\scripts\kurulum.py paketle   # skill değiştiyse yeniden yükle
+```
+
+## Yeni edit paketi
+`skill/youtube-video-uretim/references/varlik-paketleri.md` §2 (`varlik_kur.py katalog` → `presetler` → `yukle`).

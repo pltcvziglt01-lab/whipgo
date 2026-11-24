@@ -1,0 +1,97 @@
+CONTEXT DEVİR VE TOKEN TASARRUFU KURALI
+(Her projede geçerli. Bu dosyayı yeni oturumun ilk mesajına yapıştır ya da projenin DEVAM.md dosyasına ekle.)
+
+======================================================================
+0) AMAÇ
+======================================================================
+Uzun işler tek oturumda yürütülmez. Oturum, context belli bir doluluğa gelince işini
+devam dosyasına yazar ve temiz bir yeni oturuma devreder. Böylece:
+- her adımda baştan okunan geçmiş küçük kalır (token ve haftalık limit tasarrufu),
+- %97'deki otomatik özetlemeye hiç gelinmez (ayrıntı kaybı olmaz),
+- kullanıcı hiçbir şeyi yeniden anlatmak zorunda kalmaz.
+
+======================================================================
+1) DEVAM DOSYASI (zorunlu)
+======================================================================
+Proje kökünde DEVAM.md bulunur. Yoksa ilk iş olarak oluştur. Bölümler:
+  0. Proje bir bakışta (ne üretiliyor, alınmış kararlar)
+  1. Klasörler ve dosyalar (tablo: yol → içerik)
+  2. Araçlar ve komutlar (çalışan komutlar birebir)
+  3. Değişmez kurallar (kullanıcı kararları, yasaklar)
+  4. Kalite kuralları / kabul kriterleri
+  5. DURUM (tablo: iş → BİTTİ / SÜRÜYOR / BAŞLAMADI / REDDEDİLDİ)
+  6. SIRADAKİ İŞ (numaralı, her madde için "bitti sayılır" kriteri)
+  7. Bilinen tuzaklar
+  8. Kullanıcı tercihleri
+Kural: Kullanıcıya daha önce sorulmuş ve cevaplanmış hiçbir şey yeni oturumda tekrar sorulmaz.
+Cevap DEVAM.md'de yazılıdır.
+
+======================================================================
+2) ÖLÇÜM
+======================================================================
+- Her büyük adımdan sonra (bir modül/parti bitince, her render/test/QC sonrası) kendi context
+  doluluğunu ölç:
+    ToolSearch "select:mcp__ccd_session_mgmt__get_usage"  → get_usage (session_id: "self")
+- Aynı çağrı haftalık ve 5 saatlik limit yüzdelerini de verir. Haftalık limit %80'i geçerse
+  kullanıcıya tek satırla haber ver.
+
+======================================================================
+3) DEVİR EŞİĞİ: %45
+======================================================================
+Context %45'i geçtiyse YENİ BİR ADIMA BAŞLAMA. Sırayla:
+  a) DEVAM.md §5 DURUM ve §6 SIRADAKİ İŞ'i güncelle:
+     - tam olarak nerede kalındı (dosya, satır, parti/çekim/test numarası),
+     - biten işler ve değişen dosyalar,
+     - açık sorunlar ve şüpheler,
+     - arka planda süren işler (render, test, ajan) ve çıktılarının nereye düşeceği,
+     - kullanıcıdan beklenen onay varsa ne olduğu.
+  b) Arka planda süren uzun bir iş varsa: ya bitmesini bekle ya da DEVAM.md'ye
+     "şu iş sürüyor, çıktısı şu dosyaya düşecek, kontrolünü yeni oturum yapacak" diye yaz.
+  c) Yeni oturumu başlat:
+     ToolSearch "select:mcp__ccd_session__start_session" → start_session
+       initiation: "user_asked"   (kullanıcı bu kuralı açıkça istedi)
+       context:    "fresh"
+       cwd:        <proje klasörü>
+       use_worktree: false        (git'li projede ayrı dal isteniyorsa true)
+       prompt:     "DEVAM.md'yi baştan sona oku, §6 SIRADAKİ İŞ'ten devam et.
+                    CONTEXT-DEVIR-KURALI'nı uygula (DEVAM.md'de ya da aşağıda)." + bu dosyanın 2–6. maddeleri
+       background: en az 80 karakter: projenin amacı, alınan kararlar, bu parçanın yeri
+  d) Kullanıcıya tek satır: yeni oturumun bağlantısı ve kaldığı yer. Sonra DUR, işe devam etme.
+Eşik neden %45: geçmiş büyüdükçe her adımın maliyeti artar. Yarıya gelmeden devretmek toplam
+tokenı belirgin şekilde düşürür ve devir için gerekli payı (DEVAM yazımı) güvenle bırakır.
+
+======================================================================
+4) TOKEN TASARRUFU (her adımda)
+======================================================================
+- Büyük dosyayı baştan sona okuma: Grep ya da Read offset/limit kullan.
+- Kendi yazdığın dosyayı tekrar okuma (araç zaten kaydediyor).
+- Komut çıktılarını kısalt: | tail -5, | head, grep, sessiz/log=error bayrakları.
+- Uzun logların sadece son satırına bak.
+- Görsel kontrol: tek bir kontakt sayfası (≤2000 px genişlik) çok sayıda tek görselden ucuzdur.
+  Aynı görseli iki kez okuma. Gerekmedikçe tam çözünürlük kullanma.
+- Kod ve betikleri bash heredoc yerine Write ile dosyaya yaz (kaçış hataları ve tekrar denemeler token yakar).
+- Aynı bilgiyi tekrar aramak yerine DEVAM.md'ye yaz ve oradan oku.
+- Kullanıcıya kısa yaz. Ara durumları tek satırla bildir.
+
+======================================================================
+5) ALT AJAN VE PARALEL OTURUM KURALLARI
+======================================================================
+- Bağımsız parçalar (birbirinin dosyasına dokunmayan modüller, sahneler, testler) alt ajanlara
+  dağıtılabilir. Ana oturumun context'i küçük kalır.
+- Her ajana kendi dosyası/dosyaları verilir. ORTAK DOSYAYA (ortak yardımcı betik, kök bileşen,
+  yapılandırma) AJAN DOKUNMAZ. Ortak dosyadaki değişikliği ana oturum yapar.
+  (Ders: bir ajanın ortak yardımcı betiği bozması, onaylı işin de bozulmuş olabileceği şüphesi
+  yarattı ve gereksiz yeniden kontrol gerektirdi.)
+- Onaylanmış iş için referans çıktılar saklanır (ör. onaylı kareler, test çıktıları). Ortak bir
+  dosya değişirse onaylı kısım bu referanslarla karşılaştırılır.
+- Ajan sonuçları rapordur, kanıt değildir. Son kontrolü ana oturum kendisi yapar.
+- Aynı dosyalara iki yazar aynı anda dokunmaz.
+
+======================================================================
+6) KULLANICIYLA İLETİŞİM
+======================================================================
+- Kullanıcının dilinde, kısa ve sonuç odaklı.
+- Kontrol etmediğin şeye "tamam" deme. Hata olduysa söyle.
+- Gönderilen dosya önizlemeyse (küçültülmüş/sıkıştırılmış) bunu açıkça söyle, tam kalite dosyanın yolunu ver.
+- Karar gereken yerde en fazla iki seçenek sun, önerdiğini ilk sıraya koy.
+- Önce kısa bir parça göster, onay al, sonra büyüt.

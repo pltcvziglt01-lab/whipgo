@@ -1,0 +1,46 @@
+{
+ "palet": "buz-kobalt",
+ "font": "poster-dar",
+ "hareket": "ustel-sert",
+ "arkaplan": [
+  "hiz-cizgileri",
+  "kure-izgara",
+  "blueprint"
+ ],
+ "gecis": [
+  "whip-yukari",
+  "glitch-rgb",
+  "kart-cevirme"
+ ],
+ "kamera": [
+  "ken-burns-disa",
+  "pan-yukari",
+  "zoom-darbe"
+ ],
+ "cerceve": [
+  "bolunmus",
+  "inset-golge"
+ ],
+ "baslik": "uzun-golge",
+ "altyazi": "yok",
+ "altbant": "koseli-parantez",
+ "sayi": "halka",
+ "alinti": "kagit-not",
+ "liste": "numarali-yigin",
+ "zaman": "dikey-serit",
+ "doku": [
+  "tarama"
+ ],
+ "iskelet": {
+  "fps": 30,
+  "gecis_kare": 14,
+  "yumusak_oran": 0.7,
+  "ilk30_medyan_sn": 2.08,
+  "genel_medyan_sn": 9.0,
+  "ilk30_kesim_dk": 28.0,
+  "sfx_orani": 0.47,
+  "cerceveli_oran": 0.37
+ },
+ "tohum": "@AmericaWarMachines0-0-0",
+ "ton": "ciddi"
+}

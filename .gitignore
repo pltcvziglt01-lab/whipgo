@@ -1,0 +1,15 @@
+# buyuk videolar GitHub Release 'varlik-v1'de (varlik_kur.py yukle/indir)
+varlik/arkaplan/*.mp4
+varlik/filmburn/*.mp4
+arsiv/
+# uretilenler
+dist/
+node_modules/
+**/node_modules/
+__pycache__/
+*.pyc
+sablon-proje/public/fontlar/
+sablon-proje/public/varlik/
+sablon-proje/out/
+*.log
+sablon-proje/src/repertuar

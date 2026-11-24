@@ -1,0 +1,1257 @@
+{
+ "arkaplan": {
+  "ab-01": {
+   "kaynak_ad": "Animated Background.mp4 (1) @Adobe Basics.mp4",
+   "parlaklik": 0.877,
+   "doygunluk": 0.012,
+   "sicaklik": 0.7,
+   "renkler": [
+    "#e2e4e1",
+    "#eef0ee",
+    "#d4d6d3",
+    "#c1c3c0"
+   ],
+   "hareket": 0.0683,
+   "dongu_farki": 0.0692,
+   "sinif": "acik",
+   "sure": 6.967,
+   "aile": "kagit",
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "doygun": false
+  },
+  "ab-02": {
+   "kaynak_ad": "Animated Background.mp4 (2) @Adobe Basics.mp4",
+   "parlaklik": 0.528,
+   "doygunluk": 0.297,
+   "sicaklik": -41.1,
+   "renkler": [
+    "#465665",
+    "#64869d",
+    "#8ecee7",
+    "#e4e8e9"
+   ],
+   "hareket": 0.0606,
+   "dongu_farki": 0.1871,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "isik-nokta",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-03": {
+   "kaynak_ad": "Animated Background.mp4 (3) @Adobe Basics.mp4",
+   "parlaklik": 0.489,
+   "doygunluk": 0.318,
+   "sicaklik": 3.5,
+   "renkler": [
+    "#3e5c3d",
+    "#628d5a",
+    "#92d888",
+    "#e2e7e2"
+   ],
+   "hareket": 0.056,
+   "dongu_farki": 0.1707,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "isik-nokta",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-04": {
+   "kaynak_ad": "Animated Background.mp4 (4) @Adobe Basics.mp4",
+   "parlaklik": 0.544,
+   "doygunluk": 0.281,
+   "sicaklik": 39.0,
+   "renkler": [
+    "#644846",
+    "#8d605e",
+    "#f0cdcb",
+    "#d88c8b"
+   ],
+   "hareket": 0.0603,
+   "dongu_farki": 0.1871,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "isik-nokta",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-05": {
+   "kaynak_ad": "Animated Background.mp4 (5) @Adobe Basics.mp4",
+   "parlaklik": 0.155,
+   "doygunluk": 0.086,
+   "sicaklik": 1.0,
+   "renkler": [
+    "#181a17",
+    "#272926",
+    "#383a38",
+    "#5a5c59"
+   ],
+   "hareket": 0.0169,
+   "dongu_farki": 0.0163,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "devre",
+   "ton": [
+    "ciddi",
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-06": {
+   "kaynak_ad": "Animated Background.mp4 (6) @Adobe Basics.mp4",
+   "parlaklik": 0.459,
+   "doygunluk": 0.901,
+   "sicaklik": -104.1,
+   "renkler": [
+    "#091d6d",
+    "#102d91",
+    "#03134d",
+    "#3359aa"
+   ],
+   "hareket": 0.018,
+   "dongu_farki": 0.0177,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "devre",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-07": {
+   "kaynak_ad": "Animated Background.mp4 (7) @Adobe Basics.mp4",
+   "parlaklik": 0.26,
+   "doygunluk": 0.985,
+   "sicaklik": 0.5,
+   "renkler": [
+    "#003c00",
+    "#002800",
+    "#025901",
+    "#22831d"
+   ],
+   "hareket": 0.0124,
+   "dongu_farki": 0.0126,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "devre",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-08": {
+   "kaynak_ad": "Animated Background.mp4 (8) @Adobe Basics.mp4",
+   "parlaklik": 0.508,
+   "doygunluk": 0.985,
+   "sicaklik": 126.5,
+   "renkler": [
+    "#710000",
+    "#a00101",
+    "#4a0000",
+    "#cc1e1d"
+   ],
+   "hareket": 0.0171,
+   "dongu_farki": 0.0165,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "devre",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-09": {
+   "kaynak_ad": "Animated Background.mp4 (9) @Adobe Basics.mp4",
+   "parlaklik": 0.168,
+   "doygunluk": 0.086,
+   "sicaklik": 1.0,
+   "renkler": [
+    "#1a1c19",
+    "#2f312e",
+    "#5a5c59",
+    "#949693"
+   ],
+   "hareket": 0.0378,
+   "dongu_farki": 0.0325,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "neon-capraz",
+   "ton": [
+    "enerjik",
+    "ciddi"
+   ],
+   "doygun": false
+  },
+  "ab-10": {
+   "kaynak_ad": "Animated Background.mp4 (10) @Adobe Basics.mp4",
+   "parlaklik": 0.338,
+   "doygunluk": 0.971,
+   "sicaklik": -80.9,
+   "renkler": [
+    "#002339",
+    "#00385c",
+    "#105d8e",
+    "#4fa2d3"
+   ],
+   "hareket": 0.0408,
+   "dongu_farki": 0.0351,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "neon-capraz",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-11": {
+   "kaynak_ad": "Animated Background.mp4 (11) @Adobe Basics.mp4",
+   "parlaklik": 0.275,
+   "doygunluk": 0.97,
+   "sicaklik": 0.8,
+   "renkler": [
+    "#003100",
+    "#015200",
+    "#22881d",
+    "#56c351"
+   ],
+   "hareket": 0.027,
+   "dongu_farki": 0.0228,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "neon-capraz",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-12": {
+   "kaynak_ad": "Animated Background.mp4 (12) @Adobe Basics.mp4",
+   "parlaklik": 0.52,
+   "doygunluk": 0.972,
+   "sicaklik": 126.3,
+   "renkler": [
+    "#5a0000",
+    "#870000",
+    "#c00908",
+    "#f35654"
+   ],
+   "hareket": 0.039,
+   "dongu_farki": 0.0335,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "neon-capraz",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-13": {
+   "kaynak_ad": "Animated Background.mp4 (13) @Adobe Basics.mp4",
+   "parlaklik": 0.297,
+   "doygunluk": 0.997,
+   "sicaklik": -75.4,
+   "renkler": [
+    "#00101b",
+    "#006eb3",
+    "#001f34",
+    "#034c7b"
+   ],
+   "hareket": 0.0404,
+   "dongu_farki": 0.1083,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "hap-sekil",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-14": {
+   "kaynak_ad": "Animated Background.mp4 (14) @Adobe Basics.mp4",
+   "parlaklik": 0.238,
+   "doygunluk": 0.996,
+   "sicaklik": 0.6,
+   "renkler": [
+    "#001600",
+    "#028e00",
+    "#002a00",
+    "#066104"
+   ],
+   "hareket": 0.021,
+   "dongu_farki": 0.0553,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "hap-sekil",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-15": {
+   "kaynak_ad": "Animated Background.mp4 (15) @Adobe Basics.mp4",
+   "parlaklik": 0.353,
+   "doygunluk": 0.898,
+   "sicaklik": 36.1,
+   "renkler": [
+    "#05111b",
+    "#fa054d",
+    "#e9012b",
+    "#770a20"
+   ],
+   "hareket": 0.0515,
+   "dongu_farki": 0.1395,
+   "sinif": "orta",
+   "sure": 10.033,
+   "aile": "hap-sekil",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-16": {
+   "kaynak_ad": "Animated Background.mp4 (16) @Adobe Basics.mp4",
+   "parlaklik": 0.838,
+   "doygunluk": 0.818,
+   "sicaklik": -173.9,
+   "renkler": [
+    "#1eafd0",
+    "#55c8ed",
+    "#24b7d7",
+    "#3cbce0"
+   ],
+   "hareket": 0.0329,
+   "dongu_farki": 0.0397,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "cizgi-roman",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-17": {
+   "kaynak_ad": "Animated Background.mp4 (17) @Adobe Basics.mp4",
+   "parlaklik": 0.828,
+   "doygunluk": 0.83,
+   "sicaklik": 7.3,
+   "renkler": [
+    "#23ce1b",
+    "#54e74c",
+    "#2ad622",
+    "#3edc36"
+   ],
+   "hareket": 0.0365,
+   "dongu_farki": 0.0444,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "cizgi-roman",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-18": {
+   "kaynak_ad": "Animated Background.mp4 (18) @Adobe Basics.mp4",
+   "parlaklik": 0.978,
+   "doygunluk": 0.628,
+   "sicaklik": 156.8,
+   "renkler": [
+    "#f85653",
+    "#fa5e5c",
+    "#fa8885",
+    "#f8716e"
+   ],
+   "hareket": 0.032,
+   "dongu_farki": 0.0383,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "cizgi-roman",
+   "ton": [
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-19": {
+   "kaynak_ad": "Animated Background.mp4 (19) @Adobe Basics.mp4",
+   "parlaklik": 0.076,
+   "doygunluk": 0.064,
+   "sicaklik": 0.4,
+   "renkler": [
+    "#000000",
+    "#484a47",
+    "#30322f",
+    "#181a17"
+   ],
+   "hareket": 0.0998,
+   "dongu_farki": 0.1079,
+   "sinif": "koyu",
+   "sure": 10.033,
+   "aile": "topografik",
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-20": {
+   "kaynak_ad": "Animated Background.mp4 (20) @Adobe Basics.mp4",
+   "parlaklik": 0.905,
+   "doygunluk": 0.992,
+   "sicaklik": -228.9,
+   "renkler": [
+    "#009afa",
+    "#0691e7",
+    "#006dba",
+    "#007ed0"
+   ],
+   "hareket": 0.0584,
+   "dongu_farki": 0.065,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "topografik",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-21": {
+   "kaynak_ad": "Animated Background.mp4 (21) @Adobe Basics.mp4",
+   "parlaklik": 0.911,
+   "doygunluk": 0.988,
+   "sicaklik": 6.8,
+   "renkler": [
+    "#08fc00",
+    "#01ba00",
+    "#1cf410",
+    "#06d901"
+   ],
+   "hareket": 0.0528,
+   "dongu_farki": 0.0564,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "topografik",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-22": {
+   "kaynak_ad": "Animated Background.mp4 (22) @Adobe Basics.mp4",
+   "parlaklik": 0.905,
+   "doygunluk": 0.999,
+   "sicaklik": 230.6,
+   "renkler": [
+    "#fa0000",
+    "#e50201",
+    "#d00000",
+    "#ba0000"
+   ],
+   "hareket": 0.0311,
+   "dongu_farki": 0.036,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "topografik",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-23": {
+   "kaynak_ad": "Animated Background.mp4 (23) @Adobe Basics.mp4",
+   "parlaklik": 0.91,
+   "doygunluk": 0.011,
+   "sicaklik": 0.8,
+   "renkler": [
+    "#fbfcfa",
+    "#adafac",
+    "#e4e6e3",
+    "#c9cbc8"
+   ],
+   "hareket": 0.1142,
+   "dongu_farki": 0.1232,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "topografik",
+   "ton": [
+    "ciddi",
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-24": {
+   "kaynak_ad": "Animated Background.mp4 (24) @Adobe Basics.mp4",
+   "parlaklik": 0.975,
+   "doygunluk": 0.721,
+   "sicaklik": -179.3,
+   "renkler": [
+    "#3686f8",
+    "#4bbbf8",
+    "#43a2f8",
+    "#5cd8f9"
+   ],
+   "hareket": 0.0183,
+   "dongu_farki": 0.0276,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "su-doku",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-25": {
+   "kaynak_ad": "Animated Background.mp4 (25) @Adobe Basics.mp4",
+   "parlaklik": 0.664,
+   "doygunluk": 1.0,
+   "sicaklik": 0.4,
+   "renkler": [
+    "#008600",
+    "#00ba00",
+    "#00a000",
+    "#01d700"
+   ],
+   "hareket": 0.0095,
+   "dongu_farki": 0.0153,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "su-doku",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": true
+  },
+  "ab-26": {
+   "kaynak_ad": "Animated Background.mp4 (26) @Adobe Basics.mp4",
+   "parlaklik": 0.979,
+   "doygunluk": 0.585,
+   "sicaklik": 146.0,
+   "renkler": [
+    "#f94644",
+    "#f97a78",
+    "#f9615f",
+    "#fa9a98"
+   ],
+   "hareket": 0.0219,
+   "dongu_farki": 0.0346,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "su-doku",
+   "ton": [
+    "sakin",
+    "enerjik"
+   ],
+   "doygun": false
+  },
+  "ab-27": {
+   "kaynak_ad": "Animated Background.mp4 (27) @Adobe Basics.mp4",
+   "parlaklik": 0.792,
+   "doygunluk": 0.775,
+   "sicaklik": -151.4,
+   "renkler": [
+    "#0d529f",
+    "#4fb7ee",
+    "#2584cf",
+    "#8edef8"
+   ],
+   "hareket": 0.1753,
+   "dongu_farki": 0.1395,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "dalga-3d",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": true
+  },
+  "ab-28": {
+   "kaynak_ad": "Animated Background.mp4 (28) @Adobe Basics.mp4",
+   "parlaklik": 0.732,
+   "doygunluk": 0.919,
+   "sicaklik": 4.8,
+   "renkler": [
+    "#017f00",
+    "#08dd02",
+    "#3cf832",
+    "#87f981"
+   ],
+   "hareket": 0.1687,
+   "dongu_farki": 0.1387,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "dalga-3d",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": true
+  },
+  "ab-29": {
+   "kaynak_ad": "Animated Background.mp4 (29) @Adobe Basics.mp4",
+   "parlaklik": 0.954,
+   "doygunluk": 0.738,
+   "sicaklik": 178.1,
+   "renkler": [
+    "#eb0606",
+    "#f87d7b",
+    "#f94341",
+    "#f8b6b4"
+   ],
+   "hareket": 0.1792,
+   "dongu_farki": 0.1439,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "dalga-3d",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": true
+  },
+  "ab-30": {
+   "kaynak_ad": "Animated Background.mp4 (30) @Adobe Basics.mp4",
+   "parlaklik": 0.975,
+   "doygunluk": 0.65,
+   "sicaklik": -161.6,
+   "renkler": [
+    "#45b5f8",
+    "#5bb9f2",
+    "#77ccfb",
+    "#91d5fc"
+   ],
+   "hareket": 0.0485,
+   "dongu_farki": 0.0585,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "daire-desen",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": false
+  },
+  "ab-31": {
+   "kaynak_ad": "Animated Background.mp4 (31) @Adobe Basics.mp4",
+   "parlaklik": 0.983,
+   "doygunluk": 0.863,
+   "sicaklik": 10.0,
+   "renkler": [
+    "#15fb0a",
+    "#33f72a",
+    "#54fb4b",
+    "#77fb70"
+   ],
+   "hareket": 0.0779,
+   "dongu_farki": 0.0947,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "daire-desen",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": true
+  },
+  "ab-32": {
+   "kaynak_ad": "Animated Background.mp4 (32) @Adobe Basics.mp4",
+   "parlaklik": 0.974,
+   "doygunluk": 0.489,
+   "sicaklik": 121.4,
+   "renkler": [
+    "#f97471",
+    "#fca9a7",
+    "#f9908e",
+    "#e97a78"
+   ],
+   "hareket": 0.0525,
+   "dongu_farki": 0.0632,
+   "sinif": "acik",
+   "sure": 10.033,
+   "aile": "daire-desen",
+   "ton": [
+    "enerjik",
+    "sakin"
+   ],
+   "doygun": false
+  },
+  "ab-33": {
+   "kaynak_ad": "Animated Background.mp4 (33) @Adobe Basics.mp4",
+   "parlaklik": 0.147,
+   "doygunluk": 0.229,
+   "sicaklik": -8.4,
+   "renkler": [
+    "#1b1d23",
+    "#21232a",
+    "#14161b",
+    "#272933"
+   ],
+   "hareket": 0.0257,
+   "dongu_farki": 0.0014,
+   "sinif": "koyu",
+   "sure": 15.0,
+   "aile": "kagit",
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "doygun": false
+  },
+  "ab-34": {
+   "kaynak_ad": "Animated Background.mp4 (34) @Adobe Basics.mp4",
+   "parlaklik": 0.861,
+   "doygunluk": 0.034,
+   "sicaklik": -7.4,
+   "renkler": [
+    "#d2d7d9",
+    "#d7dcdf",
+    "#c9ced1",
+    "#dee3e5"
+   ],
+   "hareket": 0.0247,
+   "dongu_farki": 0.0298,
+   "sinif": "acik",
+   "sure": 15.0,
+   "aile": "kagit",
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "doygun": false
+  },
+  "ab-35": {
+   "kaynak_ad": "Animated Background.mp4 (35) @Adobe Basics.mp4",
+   "parlaklik": 0.876,
+   "doygunluk": 0.012,
+   "sicaklik": 2.4,
+   "renkler": [
+    "#eae9e8",
+    "#e2e1df",
+    "#d9d8d6",
+    "#cbcac9"
+   ],
+   "hareket": 0.0421,
+   "dongu_farki": 0.0284,
+   "sinif": "acik",
+   "sure": 9.333,
+   "aile": "kagit",
+   "ton": [
+    "ciddi",
+    "sakin"
+   ],
+   "doygun": false
+  }
+ },
+ "filmburn": {
+  "fb-01": {
+   "kaynak_ad": "Film Burn (1).mp4",
+   "parlaklik": 0.262,
+   "doygunluk": 0.046,
+   "sicaklik": 2.9,
+   "renkler": [
+    "#000000",
+    "#f6f5ee",
+    "#474844",
+    "#a9a196"
+   ],
+   "hareket": 0.3808,
+   "dongu_farki": 0.406,
+   "sinif": "koyu",
+   "tepe_sn": 3.59,
+   "siyah_orani": 0.654,
+   "sure": 5.466,
+   "aile": "sicak-sizinti"
+  },
+  "fb-02": {
+   "kaynak_ad": "Film Burn (2).mp4",
+   "parlaklik": 0.304,
+   "doygunluk": 0.223,
+   "sicaklik": 43.2,
+   "renkler": [
+    "#000000",
+    "#f9f08d",
+    "#cf9f38",
+    "#7b0f03"
+   ],
+   "hareket": 0.1256,
+   "dongu_farki": 0.0,
+   "sinif": "orta",
+   "tepe_sn": 0.31,
+   "siyah_orani": 0.64,
+   "sure": 1.433,
+   "aile": "sicak-sizinti"
+  },
+  "fb-03": {
+   "kaynak_ad": "Film Burn (3).mp4",
+   "parlaklik": 0.487,
+   "doygunluk": 0.674,
+   "sicaklik": 108.5,
+   "renkler": [
+    "#0d0000",
+    "#e3231f",
+    "#98070c",
+    "#ed6c2a"
+   ],
+   "hareket": 0.0775,
+   "dongu_farki": 0.0,
+   "sinif": "orta",
+   "tepe_sn": 0.28,
+   "siyah_orani": 0.339,
+   "sure": 1.0,
+   "aile": "sicak-sizinti"
+  },
+  "fb-04": {
+   "kaynak_ad": "Film Burn (4).mp4",
+   "parlaklik": 0.108,
+   "doygunluk": 0.243,
+   "sicaklik": 23.2,
+   "renkler": [
+    "#020000",
+    "#6e0800",
+    "#f4a919",
+    "#f9fa94"
+   ],
+   "hareket": 0.0563,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 0.32,
+   "siyah_orani": 0.816,
+   "sure": 1.133,
+   "aile": "sicak-sizinti"
+  },
+  "fb-05": {
+   "kaynak_ad": "Film Burn (5).mp4",
+   "parlaklik": 0.133,
+   "doygunluk": 0.354,
+   "sicaklik": 31.5,
+   "renkler": [
+    "#010000",
+    "#3a0306",
+    "#7c0d0e",
+    "#d91007"
+   ],
+   "hareket": 0.0478,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 0.16,
+   "siyah_orani": 0.726,
+   "sure": 1.0,
+   "aile": "sicak-sizinti"
+  },
+  "fb-06": {
+   "kaynak_ad": "Film Burn (6).mp4",
+   "parlaklik": 0.299,
+   "doygunluk": 0.349,
+   "sicaklik": 55.7,
+   "renkler": [
+    "#0d0b0a",
+    "#9b0802",
+    "#cb3707",
+    "#f99e7b"
+   ],
+   "hareket": 0.1213,
+   "dongu_farki": 0.1709,
+   "sinif": "koyu",
+   "tepe_sn": 0.13,
+   "siyah_orani": 0.516,
+   "sure": 0.833,
+   "aile": "sicak-sizinti"
+  },
+  "fb-07": {
+   "kaynak_ad": "Film Burn (7).mp4",
+   "parlaklik": 0.428,
+   "doygunluk": 0.344,
+   "sicaklik": 2.5,
+   "renkler": [
+    "#000000",
+    "#f472b3",
+    "#983dc9",
+    "#e7d7fa"
+   ],
+   "hareket": 0.1262,
+   "dongu_farki": 0.4929,
+   "sinif": "orta",
+   "tepe_sn": 0.45,
+   "siyah_orani": 0.533,
+   "sure": 0.633,
+   "aile": "sicak-sizinti"
+  },
+  "fb-08": {
+   "kaynak_ad": "Film Burn (8).mp4",
+   "parlaklik": 0.128,
+   "doygunluk": 0.584,
+   "sicaklik": 30.4,
+   "renkler": [
+    "#040000",
+    "#4a1701",
+    "#873d0a",
+    "#f1b32f"
+   ],
+   "hareket": 0.0504,
+   "dongu_farki": 0.0004,
+   "sinif": "koyu",
+   "tepe_sn": 0.59,
+   "siyah_orani": 0.671,
+   "sure": 1.0,
+   "aile": "sicak-sizinti"
+  },
+  "fb-09": {
+   "kaynak_ad": "Film Burn (9).mp4",
+   "parlaklik": 0.814,
+   "doygunluk": 0.197,
+   "sicaklik": 3.8,
+   "renkler": [
+    "#f7f8f4",
+    "#576687",
+    "#9b98a2",
+    "#f7a094"
+   ],
+   "hareket": 0.1315,
+   "dongu_farki": 0.1908,
+   "sinif": "acik",
+   "tepe_sn": 0.1,
+   "siyah_orani": 0.0,
+   "sure": 0.367,
+   "aile": "beyaz-flas"
+  },
+  "fb-10": {
+   "kaynak_ad": "Film Burn (10).mp4",
+   "parlaklik": 0.741,
+   "doygunluk": 0.758,
+   "sicaklik": 170.7,
+   "renkler": [
+    "#f9d724",
+    "#060000",
+    "#f34800",
+    "#9f0100"
+   ],
+   "hareket": 0.1274,
+   "dongu_farki": 0.3579,
+   "sinif": "acik",
+   "tepe_sn": 0.09,
+   "siyah_orani": 0.174,
+   "sure": 0.6,
+   "aile": "sicak-sizinti"
+  },
+  "fb-11": {
+   "kaynak_ad": "Film Burn (11).mp4",
+   "parlaklik": 0.514,
+   "doygunluk": 0.38,
+   "sicaklik": 69.4,
+   "renkler": [
+    "#040100",
+    "#e16812",
+    "#f9f9ea",
+    "#f7c64e"
+   ],
+   "hareket": 0.2046,
+   "dongu_farki": 0.0,
+   "sinif": "orta",
+   "tepe_sn": 2.8,
+   "siyah_orani": 0.438,
+   "sure": 4.267,
+   "aile": "sicak-sizinti"
+  },
+  "fb-12": {
+   "kaynak_ad": "Film Burn (12).mp4",
+   "parlaklik": 0.429,
+   "doygunluk": 0.301,
+   "sicaklik": 53.2,
+   "renkler": [
+    "#0a0000",
+    "#f9fbe1",
+    "#f8a647",
+    "#ae2f09"
+   ],
+   "hareket": 0.1603,
+   "dongu_farki": 0.2311,
+   "sinif": "orta",
+   "tepe_sn": 0.39,
+   "siyah_orani": 0.482,
+   "sure": 0.466,
+   "aile": "sicak-sizinti"
+  },
+  "fb-13": {
+   "kaynak_ad": "Film Burn (13).mp4",
+   "parlaklik": 0.251,
+   "doygunluk": 0.714,
+   "sicaklik": 54.0,
+   "renkler": [
+    "#0b0300",
+    "#4b1405",
+    "#b94112",
+    "#edc05c"
+   ],
+   "hareket": 0.1368,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 2.75,
+   "siyah_orani": 0.464,
+   "sure": 12.567,
+   "aile": "sicak-sizinti"
+  },
+  "fb-14": {
+   "kaynak_ad": "Film Burn (14).mp4",
+   "parlaklik": 0.417,
+   "doygunluk": 0.809,
+   "sicaklik": 106.4,
+   "renkler": [
+    "#620400",
+    "#9e2000",
+    "#080000",
+    "#bd5c00"
+   ],
+   "hareket": 0.0606,
+   "dongu_farki": 0.1126,
+   "sinif": "orta",
+   "tepe_sn": 0.33,
+   "siyah_orani": 0.216,
+   "sure": 0.5,
+   "aile": "sicak-sizinti"
+  },
+  "fb-15": {
+   "kaynak_ad": "Film Burn (15).mp4",
+   "parlaklik": 0.205,
+   "doygunluk": 0.441,
+   "sicaklik": 35.7,
+   "renkler": [
+    "#070100",
+    "#bd4012",
+    "#f9ebbc",
+    "#f4ae35"
+   ],
+   "hareket": 0.1153,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 0.9,
+   "siyah_orani": 0.71,
+   "sure": 3.2,
+   "aile": "sicak-sizinti"
+  },
+  "fb-16": {
+   "kaynak_ad": "Film Burn (16).mp4",
+   "parlaklik": 0.237,
+   "doygunluk": 0.19,
+   "sicaklik": 39.9,
+   "renkler": [
+    "#010000",
+    "#f79f47",
+    "#f9ea8c",
+    "#bc2005"
+   ],
+   "hareket": 0.0913,
+   "dongu_farki": 0.8219,
+   "sinif": "koyu",
+   "tepe_sn": 0.79,
+   "siyah_orani": 0.732,
+   "sure": 0.867,
+   "aile": "sicak-sizinti"
+  },
+  "fb-17": {
+   "kaynak_ad": "Film Burn (17).mp4",
+   "parlaklik": 0.457,
+   "doygunluk": 0.706,
+   "sicaklik": 96.2,
+   "renkler": [
+    "#0b0300",
+    "#d55115",
+    "#75200a",
+    "#f9f2d3"
+   ],
+   "hareket": 0.1529,
+   "dongu_farki": 0.0,
+   "sinif": "orta",
+   "tepe_sn": 8.5,
+   "siyah_orani": 0.291,
+   "sure": 11.833,
+   "aile": "sicak-sizinti"
+  },
+  "fb-18": {
+   "kaynak_ad": "Film Burn (18).mp4",
+   "parlaklik": 0.088,
+   "doygunluk": 0.427,
+   "sicaklik": 19.1,
+   "renkler": [
+    "#040000",
+    "#581502",
+    "#eb9029",
+    "#fae776"
+   ],
+   "hareket": 0.0544,
+   "dongu_farki": 0.0003,
+   "sinif": "koyu",
+   "tepe_sn": 0.52,
+   "siyah_orani": 0.805,
+   "sure": 1.1,
+   "aile": "sicak-sizinti"
+  },
+  "fb-19": {
+   "kaynak_ad": "Film Burn (19).mp4",
+   "parlaklik": 0.306,
+   "doygunluk": 0.674,
+   "sicaklik": 60.1,
+   "renkler": [
+    "#090200",
+    "#cf4f16",
+    "#79240b",
+    "#f9f2da"
+   ],
+   "hareket": 0.1092,
+   "dongu_farki": 0.0,
+   "sinif": "orta",
+   "tepe_sn": 5.21,
+   "siyah_orani": 0.545,
+   "sure": 9.8,
+   "aile": "sicak-sizinti"
+  },
+  "fb-20": {
+   "kaynak_ad": "Film Burn (20).mp4",
+   "parlaklik": 0.256,
+   "doygunluk": 0.302,
+   "sicaklik": 31.5,
+   "renkler": [
+    "#030000",
+    "#f9f3d4",
+    "#a4370d",
+    "#eeb54d"
+   ],
+   "hareket": 0.1031,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 2.25,
+   "siyah_orani": 0.684,
+   "sure": 4.8,
+   "aile": "sicak-sizinti"
+  },
+  "fb-21": {
+   "kaynak_ad": "Film Burn (21).mp4",
+   "parlaklik": 0.273,
+   "doygunluk": 0.304,
+   "sicaklik": 40.2,
+   "renkler": [
+    "#080000",
+    "#c76825",
+    "#eeb64a",
+    "#f9f9f2"
+   ],
+   "hareket": 0.2676,
+   "dongu_farki": 0.047,
+   "sinif": "koyu",
+   "tepe_sn": 0.61,
+   "siyah_orani": 0.622,
+   "sure": 1.3,
+   "aile": "sicak-sizinti"
+  },
+  "fb-22": {
+   "kaynak_ad": "Film Burn (22).mp4",
+   "parlaklik": 0.042,
+   "doygunluk": 0.047,
+   "sicaklik": 4.1,
+   "renkler": [
+    "#000000",
+    "#fae4d8",
+    "#dd816c",
+    "#75261c"
+   ],
+   "hareket": 0.0415,
+   "dongu_farki": 0.0324,
+   "sinif": "koyu",
+   "tepe_sn": 0.12,
+   "siyah_orani": 0.94,
+   "sure": 0.8,
+   "aile": "sicak-sizinti"
+  },
+  "fb-23": {
+   "kaynak_ad": "Film Burn (23).mp4",
+   "parlaklik": 0.287,
+   "doygunluk": 0.583,
+   "sicaklik": 49.0,
+   "renkler": [
+    "#090200",
+    "#5e1c07",
+    "#f8f2d9",
+    "#cc591a"
+   ],
+   "hareket": 0.1317,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 2.04,
+   "siyah_orani": 0.437,
+   "sure": 9.333,
+   "aile": "sicak-sizinti"
+  },
+  "fb-24": {
+   "kaynak_ad": "Film Burn (24).mp4",
+   "parlaklik": 0.228,
+   "doygunluk": 0.316,
+   "sicaklik": 28.4,
+   "renkler": [
+    "#040100",
+    "#f9f8e8",
+    "#86260c",
+    "#ed8323"
+   ],
+   "hareket": 0.1228,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 3.24,
+   "siyah_orani": 0.697,
+   "sure": 6.1,
+   "aile": "sicak-sizinti"
+  },
+  "fb-25": {
+   "kaynak_ad": "Film Burn (25).mp4",
+   "parlaklik": 0.252,
+   "doygunluk": 0.426,
+   "sicaklik": 31.7,
+   "renkler": [
+    "#080200",
+    "#f9f8e5",
+    "#79210a",
+    "#e77c20"
+   ],
+   "hareket": 0.1308,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 3.03,
+   "siyah_orani": 0.63,
+   "sure": 5.7,
+   "aile": "sicak-sizinti"
+  },
+  "fb-26": {
+   "kaynak_ad": "Film Burn (26).mp4",
+   "parlaklik": 0.214,
+   "doygunluk": 0.614,
+   "sicaklik": 27.8,
+   "renkler": [
+    "#0b0300",
+    "#f9f5dc",
+    "#a83c0f",
+    "#f0c350"
+   ],
+   "hareket": 0.1876,
+   "dongu_farki": 0.0,
+   "sinif": "koyu",
+   "tepe_sn": 5.66,
+   "siyah_orani": 0.71,
+   "sure": 9.533,
+   "aile": "sicak-sizinti"
+  }
+ }
+}

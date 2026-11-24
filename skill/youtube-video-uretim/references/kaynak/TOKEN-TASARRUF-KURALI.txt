@@ -1,0 +1,58 @@
+TOKEN TASARRUF VE MODEL DAĞITIM KURALI
+(Her projede geçerli. CONTEXT-DEVIR-KURALI.txt ile birlikte uygulanır. DEVAM.md'ye ekle veya yeni oturumun ilk mesajına yapıştır.)
+
+======================================================================
+0) NEDEN TOKEN GİDİYOR
+======================================================================
+- Ana oturum her adımda tüm geçmişini yeniden okutur. Context büyüdükçe en küçük adım bile pahalanır.
+- Asıl maliyet: büyük görseller, uzun dosya okumaları, uzun komut çıktıları ve ana modelin yaptığı ayak işleri.
+- Render ve ffmpeg token harcamaz. Pahalı olan, her uyanışta geçmişin yeniden okunmasıdır.
+
+======================================================================
+1) KİM NE YAPAR
+======================================================================
+ANA MODEL (Opus 5.5), yalnız düşünme gerektiren iş:
+  metin yazımı, kurgu ve klip kararları, grafik kararları, kaliteye son karar,
+  mimari ve zor hata ayıklama, kullanıcıyla konuşma.
+
+SONNET alt ajan, orta iş:
+  kontakt sayfası inceleme (bulgu listesi çıkarır), kaynak filmi ve altyazıyı özetleme,
+  kod değişikliği net tarif edildiyse uygulama, QC bulgularını raporlama.
+
+HAIKU alt ajan, ayak işi:
+  dosya kopyalama ve listeleme, indirme başlatma, ölçüm komutu çalıştırıp sayı raporlama,
+  Drive'da ad ve boyut doğrulama, log okuma, DEVAM.md'ye verilen satırları yazma.
+
+BETİK, hiç token harcamayan iş (önce bunu düşün):
+  Tekrarlanan her adım betik olur ve tek komutla çalışır. Betik varsa ajan açma.
+
+======================================================================
+2) ALT AJAN NE ZAMAN AÇILIR
+======================================================================
+- Alt ajanın da kendi başlangıç maliyeti var. Bir iki komutluk işi ana oturum kendisi yapar.
+- Ajan şu durumlarda açılır: çok sayıda dosya veya görsel okunacaksa, uzun log taranacaksa,
+  iş birkaç adım sürecekse.
+- Brief kısa ve eksiksiz olur: yol, komut, beklenen çıktı biçimi. Ajan en fazla 10 satır rapor döner.
+- Ajan raporu kanıt değildir. Kullanıcıya "tamam" demeden önce ana model kritik sonucu tek komutla
+  kendisi doğrular (ör. dosya boyutu, LUFS).
+- Ortak dosyaya ajan dokunmaz (CONTEXT-DEVIR-KURALI madde 5).
+
+======================================================================
+3) ANA OTURUMDA DAVRANIŞ
+======================================================================
+- Görsel: önce ajan baksın, ana model yalnız sorunlu kareyi görsün. Tek sayfa, en çok 2000 px.
+  Aynı görseli iki kez okuma.
+- Dosya okuma: bütün dosya değil, Grep ya da offset/limit.
+- Komut çıktısı: yalnız son satırlar ve sonuç. Üretilmiş JSON'u ekrana basma.
+- Üretilmiş veri dosyalarını (veri.json vb.) ana oturumda açma; açıkken değişirse context'e yazılabilir.
+- Kısa aralıkla uyanma: uzun işleri tek zincir betikte birleştir, tek bildirimle bitsin.
+- Aynı işi iki kez yaptırma: render'dan önce düşük çözünürlüklü tek kare kontrolü yap.
+  Her yeniden render, ek bekleme ve ek uyanış demektir.
+- Düşünmeyi kısa tut, karar verilmişi tekrar tartma.
+- Kullanıcıya kısa yaz.
+
+======================================================================
+4) ÖLÇÜM
+======================================================================
+- Büyük adım sonrası get_usage. Context %45'i geçince CONTEXT-DEVIR-KURALI'na göre devret.
+- Haftalık limit %80'i geçerse kullanıcıya tek satır haber ver.
