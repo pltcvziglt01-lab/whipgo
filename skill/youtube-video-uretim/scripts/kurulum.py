@@ -2,7 +2,7 @@
 """KURULUM — repo yardimcisi.
   py kurulum.py kontrol            # python/ffmpeg/node/git/gh, repo, kutuphane, varlik durumu
   py kurulum.py ayna [--deneme]    # repo -> Drive kutuphanesi aynasi (_araclar/ betikleri, remotion/repertuar/ bilesenleri). Lisansli varlik GITMEZ.
-  py kurulum.py paketle [--hedef <klasor>]   # skill/ -> dist/youtube-video-uretim-<tarih>.skill (claude.ai'ye yuklenir)
+  py kurulum.py paketle [--hedef <klasor>]   # skill/ -> dist/printerv1-<tarih>.skill (claude.ai'ye yuklenir)
   py kurulum.py kanal C:/otomasyon/<kanal>   # kanal projesini sisteme bagla: repertuar/varlik/fontlar baglantisi + ortak VideoDna sarmalayicisi
   py kurulum.py kur [--ai-yok] [--deneme]   # YENI MAKINE, tek komut: programlar (winget) + pip + yerel AI (Ollama+Qwen) + npm + varlik + kancalar
   py kurulum.py kancalar                     # git kancalari: pre-commit = dogrula.py --hizli, post-commit = ayna
@@ -213,9 +213,12 @@ def ayna_cc0(k, deneme):
     return n
 
 
+SKILL_AD = 'printerv1'      # claude.ai'deki skill adi (SKILL.md name ile ayni); repo klasoru skill/youtube-video-uretim kalir
+
+
 def paketle(a):
     os.makedirs(os.path.join(KOK, 'dist'), exist_ok=True)
-    ad = f"youtube-video-uretim-{datetime.date.today():%Y-%m-%d}.skill"
+    ad = f"{SKILL_AD}-{datetime.date.today():%Y-%m-%d}.skill"
     yol = os.path.join(KOK, 'dist', ad)
     n = 0
     with zipfile.ZipFile(yol, 'w', zipfile.ZIP_DEFLATED) as z:
@@ -225,7 +228,7 @@ def paketle(a):
                 if f.endswith('.pyc'):
                     continue
                 p = os.path.join(kok, f)
-                z.write(p, os.path.join('youtube-video-uretim', os.path.relpath(p, SKILL)))
+                z.write(p, os.path.join(SKILL_AD, os.path.relpath(p, SKILL)))
                 n += 1
     print(f'{n} dosya -> {yol} ({os.path.getsize(yol) // 1024} KB)')
     if a.hedef:

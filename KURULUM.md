@@ -36,7 +36,7 @@ Gerekli: Python 3, ffmpeg (PATH), Node 20+, Google Drive masaüstü (edit kutuph
 ```powershell
 py skill\youtube-video-uretim\scripts\kurulum.py paketle --hedef "$env:USERPROFILE\Desktop"
 ```
-Çıkan `youtube-video-uretim-<tarih>.skill` dosyasını claude.ai → Ayarlar → Skills'te eski skill'in yerine yükle.
+Çıkan `printerv1-<tarih>.skill` dosyasını claude.ai → Ayarlar → Skills'te eski skill'in yerine yükle.
 
 ## Yeni kanal
 ```powershell

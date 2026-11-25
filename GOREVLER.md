@@ -26,7 +26,7 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 13 | Paylaşılan eleman (morph) geçişi: giden sahnenin nesnesi gelen sahnenin parçası | katalogda 2 sn mp4 gözle | açık |
 | 14 | Drive kütüphane bakımı: `teknikler/inset-vinyetli-kutu/TANIM.md` eksik; EDIT-DILI atıf yaptığı ama yazılmamış gözlem dosyaları (harita-rota, alinti-karti, madde-listesi-karti, gercek-arsiv, ekran-ici-tv) | `profil_kontrol.py` temiz | açık |
 | 16 | @StillInsideFilms uçtan uca test: 3 video ölç → kanal şablonu → deneme video bölümü → kapılar → izleyici incelemesi | standart 3–4 | #1–4'ten sonra |
-| 17 | Skill paketi + masaüstü `ON NUMARA II\GITHUB ENTEGRE.skill`; kullanıcı claude.ai'ye yükler | paket tarihli ve güncel | her büyük turdan sonra |
+| 17 | Skill paketi + masaüstü `ON NUMARA II\printerv1.skill`; kullanıcı claude.ai'ye yükler | paket tarihli ve güncel | her büyük turdan sonra |
 | 21 | Drive profil hatalari (3 kanal EDIT-DILI.md'de sert/yumusak gecis sayilari yok) | profil_kontrol 0 hata | acik |
 | 10b | Onizleme: --foto/--dil eklendi; varsayilan gorseller hala asker fotograflari — konu notr ornek gorsel seti | 6 sablonda farkli gorsel | acik |
 | 31 | Ust uc birde altyazi bazen konusanin basina biniyor (v04 #98); ust orta kelime karti letterbox'a 10 px | v04 karesi | acik |

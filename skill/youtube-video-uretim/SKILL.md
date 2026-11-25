@@ -1,5 +1,5 @@
 ---
-name: "youtube-video-uretim"
+name: "printerv1"
 description: Claude Code ile uçtan uca YouTube video üretim sistemi — rakibin en popüler 3 videosunu indirip ritim (0,1 sn) ve kare kare edit dili analizi; Drive edit dili kütüphanesiyle özgünleştirme (iskelet korunur, yüzey değişir); rakip kanalları günlük takip; demonetizasyon/küme risk denetimi; YouTube'dan lisanslı (CC BY) gerçek video ve görsel kaynağı; başlık, kaynaklı metin, TTS (orijinal hız), WhisperX, HeyGen Avatar III, Flow, Remotion/ffmpeg kurgu, ses miksi, render sonrası kalite kapıları (kanca, durgunluk, senkron, ekran yazısı, rakiple karşılaştırma, jüri), −14 LUFS, 6 kapak, Drive money printer kanal klasörüne teslim, disk temizliği, kanal analitiği, DEVAM.md devri. Kullanıcı video yapmak, kanal açmak, rakip analizi/takibi, edit stili, demonetize riski, metin/ses/görsel/kurgu/kapak/başlık işi istediğinde ya da DEVAM.md, Remotion, HeyGen, Flow, CDP, LUFS geçtiğinde MUTLAKA kullan.
 ---
 
