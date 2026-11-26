@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Vurus, vurusSeviye } from './Vurus';
-import { Dna, EFEKT_BUTCE, YUMUSAK_ARA_SN, dnaStil, dnaVaryant, cerceveSec, imzaGecisMi, DnaAlinti, DnaAltBant, DnaAltyazi, DnaArkaplan, DnaBaslik, DnaBitis, DnaDizi, DnaDoku, DnaGrafik, DnaHarita, DnaHud,
+import { Dna, EFEKT_BUTCE, YUMUSAK_ARA_SN, dnaStil, dnaVaryant, cerceveSec, imzaGecisMi, DnaAlinti, DnaAltBant, DnaAltyazi, DnaKunye, DnaArkaplan, DnaBaslik, DnaBitis, DnaDizi, DnaDoku, DnaGrafik, DnaHarita, DnaHud,
   DnaKaynakZemin, DnaKarsilastirma, DnaListe, DnaMedya, DnaSayi, DnaSfx, DnaVurgu, DnaYaris, DnaZaman } from './Dna';
 import { YIL_TARAMA, yilTaramaAdimlari } from './Kart';
 import { HaritaNokta } from './Harita';
@@ -48,6 +48,8 @@ export type HudIstek = { tip: HudTip; deger?: number; baslangic?: number; birim?
  *  hud: kalici HUD baslat (HudIstek) ya da bitir (false). */
 export type Cekim = { kare: number; tag: string; kb: number; kart?: Kart | null; etiket?: string | null; flas?: boolean; src?: string; video?: boolean;
   etiket_ust?: boolean; odak?: [number, number, number, number]; hud?: HudIstek | false | null;
+  /** kaynak kunyesi / AI etiketi (sahne_kur plan 'kunye'): medya gorunen cekimde sag alt kose */
+  kunye?: string;
   /** bolumlu planda cekimin cercevesi (sahne_zengin.py bloklari; yoksa 'tam'); imza: imza efekt serbest (bolum acilisi, doruk, sayi) */
   cerceve?: CerceveTip; imza?: boolean };
 /** BOLUM MUAMELESI (video duzeyinde kurgu, sahne_zengin.py dramaturji): bolum boyunca tutarli, bolum gecisinde degisir.
@@ -354,6 +356,8 @@ export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; 
     else el = <AbsoluteFill>{medya}{bant}</AbsoluteFill>; // coklu (ve verisi eksik kart): medya duzeni + alt bant
     // vurgu karesi: vurus paketi (SFX 'vurgu' tepesi ayni kareye oturur); sayi kartinda zaten var
     if (c.flas && !(k && k.tur === 'sayi')) el = <Vurus stil={dnaStil(dna)} seviye={Math.min(2, vurusSeviye(dna.ton)) as any} tohum={dna.tohum + 'f' + i}>{el}</Vurus>;
+    // kunye yalniz medya tam gorunurken (kart zemini bulanik kopya oldugunda degil): duz cekim, medya ustu kelime karti, coklu
+    if (c.kunye && kaynak && (!k || k.tur === 'coklu' || (k.tur === 'kelime' && k.yerlesim !== 'zemin'))) el = <AbsoluteFill>{el}<DnaKunye dna={dna} metin={c.kunye} /></AbsoluteFill>;
     return { sure: c.kare + d(i), el, odak: cekimOdak(dna, c, i) };
   });
   // altyazi kart / alt bant olan cekimlerde gizlenir (iki yazi ust uste binmesin). etiket_ust isaretli (kaynakta alt ucte birde

@@ -19,9 +19,13 @@ kurgu.json:
     "tag": "mar_fulpost", "kb": 3.0,           # kaynak: public/<klasor>/kaynak/<tag>.mp4, kb = klipte baslangic sn
     "tags": ["a", "b"],                        # istege bagli: uzun bolum bolunurken sirayla kullanilacak kaynaklar
     "src": "v05/foto/x.jpg", "video": false,   # istege bagli: dogrudan dosya (foto/klip)
-    "kart": {"tur": "kelime|sayi|alinti", "a": "...", "b": "..."}, "etiket": "ALT BANT", "flas": false}
- ]
-}
+    "kart": {"tur": "kelime|sayi|alinti", "a": "...", "b": "..."}, "etiket": "ALT BANT", "flas": false,
+    "ai": true,                                # AI gorsel -> kosede AI etiketi (ILLUSTRATION / SYMBOLBILD / TEMSILI)
+    "kunye": "Video : X (CC BY)"}              # istege bagli elle kunye; false = bu bolumde kunye yok
+ ],
+ "kunye": {"dil": "fr", "ai": "ILLUSTRATION"}  # istege bagli: her medya cekiminin sag alt kosesine kaynak kunyesi
+}                                              # (KAYNAKCA.tsv: YouTube kanal + lisans; credits.json: yazar + lisans) ve AI etiketi
+Kunye yalniz plan "kunye" verirse yazilir (eski kanallarin plani degismez). AI gorsel: bolumde "ai": true ya da src yolunda /ai/.
 """
 import argparse, json, math, os, re, subprocess, sys
 try:
@@ -97,6 +101,42 @@ def hedef_medyan(rakip, dna):
     return 2.6, 'varsayilan'
 
 
+AI_ETIKET = {'fr': 'ILLUSTRATION', 'en': 'ILLUSTRATION', 'de': 'SYMBOLBILD', 'tr': 'TEMSİLÎ', 'ja': 'イメージ', 'es': 'ILUSTRACIÓN'}
+KUNYE_SOZ = {'fr': ('Vidéo : ', 'Photo : '), 'en': ('Video: ', 'Photo: '), 'de': ('Video: ', 'Foto: '), 'tr': ('Video: ', 'Fotoğraf: '),
+             'es': ('Vídeo: ', 'Foto: '), 'ja': ('映像：', '写真：')}
+
+
+def kunye_haritasi(kaynak_dir, klasor, dil):
+    """public/<klasor>/kaynak/ altindaki KAYNAKCA.tsv (YouTube) + credits.json (Commons/Openverse/web) -> {tag|src: kunye}"""
+    v, f = KUNYE_SOZ.get(dil, KUNYE_SOZ['en'])
+    out = {}
+    tsv = os.path.join(kaynak_dir, 'KAYNAKCA.tsv')
+    if os.path.exists(tsv):
+        import csv
+        for r in csv.DictReader(open(tsv, encoding='utf-8-sig', newline=''), delimiter='\t'):
+            ad, kanal = (r.get('dosya') or '').strip(), (r.get('kanal') or '').strip()
+            if not ad or not kanal:
+                continue
+            lis = 'CC BY' if (r.get('lisans') or '').upper().startswith('CC BY') else ''
+            metin = (v if not re.search(r'\.(jpe?g|png|webp)$', ad, re.I) else f) + kanal + (f' ({lis})' if lis else '')
+            kok_ad = os.path.splitext(os.path.basename(ad))[0]
+            out[kok_ad] = out[f'{klasor}/kaynak/{os.path.basename(ad)}'] = metin
+    cj = os.path.join(kaynak_dir, 'credits.json')
+    if os.path.exists(cj):
+        for c in jy(cj):
+            yazar = re.sub(r'\s+', ' ', str(c.get('yazar') or '')).strip()
+            if not yazar or yazar == 'bilinmiyor':
+                yazar = c.get('kaynak') or ''
+            yer = 'Wikimedia Commons' if 'ikimedia' in str(c.get('kaynak', '')) else ''
+            lis = c.get('lisans') or ''
+            metin = (v if c.get('tur') == 'video' else f) + yazar[:48] + (f' / {yer}' if yer and yer not in yazar else '') + (f' ({lis})' if lis and lis != 'Public domain' else '')
+            if c.get('src'):
+                out[c['src']] = metin
+            if c.get('tag'):
+                out[c['tag']] = metin
+    return out
+
+
 def kur(plan, kok, rakip):
     uyar = []
     fps = int(plan.get('fps', 30))
@@ -155,6 +195,14 @@ def kur(plan, kok, rakip):
             cekim.append((x, y, j, k))
     # 3) kareler (kaymasiz) + kaynak
     pub = yol(plan['public']) if plan.get('public') else None
+    kun = None
+    if plan.get('kunye'):
+        ka = plan['kunye'] if isinstance(plan['kunye'], dict) else {}
+        dil = ka.get('dil', 'en')
+        kun = {'ai': ka.get('ai') or AI_ETIKET.get(dil, 'ILLUSTRATION'),
+               'harita': kunye_haritasi(os.path.join(pub, plan['klasor'], 'kaynak'), plan['klasor'], dil) if pub else {}}
+        if not pub:
+            uyar.append('kunye: "public" yok -> yalniz AI etiketi ve elle kunye yazilir')
     sure_onbellek = {}
     out = []
     for (a, z, j, k) in cekim:
@@ -169,6 +217,10 @@ def kur(plan, kok, rakip):
         c = {'kare': kare, 'tag': tag, 'kb': round(kb, 3), 'kart': b.get('kart') if k == 0 else None, 'etiket': b.get('etiket') if k == 0 else None, 'flas': bool(b.get('flas')) and k == 0}
         if b.get('src'):
             c['src'] = b['src']
+        if kun is not None and b.get('kunye') is not False:
+            kn = b.get('kunye') or (kun['ai'] if b.get('ai') or '/ai/' in str(b.get('src') or '') else kun['harita'].get(b.get('src') or tag))
+            if kn:
+                c['kunye'] = kn
         if 'video' in b:
             c['video'] = bool(b['video'])
         if pub and not b.get('src') and tag:

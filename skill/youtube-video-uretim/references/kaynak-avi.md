@@ -70,5 +70,6 @@ py scripts/stok_ara.py temizle --klasor ...              # önizlemeleri sil (te
 4. Sayfanın lisansı görselin lisansı olmayabilir: koleksiyon sayfası "CC BY", tek bir görsel "© ajans" diyebilir. Şüphede o görselin kendi sayfasını `sayfa` ile ayrıca çözümle.
 
 ## 6. Atıf ve teslim
+- **Ekranda künye (rakip iskeleti):** kurgu.json'a `"kunye": {"dil": "fr"}` yazılınca `sahne_kur.py` her medya çekimine sağ alt köşe künyesi koyar: YouTube klibi `KAYNAKCA.tsv`'den ("Vidéo : Kanal (CC BY)"), Commons/Openverse `credits.json`'dan ("Photo : Yazar / Wikimedia Commons (CC BY-SA)"), AI görsel (`"ai": true` ya da `src` yolunda `/ai/`) dil etiketiyle ("ILLUSTRATION" / "SYMBOLBILD" / "TEMSİLÎ"). Bölümde `"kunye": "…"` elle yazar, `false` kapatır. VideoDna bunu `DnaKunye` ile çizer (kart zemininde görünmez).
 - `stok_ara.py atif --dil <kitle dili>` `kaynak/ATIF.txt` dosyasını yazar. İçinde görsel satırları ("başlık" by yazar, lisans (url) — kaynak), YouTube `KAYNAKCA.tsv` satırları ve BY/BY-SA için değişiklik notu bulunur. Bu metin `baslik-aciklama.txt` dosyasının kaynak bölümüne kopyalanır.
 - Teslimden sonra `stok_ara.py temizle` çalıştırılır; indirilen dosyalar `video_temizle.py` ile silinir. `credits.json`, `ATIF.txt` ve `KAYNAKCA.tsv` kalır: hem kanıt hem kanallar arası tekrar hafızasıdır.

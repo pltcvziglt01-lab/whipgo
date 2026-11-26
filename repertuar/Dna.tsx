@@ -4,7 +4,7 @@ import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { DiziSahne, GecisTip, GecisliDizi } from './Gecis';
 import { Alinti, AlintiTip, AltBant, AltBantKonum, AltBantTip, Karsilastirma, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
 import { ANI_DOKU, Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
-import { HareketAd, Stil, rastgele, stilYap } from './temel';
+import { HareketAd, OKUNUR, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
 import { Bitis, BitisTip } from './Bitis';
 import { BolgeVurgu, EtiketliHarita, HaritaNokta, HaritaRota, HaritaTip } from './Harita';
@@ -171,6 +171,18 @@ export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; g
 export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[]; konum?: 'alt' | 'orta' | 'ust-ucte-bir' }> = ({ dna, kelimeler, konum }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} konum={konum} />);
 /** konum 'ust': alt bant ust kosede (kaynak goruntunun alt ucte birinde gomulu yazi varsa; VideoDna etiket_ust) */
 export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean; konum?: AltBantKonum }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
+/** kunye: medya cekiminin sag alt kosesinde kucuk, sabit kaynak yazisi ("Video : Kanal (CC BY)") ya da AI gorsel etiketi
+ *  ("ILLUSTRATION"). Belgesel dili: cekimle birlikte gelir/gider, animasyonsuz; altyazinin (alttan 110 px) altinda kalir. */
+export const DnaKunye: React.FC<{ dna: Dna; metin: string }> = ({ dna, metin }) => {
+  const s = dnaStil(dna);
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', right: 40, bottom: 26, maxWidth: 760, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textAlign: 'right',
+        fontFamily: s.font.govde, fontWeight: s.font.govdeAgirlik, fontSize: OKUNUR.sus, letterSpacing: 0.4, color: 'rgba(255,255,255,0.88)',
+        textShadow: '0 1px 2px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.55)' }}>{metin}</div>
+    </AbsoluteFill>
+  );
+};
 /** sayi karti. kaynak verilirse zemin O CEKIMIN goruntusudur (bulanik + koyulastirilmis/palet tonuna yikanmis, karta ters yonde
  *  yavas kayar -> parallax): her sayi karti kendi sahnesinin rengini tasir, ayni sablon tekrar etmez. kaynak yoksa DNA arka plani. */
 export const DnaSayi: React.FC<{ dna: Dna; deger: number; onEk?: string; sonEk?: string; ust?: string; alt?: string; yuzde?: number; kaynak?: MedyaKaynak }> = ({ dna, kaynak, ...p }) => (

@@ -36,6 +36,7 @@ Akiya/Remotion/ffmpeg'e özgü ek tuzaklar: `dersler-akiya-medical.md` son böl�
 | Video Windows'ta açılmıyor | `yuvj420p` | tv/bt709 dönüşümü |
 | Not Defteri'nde bozuk Türkçe/Japonca | BOM yok | UTF-8 BOM'lu yaz |
 | `ses.py` ilk bölümü (`# 0 KANCA`) seslendirmiyor, vo.mp3 bir bölüm eksik | metin.txt PowerShell 5.1 `Set-Content -Encoding utf8` ile yazılınca başına BOM eklenir; `utf-8` ile okununca ilk satır `#` ile başlamaz | metin.txt'yi `utf-8-sig` ile oku (ses.py), PowerShell'de metin dosyası yazma; bölüm sayısını `bolumler.json`'da doğrula. Atlanan bölüm sonradan eklenirse `ses/NN.mp3` önbelleği kaydırılır, yeniden üretilmez |
+| Render `EPERM: operation not permitted, symlink '...\yt-uretim\fontlar' -> '...remotion-webpack-bundle...\public\fontlar'` | `public/fontlar` ya da `public/varlik` junction; Remotion bundle public/'i kopyalarken junction'ı symlink yapmaya çalışır, geliştirici modu yoksa izin yok | public/ altında junction olmaz: `varlik_kur.py kanal <motion>` hard link kurar (junction'ı kaldırır). `kurulum.py kanal` artık bunu çağırır; `src/repertuar` junction kalır |
 | Drive "tamam" ama dosya yok | yükleme paneli yanıltıcı | klasör satırında ad + boyut |
 | Heredoc ile yazılan betikte regex bozuk | bash `\b`, `\n`, Windows yolları | Write/Edit kullan |
 | Kartta/kapakta eski videonun il/ırk adı | şablon kopyası | QC'de konu adını ayrıca kontrol et |

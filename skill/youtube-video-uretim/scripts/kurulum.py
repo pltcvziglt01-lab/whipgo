@@ -265,10 +265,15 @@ def kanal(a):
     m = os.path.join(kk, 'motion')
     if not os.path.isdir(m):
         sys.exit(f'HATA: {m} yok (Remotion projesi motion/ altinda olmali)')
-    for hedef, kaynak in [(os.path.join(m, 'src', 'repertuar'), os.path.join(KOK, 'repertuar')),
-                          (os.path.join(m, 'public', 'varlik'), os.path.join(KOK, 'varlik')),
-                          (os.path.join(m, 'public', 'fontlar'), os.path.join(KOK, 'fontlar'))]:
-        print(f'{os.path.relpath(hedef, kk):24}', baglanti(hedef, kaynak, a.deneme))
+    # src/repertuar: junction (webpack izler). public/: HARD LINK (varlik_kur.py kanal) -- Remotion bundle public/'i kopyalarken
+    # junction'i symlink yapmaya calisir, yonetici/gelistirici modu yoksa EPERM ile render durur (tuzaklar.md).
+    print(f"{'src/repertuar':24}", baglanti(os.path.join(m, 'src', 'repertuar'), os.path.join(KOK, 'repertuar'), a.deneme))
+    if a.deneme:
+        print(f"{'public/fontlar, varlik':24} hard link kurulacak (varlik_kur.py kanal)")
+    else:
+        r = subprocess.run([sys.executable, '-I', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'varlik_kur.py'), 'kanal', m],
+                           capture_output=True, text=True, encoding='utf-8', errors='replace')
+        print(f"{'public/fontlar, varlik':24}", (r.stdout.strip().splitlines() or ['?'])[-2 if len(r.stdout.strip().splitlines()) > 1 else -1] if r.returncode == 0 else 'HATA ' + (r.stderr or r.stdout)[-300:])
     vd = os.path.join(m, 'src', 'VideoDna.tsx')
     if os.path.exists(vd):
         print('src/VideoDna.tsx        ', 'var' if 'repertuar/VideoDna' in open(vd, encoding='utf-8').read() else 'VAR AMA ESKI (ortak sablona baglanmali)')
