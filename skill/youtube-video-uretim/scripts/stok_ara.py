@@ -552,10 +552,19 @@ def indir_video(c, hedef, bas, son, en_uzun):
     cmd = ['ffmpeg', '-v', 'error', '-y', '-user_agent', UA, '-ss', str(bas), '-i', c['indir_url'], '-t', f'{sure:.2f}',
            '-vf', "scale='min(1920,iw)':-2:flags=lanczos,fps=30,format=yuv420p", '-c:v', 'libx264', '-crf', '18', '-preset', 'medium',
            '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-x264-params', 'colorprim=bt709:transfer=bt709:colormatrix=bt709', '-an', '-movflags', '+faststart', hedef]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    for deneme in range(3):  # upload.wikimedia.org cok istekte 429 verir: bekle, yeniden dene
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if '429' in r.stderr and deneme < 2:
+            time.sleep(30 * (deneme + 1))
+            continue
+        break
     if r.returncode or not os.path.exists(hedef):
         raise RuntimeError(r.stderr[-300:])
-    return ffprobe(hedef)
+    p = ffprobe(hedef)
+    if not p:  # ffmpeg 0 dondu ama dosya bos/bozuk (yarim indirme): kaydetme, yedek yolu dene
+        os.remove(hedef)
+        raise RuntimeError('indirilen video okunamadi (bos/bozuk)')
+    return p
 
 
 def sec(a):
