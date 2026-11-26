@@ -82,6 +82,8 @@ const KartEl: React.FC<{ dna: Dna; k: Kart; kaynak?: MedyaKaynak }> = ({ dna, k,
   return null;
 };
 
+/** bolum kartinin ust etiketi videonun dilinde (dna.dil); yoksa CHAPTER (eski davranis) */
+const bolumSoz = (dil?: string) => ({ fr: 'CHAPITRE', de: 'KAPITEL', tr: 'BÖLÜM', es: 'CAPÍTULO', it: 'CAPITOLO', pt: 'CAPÍTULO' } as Record<string, string>)[dil || ''] || 'CHAPTER';
 /** grafik ekseninin cizilen tipi (DnaGrafik ile ayni karar) */
 const grafikTip = (dna: Dna) => (dna.grafik && dna.grafik !== 'eleme-izgara' ? dna.grafik : 'cizgi-isik');
 /** coklu duzen: verilmezse medya sayisina gore donusumlu (m3: kolaj/odak-karartma, m2: bolunmus/odak-karartma, tek: odak-karartma) */
@@ -319,7 +321,10 @@ export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; 
       ? <DnaMedya {...ortak} m={kaynak} m2={k.m2 ? kaynakYap(veri.klasor, k.m2, k.kb2) : undefined} m3={k.m3 ? kaynakYap(veri.klasor, k.m3, k.kb3) : undefined} />
       : <DnaMedya {...ortak} m={kaynak} />;
     const medya = c.flas && presetler.length ? <DnaVurgu dna={dna} presetler={presetler} sira={i}>{medya0}</DnaVurgu> : medya0;
-    const bant = c.etiket ? <DnaAltBant dna={dna} ust={c.etiket} konum={c.etiket_ust ? 'ust' : 'alt'} /> : null;
+    // odak verilmisse kisi-karti penceresi konunun yatay merkezine oturur
+    // etiket 'UST | ALT': ust satir + alt satir (kisi-karti: alt 'ROL · satir' rozet + satirlar); tek parca eski davranis
+    const [etUst, etAlt] = (c.etiket || '').split(/\s+\|\s+/);
+    const bant = c.etiket ? <DnaAltBant dna={dna} ust={etUst} alt={etAlt} konum={c.etiket_ust ? 'ust' : 'alt'} pencere={c.odak ? c.odak[0] + c.odak[2] / 2 : undefined} /> : null;
     let el: React.ReactNode;
     if (!k) el = <AbsoluteFill>{medya}{bant}</AbsoluteFill>;
     else if (k.tur === 'sayi')
@@ -353,8 +358,8 @@ export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; 
       const no = String(k.no ?? '').padStart(2, '0');
       el = s % 2
         // hayalet numara: dev kontur bolum numarasi arkada yavas kayar, onde DNA basligi (ust satir: alt ya da CHAPTER NN)
-        ? <AbsoluteFill><DnaArkaplan dna={dna} rol={2} /><DnaHud dna={dna} tip="hayalet-yil" ust={no} /><DnaBaslik dna={dna} metin={k.baslik || ''} ust={k.alt || `CHAPTER ${no}`} arkaplanli={false} boyut={150} /></AbsoluteFill>
-        : <DnaBaslik dna={{ ...dna, baslik: 'bolum-numarasi', baslik2: undefined }} metin={k.alt ? `${k.baslik} | ${k.alt}` : k.baslik || ''} ust={`CHAPTER ${no}`} />;
+        ? <AbsoluteFill><DnaArkaplan dna={dna} rol={2} /><DnaHud dna={dna} tip="hayalet-yil" ust={no} /><DnaBaslik dna={dna} metin={k.baslik || ''} ust={k.alt || `${bolumSoz(dna.dil)} ${no}`} arkaplanli={false} boyut={150} /></AbsoluteFill>
+        : <DnaBaslik dna={{ ...dna, baslik: 'bolum-numarasi', baslik2: undefined }} metin={k.alt ? `${k.baslik} | ${k.alt}` : k.baslik || ''} ust={`${bolumSoz(dna.dil)} ${no}`} />;
     } else if (k.tur === 'degisim')
       el = <AbsoluteFill>{kaynak ? <DnaKaynakZemin dna={dna} m={kaynak} /> : <DnaArkaplan dna={dna} rol={1} />}<DnaBaslik dna={{ ...dna, baslik: 'ustu-cizili-degisim', baslik2: undefined }} metin={`${k.eski || ''} | ${k.yeni || ''}`} ust={k.ust} arkaplanli={false} konum="orta" /></AbsoluteFill>;
     else el = <AbsoluteFill>{medya}{bant}</AbsoluteFill>; // coklu (ve verisi eksik kart): medya duzeni + alt bant

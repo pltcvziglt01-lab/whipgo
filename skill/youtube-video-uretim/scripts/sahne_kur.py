@@ -21,7 +21,8 @@ kurgu.json:
     "src": "v05/foto/x.jpg", "video": false,   # istege bagli: dogrudan dosya (foto/klip)
     "kart": {"tur": "kelime|sayi|alinti", "a": "...", "b": "..."}, "etiket": "ALT BANT", "flas": false,
     "ai": true,                                # AI gorsel -> kosede AI etiketi (ILLUSTRATION / SYMBOLBILD / TEMSILI)
-    "kunye": "Video : X (CC BY)"}              # istege bagli elle kunye; false = bu bolumde kunye yok
+    "kunye": "Video : X (CC BY)",              # istege bagli elle kunye; false = bu bolumde kunye yok
+    "odak": [0.3, 0.2, 0.3, 0.6]}              # istege bagli: konunun kutusu (0..1) -> alt bant kisi-karti penceresi konuya oturur
  ],
  "dil": "fr",                                  # istege bagli: videonun dili -> dna.dil (sayi bicimi 4 000 / 1,5) + kunye dili
  "kunye": {"dil": "fr", "ai": "ILLUSTRATION"}  # istege bagli: her medya cekiminin sag alt kosesine kaynak kunyesi
@@ -220,6 +221,8 @@ def kur(plan, kok, rakip):
         c = {'kare': kare, 'tag': tag, 'kb': round(kb, 3), 'kart': b.get('kart') if k == 0 else None, 'etiket': b.get('etiket') if k == 0 else None, 'flas': bool(b.get('flas')) and k == 0}
         if b.get('src'):
             c['src'] = b['src']
+        if b.get('odak') and k == 0:
+            c['odak'] = b['odak']   # [x, y, w, h] 0..1: konu (kisi-karti penceresi, odak-karartma, nesne-dalisi)
         if kun is not None and b.get('kunye') is not False:
             kn = b.get('kunye') or (kun['ai'] if b.get('ai') or '/ai/' in str(b.get('src') or '') else kun['harita'].get(b.get('src') or tag))
             if kn:

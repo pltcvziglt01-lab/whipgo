@@ -172,7 +172,7 @@ export const DnaSfx: React.FC<{ dna: Dna; olaylar: SfxOlay[]; klasor?: string; g
 /** konum 'ust-ucte-bir': kaynak goruntunun alt ucte birinde gomulu yazi olan cekimlerde (VideoDna etiket_ust) altyazi yukari alinir */
 export const DnaAltyazi: React.FC<{ dna: Dna; kelimeler: Kelime[]; konum?: 'alt' | 'orta' | 'ust-ucte-bir' }> = ({ dna, kelimeler, konum }) => (dna.altyazi === 'yok' ? null : <Altyazi tip={dna.altyazi} kelimeler={kelimeler} stil={dnaStil(dna)} konum={konum} />);
 /** konum 'ust': alt bant ust kosede (kaynak goruntunun alt ucte birinde gomulu yazi varsa; VideoDna etiket_ust) */
-export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean; konum?: AltBantKonum }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
+export const DnaAltBant: React.FC<{ dna: Dna; ust: string; alt?: string; medyaUstu?: boolean; konum?: AltBantKonum; pencere?: number }> = ({ dna, ...p }) => <AltBant tip={dna.altbant} stil={dnaStil(dna)} {...p} />;
 /** kunye: medya cekiminin sag alt kosesinde kucuk, sabit kaynak yazisi ("Video : Kanal (CC BY)") ya da AI gorsel etiketi
  *  ("ILLUSTRATION"). Belgesel dili: cekimle birlikte gelir/gider, animasyonsuz; altyazinin (alttan 110 px) altinda kalir. */
 export const DnaKunye: React.FC<{ dna: Dna; metin: string }> = ({ dna, metin }) => {

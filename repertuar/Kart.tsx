@@ -16,7 +16,8 @@ export type AltBantKonum = 'alt' | 'ust';
  *  ustunde -> palet murekkebi. Okunurluk tabani (OKUNUR): ust satir >= 64 px, alt satir >= 40 px, kalinlik >= 600; uzun etiket
  *  1500 px'te satira bolunur (kucultulmez). Plakasiz tipte (cizgi-acilis) kontrast scrim + kontur ile, digerlerinde
  *  yari saydam koyu/acik plaka ile saglanir. */
-export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu?: boolean; konum?: AltBantKonum }> = ({ tip, ust, alt, stil, sag, medyaUstu = true, konum = 'alt' }) => {
+/** pencere: kisi-karti'nda medya penceresinin yatay merkezi (0..1, cekimin konusu); verilmezse sag/sol sabit (eski davranis) */
+export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu?: boolean; konum?: AltBantKonum; pencere?: number }> = ({ tip, ust, alt, stil, sag, medyaUstu = true, konum = 'alt', pencere }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet, font, hareket } = stil;
@@ -35,7 +36,7 @@ export const AltBant: React.FC<{ tip: AltBantTip; ust: string; alt?: string; sti
     background: `radial-gradient(ellipse 75% 60% at ${sag ? '88%' : '12%'} ${ustte ? '0%' : '100%'}, ${rgba('#000', 0.62)} 0%, ${rgba('#000', 0.32)} 45%, transparent 75%)` }} /> : null;
   const sar = (el: React.ReactNode) => <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>{scrim}{el}</div>;
   // kisi-karti tam ekran tanitim karti: konum (alt/ust) uygulanmaz, sag -> portre cercevesi solda
-  if (tip === 'kisi-karti') return <KisiKarti ust={ust} alt={alt} stil={stil} sag={sag} medyaUstu={medyaUstu} />;
+  if (tip === 'kisi-karti') return <KisiKarti ust={ust} alt={alt} stil={stil} sag={sag} medyaUstu={medyaUstu} pencere={pencere} />;
   switch (tip) {
     case 'cizgi-acilis':
       return sar(
@@ -1362,7 +1363,9 @@ const DefterListesi: React.FC<ListeProps> = ({ baslik, maddeler, stil }) => {
  *  cizilir. Diger tarafta kademeli maske girisli yigin: rol cipi (alt'in ilk parcasi), dev ad (ust, ~%11 yukseklik,
  *  >= 72), satirlar (alt'in kalan parcalari, >= 44); kosede alt'taki ilk yilin %8 hayaleti. alt parcalari ' | ' ya da
  *  ' · ' ile ayrilir: "Rol | 1893-1958 | Aciklama". Tum yigin yavas itilir (donuk kalmaz). sag: cerceve solda. */
-const KisiKarti: React.FC<{ ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu: boolean }> = ({ ust, alt, stil, sag, medyaUstu }) => {
+const KisiKarti: React.FC<{ ust: string; alt?: string; stil: Stil; sag?: boolean; medyaUstu: boolean; pencere?: number }> = ({ ust, alt, stil, sag: sag0, medyaUstu, pencere }) => {
+  // pencere verilirse medya penceresi konunun uzerine oturur, yazi karsi tarafa gecer (hayvan / manzara cekiminde bos ot gorunmesin)
+  const sag = pencere === undefined ? sag0 : pencere < 0.5;
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { palet, font } = stil;
@@ -1371,8 +1374,8 @@ const KisiKarti: React.FC<{ ust: string; alt?: string; stil: Stil; sag?: boolean
   const satir = parca.length > 1 ? parca.slice(1) : parca;
   const yil = (alt || '').match(/\b(1[0-9]{3}|20[0-9]{2})\b/)?.[1];
   const FW = 634, FH = 918, FT = 81, KEN = 120;
-  const FL = sag ? KEN : 1920 - KEN - FW;
-  const TL = sag ? KEN + FW + 100 : KEN, TW = 1920 - 2 * KEN - FW - 100;
+  const FL = pencere === undefined ? (sag ? KEN : 1920 - KEN - FW) : Math.max(KEN, Math.min(1920 - KEN - FW, pencere * 1920 - FW / 2));
+  const TL = sag ? FL + FW + 100 : KEN, TW = sag ? 1920 - KEN - (FL + FW + 100) : FL - 100 - KEN;
   const cer = ilerle(f, 0, 10, 'kubik-hizli');
   const kar = ilerle(f, 0, 8, 'kubik-hizli');
   const yaziR = medyaUstu ? (palet.acik ? palet.zemin : palet.murekkep) : palet.murekkep;
