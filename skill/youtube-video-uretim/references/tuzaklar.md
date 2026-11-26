@@ -35,6 +35,7 @@ Akiya/Remotion/ffmpeg'e özgü ek tuzaklar: `dersler-akiya-medical.md` son böl�
 | Açılışta sunucunun yüzü kapandı | `H(0)` + `R(0)` aynı cümlede | R(0)'ı sil |
 | Video Windows'ta açılmıyor | `yuvj420p` | tv/bt709 dönüşümü |
 | Not Defteri'nde bozuk Türkçe/Japonca | BOM yok | UTF-8 BOM'lu yaz |
+| `ses.py` ilk bölümü (`# 0 KANCA`) seslendirmiyor, vo.mp3 bir bölüm eksik | metin.txt PowerShell 5.1 `Set-Content -Encoding utf8` ile yazılınca başına BOM eklenir; `utf-8` ile okununca ilk satır `#` ile başlamaz | metin.txt'yi `utf-8-sig` ile oku (ses.py), PowerShell'de metin dosyası yazma; bölüm sayısını `bolumler.json`'da doğrula. Atlanan bölüm sonradan eklenirse `ses/NN.mp3` önbelleği kaydırılır, yeniden üretilmez |
 | Drive "tamam" ama dosya yok | yükleme paneli yanıltıcı | klasör satırında ad + boyut |
 | Heredoc ile yazılan betikte regex bozuk | bash `\b`, `\n`, Windows yolları | Write/Edit kullan |
 | Kartta/kapakta eski videonun il/ırk adı | şablon kopyası | QC'de konu adını ayrıca kontrol et |
