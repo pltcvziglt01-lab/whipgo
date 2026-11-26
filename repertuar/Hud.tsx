@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { OKUNUR, Stil, egri, ilerle, karistir, rgba, siganBoyut, sinirla, yay } from './temel';
+import { OKUNUR, Stil, egri, ilerle, karistir, rgba, siganBoyut, sinirla, yay, sayiYereli } from './temel';
 
 // HUD — medyanin USTUNE binen kalici bilgi katmanlari (saydam). Ogrenildigi kanallar: @Ground-Engineering (kamerayla senkron
 // derinlik sayaci), @ImmersivePast (sag kenarda derinlik cetveli + sol ustte guncellenen tarih/yer rozeti).
@@ -54,7 +54,7 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
           <div style={{ position: 'absolute', right: 240, top: H / 2 - 52, padding: '12px 24px', background: rgba('#000', 0.45), border: `1px solid ${rgba(renk, 0.8)}` }}>
             {kose(renk, 14, 3).map((s, i) => <div key={i} style={{ ...s, margin: -5 }} />)}
             <div style={{ ...yazi, fontSize: 32, fontWeight: 700, letterSpacing: 4, color: renk }}>{(etiket || 'DEPTH').toUpperCase()}</div>
-            <div style={{ ...yazi, fontSize: 46, fontWeight: 700 }}>{Math.round(v).toLocaleString('en-US')}<span style={{ fontSize: 32, marginLeft: 8 }}>{birim}</span></div>
+            <div style={{ ...yazi, fontSize: 46, fontWeight: 700 }}>{Math.round(v).toLocaleString(sayiYereli())}<span style={{ fontSize: 32, marginLeft: 8 }}>{birim}</span></div>
           </div>
         </AbsoluteFill>
       );
@@ -203,7 +203,7 @@ export const Hud: React.FC<{ tip: HudTip; stil: Stil; deger?: number; baslangic?
       // Yavas yatay kayar (kamera durmaz). Icerik: ust'te 3-4 haneli yil varsa o ('Feb 11, 1945' -> 1945), ust kisaysa (<= 6)
       // kendisi, yoksa baslangic -> deger sayar (+ birim). Sahnede basliktan ONCE (altta) cizilir; sahne degisince yeni Hud ile solar.
       const yilEs = ust.match(/\b(1\d{3}|20\d{2})\b/);
-      const metin = yilEs ? yilEs[1] : ust && ust.length <= 6 ? ust : Math.round(v).toLocaleString('en-US') + (birim || '');
+      const metin = yilEs ? yilEs[1] : ust && ust.length <= 6 ? ust : Math.round(v).toLocaleString(sayiYereli()) + (birim || '');
       const t = (f - gec) / fps;
       const gir = yay(sinirla((f - gec) / (fps * 0.6)));
       const boy = siganBoyut([metin], H * 0.62, font.baslik, W * 0.92);

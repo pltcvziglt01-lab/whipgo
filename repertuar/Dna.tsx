@@ -17,6 +17,8 @@ import { SfxKatmani, SfxOlay, SfxTon, sfxPlani } from './Sfx';
 // stil-dna.json (stil_dna.py ciktisi) -> bilesenler. Video kodu yalniz bunlari kullanir; boylece her video/kanal
 // kendi DNA'siyla bambaska gorunur ve "klasik Claude" gorunumune geri dusmez.
 export type Dna = {
+  /** videonun dili (fr, de, tr...): sayi bicimi (4 000 / 1,5); yoksa en-US */
+  dil?: string;
   palet: string; font: string; hareket: HareketAd; arkaplan: ArkaplanTip[]; gecis: GecisTip[]; kamera: KameraTip[]; cerceve: CerceveTip[];
   baslik: BaslikTip; altyazi: AltyaziTip | 'yok'; altbant: AltBantTip; sayi: SayiTip; alinti: AlintiTip; liste: ListeTip; zaman: ZamanTip; doku: DokuTip[];
   iskelet: { fps: number; gecis_kare: number; yumusak_oran: number; cerceveli_oran: number; ilk30_medyan_sn?: number; genel_medyan_sn?: number; sfx_orani?: number };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, kayma, kontrast, okunurVurgu, rastgele, rgba, siganBoyut, sinirla, yay } from './temel';
+import { OKUNUR, Stil, egri, ilerle, kademe, kameraNefes, karistir, kayma, kontrast, okunurVurgu, rastgele, rgba, siganBoyut, sinirla, yay, sayiYereli } from './temel';
 import { YonBulanik } from './Hareket';
 
 // GRAFIK — veri animasyonlari. Ogrenildigi kanallar: @TheUnreturned-b2k (koyu panelde cizilen cizgi grafik),
@@ -13,7 +13,7 @@ export const GRAFIK_TIPLERI = ['cizgi-isik', 'alan-dolgu', 'basamak', 'eleme-izg
   'meclis-yarim-daire', 'ag-buyume', 'dongu-semasi', 'iliski-cipleri'] as const;
 export type GrafikTip = typeof GRAFIK_TIPLERI[number];
 
-const kisa = (v: number) => (Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Math.abs(v) >= 1e4 ? Math.round(v / 1e3) + 'K' : Math.round(v).toLocaleString('en-US'));
+const kisa = (v: number) => (Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Math.abs(v) >= 1e4 ? Math.round(v / 1e3) + 'K' : Math.round(v).toLocaleString(sayiYereli()));
 
 type TekSeriProps = { stil: Stil; veriler: number[]; etiketler?: string[]; baslik?: string; birim?: string; gec?: number; sure?: number };
 /** TEK SERI GRAFIK (DnaGrafik buradan cizer): tip cubuk-trend / nokta-oran-izgarasi / cubuk-yarisi ise ilgili bilesene gider,
@@ -126,7 +126,7 @@ export const ElemeIzgara: React.FC<{ stil: Stil; asamalar: number[]; etiketler?:
         })}
       </svg>
       <div style={{ position: 'absolute', left: W * 0.1, top: H * 0.09, display: 'flex', alignItems: 'baseline', gap: 26 }}>
-        <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 96, color: palet.vurgu, fontVariantNumeric: 'tabular-nums' }}>{sayi.toLocaleString('en-US')}</div>
+        <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 96, color: palet.vurgu, fontVariantNumeric: 'tabular-nums' }}>{sayi.toLocaleString(sayiYereli())}</div>
         {etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a] ? <div style={{ fontFamily: font.govde, fontWeight: font.govdeAgirlik, fontSize: 34, color: palet.murekkep, letterSpacing: 2, textTransform: 'uppercase' }}>{etiketler[ap > 0.8 && a + 1 < asamalar.length ? a + 1 : a]}</div> : null}
       </div>
     </AbsoluteFill>
@@ -454,7 +454,7 @@ export const MeclisYarimDaire: React.FC<{ stil: Stil; gruplar: MeclisGrup[]; bas
         </svg>
         <div style={{ position: 'absolute', left: cx - 300, width: 600, top: cy - 116, textAlign: 'center', opacity: g0 }}>
           <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: siganBoyut([String(N) + birim], 120, font.baslik, R * r0 * 1.7), lineHeight: 1, color: P.yazi, fontVariantNumeric: 'tabular-nums' }}>
-            {Math.round(N * egri('kubik-hizli', ilr(f, gec, fps * 0.5))).toLocaleString('en-US')}{birim}</div>
+            {Math.round(N * egri('kubik-hizli', ilr(f, gec, fps * 0.5))).toLocaleString(sayiYereli())}{birim}</div>
         </div>
         <div style={{ position: 'absolute', left: 0, right: 0, top: cy + 46, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '14px 46px', padding: '0 120px', opacity: leg, transform: `translateY(${(1 - leg) * 14}px)` }}>
           {gs.map((g, i) => (

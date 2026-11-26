@@ -318,4 +318,11 @@ export const kayma = (fn: (kare: number) => number, f: number, perde = DEKLANSOR
 /** ton: stil_dna.py'nin konu tonu (ciddi/gizem/enerjik/sakin); verilirse ciddi/gizem tonda hic asim olmaz,
  *  ciddi/gizem/sakin tonda sekmeli hareket (yay-esnek, geri-sekme) kubik-hizli'ya iner (eski DNA'lar da guvende) */
 export type Stil = { palet: Palet; font: FontCifti; hareket: HareketAd; tohum: string; ton?: string };
+// ---------- SAYI YERELI (videonun dili) ----------
+// VideoDna her render'da dna.dil ile kurar (sayiYerelKur); dil yoksa en-US = eski davranis (eski kanallar degismez).
+// fr: 4 000 / 1,5 · de: 4.000 / 1,5 · tr: 4.000 / 1,5
+const YERELLER: Record<string, string> = { fr: 'fr-FR', de: 'de-DE', tr: 'tr-TR', es: 'es-ES', it: 'it-IT', pt: 'pt-PT', ja: 'ja-JP', en: 'en-US' };
+let SAYI_YEREL = 'en-US';
+export const sayiYerelKur = (dil?: string) => { SAYI_YEREL = (dil && YERELLER[dil]) || 'en-US'; };
+export const sayiYereli = () => SAYI_YEREL;
 export const stilYap = (p?: string, f?: string, h?: HareketAd, tohum = 'x', ton?: string): Stil => ({ palet: palet(p), font: fontCifti(f), hareket: tonHareket(h || 'kubik-hizli', ton), tohum, ton });

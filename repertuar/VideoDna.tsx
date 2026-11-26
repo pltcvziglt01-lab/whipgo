@@ -11,7 +11,7 @@ import { GecisTip, gecisPlani } from './Gecis';
 import { FontYukle } from './FontYukle';
 import { SfxOlay } from './Sfx';
 import { CerceveTip, MedyaKaynak, cerceveOdak } from './Medya';
-import { OKUNUR, egri, metinGenislik, sinirla } from './temel';
+import { OKUNUR, egri, metinGenislik, sayiYerelKur, sayiYereli, sinirla } from './temel';
 
 // ORTAK KURGU SABLONU (tum kanallar): sahne.json / props.json -> yalniz Dna* bilesenleri + SFX + bitis katmani.
 // Kanal projesi bunu sarar (kanal kodu yazilmaz): `export { VideoDna } from './repertuar/VideoDna'` ve presetleri prop olarak verir.
@@ -60,11 +60,14 @@ export type Bolum = { bas: number; son: number; ad?: string; rol: 'kanca' | 'gir
 export type SahneVeri = { klasor: string; fps: number; toplam: number; cekimler: Cekim[]; kelimeler: { k: string; bas: number; son: number }[]; bolumler?: Bolum[] };
 
 const SAYI = /^([^\d-]*?)(\d[\d,.]*)(\D*)$/;
-const sayiAyir = (s: string) => {
+const sayiAyir = (s0: string) => {
+  // virgul-ondalik dillerde (fr/de/tr/es...) once normalize: '4 000' / '4.000' binlik -> 4000, '1,5' -> 1.5 (ondalik -> baslik)
+  const vo = !['en-US', 'ja-JP'].includes(sayiYereli());
+  const s = vo ? s0.replace(/(\d)[\s\u00a0\u202f.](?=\d{3}(?!\d))/g, '$1').replace(/(\d),(?=\d)/g, '$1.') : s0;
   const m = s.trim().match(SAYI);
   if (!m || /[-–]\s*\d/.test(s.trim().slice(m[1].length + m[2].length))) return null;
   const v = parseFloat(m[2].replace(/,/g, ''));
-  return isNaN(v) ? null : { onEk: m[1], deger: v, sonEk: m[3] };
+  return isNaN(v) ? null : { onEk: m[1], deger: v, sonEk: m[3], ondalik: /\./.test(s) };
 };
 
 /** sayi kartinin zemini o cekimin kaynak goruntusu (kaynak); yil/ondalik sayi baslik olarak DNA zemininde */
@@ -73,7 +76,7 @@ const KartEl: React.FC<{ dna: Dna; k: Kart; kaynak?: MedyaKaynak }> = ({ dna, k,
   if (k.tur === 'sayi') {
     const s = sayiAyir(k.a || '');
     const yil = s && !s.onEk && !s.sonEk.trim() && s.deger >= 1900 && s.deger <= 2100;
-    if (s && !yil && !/\./.test(k.a || '')) return <DnaSayi dna={dna} deger={s.deger} onEk={s.onEk} sonEk={s.sonEk} alt={k.b} kaynak={kaynak} />;
+    if (s && !yil && !s.ondalik) return <DnaSayi dna={dna} deger={s.deger} onEk={s.onEk} sonEk={s.sonEk} alt={k.b} kaynak={kaynak} />;
     return <DnaBaslik dna={dna} metin={k.a || ''} ust={k.b} boyut={170} />;
   }
   return null;
@@ -294,6 +297,7 @@ const bolumTon = (veri: SahneVeri, f: number) => {
 const bolumBul = (veri: SahneVeri, kare: number) => (veri.bolumler || []).find((b) => kare >= b.bas && kare < b.son);
 
 export const VideoDna: React.FC<{ dna: Dna; veri: SahneVeri; presetler?: any[]; sfx?: boolean; sfxKlasor?: string }> = ({ dna, veri, presetler = [], sfx = true, sfxKlasor }) => {
+  sayiYerelKur(dna.dil); // sayi kartlari / grafik / HUD videonun dilinde (fr: 4 000)
   const fr = useCurrentFrame();
   const plan = React.useMemo(() => gecisPlaniVideo(veri, dna), [veri, dna.tohum]);
   const cb = React.useMemo(() => cerceveBloklari(dna, veri), [veri, dna.tohum]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
-import { FONTLAR, OKUNUR, Stil, egri, fbm, hashStr, ilerle, kademe, karistir, konturGolge, metinGenislik, okunurVurgu, rastgele, rgba, satirBol, sinirla, tutmaItme, yay, yazYerlesim } from './temel';
+import { FONTLAR, OKUNUR, Stil, egri, fbm, hashStr, ilerle, kademe, karistir, konturGolge, metinGenislik, okunurVurgu, rastgele, rgba, satirBol, sinirla, tutmaItme, yay, yazYerlesim, sayiYereli } from './temel';
 
 // KARTLAR — saydam katmanlardir; arkalarina Arkaplan ya da Medya konur. Her kartin birden cok tasarim varyanti var;
 // stil_dna kanal basina her kart turu icin BIR varyant kilitler (kanal imzasi), rakibinkinden farkli olani.
@@ -133,7 +133,7 @@ const SayiTemel: React.FC<SayiProps> = ({ tip, deger, onEk = '', sonEk = '', ust
   const g = ilerle(f, 0, fps * 0.5, hareket);
   const ustEl = ust ? <div style={{ fontFamily: font.govde, fontWeight: Math.max(600, font.govdeAgirlik), fontSize: 44, color: palet.soluk, marginBottom: 10, opacity: g, textAlign: 'center', maxWidth: 1500 }}>{ust}</div> : null;
   const altEl = alt ? <div style={{ fontFamily: font.govde, fontWeight: Math.max(700, font.govdeAgirlik), fontSize: SAYI_ETIKET, lineHeight: 1.12, color: palet.murekkep, marginTop: 22, maxWidth: 1500, textAlign: 'center', opacity: g, transform: `translateY(${(1 - g) * 16}px)` }}>{alt}</div> : null;
-  const yaz = (v: number) => onEk + Math.round(v).toLocaleString('en-US') + sonEk;
+  const yaz = (v: number) => onEk + Math.round(v).toLocaleString(sayiYereli()) + sonEk;
   const buyuk: React.CSSProperties = { fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 230, color: palet.vurgu, lineHeight: 1, letterSpacing: font.aralik, fontVariantNumeric: 'tabular-nums' };
   let govde: React.ReactNode;
   switch (tip) {
@@ -532,7 +532,7 @@ export const Karsilastirma: React.FC<{ sol: { ad: string; deger: number }; sag: 
   const mx = Math.max(1e-9, sol.deger, sag.deger);
   const SUT = 560, BAR = 300, BOY = H * 0.4;
   const ondalik = [sol.deger, sag.deger].some((x) => !Number.isInteger(x));
-  const yaz = (v: number) => (onEk || '') + (ondalik ? v.toFixed(1) : Math.round(v).toLocaleString('en-US')) + birim;
+  const yaz = (v: number) => (onEk || '') + (ondalik ? v.toFixed(1) : Math.round(v).toLocaleString(sayiYereli())) + birim;
   const vRenk = okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep);
   const enBuyuk = siganBoyutTek(yaz(Math.max(sol.deger, sag.deger)), 150, font.baslik, SUT - 20);
   const B = baslik ? (font.buyukHarf ? baslik.toUpperCase() : baslik) : '';
@@ -761,7 +761,7 @@ const interpolateCizgi = (f: number, fps: number, n: number, x0: number, x1: num
 /** degeri kendi ondalik hanesiyle yazar (3.5 -> "3.5", 1200 -> "1,200") */
 const sayiYaz = (v: number, deger: number, onEk = '', sonEk = '') => {
   const ond = Number.isInteger(deger) ? 0 : Math.min(2, (String(deger).split('.')[1] || '').length);
-  return onEk + v.toLocaleString('en-US', { minimumFractionDigits: ond, maximumFractionDigits: ond }) + sonEk;
+  return onEk + v.toLocaleString(sayiYereli(), { minimumFractionDigits: ond, maximumFractionDigits: ond }) + sonEk;
 };
 /** dolgu zemini ustunde okunur yazi rengi: acik zeminde koyu, koyu zeminde acik */
 const zitYazi = (zemin: string) => (parlaklik(zemin) > 0.55 ? '#111111' : '#ffffff');

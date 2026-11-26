@@ -2,7 +2,7 @@ import React, { useId } from 'react';
 import { AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Medya, MedyaKaynak } from './Medya';
 import { YonBulanik } from './Hareket';
-import { OKUNUR, Stil, cikisEgri, kademe, kameraNefes, karistir, kayma, kontrast, okunurVurgu, rastgele, rgba, sinirla, yay, yazYerlesim } from './temel';
+import { OKUNUR, Stil, cikisEgri, kademe, kameraNefes, karistir, kayma, kontrast, okunurVurgu, rastgele, rgba, sinirla, yay, yazYerlesim, sayiYereli } from './temel';
 
 // SAHNE — tam kadraj video sahnesi DUZENLERI (Opus 5.5 galerisi, repertuar/envanter/opus-galeri/teknikler.json).
 // Medya ve metin alir, kendi zeminini ve kamerasini (nefes) cizer; sahne kurucu tek giris bileseni Sahne'yi cagirir.
@@ -323,7 +323,7 @@ const BirikimliSahne: React.FC<SahneProps> = ({ stil, ogeler = [], baslik, gec =
         {sayi !== null || o.aciklama ? (
           <div style={{ position: 'absolute', left: 110, top: ufuk + 34, display: 'flex', alignItems: 'center', gap: 26, padding: '14px 30px', background: palet.zemin,
             borderLeft: `8px solid ${palet.vurgu}`, opacity: giris, boxShadow: `0 10px 30px ${rgba('#000', 0.25)}` }}>
-            {sayi !== null ? <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 72, lineHeight: 1, color: okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep), fontVariantNumeric: 'tabular-nums' }}>{Math.round(sayi).toLocaleString('en-US')}</div> : null}
+            {sayi !== null ? <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 72, lineHeight: 1, color: okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep), fontVariantNumeric: 'tabular-nums' }}>{Math.round(sayi).toLocaleString(sayiYereli())}</div> : null}
             {o.aciklama ? <div style={{ fontFamily: font.govde, fontWeight: 700, fontSize: 40, color: palet.murekkep, maxWidth: 900, opacity: sinirla(degis * 2) }}>{o.aciklama}</div> : null}
           </div>
         ) : null}
@@ -703,7 +703,7 @@ const EgikKartAkisi: React.FC<SahneProps> = ({ stil, medya = [], ogeler = [], ba
         </div>
         <div style={{ position: 'absolute', right: 100, top: H * 0.36, width: 470, textAlign: 'right', opacity: g }}>
           <div style={{ fontFamily: font.baslik, fontWeight: font.baslikAgirlik, fontSize: 190, lineHeight: 1, color: okunurVurgu(palet.vurgu, palet.zemin, palet.murekkep), fontVariantNumeric: 'tabular-nums' }}>
-            {sayi.toLocaleString('en-US')}<span style={{ fontSize: 80 }}>{birim}</span>
+            {sayi.toLocaleString(sayiYereli())}<span style={{ fontSize: 80 }}>{birim}</span>
           </div>
           {altBaslik ? <div style={{ marginTop: 10, fontFamily: font.govde, fontWeight: 800, fontSize: 44, lineHeight: 1.15, color: palet.murekkep, textTransform: 'uppercase', letterSpacing: 2 }}>{altBaslik}</div> : null}
         </div>

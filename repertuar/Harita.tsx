@@ -387,7 +387,9 @@ export const DunyaHaritasi: React.FC<{ stil: Stil; ulke?: string; sehirler?: Dun
   const f = useCurrentFrame();
   const { fps, width: W, height: H } = useVideoConfig();
   const { palet, font } = stil;
-  const ui = ulkeBul(ulke);
+  // 'Südafrika|Afrique du Sud': ilk parca ulkeyi bulur (Natural Earth Almanca / Turkce ad), ikinci parca ekranda gosterilir (videonun dili)
+  const [ulkeAra, ulkeGoster] = (ulke || '').split('|').map((x) => x.trim());
+  const ui = ulkeBul(ulkeAra);
   const hedef = ui >= 0 ? ULKELER[ui] : null;
   const c0: [number, number] = [12, miller(18)], k0 = W / 360;
   let cT = c0, kT = k0;
@@ -422,7 +424,7 @@ export const DunyaHaritasi: React.FC<{ stil: Stil; ulke?: string; sehirler?: Dun
   for (let lat = -60; lat <= 75; lat += 15) ag.push(`M${X(-180).toFixed(1)},${Y(lat).toFixed(1)}H${X(180).toFixed(1)}`);
   const v = sayi ? sayi[0] + (sayi[1] - sayi[0]) * egri('kubik-hizli', sinirla((f - zb) / (fps * sure * 1.1))) : 0;
   const adGir = yay(sinirla((f - zb - fps * sure * 0.8) / (fps * 0.45)));
-  const adMetin = hedef ? (hedef.tr || hedef.ad) : '';
+  const adMetin = hedef ? (ulkeGoster || hedef.tr || hedef.ad) : '';
   return (
     <AbsoluteFill style={{ background: palet.zemin }}>
       <svg width={W} height={H} style={{ position: 'absolute', inset: 0, opacity: giris }}>

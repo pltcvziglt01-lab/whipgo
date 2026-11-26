@@ -23,6 +23,7 @@ kurgu.json:
     "ai": true,                                # AI gorsel -> kosede AI etiketi (ILLUSTRATION / SYMBOLBILD / TEMSILI)
     "kunye": "Video : X (CC BY)"}              # istege bagli elle kunye; false = bu bolumde kunye yok
  ],
+ "dil": "fr",                                  # istege bagli: videonun dili -> dna.dil (sayi bicimi 4 000 / 1,5) + kunye dili
  "kunye": {"dil": "fr", "ai": "ILLUSTRATION"}  # istege bagli: her medya cekiminin sag alt kosesine kaynak kunyesi
 }                                              # (KAYNAKCA.tsv: YouTube kanal + lisans; credits.json: yazar + lisans) ve AI etiketi
 Kunye yalniz plan "kunye" verirse yazilir (eski kanallarin plani degismez). AI gorsel: bolumde "ai": true ya da src yolunda /ai/.
@@ -144,6 +145,8 @@ def kur(plan, kok, rakip):
     dna = jy(yol(plan['dna'])) if isinstance(plan.get('dna'), str) else plan.get('dna')
     if not dna:
         raise SystemExit('HATA: dna yok (stil_dna.py ciktisi gerekli)')
+    if plan.get('dil') and not dna.get('dil'):
+        dna = dict(dna, dil=plan['dil'])   # sayi kartlari videonun dilinde (fr: 4 000 / 1,5)
     kel = kelimeleri_oku(jy(yol(plan['kelimeler'])) if isinstance(plan.get('kelimeler'), str) else plan.get('kelimeler') or [])
     if not kel:
         raise SystemExit('HATA: kelime zamanlari yok (WhisperX ciktisi gerekli)')
@@ -198,7 +201,7 @@ def kur(plan, kok, rakip):
     kun = None
     if plan.get('kunye'):
         ka = plan['kunye'] if isinstance(plan['kunye'], dict) else {}
-        dil = ka.get('dil', 'en')
+        dil = ka.get('dil') or plan.get('dil') or 'en'
         kun = {'ai': ka.get('ai') or AI_ETIKET.get(dil, 'ILLUSTRATION'),
                'harita': kunye_haritasi(os.path.join(pub, plan['klasor'], 'kaynak'), plan['klasor'], dil) if pub else {}}
         if not pub:
