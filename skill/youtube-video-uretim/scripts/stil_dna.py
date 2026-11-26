@@ -895,7 +895,8 @@ def dna_uret(rk, rep, kut, gecmis, kilit, tohum, onceki_secenekler, ton=None, vk
     for eksen, dosya, ad in [('harita', 'Harita.tsx', 'HARITA_TIPLERI'), ('grafik', 'Grafik.tsx', 'GRAFIK_TIPLERI'), ('hud', 'Hud.tsx', 'HUD_TIPLERI')]:
         if os.path.isfile(os.path.join(rep, dosya)):
             dna[eksen] = sec(r, [x for x in L(dosya, ad) if not (eksen == 'grafik' and x == 'eleme-izgara')], gecmis=g(eksen), eksen=eksen, kullanim=kul, kacin=k2(eksen))[0]
-    dok = L('Medya.tsx', 'DOKU_TIPLERI')
+    # anlik dokular (gun-gece-renk, gri-ton-damga: tek sahne/an efekti, Medya.tsx ANI_DOKU) tum videoya serilen DNA dokusu olamaz
+    dok = [x for x in L('Medya.tsx', 'DOKU_TIPLERI') if x not in ('gun-gece-renk', 'gri-ton-damga')]
     nd = r.choice([0, 1, 1, 2])
     d = sec(r, dok, yasak=tuple(Y['doku']), gecmis=g('doku'), eksen='doku', kullanim=kul, n=nd, kacin=k2('doku')) if nd else []
     if set(d) == {'gren', 'vinyet'}:

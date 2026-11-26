@@ -316,6 +316,8 @@ export const Cerceve: React.FC<{ tip: CerceveTip; m: MedyaKaynak; m2?: MedyaKayn
 // Doku'yu sahnenin ustune, Sequence icine koy; zamanlama Sequence suresine ve 'gec'e gore.
 export const DOKU_TIPLERI = ['gren', 'vinyet', 'tarama', 'film-cizik', 'kromatik', 'titreme', 'isik-sizintisi', 'kagit-ust', 'toz', 'gun-gece-renk', 'gri-ton-damga'] as const;
 export type DokuTip = typeof DOKU_TIPLERI[number];
+/** ANLIK dokular: tek sahne/an icin (Sequence icinde, 'gec' ile). Tum videoya serilen DNA dokusu OLAMAZ (DnaDoku eler, stil_dna secmez). */
+export const ANI_DOKU: readonly DokuTip[] = ['gun-gece-renk', 'gri-ton-damga'];
 
 /** metin: gri-ton-damga damga yazisi (varsayilan 'DURDU'); gec: gri-ton-damga ani (kare, Sequence basindan) */
 export const Doku: React.FC<{ tip: DokuTip; stil: Stil; guc?: number; metin?: string; gec?: number }> = ({ tip, stil, guc = 1, metin, gec = 0 }) => {

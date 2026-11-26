@@ -3,7 +3,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Arkaplan, ArkaplanTip } from './Arkaplan';
 import { DiziSahne, GecisTip, GecisliDizi } from './Gecis';
 import { Alinti, AlintiTip, AltBant, AltBantKonum, AltBantTip, Karsilastirma, Liste, ListeTip, SayiKarti, SayiTip, ZamanCizelgesi, ZamanTip } from './Kart';
-import { Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
+import { ANI_DOKU, Cerceve, CerceveTip, Doku, DokuTip, KameraTip, Medya, MedyaKaynak } from './Medya';
 import { HareketAd, Stil, rastgele, stilYap } from './temel';
 import { PresetHareket, PresetVeri } from './Preset';
 import { Bitis, BitisTip } from './Bitis';
@@ -216,7 +216,7 @@ export const DnaGiris: React.FC<{ dna: Dna; presetler?: PresetVeri[]; gec?: numb
   const p = presetBul(presetler, dna.kayma);
   return p ? <PresetHareket preset={p} gec={gec}>{children}</PresetHareket> : <>{children}</>;
 };
-export const DnaDoku: React.FC<{ dna: Dna }> = ({ dna }) => <>{dna.doku.map((d) => <Doku key={d} tip={d} stil={dnaStil(dna)} />)}</>;
+export const DnaDoku: React.FC<{ dna: Dna }> = ({ dna }) => <>{dna.doku.filter((d) => !ANI_DOKU.includes(d)).map((d) => <Doku key={d} tip={d} stil={dnaStil(dna)} />)}</>;
 /** sahne dizisi: gecis tipleri DNA'dan, sure ve siklik iskeletten (rakibin olculmus degerleri) */
 export const DnaDizi: React.FC<{ dna: Dna; sahneler: DiziSahne[]; yumusakOran?: number; plan?: GecisTip[] }> = ({ dna, sahneler, yumusakOran, plan }) => (
   <GecisliDizi sahneler={sahneler} gecis={dna.gecis} kare={dna.iskelet.gecis_kare} yumusakOran={yumusakOran ?? dna.iskelet.yumusak_oran} stil={dnaStil(dna)} tohum={dna.tohum} zemin={<DnaArkaplan dna={dna} rol={1} />} plan={plan} />

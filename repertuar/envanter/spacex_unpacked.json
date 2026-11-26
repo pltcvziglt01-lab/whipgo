@@ -1,0 +1,135 @@
+{
+ "kanal": "@spacex_unpacked",
+ "nis": "SpaceX/Starship haber-analizi ve mühendislik açıklaması, İngilizce, anlatıcı sesli, altyazısız",
+ "konu": ["bilim", "teknoloji", "muhendislik"],
+ "ton": "ciddi",
+ "ae_hissi": "AE hissi güçlü: tüm kaynak görüntü siyah-beyaz, zemin saf siyah, tek neon limon vurgu rengi; kart/etiket/diyagram animasyonları sürekli giriyor ve çıkıyor, kesim seyrek (0,7-6 kesim/dk), %80+ geçiş yumuşak (siyaha/çözünme 0,3-0,5 sn). Renk disiplini ve ince beyaz çizgi infografikler 'şablonla yapılmış' değil 'tasarlanmış' izlenimi veriyor.",
+ "teknikler": [
+  {
+   "ad": "monokrom-tek-vurgu-rengi",
+   "eksen": "palet",
+   "tarif": "Tüm kaynak görüntü (uçuş, röportaj, uydu, render) siyah-beyaza çevrilir; zemin saf siyah; renk yalnız küçük alanlarda tek neon limon-yeşili (~#C4E051-#C9F636): sayaç rakamı, etiket çipi dikey çubuğu, vurgu kelime, rota çizgisi, parça vurgusu. Ölçüm: siyah-beyaz oranı %92-100, doygunluk 0.003-0.017.",
+   "kanit": "video-1/2/3 baştan sona; edit-dili-sayfa.jpg; yazi-senkron-ornek.jpg; kapak-1..3.jpg (aynı palet)",
+   "repertuarda": "grafit-neon (palet, kısmi); gri-ton-damga (anlık gri ton, kalıcı değil)",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "muhendislik"], "enerji": 2, "his": ["teknik", "modern", "karanlik"]},
+   "oncelik": 3
+  },
+  {
+   "ad": "beyaz-cizgi-infografik-sahne",
+   "eksen": "sahne",
+   "tarif": "Saf siyah zeminde ince beyaz kontur çizimler (Texas haritası, anahtar demeti, belge kartları, kamyon, kule, masa+iki kişi); elemanlar sırayla çizilir/belirir, anlatılan elemanı limon rengi vurgular, kutu etiketleri koyu zemin + ince çerçeve. Ses ilerledikçe sahne yeni eleman alır; aynı kadrajda 5-10 sn kalır.",
+   "kanit": "video-1 00:04.12-00:26.88, 00:46.62, 01:05.62, 01:43.62, 02:13.62, 02:45-02:50; video-2 01:08.5; video-3 03:29.62-03:41.88; yazi-senkron-ornek.jpg",
+   "repertuarda": "cizim-dolgu (kısmi); kart-yelpaze-dagilma (kart yığınları); kalici-bag-nesnesi",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "muhendislik", "egitim"], "enerji": 2, "his": ["teknik", "temiz", "minimal"]},
+   "oncelik": 3
+  },
+  {
+   "ad": "kilavuz-cizgili-parca-etiketi",
+   "eksen": "sahne",
+   "tarif": "Şeffaf/röntgen 3D render üstünde ilgili parça limon rengiyle dolu vurgulanır; parçadan ince limon kılavuz çizgi çıkar, ucunda küçük koyu çerçeveli büyük harf etiket (PREBURNERS, TURBINE). Ses parçayı söylerken girer, ~2 sn kalır, sonra bir sonraki parçaya geçilir. Sol üstte bölüm çipi sabit (| RAPTOR 3).",
+   "kanit": "video-2 02:22.62-02:55.12 (PREBURNERS 02:34.62, TURBINE 02:42.12); 01:40.62-01:56.62 (limon itici gaz); yazi-senkron-ornek.jpg",
+   "repertuarda": null,
+   "etiket": {"ton": ["ciddi"], "konu": ["muhendislik", "teknoloji", "bilim"], "enerji": 2, "his": ["teknik", "temiz"]},
+   "oncelik": 3
+  },
+  {
+   "ad": "logo-sting-marka-jenerigi",
+   "eksen": "bitis",
+   "tarif": "Videonun ~46-53. sn'sinde ~2 sn'lik marka jeneriği: siyah zeminde ince çizgili açılan koli içinden çıkan roket + geniş harf aralıklı 'SPACEX' + limon aralıklı 'UNPACKED'. Sting sonrası logo köşede küçülüp (v2) ya da çözünmeyle (v1 233 ms) görüntüye geçer. Her üç videoda aynı yerde.",
+   "kanit": "video-1 00:51.12-00:53.12; video-2 00:46.12-00:48.38 (köşe logosu ~00:52.6'ya kadar); video-3 00:48.38-00:50.12",
+   "repertuarda": null,
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "muhendislik"], "enerji": 2, "his": ["temiz", "minimal"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "pencereye-kucultme-gecisi",
+   "eksen": "gecis",
+   "tarif": "Tam kare görüntü ~500-700 ms'de ölçeği küçülerek siyah zemin üstünde kenarlıksız bir pencereye oturur (ya da küçülürken kararır); pencere üstünde başlık çipi belirir. Edit_dili 'zoom_gecis_disa' olarak ölçer. Geriye kalan siyah alan kart/etiket yeri olur.",
+   "kanit": "video-1 00:57.900 (700 ms), 02:27.833 (500 ms); video-3 00:56.667 (500 ms)",
+   "repertuarda": "ekran-icinde-ekran (kısmi, doğrulanmadı); supurme-inset (yön farkı)",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "egitim"], "enerji": 2, "his": ["temiz", "modern"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "kaynak-atif-etiketi",
+   "eksen": "altbant",
+   "tarif": "Her alıntı/röportaj/lisanslı görüntünün kenarında çok küçük (%2,4-4 yükseklik) büyük harf kaynak satırı: 'FOOTAGE: SPACEX', 'SOURCE: CNN', 'SOURCE: BARON CAPITAL — ELON MUSK · NOV 6, 2026', görüntünün alt solunda ya da kutunun içinde. Röportaj boyunca (10-30 sn) sabit kalır; sahne değişince yeniden girer.",
+   "kanit": "video-1 00:01.62, 00:04.12, 00:26.88, 00:57.88, 02:54.62; video-3 00:00.38-00:17.62, 01:21-04:55 (çok kez)",
+   "repertuarda": "cip-etiket (kısmi); Kart.tsx 'ust' konum + Harita altta kaynak satırı (ayrı kaynak-satırı bileşeni yok)",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "muhendislik", "haber"], "enerji": 1, "his": ["temiz", "minimal"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "sayac-limon-rakam",
+   "eksen": "sayi",
+   "tarif": "Sol üst köşede çok büyük (%9-10,6 yükseklik) limon rakam + küçük beyaz birim ('14', '275 KM', '21 HOURS', '28,000 KM/H'); sayı konuşmada geçtiği anda girer, 1-2 sn kalır; arka plan görüntüsü sürer. Dev sayı kartı: '$119 BILLION' (limon), 'UP TO 25' beyaz -> 'UP TO 456' limon renk değişimiyle büyüme.",
+   "kanit": "video-1 00:09.88, 02:28.38-02:50; video-2 00:10.62, 00:14.62, 01:13.62, 01:16.88; yazi-kirpinti.jpg",
+   "repertuarda": "sayac; kare-rozet; dev-kontur",
+   "etiket": {"ton": ["ciddi", "enerjik"], "konu": ["bilim", "teknoloji", "muhendislik"], "enerji": 3, "his": ["teknik", "modern"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "cip-etiket-dikey-cubuklu",
+   "eksen": "altbant",
+   "tarif": "Koyu zemin üstünde solda 3-4 px limon dikey çubuk + aralıklı beyaz büyük harf (| GAS THRUSTERS, | STARSHIP FLIGHT 15, | RAPTOR 3), sol üstte, bölüm boyunca (20-30 sn) sabit; bölüm değişince yeni çip girer.",
+   "kanit": "video-2 00:03.12, 01:20.88-02:55; yazi-kirpinti.jpg",
+   "repertuarda": "cip-etiket",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "muhendislik"], "enerji": 2, "his": ["teknik", "minimal"]},
+   "oncelik": 1
+  },
+  {
+   "ad": "soylenen-kelime-renk-vurgulu-alinti",
+   "eksen": "alinti",
+   "tarif": "Röportajdan alıntı kartı: solda siyah-beyaz yüz inset (isim + yayın satırı + tarih), sağda büyük limon tırnak ve alıntı metni; anlatıcı/konuşmacı ilerledikçe söylenen kelimeler beyaz-limon, söylenmemişler gri olur (karaoke benzeri ama kelime vurgu rengi limon).",
+   "kanit": "video-1 00:26.88-00:34.38; video-3 01:45.62, 02:39.12, 02:53.38, 04:08.62",
+   "repertuarda": "buyuk-tirnak, fosfor-satir (kısmi); renkli-aktif (altyazı, ayrı eksen)",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "haber"], "enerji": 2, "his": ["temiz", "modern"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "halftone-damga-etiketi",
+   "eksen": "altbant",
+   "tarif": "'UNDER FAA REVIEW': limon çerçeveli, hafif eğik dikdörtgen damga; üstte ve altta noktalı (halftone) limon bantlar; altında küçük gri açıklama satırı. Kırmızı mürekkep damgasından farklı: dijital, limon.",
+   "kanit": "video-1 02:45.12-02:49.88; yazi-senkron-ornek.jpg",
+   "repertuarda": "damga (kırmızı mürekkep; bire bir değil)",
+   "etiket": {"ton": ["ciddi"], "konu": ["teknoloji", "haber"], "enerji": 3, "his": ["teknik", "modern"]},
+   "oncelik": 1
+  },
+  {
+   "ad": "inset-yan-yana-roportaj-ve-goruntu",
+   "eksen": "cerceve",
+   "tarif": "Siyah zeminde kenarlıksız, keskin köşeli iki kutu yan yana: solda röportaj yüzü, sağda ilgili SpaceX görüntüsü; alt solda kaynak satırı, sağda küçük görüntü başlığı çipi. Yanında/altında alıntı kartı. Geçişler pencereye küçülme ve siyaha.",
+   "kanit": "video-3 00:18-00:29, 00:43-00:47, 04:31-04:55; video-1 00:03.8-00:27, 02:27.8-03:16",
+   "repertuarda": "inset-golge (gölgeli, bu kanalda gölge yok); bolunmus (kısmi)",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "haber"], "enerji": 2, "his": ["temiz", "minimal"]},
+   "oncelik": 2
+  },
+  {
+   "ad": "limon-yorunge-rotasi",
+   "eksen": "harita",
+   "tarif": "Siyah zeminde ince beyaz çizgi dünya/yörünge yayı; limon yörünge eğrisi çizilir, ucunda nokta/halka; 'DEORBIT BURN' çipi sol üstte. Küre üzerinde ağ çizgili uydu takımyıldızı (14 yörünge sayacıyla).",
+   "kanit": "video-2 00:10-00:17 (küre+ağ+sayaç), 02:17.62-02:25 (deorbit eğrisi)",
+   "repertuarda": "isik-rota; kesik-rota; nokta-kure",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji"], "enerji": 2, "his": ["teknik", "temiz"]},
+   "oncelik": 1
+  },
+  {
+   "ad": "takvim-rozeti-kesikli-sure-cubugu",
+   "eksen": "hud",
+   "tarif": "Takvim rozeti (gün adı + 'NOV 3' sayfası), anlatıdaki tarih değişince 'NOV 3 -> NOV 5' çevrilir; v3'te 'NOV 6' rozeti yanında kesikli limon blok çubuğu ve '1WK' etiketi (süre tahmini).",
+   "kanit": "video-1 00:15.12-00:27.12; video-3 01:53.62-01:54.38",
+   "repertuarda": "tarih-rozeti; cubuk-trend",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "haber"], "enerji": 2, "his": ["temiz", "teknik"]},
+   "oncelik": 1
+  },
+  {
+   "ad": "oran-izgarasi-kamyon-yuku",
+   "eksen": "grafik",
+   "tarif": "Kamyon çizimi + 2 sıra boş kutu ızgarası ('20 loads · each covers 1/20 of the price'); yükler tek tek limon doldurulur, 'FUEL' ve 'still paid on every trip' etiketleri kutu içinde.",
+   "kanit": "video-3 03:29.62-03:41.88",
+   "repertuarda": "nokta-oran-izgarasi",
+   "etiket": {"ton": ["ciddi"], "konu": ["bilim", "teknoloji", "egitim"], "enerji": 2, "his": ["teknik", "temiz"]},
+   "oncelik": 1
+  }
+ ]
+}

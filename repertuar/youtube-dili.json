@@ -1,29 +1,29 @@
 {
- "olusturma": "2026-11-24 23:01",
- "kanal_sayisi": 176,
+ "olusturma": "2026-11-26 15:41",
+ "kanal_sayisi": 177,
  "eksen": {
   "font": {
    "genel": {
-    "sans-dar": 0.4544,
-    "serif": 0.3009,
-    "sans": 0.1138,
-    "gosteri": 0.0766,
-    "japonca": 0.0369,
-    "slab": 0.0174
+    "sans-dar": 0.453,
+    "serif": 0.2993,
+    "sans": 0.1175,
+    "gosteri": 0.0762,
+    "japonca": 0.0367,
+    "slab": 0.0173
    },
    "konu": {
     "haber": {
-     "sans-dar": 0.6221,
-     "serif": 0.2425,
-     "gosteri": 0.0892,
-     "sans": 0.0462
+     "sans-dar": 0.5494,
+     "serif": 0.2007,
+     "sans": 0.1761,
+     "gosteri": 0.0738
     },
     "tarih": {
-     "sans-dar": 0.3569,
-     "serif": 0.3266,
-     "sans": 0.1184,
-     "gosteri": 0.0959,
-     "japonca": 0.0851,
+     "sans-dar": 0.3563,
+     "serif": 0.3258,
+     "sans": 0.119,
+     "gosteri": 0.0964,
+     "japonca": 0.0855,
      "slab": 0.0171
     },
     "deniz": {
@@ -34,11 +34,11 @@
      "japonca": 0.0154
     },
     "askeri": {
-     "sans-dar": 0.4285,
-     "serif": 0.3149,
-     "sans": 0.1412,
-     "gosteri": 0.0781,
-     "japonca": 0.0344,
+     "sans-dar": 0.4307,
+     "serif": 0.3162,
+     "sans": 0.1368,
+     "gosteri": 0.0788,
+     "japonca": 0.0347,
      "slab": 0.0028
     },
     "liste": {
@@ -71,18 +71,18 @@
      "sans": 0.0339
     },
     "muhendislik": {
-     "sans-dar": 0.5264,
-     "serif": 0.2554,
-     "gosteri": 0.1411,
-     "slab": 0.0414,
-     "sans": 0.028,
-     "japonca": 0.0077
+     "sans-dar": 0.527,
+     "serif": 0.2613,
+     "gosteri": 0.1328,
+     "slab": 0.0423,
+     "sans": 0.0287,
+     "japonca": 0.0079
     },
     "bilim": {
-     "sans": 0.38,
-     "sans-dar": 0.3287,
-     "serif": 0.1827,
-     "japonca": 0.1086
+     "sans-dar": 0.3501,
+     "sans": 0.3397,
+     "serif": 0.1946,
+     "japonca": 0.1157
     },
     "otomotiv": {
      "serif": 0.6876,
@@ -90,6 +90,12 @@
      "sans": 0.0651,
      "gosteri": 0.0449,
      "slab": 0.0186
+    },
+    "doga": {
+     "sans": 0.3743,
+     "sans-dar": 0.3129,
+     "gosteri": 0.2256,
+     "serif": 0.0872
     },
     "gizem": {
      "serif": 0.516,
@@ -105,9 +111,9 @@
      "gosteri": 0.0305
     },
     "seyahat": {
-     "sans-dar": 0.5465,
-     "serif": 0.2669,
-     "gosteri": 0.1866
+     "sans-dar": 0.549,
+     "serif": 0.2809,
+     "gosteri": 0.1701
     },
     "felsefe": {
      "serif": 0.6683,
@@ -146,29 +152,29 @@
   },
   "gecis": {
    "genel": {
-    "sert": 0.723,
-    "karartma": 0.2051,
+    "sert": 0.7177,
+    "karartma": 0.2091,
     "flas": 0.0271,
-    "zoom": 0.0189,
-    "maske": 0.0107,
+    "zoom": 0.0204,
+    "maske": 0.0108,
     "glitch": 0.0098,
     "hareket": 0.0053
    },
    "konu": {
     "haber": {
-     "sert": 0.664,
-     "karartma": 0.2419,
-     "zoom": 0.0286,
-     "flas": 0.022,
-     "maske": 0.0205,
-     "hareket": 0.0192,
-     "glitch": 0.0039
+     "sert": 0.5761,
+     "karartma": 0.2894,
+     "zoom": 0.073,
+     "maske": 0.0232,
+     "flas": 0.0188,
+     "hareket": 0.0163,
+     "glitch": 0.0032
     },
     "tarih": {
-     "sert": 0.6474,
-     "karartma": 0.294,
-     "flas": 0.0251,
-     "zoom": 0.0195,
+     "sert": 0.6455,
+     "karartma": 0.296,
+     "flas": 0.0249,
+     "zoom": 0.0196,
      "glitch": 0.0083,
      "hareket": 0.003,
      "maske": 0.0026
@@ -182,13 +188,13 @@
      "glitch": 0.0022
     },
     "askeri": {
-     "sert": 0.7221,
-     "karartma": 0.2104,
-     "zoom": 0.026,
+     "sert": 0.7226,
+     "karartma": 0.21,
+     "zoom": 0.0261,
      "flas": 0.0233,
-     "glitch": 0.0104,
-     "maske": 0.0052,
-     "hareket": 0.0027
+     "glitch": 0.0105,
+     "maske": 0.005,
+     "hareket": 0.0026
     },
     "liste": {
      "sert": 0.7317,
@@ -200,9 +206,9 @@
      "maske": 0.0063
     },
     "egitim": {
-     "sert": 0.636,
-     "karartma": 0.2765,
-     "flas": 0.0411,
+     "sert": 0.6352,
+     "karartma": 0.2771,
+     "flas": 0.0412,
      "zoom": 0.0251,
      "maske": 0.0114,
      "hareket": 0.0059,
@@ -227,13 +233,13 @@
      "hareket": 0.0032
     },
     "muhendislik": {
-     "sert": 0.7415,
-     "karartma": 0.1764,
-     "zoom": 0.0286,
-     "flas": 0.019,
-     "hareket": 0.0149,
-     "maske": 0.0119,
-     "glitch": 0.0078
+     "sert": 0.7564,
+     "karartma": 0.1683,
+     "zoom": 0.0259,
+     "flas": 0.0191,
+     "hareket": 0.0117,
+     "maske": 0.0106,
+     "glitch": 0.0079
     },
     "bilim": {
      "sert": 0.8382,
@@ -253,6 +259,15 @@
      "hareket": 0.0044,
      "flas": 0.0014
     },
+    "doga": {
+     "karartma": 0.5452,
+     "sert": 0.3107,
+     "zoom": 0.0453,
+     "hareket": 0.0403,
+     "flas": 0.0335,
+     "maske": 0.018,
+     "glitch": 0.007
+    },
     "gizem": {
      "sert": 0.6899,
      "karartma": 0.2798,
@@ -262,22 +277,22 @@
      "glitch": 0.0021
     },
     "teknoloji": {
-     "sert": 0.6739,
-     "karartma": 0.2277,
-     "flas": 0.0625,
-     "glitch": 0.0176,
-     "zoom": 0.0113,
-     "hareket": 0.0038,
-     "maske": 0.0032
+     "sert": 0.6766,
+     "karartma": 0.2251,
+     "flas": 0.0634,
+     "glitch": 0.0179,
+     "zoom": 0.0109,
+     "hareket": 0.0036,
+     "maske": 0.0026
     },
     "seyahat": {
-     "sert": 0.7206,
-     "karartma": 0.1744,
-     "flas": 0.0356,
-     "zoom": 0.0351,
-     "hareket": 0.0224,
-     "maske": 0.0101,
-     "glitch": 0.0019
+     "sert": 0.7505,
+     "karartma": 0.1576,
+     "flas": 0.0368,
+     "zoom": 0.0298,
+     "hareket": 0.0159,
+     "maske": 0.0074,
+     "glitch": 0.002
     },
     "felsefe": {
      "sert": 0.9667,
@@ -334,29 +349,29 @@
   },
   "kamera": {
    "genel": {
-    "ken-burns-ice": 0.3881,
-    "sabit": 0.3151,
-    "ken-burns-disa": 0.2097,
-    "pan-yukari": 0.0417,
-    "pan-sag": 0.0243,
-    "pan-sol": 0.0211
+    "ken-burns-ice": 0.3877,
+    "sabit": 0.3139,
+    "ken-burns-disa": 0.2116,
+    "pan-yukari": 0.0414,
+    "pan-sag": 0.024,
+    "pan-sol": 0.0213
    },
    "konu": {
     "haber": {
-     "ken-burns-ice": 0.4477,
-     "sabit": 0.2531,
-     "ken-burns-disa": 0.1956,
-     "pan-sag": 0.0374,
-     "pan-yukari": 0.0347,
-     "pan-sol": 0.0314
+     "ken-burns-ice": 0.4226,
+     "ken-burns-disa": 0.2442,
+     "sabit": 0.2372,
+     "pan-sol": 0.0347,
+     "pan-sag": 0.0318,
+     "pan-yukari": 0.0296
     },
     "tarih": {
-     "sabit": 0.3808,
+     "sabit": 0.3821,
      "ken-burns-ice": 0.3776,
-     "ken-burns-disa": 0.157,
-     "pan-yukari": 0.0431,
-     "pan-sag": 0.0209,
-     "pan-sol": 0.0206
+     "ken-burns-disa": 0.1558,
+     "pan-yukari": 0.0428,
+     "pan-sag": 0.021,
+     "pan-sol": 0.0207
     },
     "deniz": {
      "ken-burns-ice": 0.421,
@@ -367,12 +382,12 @@
      "pan-sol": 0.0059
     },
     "askeri": {
-     "ken-burns-ice": 0.3834,
+     "ken-burns-ice": 0.3843,
      "sabit": 0.3438,
-     "ken-burns-disa": 0.2042,
+     "ken-burns-disa": 0.2041,
      "pan-yukari": 0.0329,
-     "pan-sol": 0.0182,
-     "pan-sag": 0.0175
+     "pan-sag": 0.0175,
+     "pan-sol": 0.0174
     },
     "liste": {
      "ken-burns-ice": 0.3731,
@@ -383,10 +398,10 @@
      "pan-sol": 0.0182
     },
     "egitim": {
-     "ken-burns-ice": 0.3741,
-     "sabit": 0.262,
-     "ken-burns-disa": 0.2509,
-     "pan-yukari": 0.0752,
+     "ken-burns-ice": 0.3739,
+     "sabit": 0.2624,
+     "ken-burns-disa": 0.2506,
+     "pan-yukari": 0.0753,
      "pan-sag": 0.0259,
      "pan-sol": 0.0119
     },
@@ -407,20 +422,20 @@
      "pan-sag": 0.0294
     },
     "muhendislik": {
-     "ken-burns-ice": 0.4016,
-     "sabit": 0.2895,
-     "ken-burns-disa": 0.221,
-     "pan-yukari": 0.0369,
-     "pan-sag": 0.031,
-     "pan-sol": 0.02
+     "ken-burns-ice": 0.4018,
+     "sabit": 0.2909,
+     "ken-burns-disa": 0.2226,
+     "pan-yukari": 0.035,
+     "pan-sag": 0.0302,
+     "pan-sol": 0.0194
     },
     "bilim": {
-     "sabit": 0.3769,
-     "ken-burns-ice": 0.3304,
-     "ken-burns-disa": 0.2141,
-     "pan-sol": 0.0395,
-     "pan-yukari": 0.0278,
-     "pan-sag": 0.0114
+     "sabit": 0.3758,
+     "ken-burns-ice": 0.3367,
+     "ken-burns-disa": 0.2148,
+     "pan-sol": 0.0318,
+     "pan-yukari": 0.0291,
+     "pan-sag": 0.012
     },
     "otomotiv": {
      "sabit": 0.3813,
@@ -429,6 +444,14 @@
      "pan-yukari": 0.0155,
      "pan-sag": 0.0131,
      "pan-sol": 0.0082
+    },
+    "doga": {
+     "ken-burns-ice": 0.3752,
+     "sabit": 0.2688,
+     "ken-burns-disa": 0.2328,
+     "pan-sol": 0.0527,
+     "pan-yukari": 0.0506,
+     "pan-sag": 0.02
     },
     "gizem": {
      "ken-burns-ice": 0.477,
@@ -439,20 +462,20 @@
      "pan-sol": 0.0172
     },
     "teknoloji": {
-     "ken-burns-ice": 0.3957,
-     "sabit": 0.3233,
-     "ken-burns-disa": 0.197,
-     "pan-sol": 0.0383,
-     "pan-yukari": 0.0282,
-     "pan-sag": 0.0175
+     "ken-burns-ice": 0.3955,
+     "sabit": 0.3223,
+     "ken-burns-disa": 0.1978,
+     "pan-sol": 0.0389,
+     "pan-yukari": 0.0283,
+     "pan-sag": 0.0172
     },
     "seyahat": {
-     "ken-burns-ice": 0.418,
-     "sabit": 0.2532,
-     "ken-burns-disa": 0.1863,
-     "pan-sag": 0.0547,
-     "pan-yukari": 0.0461,
-     "pan-sol": 0.0417
+     "ken-burns-ice": 0.4193,
+     "sabit": 0.2544,
+     "ken-burns-disa": 0.1879,
+     "pan-sag": 0.0542,
+     "pan-yukari": 0.0426,
+     "pan-sol": 0.0416
     },
     "felsefe": {
      "sabit": 0.509,
@@ -512,26 +535,26 @@
   "cerceve": {
    "genel": {
     "tam": 0.8632,
-    "bulanik-kopya": 0.0632,
-    "inset-golge": 0.0446,
-    "letterbox": 0.0223,
-    "cerceveli_doku/gorsel": 0.0041,
-    "bolunmus": 0.0026
+    "bulanik-kopya": 0.063,
+    "inset-golge": 0.0445,
+    "letterbox": 0.0227,
+    "cerceveli_doku/gorsel": 0.004,
+    "bolunmus": 0.0025
    },
    "konu": {
     "haber": {
-     "tam": 0.9199,
-     "bulanik-kopya": 0.0305,
-     "letterbox": 0.0281,
-     "inset-golge": 0.0203,
-     "bolunmus": 0.0008,
-     "cerceveli_doku/gorsel": 0.0004
+     "tam": 0.9045,
+     "letterbox": 0.0417,
+     "bulanik-kopya": 0.0299,
+     "inset-golge": 0.0229,
+     "bolunmus": 0.0007,
+     "cerceveli_doku/gorsel": 0.0003
     },
     "tarih": {
-     "tam": 0.7638,
-     "bulanik-kopya": 0.1112,
-     "inset-golge": 0.0882,
-     "letterbox": 0.0349,
+     "tam": 0.7626,
+     "bulanik-kopya": 0.1116,
+     "inset-golge": 0.0887,
+     "letterbox": 0.0351,
      "bolunmus": 0.0019,
      "cerceveli_doku/gorsel": 0.0
     },
@@ -543,11 +566,11 @@
      "bolunmus": 0.0057
     },
     "askeri": {
-     "tam": 0.8351,
-     "bulanik-kopya": 0.0684,
-     "inset-golge": 0.0538,
-     "letterbox": 0.0291,
-     "cerceveli_doku/gorsel": 0.0112,
+     "tam": 0.8368,
+     "bulanik-kopya": 0.0692,
+     "inset-golge": 0.0545,
+     "letterbox": 0.0293,
+     "cerceveli_doku/gorsel": 0.0078,
      "bolunmus": 0.0024
     },
     "liste": {
@@ -559,10 +582,10 @@
      "cerceveli_doku/gorsel": 0.0004
     },
     "egitim": {
-     "tam": 0.8739,
+     "tam": 0.8737,
      "bulanik-kopya": 0.0571,
-     "inset-golge": 0.0412,
-     "letterbox": 0.0236,
+     "inset-golge": 0.0413,
+     "letterbox": 0.0237,
      "bolunmus": 0.0037,
      "cerceveli_doku/gorsel": 0.0005
     },
@@ -582,20 +605,20 @@
      "cerceveli_doku/gorsel": 0.0
     },
     "muhendislik": {
-     "tam": 0.8134,
-     "bulanik-kopya": 0.0842,
-     "inset-golge": 0.0536,
-     "letterbox": 0.043,
-     "bolunmus": 0.0055,
+     "tam": 0.8216,
+     "bulanik-kopya": 0.0797,
+     "inset-golge": 0.0498,
+     "letterbox": 0.0431,
+     "bolunmus": 0.0056,
      "cerceveli_doku/gorsel": 0.0002
     },
     "bilim": {
-     "tam": 0.8341,
-     "cerceveli_doku/gorsel": 0.0903,
-     "inset-golge": 0.0507,
-     "bulanik-kopya": 0.0143,
-     "letterbox": 0.0063,
-     "bolunmus": 0.0044
+     "tam": 0.8578,
+     "cerceveli_doku/gorsel": 0.063,
+     "inset-golge": 0.0531,
+     "bulanik-kopya": 0.0149,
+     "letterbox": 0.0066,
+     "bolunmus": 0.0046
     },
     "otomotiv": {
      "tam": 0.8452,
@@ -603,6 +626,14 @@
      "letterbox": 0.0454,
      "inset-golge": 0.0389,
      "cerceveli_doku/gorsel": 0.0
+    },
+    "doga": {
+     "tam": 0.7375,
+     "cerceveli_doku/gorsel": 0.1139,
+     "bulanik-kopya": 0.0788,
+     "inset-golge": 0.0578,
+     "letterbox": 0.0121,
+     "bolunmus": 0.0
     },
     "gizem": {
      "tam": 0.9498,
@@ -613,19 +644,19 @@
      "bolunmus": 0.0018
     },
     "teknoloji": {
-     "tam": 0.9071,
-     "bulanik-kopya": 0.0405,
-     "letterbox": 0.0292,
-     "inset-golge": 0.0213,
-     "bolunmus": 0.0015,
+     "tam": 0.9065,
+     "bulanik-kopya": 0.0408,
+     "letterbox": 0.0293,
+     "inset-golge": 0.0215,
+     "bolunmus": 0.0014,
      "cerceveli_doku/gorsel": 0.0004
     },
     "seyahat": {
-     "tam": 0.7505,
-     "inset-golge": 0.1354,
-     "bulanik-kopya": 0.0999,
-     "letterbox": 0.0126,
-     "bolunmus": 0.0018
+     "tam": 0.7645,
+     "inset-golge": 0.1313,
+     "bulanik-kopya": 0.0912,
+     "letterbox": 0.0113,
+     "bolunmus": 0.0019
     },
     "felsefe": {
      "tam": 0.6786,
@@ -678,23 +709,24 @@
   },
   "altyazi": {
    "genel": {
-    "yok": 0.8172,
-    "kutulu": 0.0749,
-    "sinema": 0.0705,
-    "vurgulu": 0.0251,
-    "kelime": 0.0122
+    "yok": 0.8169,
+    "kutulu": 0.076,
+    "sinema": 0.07,
+    "vurgulu": 0.0249,
+    "kelime": 0.0121
    },
    "konu": {
     "haber": {
-     "yok": 0.9098,
-     "sinema": 0.0466,
-     "vurgulu": 0.0436
+     "yok": 0.8724,
+     "kutulu": 0.0504,
+     "sinema": 0.0399,
+     "vurgulu": 0.0374
     },
     "tarih": {
-     "yok": 0.7962,
-     "sinema": 0.105,
-     "vurgulu": 0.0732,
-     "kutulu": 0.0255
+     "yok": 0.7947,
+     "sinema": 0.1058,
+     "vurgulu": 0.0738,
+     "kutulu": 0.0257
     },
     "deniz": {
      "yok": 0.862,
@@ -702,19 +734,19 @@
      "vurgulu": 0.0516
     },
     "askeri": {
-     "yok": 0.8509,
-     "sinema": 0.0631,
-     "kutulu": 0.06,
-     "vurgulu": 0.0259
+     "yok": 0.8487,
+     "sinema": 0.0641,
+     "kutulu": 0.0609,
+     "vurgulu": 0.0263
     },
     "liste": {
      "yok": 0.9371,
      "sinema": 0.0629
     },
     "egitim": {
-     "yok": 0.778,
-     "kutulu": 0.1202,
-     "sinema": 0.1019
+     "yok": 0.7774,
+     "kutulu": 0.1205,
+     "sinema": 0.1021
     },
     "yasam": {
      "yok": 0.5887,
@@ -728,31 +760,35 @@
      "sinema": 0.0714
     },
     "muhendislik": {
-     "yok": 0.8883,
-     "kutulu": 0.0679,
-     "vurgulu": 0.0437
+     "yok": 0.909,
+     "kutulu": 0.0463,
+     "vurgulu": 0.0447
     },
     "bilim": {
-     "yok": 0.9373,
-     "vurgulu": 0.0627
+     "yok": 0.9343,
+     "vurgulu": 0.0657
     },
     "otomotiv": {
      "yok": 0.9475,
      "sinema": 0.0525
+    },
+    "doga": {
+     "yok": 0.7919,
+     "kutulu": 0.2081
     },
     "gizem": {
      "yok": 0.8418,
      "kelime": 0.1582
     },
     "teknoloji": {
-     "yok": 0.8353,
-     "kutulu": 0.1445,
-     "sinema": 0.0202
+     "yok": 0.8329,
+     "kutulu": 0.1466,
+     "sinema": 0.0205
     },
     "seyahat": {
-     "sinema": 0.6168,
-     "yok": 0.2454,
-     "kutulu": 0.1378
+     "sinema": 0.6466,
+     "yok": 0.2573,
+     "kutulu": 0.0962
     },
     "felsefe": {
      "yok": 0.6634,
@@ -781,20 +817,20 @@
   },
   "palet": {
    "genel": {
-    "koyu-notr": 0.6757,
-    "koyu-renkli": 0.2683,
-    "acik": 0.056
+    "koyu-notr": 0.6752,
+    "koyu-renkli": 0.2693,
+    "acik": 0.0555
    },
    "konu": {
     "haber": {
-     "koyu-notr": 0.6926,
-     "koyu-renkli": 0.2637,
-     "acik": 0.0436
+     "koyu-notr": 0.7367,
+     "koyu-renkli": 0.2259,
+     "acik": 0.0374
     },
     "tarih": {
-     "koyu-notr": 0.5882,
-     "koyu-renkli": 0.2715,
-     "acik": 0.1403
+     "koyu-notr": 0.5897,
+     "koyu-renkli": 0.2689,
+     "acik": 0.1413
     },
     "deniz": {
      "koyu-notr": 0.6316,
@@ -802,9 +838,9 @@
      "acik": 0.0516
     },
     "askeri": {
-     "koyu-notr": 0.7811,
-     "koyu-renkli": 0.1886,
-     "acik": 0.0302
+     "koyu-notr": 0.7858,
+     "koyu-renkli": 0.1835,
+     "acik": 0.0307
     },
     "liste": {
      "koyu-notr": 0.6736,
@@ -812,8 +848,8 @@
      "acik": 0.124
     },
     "egitim": {
-     "koyu-notr": 0.5852,
-     "koyu-renkli": 0.3896,
+     "koyu-notr": 0.5841,
+     "koyu-renkli": 0.3906,
      "acik": 0.0252
     },
     "yasam": {
@@ -826,32 +862,36 @@
      "koyu-renkli": 0.0567
     },
     "muhendislik": {
-     "koyu-notr": 0.6782,
-     "koyu-renkli": 0.2378,
-     "acik": 0.084
+     "koyu-notr": 0.6939,
+     "koyu-renkli": 0.2201,
+     "acik": 0.086
     },
     "bilim": {
-     "koyu-notr": 0.8006,
-     "koyu-renkli": 0.1368,
-     "acik": 0.0627
+     "koyu-notr": 0.8389,
+     "koyu-renkli": 0.0954,
+     "acik": 0.0657
     },
     "otomotiv": {
      "koyu-notr": 0.8882,
      "koyu-renkli": 0.1118
+    },
+    "doga": {
+     "koyu-renkli": 0.7553,
+     "koyu-notr": 0.2447
     },
     "gizem": {
      "koyu-notr": 0.629,
      "koyu-renkli": 0.371
     },
     "teknoloji": {
-     "koyu-notr": 0.6954,
-     "koyu-renkli": 0.287,
-     "acik": 0.0176
+     "koyu-notr": 0.6911,
+     "koyu-renkli": 0.2911,
+     "acik": 0.0179
     },
     "seyahat": {
-     "koyu-renkli": 0.5492,
-     "koyu-notr": 0.3857,
-     "acik": 0.0651
+     "koyu-renkli": 0.5274,
+     "koyu-notr": 0.4043,
+     "acik": 0.0682
     },
     "felsefe": {
      "koyu-notr": 1.0
@@ -1420,8 +1460,9 @@
   },
   "@BluePawPrint": {
    "konu": {
-    "askeri": 0.5,
-    "tarih": 0.5
+    "askeri": 0.4,
+    "tarih": 0.4,
+    "doga": 0.2
    },
    "ton": "ciddi",
    "agirlik": 2.284,
@@ -1844,8 +1885,9 @@
   },
   "@Empty-Palaces": {
    "konu": {
-    "muhendislik": 0.5,
-    "seyahat": 0.5
+    "doga": 0.333,
+    "muhendislik": 0.333,
+    "seyahat": 0.333
    },
    "ton": "ciddi",
    "agirlik": 3.548,
@@ -3175,6 +3217,49 @@
     "kesim_dk": 12.0,
     "medyan": 5.25,
     "sfx": 0.39
+   }
+  },
+  "@LaProieFR": {
+   "konu": {
+    "doga": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.506,
+   "oran": 3.51,
+   "font": {},
+   "gecis": {
+    "karartma": 0.7645,
+    "sert": 0.1667,
+    "flas": 0.0435,
+    "zoom": 0.0145,
+    "glitch": 0.0109
+   },
+   "kamera": {
+    "ken-burns-disa": 0.2434,
+    "pan-yukari": 0.0291,
+    "ken-burns-ice": 0.4278,
+    "sabit": 0.2747,
+    "pan-sol": 0.0177,
+    "pan-sag": 0.0073
+   },
+   "cerceve": {
+    "tam": 0.9467,
+    "bulanik-kopya": 0.0267,
+    "inset-golge": 0.02,
+    "letterbox": 0.0067,
+    "bolunmus": 0.0
+   },
+   "altyazi": {
+    "yok": 1.0
+   },
+   "palet": {
+    "koyu-renkli": 0.6667,
+    "koyu-notr": 0.3333
+   },
+   "tempo": {
+    "kesim_dk": 26.0,
+    "medyan": 2.0,
+    "sfx": 0.22
    }
   },
   "@LakshmanD-h7x2e": {
@@ -5837,10 +5922,11 @@
   },
   "@WasdieZeitverbarg": {
    "konu": {
-    "askeri": 0.25,
-    "tarih": 0.25,
-    "haber": 0.25,
-    "egitim": 0.25
+    "askeri": 0.2,
+    "tarih": 0.2,
+    "doga": 0.2,
+    "haber": 0.2,
+    "egitim": 0.2
    },
    "ton": "ciddi",
    "agirlik": 2.772,
@@ -6701,8 +6787,9 @@
   },
   "@hfyterrazorn": {
    "konu": {
-    "askeri": 0.5,
-    "bilim": 0.5
+    "askeri": 0.333,
+    "doga": 0.333,
+    "bilim": 0.333
    },
    "ton": "ciddi",
    "agirlik": 2.943,
@@ -6772,48 +6859,6 @@
     "kesim_dk": 40.0,
     "medyan": 0.55,
     "sfx": 0.51
-   }
-  },
-  "@livedinside (2)": {
-   "konu": {
-    "askeri": 0.5,
-    "teknoloji": 0.5
-   },
-   "ton": "ciddi",
-   "agirlik": 1.0,
-   "oran": 0,
-   "font": {},
-   "gecis": {
-    "sert": 0.4913,
-    "karartma": 0.4111,
-    "zoom": 0.0348,
-    "maske": 0.0453,
-    "hareket": 0.0174
-   },
-   "kamera": {
-    "sabit": 0.3899,
-    "ken-burns-ice": 0.409,
-    "ken-burns-disa": 0.1395,
-    "pan-sag": 0.0384,
-    "pan-yukari": 0.0233
-   },
-   "cerceve": {
-    "tam": 0.9532,
-    "letterbox": 0.0268,
-    "bulanik-kopya": 0.0134,
-    "inset-golge": 0.0033,
-    "bolunmus": 0.0033
-   },
-   "altyazi": {
-    "yok": 1.0
-   },
-   "palet": {
-    "koyu-notr": 1.0
-   },
-   "tempo": {
-    "kesim_dk": 12.0,
-    "medyan": 4.8,
-    "sfx": 0.19
    }
   },
   "@nescands": {
@@ -7008,6 +7053,48 @@
     "kesim_dk": 12.0,
     "medyan": 8.4,
     "sfx": 0.62
+   }
+  },
+  "@spacex_unpacked": {
+   "konu": {
+    "haber": 1.0
+   },
+   "ton": "ciddi",
+   "agirlik": 2.725,
+   "oran": 4.61,
+   "font": {
+    "sans": 0.8,
+    "sans-dar": 0.2
+   },
+   "gecis": {
+    "karartma": 0.5445,
+    "zoom": 0.3219,
+    "sert": 0.0959,
+    "maske": 0.0377
+   },
+   "kamera": {
+    "ken-burns-ice": 0.2807,
+    "pan-sol": 0.0526,
+    "ken-burns-disa": 0.5263,
+    "sabit": 0.1404
+   },
+   "cerceve": {
+    "tam": 0.82,
+    "letterbox": 0.1167,
+    "bulanik-kopya": 0.0267,
+    "inset-golge": 0.0367
+   },
+   "altyazi": {
+    "kutulu": 0.3333,
+    "yok": 0.6667
+   },
+   "palet": {
+    "koyu-notr": 1.0
+   },
+   "tempo": {
+    "kesim_dk": 6.0,
+    "medyan": 10.2,
+    "sfx": 0.22
    }
   },
   "@steeldossier": {
