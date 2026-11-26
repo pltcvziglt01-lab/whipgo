@@ -9,6 +9,9 @@ Bazı kanallar gerçek görüntü ister: tarihî arşiv, müze, askerî tatbikat
 | Standart YouTube lisansı | HAYIR | yalnız araştırma/fikir için izlenir. İstisna yalnız **kullanıcının açık izniyle**: sahibinden yazılı izin, kullanıcının kendi kanalı, kamuya açık resmî kayıt (ör. ordu/devlet kurumu kamu malı). İzin `--izinli "..."` ile kayda geçer |
 | **Rakibin videosu** | ASLA | rakip yalnız ölçülür (ritim, edit dili); görüntüsü kullanılmaz. `youtube_kaynak.py indir/kare` kanal edit kütüphanesinde ölçülmüşse (`kanallar/@Handle`) reddeder |
 | Haber kanalı, film, dizi, maç, müzik klibi | HAYIR | CC BY yazsa bile şüpheli; kullanıcıya sor |
+| **CC BY ama yeniden yükleme izi** (Nat Geo/BBC/Netflix/Our Planet adı, "full episode/documentary", 25 dk+ belgesel) | HAYIR | lisans aklama: yükleyenin hakkı yok, telif talebi gelir. `ara` bunu `RISKLI` yazar, `indir/kare` reddeder; kanal sayfası incelenip kullanıcı onaylarsa `--izinli "inceledim: ..."` |
+| CC BY, **ikinci el anlatım kanalı** ("facts", "why…", "vs", derleme, AI) | dikkat | kendisi başka kaynaktan derliyor olabilir; özgün çekimci yoksa kullan, kontakt + kanal sayfasıyla doğrula |
+| CC BY, **özgün çekimci** (safari rehberi, araştırma kurumu, vakıf, hayvanat bahçesi, dergi/PLOS, bireysel çekimci) | EVET (öncelik) | `ara` çıktısında `guven=ozgun` üstte sıralanır |
 
 Ek kurallar:
 - CC BY klip de **anlamlı katkıyla** kullanılır: anlatımla, kurguyla, bilgi kartıyla dönüştürülür. Uzun ham parça (>15–20 sn kesintisiz) yerine kısa çekimler.

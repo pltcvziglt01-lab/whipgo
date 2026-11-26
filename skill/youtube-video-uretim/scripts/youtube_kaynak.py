@@ -29,11 +29,43 @@ def bilgi(vid):
     j = json.loads(R.ytdlp('--skip-download', '--dump-json', url))
     return {'id': j['id'], 'url': f'https://www.youtube.com/watch?v={j["id"]}', 'baslik': j.get('title', ''),
             'kanal': j.get('channel') or j.get('uploader', ''), 'kanal_id': j.get('uploader_id') or '', 'lisans': j.get('license') or 'Standard YouTube License',
-            'sure': j.get('duration'), 'izlenme': j.get('view_count'), 'genislik': j.get('width'), 'yukseklik': j.get('height')}
+            'sure': j.get('duration'), 'izlenme': j.get('view_count'), 'genislik': j.get('width'), 'yukseklik': j.get('height'),
+            'aciklama': (j.get('description') or '')[:1500]}
 
 
 def cc_mi(lisans):
     return 'creative commons' in (lisans or '').lower()
+
+
+# CC BY isareti yukleyenin hakki oldugunu kanitlamaz: baskasinin belgeselini "CC BY" diye yeniden yukleyen (lisans aklama)
+# ve kendisi baska kaynaktan derleyen anlatim kanallari telif talebi / demonetizasyon riskidir. Ozgun cekim yapan (safari
+# rehberi, arastirma kurumu, vakif, hayvanat bahcesi, bireysel cekimci) tercih edilir.
+MARKA = ['national geographic', 'nat geo', 'natgeo', 'bbc', 'discovery channel', 'animal planet', 'netflix', 'our planet', 'planet earth',
+         'smithsonian channel', 'pbs nature', 'love nature', 'free documentary', 'disneynature', 'david attenborough', 'attenborough']
+TAM_BELGESEL = ['full episode', 'full documentary', 'documentary hd', 'documentary 4k', 'full movie', 'complete series', 'episode ']
+IKINCI_EL = ['facts', 'top 10', 'top 5', 'description, characteristics', 'explained', 'why ', 'what makes', 'shocking', 'you won',
+             'epic showdown', ' vs ', 'compilation', 'ai generated', 'ai-generated', '#ai', 'animal attack']
+OZGUN = ['safari', 'guide', 'lodge', 'wildlife trust', 'fund', 'foundation', 'research', 'university', 'institute', 'zoo', 'aquarium',
+         'national park', 'conservation', 'plos', 'nasa', 'noaa', 'usfws', 'fish and wildlife', 'sighting', 'spotted', 'encounter',
+         'kruger', 'masai mara', 'serengeti', 'filmed', 'drone', 'trail cam', 'camera trap', 'whale watching', 'expedition']
+
+
+def kaynak_guveni(b):
+    """-> (sinif, neden): 'riskli' | 'ikinci-el' | 'ozgun' | 'belirsiz'. Sezgisel; karar kontakt + kanal sayfasina bakilarak verilir."""
+    m = f" {b.get('baslik', '')} | {b.get('kanal', '')} | {(b.get('aciklama') or '')[:400]} ".lower()
+    k = f" {b.get('kanal', '')} ".lower()
+    marka = [x for x in MARKA if x in m]
+    if marka:
+        return 'riskli', 'marka icerigi: ' + ', '.join(marka[:2])
+    if any(x in m for x in TAM_BELGESEL) or ((b.get('sure') or 0) > 1500 and 'documentary' in m):
+        return 'riskli', 'tam belgesel (yeniden yukleme izi)'
+    ozgun = [x for x in OZGUN if x in m]
+    ikinci = [x.strip() for x in IKINCI_EL if x in m]
+    if ozgun and not ikinci:
+        return 'ozgun', 'ozgun cekim izi: ' + ', '.join(ozgun[:2])
+    if ikinci and not any(x in k for x in OZGUN):
+        return 'ikinci-el', 'anlatim/derleme kanali: ' + ', '.join(ikinci[:2])
+    return 'belirsiz', 'kanal sayfasina bak'
 
 
 def ara(a):
@@ -48,15 +80,25 @@ def ara(a):
         except Exception as e:
             print('atlandi', v, str(e)[-120:], file=sys.stderr)
             continue
-        b['kullanilabilir'] = 'EVET (CC BY, atifla)' if cc_mi(b['lisans']) else 'HAYIR (yalniz arastirma)'
+        b['guven'], b['guven_neden'] = kaynak_guveni(b)
+        if not cc_mi(b['lisans']):
+            b['kullanilabilir'] = 'HAYIR (yalniz arastirma)'
+        elif b['guven'] == 'riskli':
+            b['kullanilabilir'] = 'RISKLI (CC BY ama yeniden yukleme izi)'
+        else:
+            b['kullanilabilir'] = 'EVET (CC BY, atifla)'
         satir.append(b)
-        print(f"{b['kullanilabilir'][:5]} {b['id']} {b['sure']}s {b['yukseklik']}p  {b['kanal']} | {b['baslik'][:60]}")
+        print(f"{b['kullanilabilir'][:6]:6} {b['guven']:9} {b['id']} {b['sure']}s {b['yukseklik']}p  {b['kanal']} | {b['baslik'][:60]}")
+    sira = {'ozgun': 0, 'belirsiz': 1, 'ikinci-el': 2, 'riskli': 3}
+    satir.sort(key=lambda s: (not cc_mi(s['lisans']), sira.get(s['guven'], 9)))
     with open(a.cikti, 'w', encoding='utf-8-sig', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=['kullanilabilir', 'id', 'baslik', 'kanal', 'lisans', 'sure', 'izlenme', 'yukseklik', 'url'],
+        w = csv.DictWriter(f, fieldnames=['kullanilabilir', 'guven', 'guven_neden', 'id', 'baslik', 'kanal', 'lisans', 'sure', 'izlenme', 'yukseklik', 'url'],
                            delimiter='\t', extrasaction='ignore')
         w.writeheader()
         w.writerows(satir)
-    print(f'{sum(1 for s in satir if cc_mi(s["lisans"]))}/{len(satir)} kullanilabilir -> {a.cikti}')
+    say = {g: sum(1 for s in satir if cc_mi(s['lisans']) and s['guven'] == g) for g in sira}
+    print(f"{sum(1 for s in satir if s['kullanilabilir'].startswith('EVET'))}/{len(satir)} kullanilabilir "
+          f"(ozgun {say['ozgun']}, belirsiz {say['belirsiz']}, ikinci-el {say['ikinci-el']}, riskli {say['riskli']}) -> {a.cikti}")
 
 
 def rakip_mi(b):
@@ -81,7 +123,11 @@ def izin_kontrol(b, izinli):
     if r:
         sys.exit(f"REDDEDILDI: {b['url']} kanali kutuphanede olculmus rakip ({r}). Rakibin videosu kaynak olarak asla kullanilmaz.")
     if cc_mi(b['lisans']):
-        return 'CC BY'
+        g, neden = kaynak_guveni(b)
+        if g == 'riskli' and not izinli:
+            sys.exit(f"REDDEDILDI: {b['url']} CC BY isaretli ama {neden}. Yukleyenin hakki supheli (lisans aklama). "
+                     'Ozgun cekimci sec; kanal sayfasi incelenip kullanici onaylarsa --izinli "inceledim: <neden>".')
+        return f'CC BY ({g})' if g != 'riskli' else f'CC BY (riskli, onay: {izinli})'
     if not izinli:
         sys.exit(f"REDDEDILDI: {b['url']} lisansi '{b['lisans']}'. Kullanmak icin kullanicinin acik izni gerekir "
                  '(--izinli "sahibinden yazili izin / kendi kanalim / ..."). Rakibin videosu asla.')

@@ -1,4 +1,4 @@
-# GÖREVLER — yaşayan eksik listesi (yönetici: ana oturum)
+﻿# GÖREVLER — yaşayan eksik listesi (yönetici: ana oturum)
 
 Her oturum işe başlamadan bu dosyayı okur; iş bitince satırı **Kapanan**'a taşır (tarih + kanıt). Yeni eksik bulunca buraya yazılır,
 sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
@@ -40,6 +40,8 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 37 | 20 sn'lik kancada sahne_zengin 0 firsat buldu (1944 tarihi, 'decades later' degisimi, Hurtgen yer adi); kisa planda zaman/degisim/harita sahnesi onerilmiyor | ayni metinde >=1 zengin sahne | acik |
 | 38 | Alinti karti acik video zeminde (B: ab-34 kagit dokusu) BEYAZ yazi — okunmuyor; liste/zaman/oran izgarasi koyu paletlerde (orman-altin) zemine karisiyor. Yazi rengi zemin parlakligina gore secilmeli (kontrast >= 4.5:1) | predateur SECENEKLER B'de alinti/liste/zaman telefon boyutunda okunur | acik (predateur bulgusu 2026-11-26) |
 | 39 | Onizlemede HUD derinlik-cetvel konudan bagimsiz '420 m' gosteriyor; sayi bicimi dile gore degil (FR '2 300', DE '2.300'; su an hep '2,300') | fr onizlemede '2 300'; HUD degeri ornek icerikten | acik |
+| 40 | kanal_sablon.py kaynak stratejisi sahne tablosu konudan bagimsiz (doga kanalinda 'yuruyen birlik, archive footage, belge taramasi' yaziyor); olcum kaynak_tahmini + aciklama tahmini, gercek kunye olcmuyor | sahne tablosu konu etiketine gore (doga: davranis/manzara/anatomi/kart/AI); predateur icin elle yazildi | acik (predateur 2026-11-26) |
+| 41 | Rakip kaynak karisimi icin kunye OCR araci yok: alt-sag kunye yazisi (Pixabay/YouTube/Illustration) 1 fps RapidOCR + kare_analiz cekimleriyle birlestirme scratch'te yazildi (kaynak_say.py); 3 tam video ~3 sa surdu | scripts/kunye_say.py: kirpma bolgesi otomatik, 0.5 fps + yalniz cekim ortasi kare, 3 video < 30 dk; kanal_sablon --kaynak-guncelle bunu okur | acik |
 | 40 | **Rakibin vurgu rengi olculmuyor:** kanal_sablon palet ekseni yalniz sinif (koyu-notr) okuyor; @spacex_unpacked imzasi siyah-beyaz + tek neon limon (#C4E051), secenek A (grafit-neon) ayni limonu verdi = rakibin ayirt edici yuzeyi. Rakip vurgu tonu (edit_dili renk / kapak paleti) olculup secenekte dE >= 25 zorunlu | uzay-en'de A limon disi ya da elenir | acik |
 | 41 | @spacex_unpacked eksik teknikler (envanter/spacex_unpacked.json): kilavuz cizgili parca etiketi (render ustu), logo sting + kose logo, pencereye kuculme gecisi, kalici monokrom tek-vurgu grade (bitis), kaynak/atif kose etiketi, soylenen kelimede renk degistiren alinti | bilesen + *_TIPLERI + etiket + katalog karesi gozle | acik |
 | 42 | Secenek C (acik zemin): alinti sari yazi bokeh zemin uzerinde okunmuyor, liste satirlari acik gri zeminde dusuk kontrast (#38 ile ayni kok) | uzay-en C karesi | acik |
