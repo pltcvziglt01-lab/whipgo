@@ -39,6 +39,14 @@ sohbette bırakılmaz. Kalite standardından geçmeyen iş kapanmaz.
 | 36 | Muzik yatagi yok: sfx-kutuphane'de ambiyans/drone/muzik 0 oge; ses_miks --muzik var ama lisansli (CC0/CC BY) muzik havuzu ve tona gore secim yok. VO Remotion render'ina girmiyor, miks elle (render sesi + vo) | belgesel denemesinde tona uygun CC0 muzik -20 dB, konusmada sidechain | acik |
 | 37 | 20 sn'lik kancada sahne_zengin 0 firsat buldu (1944 tarihi, 'decades later' degisimi, Hurtgen yer adi); kisa planda zaman/degisim/harita sahnesi onerilmiyor | ayni metinde >=1 zengin sahne | acik |
 
+| 38 | Alinti karti acik video zeminde (B: ab-34 kagit dokusu) BEYAZ yazi — okunmuyor; liste/zaman/oran izgarasi koyu paletlerde (orman-altin) zemine karisiyor. Yazi rengi zemin parlakligina gore secilmeli (kontrast >= 4.5:1) | predateur SECENEKLER B'de alinti/liste/zaman telefon boyutunda okunur | acik (predateur bulgusu 2026-11-26) |
+| 39 | Onizlemede HUD derinlik-cetvel konudan bagimsiz '420 m' gosteriyor; sayi bicimi dile gore degil (FR '2 300', DE '2.300'; su an hep '2,300') | fr onizlemede '2 300'; HUD degeri ornek icerikten | acik |
+
+## Kapanan (2026-11-26)
+- `doga` konusu (vahsi yasam/hayvan): stil_dna KONU_KELIME (EN/FR/DE/TR/ES) + ton ciddi + his sinematik/belgesel/sicak, 84 repertuar ogesine etiket; `konu_kapi` etiketi (gizli belge/sansur/terminal/dosya sekmesi/stencil yalniz kendi konusunda). Oncesi: hayvan konseptinde zeytin-askeri palet + asker fotolari + CLASSIFIED damgali alinti; sonrasi: predateur SECENEKLER A/B/C konuya uygun (yonetici gozle)
+- #10/#10b kismen: kanal_sablon `--ornek` (konunun ornek icerigi) + `--dil fr`; Onizleme.tsx bolum2/zaman/grafikBaslik/grafikler dil-icerik ile ezilebilir (Ingilizce 'Part 2', 'Share by region', 1939-1945 sabitleri kalkti)
+- kanal_isle.py varsayilan --kok: repo kopyasindan calisinca sonuc repoya yaziliyordu; artik EDIT_KUTUPHANE > ust klasor (kanallar/ varsa) > Drive
+
 ## Kapanan (2026-11-24/25)
 - #0g adim defteri kapisi: adim_kontrol.py + uretim-defteri.md; TAM VIDEODA HER FAZ ZORUNLU, 'atlandi' = FAIL, kapsam disi yalniz nesnel tespit; 6 kapak/6 sekme sayiliyor; v04 geriye donuk test 11 gercek eksigi yakaladi; yonetici cikis kodu + JSON dogruladi (commit, agac yesilince)
 - #30 kurgu_denetim cerceveSec taklidi (v04 %50/%50, kodla ayni), etiket_ust kelime karti/altyazi icin de (4 cakisma -> 0)

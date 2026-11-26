@@ -137,7 +137,7 @@ KAYNAK_IPUCU = {
     'arsiv': r'arşiv|arsiv|archive|archiv\b|national archives|library of congress|courtesy|siyah-beyaz|black and white|gercek-arsiv|newsreel',
     'stok': r'\bstok\b|\bstock\b|pexels|storyblocks|envato|shutterstock|getty|pond5|artgrid|magnific|freepik|pixabay',
 }
-AI_ETIKET = {'en': 'ILLUSTRATION', 'de': 'SYMBOLBILD', 'tr': 'TEMSİLÎ', 'ja': 'イメージ'}
+AI_ETIKET = {'en': 'ILLUSTRATION', 'de': 'SYMBOLBILD', 'tr': 'TEMSİLÎ', 'fr': 'ILLUSTRATION', 'ja': 'イメージ'}
 
 
 def _oku_metin(yol):
@@ -304,14 +304,20 @@ ONIZLEME_METIN = {
            'liste': ['The first warning', 'The second mistake', 'The final decision'], 'altyazi': 'Nobody expected this to change everything'},
     'de': {'bolum': 'Kapitel 1', 'baslik2': 'Was wirklich geschah', 'yer': 'Ort', 'tarih': 'Datum', 'sayiUst': 'Schlüsselzahl', 'sayiAlt': 'die Zahl hinter der Geschichte',
            'alinti': 'Das hätte nie passieren dürfen.', 'kim': 'Augenzeuge', 'listeBaslik': 'Drei Gründe',
-           'liste': ['Die erste Warnung', 'Der zweite Fehler', 'Die letzte Entscheidung'], 'altyazi': 'Niemand hat erwartet dass sich alles ändert'},
+           'liste': ['Die erste Warnung', 'Der zweite Fehler', 'Die letzte Entscheidung'], 'altyazi': 'Niemand hat erwartet dass sich alles ändert',
+           'bolum2': 'Teil 2', 'grafikBaslik': 'Verlauf', 'zaman': [{'yil': '1939', 'yazi': 'Beginn'}, {'yil': '1942', 'yazi': 'Wendepunkt'}, {'yil': '1945', 'yazi': 'Ende'}]},
     'tr': {'bolum': 'Bölüm 1', 'baslik2': 'Gerçekte Ne Oldu', 'yer': 'Yer', 'tarih': 'Tarih', 'sayiUst': 'Kilit sayı', 'sayiAlt': 'hikâyenin arkasındaki sayı',
            'alinti': 'Bunun olmaması gerekiyordu.', 'kim': 'Görgü tanığı', 'listeBaslik': 'Üç neden',
-           'liste': ['İlk uyarı', 'İkinci hata', 'Son karar'], 'altyazi': 'Kimse her şeyin değişeceğini beklemiyordu'},
+           'liste': ['İlk uyarı', 'İkinci hata', 'Son karar'], 'altyazi': 'Kimse her şeyin değişeceğini beklemiyordu',
+           'bolum2': 'Bölüm 2', 'grafikBaslik': 'Eğilim', 'zaman': [{'yil': '1939', 'yazi': 'Başlangıç'}, {'yil': '1942', 'yazi': 'Dönüm noktası'}, {'yil': '1945', 'yazi': 'Son'}]},
+    'fr': {'bolum': 'Chapitre 1', 'baslik2': "Ce qui s'est vraiment passé", 'yer': 'Lieu', 'tarih': 'Date', 'sayiUst': 'Chiffre clé', 'sayiAlt': "le chiffre derrière l'histoire",
+           'alinti': "Ça n'aurait jamais dû arriver.", 'kim': 'Témoin', 'listeBaslik': 'Trois raisons',
+           'liste': ['Le premier signal', 'La deuxième erreur', 'La décision finale'], 'altyazi': "Personne ne s'attendait à ce que tout change",
+           'bolum2': 'Partie 2', 'grafikBaslik': 'Tendance', 'zaman': [{'yil': '1939', 'yazi': 'Début'}, {'yil': '1942', 'yazi': 'Tournant'}, {'yil': '1945', 'yazi': 'Fin'}]},
 }
 
 
-def onizle(dna, hedef, konsept='', foto=None, dil='en', video=False):
+def onizle(dna, hedef, konsept='', foto=None, dil='en', video=False, ornek=None):
     """Onizleme kompozisyonu: kimligin tum eksenleri (11 esit sahne); kareler sahne oturdugu anda (Onizleme.tsx ONIZLEME_S/OTURMA).
     video=True: ilk ~12 sn (7 sahne: baslik, medya+alt bant, sayi, altyazi, alinti, HUD, baslik2) yarim cozunurluk mp4"""
     for eski in glob.glob(os.path.join(hedef, 'onizleme-*.jpg')) + glob.glob(os.path.join(hedef, 'ONIZLEME.jpg')) + glob.glob(os.path.join(hedef, 'onizleme.mp4')):
@@ -323,7 +329,8 @@ def onizle(dna, hedef, konsept='', foto=None, dil='en', video=False):
     m = re.search(r"(?:(?<=\s)|^)[\"“‘']([^\"”]{8,90}?)[\"”’'](?=[\s,.;:)]|$)", konsept or '')
     baslik = m.group(1) if m else ' '.join((konsept or 'The Story Nobody Told').split()[:6]).strip(' .,:;')
     pj = os.path.join(hedef, 'onizleme-props.json')
-    metin = dict(ONIZLEME_METIN.get(dil, ONIZLEME_METIN['en']), baslik=baslik)
+    # --ornek: konunun kendi ornek icerigi (baslik, sayi, zaman adimlari...) dil varsayilanlarinin ve konsept basliginin ustune yazar
+    metin = {**ONIZLEME_METIN.get(dil, ONIZLEME_METIN['en']), 'baslik': baslik, **(ornek or {})}
     # gorseller: --foto (sablon-proje/public altina goreli ya da mutlak yol -> public/sablon-onizleme/ altina kopya); yoksa notr ornek
     fotolar = ['ornek/a.jpg', 'ornek/b.jpg', 'ornek/c.jpg']
     if foto:
@@ -683,7 +690,7 @@ def secenekleri_uret(a, kut, kd, hedef, rakipler):
     v = {'kanal': a.kanal, 'konsept': a.konsept, 'olusturma': datetime.datetime.now().strftime('%Y-%m-%d %H:%M'), 'rakip': rakipler, 'rakip_kaynak': kaynak,
          'ton': ton, 'konu': {k: round(x, 3) for k, x in kp.items()}, 'dil': a.dil, 'havuz': len(havuz), 'tur': tur + 1, 'eksik': [] if gecerli else eksik,
          'cift': cift, 'secenek': S, 'kimlik_var': os.path.exists(os.path.join(kd, 'kanal-sablon.json')),
-         'kaynak': kaynak_stratejisi(rakipler, kut, dnalar[0]['iskelet'], a.dil)}
+         'kaynak': kaynak_stratejisi(rakipler, kut, dnalar[0]['iskelet'], a.dil), 'ornek': a.ornek_veri}
     for s in S:
         print(f"{s['harf']} — {s['ad']} (uyum {s['uyum']:+.2f}; his {', '.join(s['his'])}): palet {s['dna']['palet']} · font {s['dna']['font']} · "
               f"baslik {s['dna'].get('baslik')} · altyazi {s['dna'].get('altyazi')} · altbant {s['dna'].get('altbant')} · sayi {s['dna'].get('sayi')} · "
@@ -693,7 +700,7 @@ def secenekleri_uret(a, kut, kd, hedef, rakipler):
               f"palet gozle {'farkli' if c['palet_gorsel'] else 'AYNI'}")
     for s in S:
         print(f"onizleme {s['harf']}: kare sayfasi + {ONIZLEME_VIDEO_KARE // 30} sn mp4 ...")
-        s['onizleme'] = [p.replace('\\', '/') for p in onizle(s['dna'], s['klasor'], a.konsept, a.foto, a.dil, video=True)]
+        s['onizleme'] = [p.replace('\\', '/') for p in onizle(s['dna'], s['klasor'], a.konsept, a.foto, a.dil, video=True, ornek=a.ornek_veri)]
     v['sayfa'] = (secenek_sayfasi(S, os.path.join(hedef, 'SECENEKLER.jpg')) or '').replace('\\', '/')
     json.dump(v, open(os.path.join(hedef, 'secenekler.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     secenek_md(os.path.join(hedef, 'SECENEKLER.md'), v, sd)
@@ -737,10 +744,13 @@ def main():
     ap.add_argument('--onizle', action='store_true', help='--sec ile: secilen kimligin onizleme karelerini sablon/ altina yeniden uret (ornek --foto ile)')
     ap.add_argument('--sec', choices=['A', 'B', 'C'], help='kullanicinin sectigi secenek -> kanal-sablon.json + KANAL-SABLONU.md (once secenekleri uret)')
     ap.add_argument('--foto', nargs='*', default=[], help='onizleme icin konuya uygun 1-3 gorsel (mutlak yol ya da sablon-proje/public altina goreli)')
-    ap.add_argument('--dil', choices=['en', 'de', 'tr'], help='onizleme metinlerinin dili (kitlenin dili; varsayilan en, --sec ile secenekleri uretirkenki dil)')
+    ap.add_argument('--dil', choices=['en', 'de', 'tr', 'fr'], help='onizleme metinlerinin dili (kitlenin dili; varsayilan en, --sec ile secenekleri uretirkenki dil)')
+    ap.add_argument('--ornek', help='onizleme icin konunun ornek icerigi (JSON: baslik, baslik2, bolum, bolum2, sayi, sayiUst, sayiAlt, alinti, kim, '
+                                    'listeBaslik, liste, altyazi, yer, tarih, grafikBaslik, zaman=[{yil, yazi}]); verilmeyen alan dil varsayilanindan')
     ap.add_argument('--zorla', action='store_true', help='var olan kanal-sablon.json uzerine yaz')
     ap.add_argument('--kaynak-guncelle', action='store_true', help='var olan sablona yalniz "kaynak" (kaynak stratejisi) alanini ekle/yenile; kimlik degismez')
     a = ap.parse_args()
+    a.ornek_veri = json.load(open(a.ornek, encoding='utf-8-sig')) if a.ornek else None
     if a.kaynak_guncelle:
         import stil_dna as sd
         kut = sd.kutuphane_bul(a.kok)
@@ -793,7 +803,7 @@ def main():
     dil = a.dil or v.get('dil', 'en')
     if dil != v.get('dil', 'en') and s['rakip']:
         s['kaynak'] = kaynak_stratejisi(s['rakip'], kut, dna['iskelet'], dil)
-    s['onizleme'] = onizle(dna, hedef, v['konsept'], a.foto, dil) if a.onizle else sc.get('onizleme') or []
+    s['onizleme'] = onizle(dna, hedef, v['konsept'], a.foto, dil, ornek=a.ornek_veri or v.get('ornek')) if a.onizle else sc.get('onizleme') or []
     print(f"secilen: {sc['harf']} — {sc['ad']} (uyum {sc['uyum']:+.2f})")
     json.dump(s, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     md_yaz(os.path.join(kd, 'KANAL-SABLONU.md'), s)

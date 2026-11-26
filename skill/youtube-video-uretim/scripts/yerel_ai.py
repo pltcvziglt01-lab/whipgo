@@ -51,7 +51,7 @@ try:
     from stil_dna import HISLER, KONULAR, TON_KELIME
     TONLAR = sorted(TON_KELIME)
 except Exception:  # stil_dna tasinmis/bozuksa kutuphane yine calissin
-    KONULAR = ['askeri', 'bilim', 'biyografi', 'deniz', 'egitim', 'eglence', 'felsefe', 'finans', 'gizem', 'haber', 'korku', 'liste',
+    KONULAR = ['askeri', 'bilim', 'biyografi', 'deniz', 'doga', 'egitim', 'eglence', 'felsefe', 'finans', 'gizem', 'haber', 'korku', 'liste',
                'muhendislik', 'otomotiv', 'oyun', 'saglik', 'seyahat', 'spor', 'suc', 'tarih', 'teknoloji', 'yasam']
     TONLAR = ['ciddi', 'enerjik', 'gizem', 'sakin']
     HISLER = ['belgesel', 'arsiv', 'resmi', 'teknik', 'sinematik', 'karanlik', 'retro', 'neon', 'modern', 'temiz', 'sicak', 'yumusak', 'oyunbaz', 'dinamik']

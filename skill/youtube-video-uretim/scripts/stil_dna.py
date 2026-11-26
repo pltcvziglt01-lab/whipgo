@@ -199,6 +199,16 @@ KONU_KELIME = {
             'cinayet', 'suç', 'verbrechen', 'mord', 'crimen', 'misdaad', 'moord', 'forensic'],
     'korku': ['horror', 'haunted', 'ghost', 'paranormal', 'creepy', 'cryptid', 'scary', 'demon', 'korku', 'abandoned', 'nightmare', 'terrifying'],
     'deniz': ['ship', 'shipwreck', 'wreck', 'sea', 'ocean', 'naval', 'maritime', 'sailor', 'submarine', 'u-boat', 'fleet', 'voyage', 'lighthouse', 'schiff', 'meer', 'gemi', 'deniz'],
+    # doga: vahsi yasam / hayvan belgeseli (avci-av). 'tier' (tier list), 'ours' (EN), 'python' (yazilim), 'av' (kisa) bilerek yok
+    'doga': ['animal', 'animals', 'wildlife', 'predator', 'prey', 'beast', 'wild', 'nature', 'jungle', 'savanna', 'savannah', 'safari', 'apex',
+             'food chain', 'species', 'habitat', 'lion', 'tiger', 'leopard', 'jaguar', 'cheetah', 'hyena', 'wolf', 'wolves', 'grizzly', 'shark',
+             'orca', 'killer whale', 'whale', 'crocodile', 'alligator', 'snake', 'anaconda', 'cobra', 'venom', 'gorilla', 'chimpanzee',
+             'orangutan', 'elephant', 'rhino', 'rhinoceros', 'hippo', 'hippopotamus', 'buffalo', 'eagle', 'honey badger',
+             'animaux', 'prédateur', 'predateur', 'proie', 'sauvage', 'faune', 'requin', 'orque', 'tigre', 'loup', 'serpent', 'gorille',
+             'éléphant', 'rhinocéros', 'hippopotame', 'aigle', 'chasseur', 'fauve', 'savane',
+             'tiere', 'raubtier', 'beute', 'wildtier', 'löwe', 'hai', 'schlange',
+             'hayvan', 'yırtıcı', 'avcı', 'avci', 'vahşi', 'vahsi', 'doğa', 'aslan', 'köpekbalığı', 'timsah', 'yılan',
+             'depredador', 'salvaje', 'tiburón'],
     'gizem': ['shipwreck', 'wreck', 'ghost ship', 'lost at sea', 'bermuda', 'mystery', 'mysteri', 'unsolved', 'disappear', 'vanish', 'missing', 'conspiracy', 'secret', 'ufo', 'alien', 'unexplained', 'lost',
               'never returned', 'unreturned', 'gizem', 'kayıp', 'misterio', 'geheimnis', 'rätsel', 'raadsel'],
     'finans': ['money', 'finance', 'economy', 'stock', 'invest', 'rich', 'billion', 'million', 'salary', 'paycheck', 'debt', 'tax', 'inflation',
@@ -227,8 +237,8 @@ KONU_KELIME = {
 # konu -> ton oyu (ton_bul'a eklenir) ve tercih edilen his
 KONU_TON = {'askeri': 'ciddi', 'tarih': 'ciddi', 'haber': 'ciddi', 'finans': 'ciddi', 'biyografi': 'ciddi', 'felsefe': 'ciddi', 'muhendislik': 'ciddi',
             'suc': 'gizem', 'korku': 'gizem', 'gizem': 'gizem', 'spor': 'enerjik', 'oyun': 'enerjik', 'otomotiv': 'enerjik', 'teknoloji': 'enerjik',
-            'liste': 'enerjik', 'eglence': 'enerjik', 'saglik': 'sakin', 'yasam': 'sakin', 'seyahat': 'sakin', 'deniz': 'ciddi'}
-KONU_HIS = {'deniz': ['sinematik', 'belgesel', 'karanlik'], 'askeri': ['belgesel', 'resmi', 'teknik', 'arsiv'], 'tarih': ['arsiv', 'belgesel', 'sinematik', 'sicak'],
+            'liste': 'enerjik', 'eglence': 'enerjik', 'saglik': 'sakin', 'yasam': 'sakin', 'seyahat': 'sakin', 'deniz': 'ciddi', 'doga': 'ciddi'}
+KONU_HIS = {'deniz': ['sinematik', 'belgesel', 'karanlik'], 'doga': ['sinematik', 'belgesel', 'sicak'], 'askeri': ['belgesel', 'resmi', 'teknik', 'arsiv'], 'tarih': ['arsiv', 'belgesel', 'sinematik', 'sicak'],
             'suc': ['karanlik', 'sinematik', 'arsiv', 'resmi'], 'korku': ['karanlik', 'sinematik', 'retro'], 'gizem': ['karanlik', 'sinematik', 'teknik'],
             'finans': ['modern', 'temiz', 'resmi'], 'teknoloji': ['modern', 'teknik', 'neon', 'temiz'], 'bilim': ['teknik', 'modern', 'temiz'],
             'muhendislik': ['teknik', 'modern', 'belgesel'], 'otomotiv': ['dinamik', 'modern', 'teknik'], 'spor': ['dinamik', 'modern'],
@@ -316,7 +326,15 @@ class Etiket:
 
     def kapi(self, eksen, x):
         e = self.bul(eksen, x)
-        return True if (e is None or not self.ton) else self.ton in (e.get('ton') or [])
+        if e is None:
+            return True
+        if self.ton and self.ton not in (e.get('ton') or []):
+            return False
+        # konu_kapi: icerigi konuya bagli oge (gizli belge, sansur bandi, terminal...) yalniz kendi konularindan biri metinde varsa
+        # (vahsi yasam belgeselinde 'CLASSIFIED' damgali alinti gelmesin). Konu bilinmiyorsa kapi uygulanmaz.
+        if e.get('konu_kapi') and self.konu and not any(self.konu.get(c, 0) >= 0.15 for c in e.get('konu') or []):
+            return False
+        return True
 
     def uyum(self, eksen, x):
         e = self.bul(eksen, x)

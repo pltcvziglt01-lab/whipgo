@@ -208,7 +208,7 @@ def main():
     ap.add_argument('kanal', nargs='?')
     ap.add_argument('--liste')
     ap.add_argument('--kim', required=True)
-    ap.add_argument('--kok', default=os.path.dirname(BURASI))
+    ap.add_argument('--kok', default=None, help='kutuphane koku (varsayilan: EDIT_KUTUPHANE > betigin ust klasoru kutuphaneyse > Drive yollari)')
     ap.add_argument('--etiket')
     ap.add_argument('--not', dest='notu')
     ap.add_argument('--paralel', type=int, default=1)
@@ -216,6 +216,16 @@ def main():
     ap.add_argument('--cerez-port', type=int, help='YouTube bot engelinde: girisli otomasyon Chrome CDP portu (or. 9334)')
     ap.add_argument('--adet', type=int, default=1, help='kanal basina video (en cok izlenen N). Varsayilan 1')
     a = ap.parse_args()
+    if not a.kok:
+        # Repo kopyasindan calisinca sonuc repoya (skill/youtube-video-uretim/kanallar) yazilmasin: yalniz 'kanallar/' iceren kok kabul.
+        import glob as _g
+        for k in [os.environ.get('EDIT_KUTUPHANE'), os.path.dirname(BURASI), r"G:\Drive'ım\edit kutuphane",
+                  r"G:\My Drive\edit kutuphane", *_g.glob(r"G:\.shortcut-targets-by-id\*\edit kutuphane")]:
+            if k and os.path.isdir(os.path.join(k, 'kanallar')):
+                a.kok = k
+                break
+        else:
+            sys.exit('HATA: edit kutuphanesi bulunamadi. --kok ver ya da EDIT_KUTUPHANE ayarla.')
     global ADET
     ADET = a.adet
     girisler = []
