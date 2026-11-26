@@ -231,6 +231,17 @@ def kaynak_stratejisi(rakipler, kut, iskelet=None, dil='en'):
     tah = {}
     for h, o in olc.items():
         t, g = kaynak_tahmin(o)
+        # kareye bakilarak yazilmis gozlem (kutuphane kanal klasoru kaynak-gozlem.json: {"pay": {tur: %}, "not": "..."}) olcumun ustune yazar.
+        # Neden: kare_analiz siyah zeminde inset / siyah-beyaz grade'li gercek videoyu 'grafik/kart' sayabiliyor (@spacex_unpacked: %90 kart, gercekte ~%45 video)
+        try:
+            gz = json.load(open(os.path.join(kut, 'kanallar', h, 'kaynak-gozlem.json'), encoding='utf-8'))
+            t = {k: float(gz['pay'].get(k, 0.0)) for k in t}
+            g = 'gozlem: kareye bakildi (kaynak-gozlem.json)' + (f" — {gz['not']}" if gz.get('not') else '')
+        except (OSError, ValueError, KeyError, AttributeError):
+            if (o['sb'] or 0) >= 0.8 and o['krt'] >= 60:
+                g = (f"dusuk: siyah-beyaz oran {o['sb']} + kart %{o['krt']:.0f} — gri tonlu gercek video kart sayiliyor olabilir; "
+                     "kareye bak, kutuphanedeki kanal klasorune kaynak-gozlem.json yaz, --kaynak-guncelle")
+                print(f'  UYARI {h}: {g}')
         tah[h] = {'pay': t, 'guven': g, 'sb': o['sb'], 'olcum': {'duragan': round(o['grs'], 1), 'video': round(o['vid'], 1), 'kart': round(o['krt'], 1)},
                   'ipucu': o['ipucu'], 'kanit': o['kanit'][:6], 'video': o['video']}
     turler = ['ai_gorsel', 'gercek_gorsel', 'kart', 'ai_video', 'stok_video', 'gercek_video']

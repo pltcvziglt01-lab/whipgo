@@ -44,7 +44,7 @@ Kural: **rakibin kaynak karışımını ve oranını koru** (izleyici o dokuya a
 
 Karışık kanallarda (ör. %50 stok video + %30 AI görsel + %20 kart) PLAN'da her çekime kaynak türü etiketi koy (`kaynak: 'stok'|'flow'|'kart'|…`) ve sayımı hedefe göre kontrol et.
 
-Otomatik ilk tahmin: `kanal_sablon.py` (yeni kanal) ya da `kanal_sablon.py --kanal <ad> --kaynak-guncelle` → `KANAL-SABLONU.md` "Kaynak stratejisi" (ölçüm + EDIT-DILI/açıklama gözlemi → AI / gerçek / stok payı, bizim hedef oran, sahne türü → araç). Güven "düşük" ise yukarıdaki §1–2 ile gözle doğrula.
+Otomatik ilk tahmin: `kanal_sablon.py` (yeni kanal) ya da `kanal_sablon.py --kanal <ad> --kaynak-guncelle` → `KANAL-SABLONU.md` "Kaynak stratejisi" (ölçüm + EDIT-DILI/açıklama gözlemi → AI / gerçek / stok payı, bizim hedef oran, sahne türü → araç). Güven "düşük" ise yukarıdaki §1–2 ile gözle doğrula. Gözle bakınca ölçüm yanlışsa (ör. siyah zeminde inset ya da siyah-beyaz grade'li gerçek video `kare_analiz`'de "KRT" sayılır; @spacex_unpacked: ölçüm %90 kart, gerçekte ~%45 video) kütüphanedeki kanal klasörüne `kaynak-gozlem.json` yaz (`{"pay": {"ai_gorsel", "gercek_gorsel", "kart", "ai_video", "stok_video", "gercek_video"}, "not": "neye bakıldı"}`), sonra `--kaynak-guncelle`; gözlem ölçümün yerine geçer. Siyah-beyaz oranı ≥0,8 ve kart ≥%60 ise araç bunu UYARI olarak söyler.
 
 Kullanıcıya tek tabloyla sun: "Rakip: … → Önerim: …, maliyet/risk: …" ve onay al (yeni kanalda stil tarifiyle birlikte). Karar DEVAM §2'ye kilitli karar olarak yazılır.
 
