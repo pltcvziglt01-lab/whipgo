@@ -110,21 +110,25 @@ def main():
         import shutil
         shutil.copy(gecici, a.yatak_cikti)
         print('yatak (loudnorm oncesi, SFX yok) ->', a.yatak_cikti)
-    # iki gecisli loudnorm
-    r = calis(['ffmpeg', '-hide_banner', '-nostats', '-i', gecici, '-af',
-               f'loudnorm=I={a.hedef}:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'])
-    j = json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}', r.stderr, re.S).group(0))
-    ln = (f'loudnorm=I={a.hedef}:TP=-1.5:LRA=11:measured_I={j["input_i"]}:measured_TP={j["input_tp"]}:'
-          f'measured_LRA={j["input_lra"]}:measured_thresh={j["input_thresh"]}:offset={j["target_offset"]}:linear=true')
-    if a.video:
-        calis(['ffmpeg', '-y', '-v', 'error', '-i', a.video, '-i', gecici, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
-               '-af', ln, '-ar', '48000', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', a.cikti])
-    else:
-        calis(['ffmpeg', '-y', '-v', 'error', '-i', gecici, '-af', ln, '-ar', '48000', a.cikti])
+    # iki gecisli loudnorm; AAC kodlamasi tepeyi ~0,5-0,7 dB tasirabilir -> olculen tepe > -1 dBTP ise daha dusuk TP ile yeniden
+    for tp_hedef in (-1.5, -2.2, -3.0):
+        r = calis(['ffmpeg', '-hide_banner', '-nostats', '-i', gecici, '-af',
+                   f'loudnorm=I={a.hedef}:TP={tp_hedef}:LRA=11:print_format=json', '-f', 'null', '-'])
+        j = json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}', r.stderr, re.S).group(0))
+        ln = (f'loudnorm=I={a.hedef}:TP={tp_hedef}:LRA=11:measured_I={j["input_i"]}:measured_TP={j["input_tp"]}:'
+              f'measured_LRA={j["input_lra"]}:measured_thresh={j["input_thresh"]}:offset={j["target_offset"]}:linear=true')
+        if a.video:
+            calis(['ffmpeg', '-y', '-v', 'error', '-i', a.video, '-i', gecici, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+                   '-af', ln, '-ar', '48000', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', a.cikti])
+        else:
+            calis(['ffmpeg', '-y', '-v', 'error', '-i', gecici, '-af', ln, '-ar', '48000', a.cikti])
+        r = calis(['ffmpeg', '-hide_banner', '-nostats', '-i', a.cikti, '-vn', '-af', 'ebur128=peak=true', '-f', 'null', '-'])
+        I = re.findall(r'I:\s+(-?[\d.]+) LUFS', r.stderr)
+        tp = re.findall(r'Peak:\s+(-?[\d.]+) dBFS', r.stderr)
+        if not tp or float(tp[-1]) <= -1.0:
+            break
+        print(f'tepe {tp[-1]} dBTP > -1 (TP {tp_hedef}) -> daha dusuk TP ile yeniden')
     os.remove(gecici)
-    r = calis(['ffmpeg', '-hide_banner', '-nostats', '-i', a.cikti, '-vn', '-af', 'ebur128=peak=true', '-f', 'null', '-'])
-    I = re.findall(r'I:\s+(-?[\d.]+) LUFS', r.stderr)
-    tp = re.findall(r'Peak:\s+(-?[\d.]+) dBFS', r.stderr)
     print(f'MIKS -> {a.cikti}  LUFS {I[-1] if I else "?"}  tepe {tp[-1] if tp else "?"} dBTP')
 
 

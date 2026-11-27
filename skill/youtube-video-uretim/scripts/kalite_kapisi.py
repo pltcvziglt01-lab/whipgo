@@ -128,6 +128,18 @@ def _de_birlesik(w):
     return None
 
 
+_FR_BIRIM = {w: i for i, w in enumerate('zéro un deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize'.split())}
+_FR_BIRIM.update({'une': 1, 'zero': 0, 'dixsept': 17, 'dixhuit': 18, 'dixneuf': 19})
+_FR_ONLU = {'vingt': 20, 'vingts': 20, 'trente': 30, 'quarante': 40, 'cinquante': 50, 'soixante': 60, 'quatrevingt': 80, 'quatrevingts': 80,
+            'septante': 70, 'huitante': 80, 'octante': 80, 'nonante': 90}
+
+
+def _fr_on(t):
+    """Fransizca bilesik sayilari tek kelimeye indirir: quatre-vingt(s) -> quatrevingt, dix-sept / dix sept -> dixsept."""
+    t = re.sub(r'\bquatre[-\s]vingt(s?)\b', r'quatrevingt\1', t)
+    return re.sub(r'\bdix[-\s](sept|huit|neuf)\b', r'dix\1', t)
+
+
 def _yil_bol(n):
     """1100-2099 arasi tam sayi yil gibi okunur (2026 = twenty twenty-six): iki tarafta da 2'li bolunur."""
     return [str(n // 100), '%02d' % (n % 100)] if 1100 <= n <= 2099 else [str(n)]
@@ -137,8 +149,11 @@ def sayilari_esitle(metin, dil=None):
     """Kelime listesi dondurur; yazili sayilar ('twenty-one', 'one hundred and sixteen') ile rakamlar ('21', '116') ayni bicime gelir.
     Birim-birim kelimeler ayri sayi kalir ('two-one' = '2 1'); 'million/billion' kelime olarak kalir ('116 million')."""
     de = (dil or '').lower().startswith('de')
-    birim, onlu = (_DE_BIRIM, _DE_ONLU) if de else (_EN_BIRIM, _EN_ONLU)
+    fr = (dil or '').lower().startswith('fr')
+    birim, onlu = (_DE_BIRIM, _DE_ONLU) if de else (_FR_BIRIM, _FR_ONLU) if fr else (_EN_BIRIM, _EN_ONLU)
     t = re.sub(r'(?<=\d)[,.](?=\d{3})', '', metin.lower())
+    if fr:   # fr binlik ayiraci bosluk (4 000) + bilesik sayilar
+        t = _fr_on(re.sub(r'(?<=\d)[\s  ](?=\d{3}\b)', '', t))
     kel = re.findall(r'\w+', t)
     out = []
     top = grp = 0
@@ -163,16 +178,27 @@ def sayilari_esitle(metin, dil=None):
         elif w in ('hundred', 'hundert') and son in ('u', 'o'):
             grp = max(grp, 1) * 100 if son == 'u' and grp < 10 else grp * 100
             son = 'h'
+        elif fr and w in ('cent', 'cents') and son in (None, 'u', 't'):   # fr: 'cent' tek basina 100 ('un cent' denmez)
+            if son == 'u' and 1 < grp < 10:
+                grp *= 100
+            else:
+                grp += 100
+            son = 'h'
         elif w in ('thousand', 'tausend') and son is not None:
             top += max(grp, 1) * 1000
             grp, son = 0, 't'
+        elif fr and w == 'mille' and son in (None, 'u', 'o', 'h'):        # fr: 'mille' tek basina 1000
+            top += max(grp, 1) * 1000
+            grp, son = 0, 't'
         elif w in ('and', 'und') and son in ('h', 't') and i + 1 < len(kel) and deger(kel[i + 1]) is not None:
+            continue
+        elif fr and w == 'et' and son == 'o' and i + 1 < len(kel) and kel[i + 1] in ('un', 'une', 'onze'):   # vingt et un
             continue
         elif v is not None:
             if son in ('h', 't') and v < 100:
                 grp += v
                 son = 'u' if v < 20 else 'o'
-            elif son == 'o' and 1 <= v <= 9 and not de:
+            elif son == 'o' and not de and (1 <= v <= 9 or (fr and 10 <= v <= 19 and grp % 100 in (60, 80))):   # fr soixante-dix, quatre-vingt-douze
                 grp += v
                 son = 'u'
             else:
