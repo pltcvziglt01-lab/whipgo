@@ -226,7 +226,7 @@ def d_ozgunluk(klasor, kayit, var):
 def d_kaynak_lisans(klasor, kayit, var):
     """credits.json / KAYNAKCA icinde yalniz CC BY / CC BY-SA / CC0 / PD; yabanci arayuz taramasi (kaynak_yazi)."""
     eksik, uyari = [], []
-    kirli = []
+    kirli, izinli = [], []
     for y in var:
         ad = os.path.basename(y).lower()
         if ad.endswith('.json') and 'credits' in ad:
@@ -238,13 +238,17 @@ def d_kaynak_lisans(klasor, kayit, var):
             kayitlar = j if isinstance(j, list) else (j.get('kaynaklar') or j.get('items') or list(j.values()))
             for k in kayitlar:
                 lis = (k.get('lisans') or k.get('license') or '') if isinstance(k, dict) else str(k)
-                if lis and not LISANS_TEMIZ.search(str(lis)):
+                if lis and 'izni' in str(lis).lower():   # SKILL §1: standart lisans yalniz kullanicinin acik izniyle (youtube_kaynak --izinli)
+                    izinli.append(str(k.get('dosya') or lis)[:40])
+                elif lis and not LISANS_TEMIZ.search(str(lis)):
                     kirli.append(str(lis)[:40])
         elif 'kaynakca' in ad:
             for satir in oku(y).splitlines()[:400]:
                 if satir.strip() and not satir.lower().startswith(('kaynak', 'url', '#')) and 'cc' in satir.lower() \
                         and not LISANS_TEMIZ.search(satir):
                     kirli.append(satir.strip()[:40])
+    if izinli:
+        uyari.append(f'kullanici izinli standart lisans {len(izinli)} kayit ({izinli[:4]}) - izin DEVAM.md icinde yazili olmali, claim riski kullaniciya soylenmis olmali')
     if kirli:
         eksik.append(f'izinsiz lisans satiri: {kirli[:3]} (yalniz CC BY / CC BY-SA / CC0 / PD; rakip videosu asla)')
     ya = kayit.get('yabanci_arayuz')
