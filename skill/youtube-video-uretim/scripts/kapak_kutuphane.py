@@ -260,7 +260,7 @@ def parti(adet_kanal, adet, parca='1/1', tekrar=False):
     bekleyen = bekleyen[i - 1::m]
     sec = bekleyen[:adet_kanal] if adet_kanal else bekleyen
     print(f'parti: {len(sec)} kanal (bekleyen {len(bekleyen)}): {", ".join(sec)}')
-    tamam = [h for h in sec if kanal_isle(h, adet)]
+    tamam = [h for h in sec if kanal_isle(h, adet, zorla=tekrar or bayat_kilit(os.path.join(kok, 'kanallar', h, 'durum.txt')))]
     print(f'BITTI parti: {len(tamam)}/{len(sec)} olculdu')
 
 
@@ -299,9 +299,10 @@ def indeks():
         if os.path.exists(md):
             mk = re.search(r'^\s*Konu\s*:\s*([a-z, ]+)$', open(md, encoding='utf-8').read(), re.M)
             konu = mk.group(1).split(',')[0].strip() if mk else None
+        konu_profil = bool(konu)
         konu = konu or konu_cikar(d)
         et = konu or d['kanal'].get('etiket') or 'etiketsiz'
-        K[h] = {'etiket': et, 'kanal_etiket': d['kanal'].get('etiket'), 'konu': konu, 'ozet': d['ozet'], 'teknikler': tek, 'profil': os.path.exists(md)}
+        K[h] = {'etiket': et, 'kanal_etiket': d['kanal'].get('etiket'), 'konu': konu, 'konu_profil': konu_profil, 'ozet': d['ozet'], 'teknikler': tek, 'profil': os.path.exists(md)}
         e = E.setdefault(et, {'kanal': [], 'teknik_sayim': {}, 'ozetler': []})
         e['kanal'].append(h)
         e['ozetler'].append(d['ozet'])
@@ -312,10 +313,35 @@ def indeks():
         oz = e.pop('ozetler')
         e['ozet_medyan'] = {x: round(statistics.median([o[x] for o in oz if o.get(x) is not None]), 1)
                             for x in oz[0] if isinstance(oz[0].get(x), (int, float)) and any(o.get(x) is not None for o in oz)}
+    # profil denetimi: sozlukte olmayan / 4-8 disi / celisen cift / konu yok
+    sozluk = set()
+    rd = os.path.join(kok, 'README.md')
+    if os.path.exists(rd):
+        r = open(rd, encoding='utf-8').read()
+        bol = r.split('## Teknik sözlüğü', 1)[-1].split('## Kurallar', 1)[0]
+        sozluk = set(re.findall(r'`([a-z0-9-]+)`', bol))
+    CELISEN = [('sol-yazi-sag-sahne', 'sag-yazi-sol-sahne'), ('yazisiz', 'iki-satir-dev-yazi'), ('yazisiz', 'cumle-yazi'), ('yazisiz', 'tek-kelime-dev')]
+    uyari = []
+    for h, v in K.items():
+        if not v['profil']:
+            continue
+        t = v['teknikler']
+        bilinmez = [x for x in t if sozluk and x not in sozluk]
+        if bilinmez:
+            uyari.append(f'{h}: sozlukte yok: {", ".join(bilinmez)}')
+        if not 4 <= len(t) <= 8:
+            uyari.append(f'{h}: {len(t)} teknik (4-8 olmali)')
+        for a1, b1 in CELISEN:
+            if a1 in t and b1 in t:
+                uyari.append(f'{h}: celisen cift {a1} + {b1}')
+        if not v.get('konu_profil'):
+            uyari.append(f'{h}: Konu satiri yok')
     os.makedirs(os.path.join(kok, '_indeks'), exist_ok=True)
     yol = os.path.join(kok, '_indeks', 'kapak-dili.json')
-    json.dump({'tarih': bugun(), 'kanallar': K, 'etiket': E, 'teknik': T}, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    json.dump({'tarih': bugun(), 'kanallar': K, 'etiket': E, 'teknik': T, 'uyari': uyari}, open(yol, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'indeks: {len(K)} kanal ({sum(1 for k in K.values() if k["profil"])} profilli), {len(T)} teknik -> {yol}')
+    for u in uyari:
+        print('UYARI', u)
 
 
 def durum():
