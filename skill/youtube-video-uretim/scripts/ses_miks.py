@@ -69,6 +69,14 @@ def main():
         filtre.append('[m0][vok]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[m]')
         karisim.append('[m]')
         n += 1
+    if a.sfx and os.path.splitext(a.sfx)[1].lower() == '.json':
+        _liste = json.load(open(a.sfx, encoding='utf-8-sig'))
+        if len(_liste) > 40:   # elle duzeltilmis sfx.json (yuzlerce ses): ayri girdiler WinError 206 (komut satiri cok uzun) -> once stem
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import sfx_plan
+            _stem = os.path.splitext(a.sfx)[0] + '-stem.wav'
+            print(f'sfx.json {len(_liste)} ses -> stem {_stem} (tepe {sfx_plan.miks_numpy(_liste, _stem):.1f} dBFS)')
+            a.sfx = _stem
     if a.sfx and os.path.splitext(a.sfx)[1].lower() in ('.wav', '.flac'):
         # hazir SFX katmani (sfx_plan.py --yatak <vo+muzik> --stem-cikti sfx.wav): tek girdi, 0 dB, sidechain YOK
         # (seviyeler zaten yerel yatak yuksekligine gore kurulu). Yuzlerce ayri girdi Windows komut satiri sinirini asar.
