@@ -388,11 +388,14 @@ def d_degisim(veri, tz, cum):
     for i, c in enumerate(C):
         s = c.get('etiket') if not c.get('kart') else None
         if s and re.search(r'→|->', s):
-            p = NOKTA.split(ust(s))
-            ok = p[-1] if p else ust(s)
+            p = [x for x in NOKTA.split(ust(s)) if x.strip()] or [ust(s)]
+            ok = next((x for x in p if re.search(r'→|->', x)), None)   # ok '$225 → $105 | FIRST FIVE MONTHS' gibi ilk parcada olabilir
+            if ok is None:
+                continue
             e, y = [x.strip() for x in re.split(r'→|->', ok, maxsplit=1)]
+            diger = [x.strip() for x in p if x is not ok]
             out.append({'tur': 'degisim', 'op': 'etiket', 'i': i, 'skor': 3.5, 'neden': f"'{s}' donusum oku",
-                        'kart': {'tur': 'degisim', 'eski': e, 'yeni': y, 'ust': p[0] if len(p) > 1 else None}})
+                        'kart': {'tur': 'degisim', 'eski': e, 'yeni': y, 'ust': diger[0] if diger else None}})
     for k, cm in enumerate(cum):
         ikili = cm['metin'] + ' ' + (cum[k + 1]['metin'] if k + 1 < len(cum) else '')
         for rx in DEGISIM_RE:
