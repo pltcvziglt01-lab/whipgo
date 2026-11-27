@@ -2,6 +2,9 @@
 
 **Ne zaman:** video render + QC bittikten sonra, teslimden önce (başlık kesinleşmiş olur; kapak yazısı başlığı tekrar etmeden tamamlar). Kullanıcı sadece kapak isterse bağımsız da çalışır.
 
+## Adım 0 — Kapak kütüphanesi (önce buradan)
+`G:\Drive'ım\kapak kutuphanesi\_indeks\kapak-dili.json` → videonun konu etiketine yakın kanalların teknik sayımı ve ölçüm medyanları. Rakibin klasöründe `KAPAK-DILI.md` varsa Adım 1–3 yerine onu oku (12 kapak, ölçülmüş, çekirdek/yüzey ayrılmış). 6 konseptten en az 2'si rakip dışındaki kütüphane kanallarından gelen bir tekniği kullanır (özgünlük). Rakip kütüphanede yoksa: `py scripts/kapak_kutuphane.py kanal @Rakip`, sonra profil (şablon: kütüphanenin `README.md`'si).
+
 ## Adım 1 — Rakibin en popüler 3 videosunun kapaklarını indir
 Rakip kare analizi bu kanal için yakın zamanda yapıldıysa `rakip-analiz/<kanal>/kapak-1..3.jpg` zaten vardır. Yoksa:
 ```
