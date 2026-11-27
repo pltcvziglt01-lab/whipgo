@@ -184,6 +184,34 @@ def topla(port, kayitlar, cikti, bekle):
     return kayitlar
 
 
+_KILIT = None
+
+
+def port_kilidi(port, bekle=3600):
+    """Ayni CDP portunu iki oturum ayni anda surerse istemler birbirinin sohbetine duser (yasandi: 2026-11-27).
+    Port basina dosya kilidi; surec kapaninca isletim sistemi kilidi kendiliginden birakir (bayat kilit olmaz)."""
+    global _KILIT
+    import tempfile
+    _KILIT = open(os.path.join(tempfile.gettempdir(), f'chatgpt_kapak_{port}.kilit'), 'a+')
+    bas = time.time()
+    while True:
+        try:
+            if os.name == 'nt':
+                import msvcrt
+                _KILIT.seek(0)
+                msvcrt.locking(_KILIT.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(_KILIT, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return
+        except OSError:
+            if time.time() - bas > bekle:
+                sys.exit(f'port {port} baska bir chatgpt_kapak calistirmasinda ({bekle} sn beklendi); sonra yeniden dene')
+            if int(time.time() - bas) % 60 < 10:
+                print(f'port {port} baska bir oturumda kullaniliyor, bekleniyor...', flush=True)
+            time.sleep(10)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('istemler', nargs='?')
@@ -193,6 +221,7 @@ def main():
     ap.add_argument('--aralik', type=int, default=8)
     ap.add_argument('--topla', action='store_true')
     a = ap.parse_args()
+    port_kilidi(a.port)
     os.makedirs(a.cikti, exist_ok=True)
     sj = os.path.join(a.cikti, 'sonuc.json')
 
@@ -205,8 +234,11 @@ def main():
         istemler = json.load(open(a.istemler, encoding='utf-8'))
         kayitlar = []
         for i, ist in enumerate(istemler):
-            r = gonder(a.port, ist, a.cikti)
-            print(f"{r['ad']}: {r['durum']}")
+            try:
+                r = gonder(a.port, ist, a.cikti)
+            except Exception as e:   # tek sekmenin CDP zaman asimi digerlerini ve gonderilmislerin toplanmasini dusurmesin
+                r = {'ad': ist['ad'], 'durum': 'HATA', 'mesaj': f'{type(e).__name__}: {e}'[:300]}
+            print(f"{r['ad']}: {r['durum']}" + (f" ({r['mesaj']})" if r.get('mesaj') else ''))
             kayitlar.append(r)
             if r['durum'] == 'GIRIS_GEREKLI':
                 json.dump(kayitlar, open(sj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
