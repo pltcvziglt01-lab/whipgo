@@ -8,6 +8,7 @@ Kullanim:
   py kapak_kutuphane.py parti --adet-kanal 10 [--adet 12]   # edit kutuphanesinden siradaki 10 kanal (durum.txt olmayanlar)
   py kapak_kutuphane.py parti --adet-kanal 0 --parca 2/4    # HEPSI, 4 paralel iscinin 2'ncisi (kanal kilidi: durum.txt 'isleniyor')
   py kapak_kutuphane.py indeks                              # tum profilli kanallardan _indeks/kapak-dili.json (konu/etiket bazinda)
+  py kapak_kutuphane.py oner --konu askeri --rakip @StillInsideFilms   # kapak uretimi: konudaki teknikler + rakipte olmayanlar (ozgunluk) + ornekler
   py kapak_kutuphane.py durum                               # kac kanal: olculdu / profilli (bitti) / bekliyor
 
 Klasor (Drive): <KAPAK>/kanallar/@X/
@@ -344,6 +345,50 @@ def indeks():
         print('UYARI', u)
 
 
+YASAK_TEKNIK = {'logo-marka'}   # README "bizde kullanilmayanlar": gercek marka/haber logosu; sahte haber bandi ve gercek kisi yuzu teknik degil, uretimde kural
+
+
+def oner(konu, rakip=None, adet=8):
+    """kapak uretimi icin: konudaki kanallarin teknik sayimi + rakibin teknikleri + OZGUNLUK icin rakipte olmayan ama konuda
+    calisan teknikler (her teknige en iyi oranli 2 ornek kanal). Cikti: konsol + _indeks/oneri-<konu>.md"""
+    kok = kapak_kok()
+    d = jy(os.path.join(kok, '_indeks', 'kapak-dili.json'))
+    if not d:
+        sys.exit('once: py kapak_kutuphane.py indeks')
+    K = d['kanallar']
+    grup = [h for h, v in K.items() if v.get('profil') and (v.get('konu') == konu or v.get('etiket') == konu)]
+    if not grup:
+        sys.exit(f'{konu}: profilli kanal yok. Konular: ' + ', '.join(sorted({v.get("konu") or "-" for v in K.values()})))
+    say = {}
+    for h in grup:
+        for t in K[h]['teknikler']:
+            say[t] = say.get(t, 0) + 1
+    rt = set(K.get(rakip, {}).get('teknikler') or []) if rakip else set()
+
+    def ornek(t):
+        aday = []
+        for h in grup:
+            if t in K[h]['teknikler']:
+                kj = jy(os.path.join(kok, 'kanallar', h, 'kapaklar.json'), {}) or {}
+                en = max((k for k in kj.get('kapaklar', []) if (k.get('oran') or 0) < 100), key=lambda k: k.get('oran') or 0, default=None)
+                aday.append((en.get('oran') or 0 if en else 0, h, en['dosya'] if en else ''))
+        return [f"{h} ({dosya}, x{o:.1f})" for o, h, dosya in sorted(aday, reverse=True)[:2]]
+    sira = sorted((t for t in say if t not in YASAK_TEKNIK), key=lambda t: -say[t])
+    fark = [t for t in sira if t not in rt][:adet]
+    L = [f'# Kapak onerisi — konu {konu}' + (f', rakip {rakip}' if rakip else ''), '',
+         f'{len(grup)} profilli kanal. Teknik = kac kanalda cekirdek sablon.', '',
+         '## Konuda en yaygin (cekirdek adayi)', ''] + [f'- `{t}` {say[t]}/{len(grup)}' + (' (rakipte de var)' if t in rt else '') for t in sira[:adet]]
+    if rakip:
+        L += ['', f'## Rakip {rakip}', '', ', '.join(sorted(rt)) or '(profil yok: once kanal + profil)']
+    L += ['', '## Ozgunluk: rakipte OLMAYAN, konuda calisan (6 konseptin en az 2si buradan)', '']
+    L += [f'- `{t}` {say[t]}/{len(grup)} · ornek: ' + '; '.join(ornek(t)) for t in fark]
+    L += ['', 'Kullanilmaz: sahte haber bandi, haber/marka logosu, gercek kisi yuzu (README).']
+    yol = os.path.join(kok, '_indeks', f'oneri-{konu}.md')
+    open(yol, 'w', encoding='utf-8').write(chr(10).join(L) + chr(10))
+    print(chr(10).join(L))
+    print(f'-> {yol}')
+
+
 def durum():
     kok = kapak_kok()
     s = {'olculdu': 0, 'bitti': 0, 'isleniyor': 0, 'hata': 0}
@@ -364,6 +409,7 @@ def main():
     p = alt.add_parser('parti'); p.add_argument('--adet-kanal', type=int, default=10, help='0 = hepsi'); p.add_argument('--adet', type=int, default=12)
     p.add_argument('--parca', default='1/1', help='paralel isci: i/M (ornek 4 isci: 1/4 2/4 3/4 4/4)'); p.add_argument('--tekrar', action='store_true', help='hata durumundakileri de al')
     alt.add_parser('indeks')
+    o = alt.add_parser('oner', help='kapak uretimi: konu (+rakip) -> teknik onerisi ve ozgunluk farki'); o.add_argument('--konu', required=True); o.add_argument('--rakip'); o.add_argument('--adet', type=int, default=8)
     alt.add_parser('durum')
     alt.add_parser('sayfa-yenile', help='olculmus tum kanallarin KAPAK-SAYFA.jpg dosyasini kapaklar.json uzerinden yeniden ciz (ag yok)')
     a = ap.parse_args()
@@ -373,6 +419,8 @@ def main():
         parti(a.adet_kanal, a.adet, a.parca, a.tekrar)
     elif a.k == 'indeks':
         indeks()
+    elif a.k == 'oner':
+        oner(a.konu, a.rakip, a.adet)
     elif a.k == 'sayfa-yenile':
         n = 0
         for kl in sorted(glob.glob(os.path.join(kapak_kok(), 'kanallar', '@*'))):

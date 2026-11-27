@@ -3,7 +3,9 @@
 **Ne zaman:** video render + QC bittikten sonra, teslimden önce (başlık kesinleşmiş olur; kapak yazısı başlığı tekrar etmeden tamamlar). Kullanıcı sadece kapak isterse bağımsız da çalışır.
 
 ## Adım 0 — Kapak kütüphanesi (önce buradan)
-`G:\Drive'ım\kapak kutuphanesi\_indeks\kapak-dili.json` → videonun konu etiketine yakın kanalların teknik sayımı ve ölçüm medyanları. Rakibin klasöründe `KAPAK-DILI.md` varsa Adım 1–3 yerine onu oku (12 kapak, ölçülmüş, çekirdek/yüzey ayrılmış). 6 konseptten en az 2'si rakip dışındaki kütüphane kanallarından gelen bir tekniği kullanır (özgünlük). Rakip kütüphanede yoksa: `py scripts/kapak_kutuphane.py kanal @Rakip`, sonra profil (şablon: kütüphanenin `README.md`'si).
+`G:\Drive'ım\kapak kutuphanesi\_indeks\kapak-dili.json` → videonun konu etiketine yakın kanalların teknik sayımı ve ölçüm medyanları. Rakibin klasöründe `KAPAK-DILI.md` varsa Adım 1–3 yerine onu oku (12 kapak, ölçülmüş, çekirdek/yüzey ayrılmış). 6 konseptten en az 2'si rakip dışındaki kütüphane kanallarından gelen bir tekniği kullanır (özgünlük): `py scripts/kapak_kutuphane.py oner --konu <konu> --rakip @Rakip` konudaki yaygın teknikleri, rakibin tekniklerini ve rakipte olmayanları en iyi örnek kapaklarıyla verir (`_indeks/oneri-<konu>.md`). Rakip kütüphanede yoksa: `py scripts/kapak_kutuphane.py kanal @Rakip`, sonra profil (şablon: kütüphanenin `README.md`'si).
+
+**Kapakta kullanılmaz (yanıltıcı içerik / demonetizasyon riski):** sahte haber bandı (BREAKING NEWS, EILMELDUNG, LIVE), haber kanalı logosu taklidi, gerçek kişi yüzü ya da benzeri, gerçek marka logosu. Rakip kullanıyorsa bile bizim 6 konseptte yoktur.
 
 ## Adım 1 — Rakibin en popüler 3 videosunun kapaklarını indir
 Rakip kare analizi bu kanal için yakın zamanda yapıldıysa `rakip-analiz/<kanal>/kapak-1..3.jpg` zaten vardır. Yoksa:
