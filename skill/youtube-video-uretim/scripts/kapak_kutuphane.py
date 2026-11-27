@@ -123,11 +123,11 @@ def sayfa(klasor, kapaklar, ad):
             out.paste(im, (x, y))
         except Exception:
             continue
-        d.rectangle([x, y, x + 44, y + 26], fill=(0, 0, 0))
-        d.text((x + 6, y + 3), f"{i + 1:02d}", fill=(255, 220, 0), font=f)
+        # numara kapagin USTUNE konmaz (yazinin ilk harflerini kapatiyordu): alt bilgi seridinde
         izl = k.get('izlenme') or 0
-        d.text((x + 6, y + H + 3), f"{izl / 1e6:.1f}M" if izl >= 1e6 else f"{izl / 1e3:.0f}K", fill=(255, 220, 0), font=f)
-        d.text((x + 70, y + H + 3), f"x{k.get('oran', 0):.1f}", fill=(140, 220, 140), font=f)
+        d.text((x + 6, y + H + 3), f"{i + 1:02d}", fill=(255, 255, 255), font=f)
+        d.text((x + 40, y + H + 3), f"{izl / 1e6:.1f}M" if izl >= 1e6 else f"{izl / 1e3:.0f}K", fill=(255, 220, 0), font=f)
+        d.text((x + 104, y + H + 3), f"x{k.get('oran', 0):.1f}", fill=(140, 220, 140), font=f)
         d.text((x + 6, y + H + 23), (k.get('baslik') or '')[:52], fill=(220, 220, 220), font=f)
     out.save(os.path.join(klasor, 'KAPAK-SAYFA.jpg'), quality=88)
 
@@ -339,6 +339,7 @@ def main():
     p.add_argument('--parca', default='1/1', help='paralel isci: i/M (ornek 4 isci: 1/4 2/4 3/4 4/4)'); p.add_argument('--tekrar', action='store_true', help='hata durumundakileri de al')
     alt.add_parser('indeks')
     alt.add_parser('durum')
+    alt.add_parser('sayfa-yenile', help='olculmus tum kanallarin KAPAK-SAYFA.jpg dosyasini kapaklar.json uzerinden yeniden ciz (ag yok)')
     a = ap.parse_args()
     if a.k == 'kanal':
         sys.exit(0 if kanal_isle(a.handle, a.adet, zorla=a.zorla) else 1)
@@ -346,6 +347,14 @@ def main():
         parti(a.adet_kanal, a.adet, a.parca, a.tekrar)
     elif a.k == 'indeks':
         indeks()
+    elif a.k == 'sayfa-yenile':
+        n = 0
+        for kl in sorted(glob.glob(os.path.join(kapak_kok(), 'kanallar', '@*'))):
+            d = jy(os.path.join(kl, 'kapaklar.json'))
+            if d:
+                sayfa(kl, d['kapaklar'], os.path.basename(kl))
+                n += 1
+        print(f'{n} kontakt sayfasi yenilendi')
     else:
         durum()
 
