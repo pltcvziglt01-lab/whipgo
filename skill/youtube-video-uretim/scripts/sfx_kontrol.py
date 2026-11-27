@@ -291,7 +291,7 @@ def main():
         else:
             Lb = lufs(gV, wa, wb)
         referans = 'sabit vo_ref' if a.yalniz_sfx else 'yatak'
-        if Lb < -45 and not a.yalniz_sfx:
+        if Lb < min(-40.0, A['vo_ref_db'] - 25) and not a.yalniz_sfx:   # konusmanin 25 dB alti = bolum arasi sessizlik (-45 sabiti bolum arasi duraklari kacirdi, uzay-en v01)
             Lb, referans = A['vo_ref_db'], 'sessiz -> vo_ref'
         konusma = any(w['son'] >= e['an'] - pen and w['bas'] <= e['an'] + pen for w in kel)
         fark = Ls - Lb

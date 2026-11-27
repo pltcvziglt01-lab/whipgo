@@ -73,7 +73,7 @@ JS_DURUM = r"""(() => {
   const giris = !kutu && /log in|sign up|giriş yap|oturum aç/i.test(document.body.innerText.slice(0, 3000));
   const dur = !!(q('[data-testid="stop-button"]') || q('button[aria-label*="Stop"]') || q('button[aria-label*="Durdur"]'));
   const asist = [...document.querySelectorAll('[data-message-author-role="assistant"]')];
-  const imgs = [...document.querySelectorAll('main img')].filter(i => i.naturalWidth >= 512 && !/avatar|profile/i.test(i.alt||''))
+  const imgs = [...document.querySelectorAll('main img')].filter(i => i.naturalWidth >= 512 && !/avatar|profile/i.test(i.alt||'') && !i.closest('[data-message-author-role="user"]'))
      .map(i => ({src: i.currentSrc || i.src, w: i.naturalWidth, h: i.naturalHeight}));
   const metin = document.body.innerText;
   const limit = /(limit|sınır|try again later|daha sonra tekrar|can't generate|oluşturamıyorum|content policy|içerik politika)/i.test(metin.slice(-4000));
@@ -100,8 +100,12 @@ def bekle_durum(s, sure=45):
 
 def referans_yukle(s, yollar):
     s.gonder('DOM.enable')
-    kok = s.gonder('DOM.getDocument', depth=-1, pierce=True)['root']['nodeId']
-    ids = s.gonder('DOM.querySelectorAll', nodeId=kok, selector='input[type=file]')['nodeIds']
+    ids = []
+    for _ in range(20):   # sayfa gec yuklenince dosya girisi henuz yok -> bekle
+        kok = s.gonder('DOM.getDocument', depth=-1, pierce=True)['root']['nodeId']
+        ids = s.gonder('DOM.querySelectorAll', nodeId=kok, selector='input[type=file]')['nodeIds']
+        if ids: break
+        time.sleep(1.5)
     if not ids:
         raise RuntimeError('dosya girisi bulunamadi')
     s.gonder('DOM.setFileInputFiles', nodeId=ids[0], files=[os.path.abspath(y) for y in yollar])
@@ -159,6 +163,8 @@ def topla(port, kayitlar, cikti, bekle):
                 en = max(d['imgs'], key=lambda i: i['w'] * i['h'])
                 if onceki.get(k['ad']) == en['src']:  # iki tur ayni kaldi -> bitti
                     veri = s.js(f"({JS_INDIR})({json.dumps(en['src'])})")
+                    if not isinstance(veri, str):   # fetch hatasi (dict) -> sonraki turda tekrar dene
+                        onceki.pop(k['ad'], None); continue
                     yol = os.path.join(cikti, f"{k['ad']}.png")
                     open(yol, 'wb').write(base64.b64decode(veri))
                     s.gonder('Page.bringToFront'); time.sleep(1)
